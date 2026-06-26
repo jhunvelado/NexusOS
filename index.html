@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexusOS — Secure Access</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0d0d14;min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+.card{background:#13131f;border:1px solid #2a2a3d;border-radius:14px;padding:36px 32px;width:100%;max-width:400px}
+.logo{display:flex;align-items:center;gap:10px;color:#f0b429;font-weight:700;font-size:20px;margin-bottom:4px;letter-spacing:0.01em}
+.tagline{font-size:12px;color:#555;margin-bottom:28px}
+.divider{border:none;border-top:1px solid #1e1e2e;margin:0 0 24px}
+label{display:block;font-size:11px;color:#777;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px;font-weight:500}
+input[type=text],input[type=password]{width:100%;background:#0a0a12;border:1px solid #252535;color:#f0f0f0;border-radius:8px;padding:11px 14px;font-size:13px;margin-bottom:16px;font-family:inherit;transition:border 0.15s}
+input:focus{outline:none;border-color:#534AB7;background:#0d0d1a}
+.btn{width:100%;padding:12px;background:#f0b429;border:none;color:#1a1400;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;margin-top:4px;letter-spacing:0.01em}
+.btn:hover{background:#d9a320}
+.error-box{background:#1a0808;border:1px solid #3a1010;border-radius:8px;padding:10px 14px;font-size:12px;color:#E24B4A;margin-bottom:16px;display:none;align-items:center;gap:8px}
+.footer{text-align:center;font-size:11px;color:#3a3a4a;margin-top:20px;line-height:1.8}
+.footer span{color:#534AB7;font-weight:500}
+.lock-icon{font-size:13px;margin-right:4px}
+.version-badge{font-size:10px;background:#1e1e2e;color:#555;padding:3px 10px;border-radius:20px;margin-top:4px;display:inline-block}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">⚡ NexusOS</div>
+  <div class="tagline">Executive Operating System · Secure Login</div>
+  <div class="version-badge">v2.0 · Home Care Edition</div>
+  <hr class="divider" style="margin-top:20px">
+  <div class="error-box" id="err">Incorrect credentials. Contact your EA to reset access.</div>
+  <div>
+    <label>Access ID</label>
+    <input type="text" id="uid" placeholder="Your access identifier" autocomplete="username" spellcheck="false">
+    <label>Password</label>
+    <input type="password" id="pwd" placeholder="••••••••••" autocomplete="current-password">
+    <button class="btn" onclick="doLogin()">&#x26A1; Access NexusOS</button>
+  </div>
+  <div class="footer">
+    Access provisioned by <span>Jhun Rey Velado</span> · Executive Assistant<br>
+    &#x1F512; Encrypted session · Unauthorised access prohibited
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   NEXUSOS ACCESS CONTROL — v2.0
+   Owner: Jhun Rey Velado
+   All credentials managed by EA only
+   To add/remove client access: edit USERS object below
+   ============================================================ */
+const USERS = {
+  "ceo-mc2026":    { pass: "HomeCare@CEO26!",  role: "CEO", name: "Marcus" },
+  "ea-giovanni":   { pass: "NexusEA@GA2026!",  role: "EA",  name: "Giovanni" },
+  "demo-preview":  { pass: "NexusDemo2026",     role: "DEMO", name: "Guest" }
+};
+
+function doLogin() {
+  const uid = document.getElementById('uid').value.trim().toLowerCase();
+  const pwd = document.getElementById('pwd').value;
+  const err = document.getElementById('err');
+  err.style.display = 'none';
+  if (USERS[uid] && USERS[uid].pass === pwd) {
+    const user = USERS[uid];
+    sessionStorage.setItem('nxos_session', JSON.stringify({
+      id: uid, role: user.role, name: user.name,
+      loginTime: new Date().toISOString(),
+      expires: Date.now() + (8 * 60 * 60 * 1000)
+    }));
+    window.location.href = 'app.html';
+  } else {
+    err.style.display = 'flex';
+    document.getElementById('pwd').value = '';
+    document.getElementById('pwd').focus();
+  }
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+</script>
+</body>
+</html>
