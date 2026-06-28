@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexusOS — Executive Operating System</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0d0d14;color:#f0f0f0;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+
+/* AUTH SCREEN */
+.auth-screen{display:none;position:fixed;inset:0;background:#0d0d14;z-index:9999;align-items:center;justify-content:center;flex-direction:column}
+.auth-screen.active{display:flex}
+.auth-card{background:#13131f;border:1px solid #2a2a3d;border-radius:14px;padding:36px 32px;width:100%;max-width:400px}
+.auth-logo{color:#f0b429;font-weight:700;font-size:20px;margin-bottom:4px}
+.auth-tagline{font-size:12px;color:#555;margin-bottom:24px}
+.auth-tabs{display:flex;gap:4px;background:#0d0d14;padding:4px;border-radius:8px;margin-bottom:20px}
+.auth-tab{flex:1;padding:7px;text-align:center;font-size:12px;font-weight:500;cursor:pointer;border-radius:6px;color:#777;border:none;background:transparent}
+.auth-tab.active{background:#13131f;color:#f0f0f0;border:1px solid #2a2a3d}
+.auth-form{display:none}
+.auth-form.active{display:block}
+.field-lbl{font-size:11px;color:#777;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:5px;margin-top:12px;font-weight:500}
+.auth-input{width:100%;background:#0a0a12;border:1px solid #252535;color:#f0f0f0;border-radius:8px;padding:11px 14px;font-size:13px;font-family:inherit}
+.auth-input:focus{outline:none;border-color:#534AB7}
+.auth-btn{width:100%;padding:12px;background:#f0b429;border:none;color:#1a1400;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;margin-top:16px}
+.auth-btn:hover{background:#d9a320}
+.auth-btn.secondary{background:#534AB7;color:#EEEDFE;margin-top:8px}
+.auth-error{background:#1a0808;border:1px solid #3a1010;border-radius:6px;padding:9px 12px;font-size:12px;color:#E24B4A;margin-top:10px;display:none}
+.auth-success{background:#081510;border:1px solid #1D9E75;border-radius:6px;padding:9px 12px;font-size:12px;color:#1D9E75;margin-top:10px;display:none}
+.auth-footer{text-align:center;font-size:11px;color:#3a3a4a;margin-top:16px}
+.auth-footer span{color:#534AB7;font-weight:500}
+.loading-auth{text-align:center;padding:20px;font-size:13px;color:#888}
+
+/* WATERMARK */
+.watermark{position:fixed;bottom:8px;right:12px;font-size:10px;color:#2a2a3d;z-index:1000;pointer-events:none;user-select:none}
+
+/* TOPBAR */
+.topbar{background:#13131f;border-bottom:1px solid #2a2a3d;padding:9px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:100}
+.logo{color:#f0b429;font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
+.logo-sub{color:#555;font-weight:400;font-size:11px;margin-left:2px}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.role-pill{font-size:11px;color:#aaa;background:#1a1a2a;padding:4px 12px;border-radius:20px;border:1px solid #2a2a3d;display:flex;align-items:center;gap:6px}
+.role-dot{width:7px;height:7px;border-radius:50%;background:#1D9E75;flex-shrink:0}
+.av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.av-ceo{background:#f0b429;color:#1a1400}
+.av-ea{background:#534AB7;color:#EEEDFE}
+.logout-btn{background:none;border:1px solid #2a2a3d;color:#666;padding:5px 12px;border-radius:6px;font-size:11px;cursor:pointer}
+.logout-btn:hover{color:#E24B4A;border-color:#E24B4A}
+.notif-btn{background:none;border:none;color:#777;cursor:pointer;padding:4px 6px;font-size:17px;position:relative;border-radius:6px}
+.notif-dot{position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;background:#E24B4A;border:2px solid #13131f}
+
+/* LAYOUT */
+.layout{display:flex;flex:1;overflow:hidden}
+.sidebar{width:192px;background:#0f0f1a;border-right:1px solid #1e1e2e;padding:14px 0;flex-shrink:0;overflow-y:auto;display:flex;flex-direction:column}
+.nav-section{margin-bottom:18px}
+.nav-lbl{font-size:10px;color:#3a3a4a;padding:0 16px 5px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600}
+.nav-item{display:flex;align-items:center;gap:9px;padding:7px 16px;font-size:12px;color:#666;cursor:pointer;border-left:2px solid transparent;transition:all 0.12s;position:relative}
+.nav-item:hover{color:#bbb;background:#161626}
+.nav-item.active{color:#f0b429;background:#1a1908;border-left-color:#f0b429;font-weight:500}
+.nav-item i{font-size:15px}
+.nav-badge{background:#E24B4A;color:#fff;font-size:9px;padding:1px 6px;border-radius:10px;margin-left:auto;font-weight:700}
+.sidebar-footer{margin-top:auto;padding:10px 14px;border-top:1px solid #1a1a24;font-size:10px;color:#3a3a4a;text-align:center;line-height:1.6}
+.sidebar-footer span{color:#534AB7;font-weight:500}
+.content{flex:1;overflow-y:auto;padding:20px 24px;background:#0d0d14}
+.screen{display:none}
+.screen.active{display:block}
+
+/* COMPONENTS */
+.pg-eyebrow{font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:3px;font-weight:500}
+.pg-title{font-size:21px;font-weight:500;color:#f0f0f0;margin-bottom:2px}
+.pg-sub{font-size:12px;color:#555;margin-bottom:20px}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.stat{background:#13131f;border:1px solid #1e1e2e;border-radius:8px;padding:13px 15px}
+.stat-lbl{font-size:10px;color:#555;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em}
+.stat-val{font-size:24px;font-weight:500}
+.c-white{color:#f0f0f0}.c-amber{color:#f0b429}.c-green{color:#1D9E75}.c-red{color:#E24B4A}
+.panel{background:#13131f;border:1px solid #1e1e2e;border-radius:10px;padding:15px}
+.panel-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.panel-ttl{font-size:12px;font-weight:500;color:#bbb;display:flex;align-items:center;gap:7px}
+.panel-ttl i{color:#f0b429;font-size:15px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+
+/* FORMS */
+label{display:block;font-size:11px;color:#777;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:5px;font-weight:500}
+input[type=text],input[type=email],input[type=password],input[type=date],input[type=number],select,textarea{width:100%;background:#0a0a12;border:1px solid #252535;color:#f0f0f0;border-radius:8px;padding:9px 12px;font-size:13px;font-family:inherit;margin-bottom:12px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#534AB7}
+textarea{min-height:80px;resize:vertical;line-height:1.5}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn-primary{background:#534AB7;border:none;color:#EEEDFE;padding:9px 18px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer}
+.btn-primary:hover{background:#3C3489}
+.btn-success{background:#1D9E75;border:none;color:#E1F5EE;padding:9px 18px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer}
+.btn-danger{background:#E24B4A;border:none;color:#fff;padding:9px 18px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer}
+.btn-outline{background:transparent;border:1px solid #2a2a3d;color:#888;padding:9px 18px;border-radius:7px;font-size:13px;cursor:pointer}
+.btn-sm{padding:5px 12px;font-size:11px;font-weight:500}
+.btn-approve{background:#081510;border:1px solid #1D9E75;color:#1D9E75;font-size:11px;padding:5px 13px;border-radius:6px;cursor:pointer;font-weight:500}
+.btn-reject{background:#150808;border:1px solid #E24B4A;color:#E24B4A;font-size:11px;padding:5px 13px;border-radius:6px;cursor:pointer}
+
+/* TAGS */
+.tag{font-size:10px;padding:2px 7px;border-radius:20px;font-weight:500}
+.tag-r{background:#1f0808;color:#E24B4A;border:1px solid #351010}
+.tag-a{background:#1a1000;color:#f0b429;border:1px solid #2a1e00}
+.tag-g{background:#081510;color:#1D9E75;border:1px solid #0f2518}
+.tag-b{background:#080f1a;color:#378ADD;border:1px solid #101828}
+.tag-p{background:#100e22;color:#7F77DD;border:1px solid #1a1830}
+.tag-gr{background:#141414;color:#777;border:1px solid #222}
+
+/* TASK ITEMS */
+.task-item{padding:12px 14px;background:#0a0a12;border-radius:8px;margin-bottom:8px;border-left:3px solid #1e1e2e;display:flex;align-items:flex-start;gap:12px}
+.task-item.high{border-left-color:#E24B4A}
+.task-item.medium{border-left-color:#f0b429}
+.task-item.low{border-left-color:#534AB7}
+.task-check{width:16px;height:16px;border:1.5px solid #444;border-radius:4px;flex-shrink:0;margin-top:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s}
+.task-check.done{background:#1D9E75;border-color:#1D9E75}
+.task-check.done::after{content:'✓';color:#fff;font-size:10px;font-weight:700}
+.task-body{flex:1}
+.task-name{font-size:12px;color:#ddd;font-weight:500;margin-bottom:4px}
+.task-name.done-text{text-decoration:line-through;color:#555}
+.task-meta{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.task-actions{display:flex;gap:6px;margin-top:6px}
+.meeting-row{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid #141420;align-items:flex-start}
+.meeting-row:last-child{border-bottom:none}
+.meet-time{font-size:11px;font-weight:500;color:#f0b429;min-width:54px;padding-top:1px}
+.meet-body p{font-size:12px;color:#ddd;font-weight:500;margin-bottom:2px}
+.meet-body span{font-size:11px;color:#555}
+.summary-box{background:#090d18;border:1px solid #1a2436;border-left:3px solid #f0b429;border-radius:0 8px 8px 0;padding:12px 14px;margin-bottom:14px}
+.summary-box .greet{font-size:13px;color:#f0b429;font-weight:500;margin-bottom:5px}
+.summary-box p{font-size:12px;color:#9a9aaa;line-height:1.7}
+.appr-row{padding:12px;background:#0a0a12;border-radius:8px;margin-bottom:8px}
+.appr-name{font-size:12px;color:#ddd;font-weight:500;margin-bottom:2px}
+.appr-meta{font-size:11px;color:#555;margin-bottom:6px}
+.appr-amt{font-size:14px;font-weight:600;color:#f0b429}
+.btn-row{display:flex;gap:6px;margin-top:8px;justify-content:flex-end}
+.check-item{display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px solid #141420;font-size:12px;color:#ccc}
+.check-item:last-child{border-bottom:none}
+.check-item input[type=checkbox]{width:14px;height:14px;accent-color:#f0b429;flex-shrink:0;cursor:pointer}
+.leg-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #141420;align-items:flex-start}
+.leg-row:last-child{border-bottom:none}
+.leg-time{min-width:105px;font-size:11px;font-weight:500;color:#f0b429;padding-top:2px;line-height:1.5}
+.leg-ico{width:28px;height:28px;border-radius:50%;background:#161626;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.leg-ico i{font-size:13px;color:#534AB7}
+.leg-body p{font-size:12px;color:#ddd;font-weight:500;margin-bottom:2px}
+.leg-body span{font-size:11px;color:#555}
+.conf-pill{display:inline-block;font-size:10px;background:#100e22;color:#7F77DD;padding:2px 7px;border-radius:20px;margin-top:3px;border:1px solid #1a1830}
+.chat-bubble{max-width:80%;padding:9px 12px;border-radius:8px;font-size:12px;line-height:1.6;margin-bottom:7px}
+.bubble-ea{background:#1a1a2a;color:#ccc}
+.bubble-ceo{background:#181408;color:#e0c870;border:1px solid #2a2000;margin-left:auto}
+.bubble-meta{font-size:10px;color:#444;padding:0 4px;margin-bottom:5px}
+.chat-col{display:flex;flex-direction:column;max-height:360px;overflow-y:auto;padding-right:4px}
+.input-row{display:flex;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid #1a1a2a}
+.input-row input{flex:1;background:#0a0a12;border:1px solid #1e1e2e;color:#ddd;border-radius:6px;padding:9px 12px;font-size:12px;font-family:inherit}
+.input-row input:focus{outline:none;border-color:#534AB7}
+.send-btn{background:#f0b429;border:none;color:#1a1400;padding:9px 18px;border-radius:6px;font-size:12px;cursor:pointer;font-weight:700}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;align-items:center;justify-content:center}
+.modal-overlay.active{display:flex}
+.modal{background:#13131f;border:1px solid #2a2a3d;border-radius:12px;padding:20px 24px;width:100%;max-width:480px;max-height:80vh;overflow-y:auto}
+.modal-title{font-size:15px;font-weight:500;color:#f0f0f0;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #1e1e2e}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;padding-top:12px;border-top:1px solid #1e1e2e}
+.empty-state{text-align:center;padding:32px;color:#555;font-size:13px}
+.empty-state i{font-size:32px;color:#333;display:block;margin-bottom:8px}
+.warn-banner{background:#160808;border:1px solid #2a1010;border-radius:8px;padding:10px 14px;font-size:12px;color:#E24B4A;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.success-banner{background:#081510;border:1px solid #1D9E75;border-radius:8px;padding:10px 14px;font-size:12px;color:#1D9E75;margin-bottom:10px;display:none}
+.loading-indicator{text-align:center;padding:20px;color:#666;font-size:12px}
+.exp-tbl{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+.exp-tbl th{text-align:left;font-size:10px;color:#444;font-weight:500;padding:4px 0;border-bottom:1px solid #1a1a24;text-transform:uppercase;letter-spacing:0.06em}
+.exp-tbl td{padding:7px 0;color:#bbb;border-bottom:1px solid #141420}
+.exp-tbl tr:last-child td{font-weight:600;color:#1D9E75;border-bottom:none}
+.note-card{background:#0a0a12;border-radius:8px;padding:12px;margin-bottom:8px}
+.note-title{font-size:12px;color:#ddd;font-weight:500;margin-bottom:5px}
+.note-body{font-size:11px;color:#555;line-height:1.6;margin-bottom:7px}
+.contact-row{background:#0a0a12;border-radius:8px;padding:12px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px}
+.av-sm{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.intel-col{background:#0a0a12;border-radius:8px;padding:12px}
+.intel-head{font-size:11px;color:#666;margin-bottom:8px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em}
+.intel-item{font-size:12px;color:#bbb;padding:5px 0;border-bottom:1px solid #141420;display:flex;align-items:flex-start;gap:7px;line-height:1.5}
+.intel-item:last-child{border-bottom:none}
+.intel-item i{font-size:13px;flex-shrink:0;margin-top:1px}
+.intel-item.bad i{color:#E24B4A}
+.intel-item.ok i{color:#1D9E75}
+.sec-div{font-size:10px;color:#333;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid #1a1a24}
+.trip-card{background:#0a0a12;border-radius:8px;padding:14px;margin-bottom:8px;cursor:pointer;border:1px solid #1e1e2e}
+.trip-card:hover{border-color:#534AB7}
+.trip-card-title{font-size:13px;font-weight:500;color:#ddd;margin-bottom:4px}
+.trip-card-meta{font-size:11px;color:#666}
+</style>
+</head>
+<body>
+
+<!-- AUTH SCREEN -->
+<div class="auth-screen active" id="auth-screen">
+  <div class="auth-card">
+    <div class="auth-logo">⚡ NexusOS</div>
+    <div class="auth-tagline">Executive Operating System · v3.0 · Executive Edition</div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchTab('login')">Sign in</button>
+      <button class="auth-tab" onclick="switchTab('signup')">Create account</button>
+    </div>
+    <!-- LOGIN -->
+    <div class="auth-form active" id="form-login">
+      <div class="field-lbl">Email</div>
+      <input type="email" id="login-email" class="auth-input" placeholder="your@email.com">
+      <div class="field-lbl">Password</div>
+      <input type="password" id="login-password" class="auth-input" placeholder="••••••••">
+      <button class="auth-btn" onclick="doLogin()">⚡ Sign in to NexusOS</button>
+      <div class="auth-error" id="login-error"></div>
+    </div>
+    <!-- SIGNUP -->
+    <div class="auth-form" id="form-signup">
+      <div class="field-lbl">Full name</div>
+      <input type="text" id="signup-name" class="auth-input" placeholder="e.g. Jhun Rey Velado">
+      <div class="field-lbl">Email</div>
+      <input type="email" id="signup-email" class="auth-input" placeholder="your@email.com">
+      <div class="field-lbl">Password</div>
+      <input type="password" id="signup-password" class="auth-input" placeholder="Min 6 characters">
+      <div class="field-lbl">Role</div>
+      <select id="signup-role" class="auth-input">
+        <option value="EA">Executive Assistant (EA)</option>
+        <option value="CEO">CEO / Executive</option>
+      </select>
+      <button class="auth-btn secondary" onclick="doSignup()">Create account</button>
+      <div class="auth-error" id="signup-error"></div>
+      <div class="auth-success" id="signup-success">Account created! Check your email to confirm, then sign in.</div>
+    </div>
+    <div class="auth-footer">Secured by <span>Jhun Rey Velado</span> · NexusOS © 2026</div>
+  </div>
+</div>
+
+<!-- WATERMARK -->
+<div class="watermark">NexusOS © Jhun Rey Velado 2026 · Proprietary</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="logo">⚡ NexusOS<span class="logo-sub">Executive Operating System</span></div>
+  <div class="topbar-right">
+    <div class="role-pill"><div class="role-dot"></div><span id="top-role">Loading...</span></div>
+    <span style="font-size:11px;color:#666" id="top-name"></span>
+    <button class="notif-btn" onclick="nav('notifications')"><i class="ti ti-bell"></i><div class="notif-dot" id="notif-dot"></div></button>
+    <div class="av av-ceo" id="top-av">?</div>
+    <button class="logout-btn" onclick="doLogout()">Sign out</button>
+  </div>
+</div>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="nav-section">
+      <div class="nav-lbl">Command</div>
+      <div class="nav-item active" id="n-dashboard" onclick="nav('dashboard')"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
+      <div class="nav-item" id="n-briefing" onclick="nav('briefing')"><i class="ti ti-bolt"></i> AI Briefing</div>
+      <div class="nav-item" id="n-intel" onclick="nav('intel')"><i class="ti ti-radar"></i> Intelligence</div>
+      <div class="nav-item" id="n-notifications" onclick="nav('notifications')"><i class="ti ti-bell"></i> Notifications<span class="nav-badge" id="notif-count" style="display:none">0</span></div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-lbl">Operations</div>
+      <div class="nav-item" id="n-tasks" onclick="nav('tasks')"><i class="ti ti-list-check"></i> Tasks</div>
+      <div class="nav-item" id="n-approvals" onclick="nav('approvals')"><i class="ti ti-circle-check"></i> Approvals<span class="nav-badge" id="appr-count" style="display:none">0</span></div>
+      <div class="nav-item" id="n-travel" onclick="nav('travel')"><i class="ti ti-plane"></i> Travel Hub</div>
+      <div class="nav-item" id="n-meeting" onclick="nav('meeting')"><i class="ti ti-clipboard-list"></i> Meeting Prep</div>
+      <div class="nav-item" id="n-chat" onclick="nav('chat')"><i class="ti ti-message-circle"></i> Exec Chat</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-lbl">Intelligence</div>
+      <div class="nav-item" id="n-pe" onclick="nav('pe')"><i class="ti ti-chart-line"></i> PE Dashboard</div>
+      <div class="nav-item" id="n-relationships" onclick="nav('relationships')"><i class="ti ti-users"></i> Relationships</div>
+      <div class="nav-item" id="n-notes" onclick="nav('notes')"><i class="ti ti-notes"></i> Notes Hub</div>
+    </div>
+    <div class="sidebar-footer">NexusOS v3.0<br><span>© Jhun Rey Velado 2026</span></div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div class="screen active" id="s-dashboard">
+      <div class="pg-eyebrow">Command centre</div>
+      <div class="pg-title">Good morning, <span id="dash-name">...</span>.</div>
+      <div class="pg-sub" id="dash-date">Loading...</div>
+      <div class="stat-row">
+        <div class="stat"><div class="stat-lbl">Total tasks</div><div class="stat-val c-white" id="stat-total">—</div></div>
+        <div class="stat"><div class="stat-lbl">Pending</div><div class="stat-val c-amber" id="stat-pending">—</div></div>
+        <div class="stat"><div class="stat-lbl">Completed</div><div class="stat-val c-green" id="stat-done">—</div></div>
+        <div class="stat"><div class="stat-lbl">High priority</div><div class="stat-val c-red" id="stat-high">—</div></div>
+      </div>
+      <div class="two-col" style="margin-bottom:12px">
+        <div class="panel">
+          <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-star"></i> Today's priorities</div><span style="font-size:11px;color:#534AB7;cursor:pointer" onclick="nav('tasks')">View all</span></div>
+          <div id="dash-tasks"><div class="loading-indicator">Loading...</div></div>
+        </div>
+        <div class="panel">
+          <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-circle-check"></i> Pending approvals</div><span style="font-size:11px;color:#534AB7;cursor:pointer" onclick="nav('approvals')">View all</span></div>
+          <div id="dash-approvals"><div class="loading-indicator">Loading...</div></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-calendar"></i> Today's meetings</div></div>
+        <div id="dash-meetings"><div class="empty-state"><i class="ti ti-calendar-off"></i>No meetings today — add in Meeting Prep</div></div>
+      </div>
+    </div>
+
+    <!-- TASKS -->
+    <div class="screen" id="s-tasks">
+      <div class="pg-eyebrow">Operations</div>
+      <div class="pg-title">Task Management</div>
+      <div class="pg-sub">Shared workspace — CEO and EA · real-time sync</div>
+      <div style="display:flex;gap:10px;margin-bottom:16px;align-items:center;flex-wrap:wrap">
+        <button class="btn-primary" onclick="openTaskModal()"><i class="ti ti-plus"></i> New task</button>
+        <select id="task-filter" onchange="loadTasks()" style="width:auto;margin-bottom:0;padding:8px 12px;font-size:12px">
+          <option value="all">All status</option>
+          <option value="pending">Pending</option>
+          <option value="in_progress">In progress</option>
+          <option value="completed">Completed</option>
+        </select>
+        <select id="task-priority-filter" onchange="loadTasks()" style="width:auto;margin-bottom:0;padding:8px 12px;font-size:12px">
+          <option value="all">All priority</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+      </div>
+      <div id="tasks-list"><div class="loading-indicator">Loading tasks...</div></div>
+    </div>
+
+    <!-- APPROVALS -->
+    <div class="screen" id="s-approvals">
+      <div class="pg-eyebrow">Operations</div>
+      <div class="pg-title">Approval Centre</div>
+      <div class="pg-sub">Submit and manage all approval requests</div>
+      <div id="ea-submit-section">
+        <button class="btn-primary" onclick="openApprovalModal()" style="margin-bottom:16px"><i class="ti ti-plus"></i> Submit request</button>
+      </div>
+      <div class="sec-div">Awaiting decision</div>
+      <div id="pending-approvals"><div class="loading-indicator">Loading...</div></div>
+      <div class="sec-div">History</div>
+      <div id="history-approvals"><div class="loading-indicator">Loading...</div></div>
+    </div>
+
+    <!-- TRAVEL -->
+    <div class="screen" id="s-travel">
+      <div class="pg-eyebrow">Operations</div>
+      <div class="pg-title">Travel Hub</div>
+      <div class="pg-sub">Build, save, and manage all CEO trips</div>
+      <button class="btn-primary" onclick="openTripModal()" style="margin-bottom:16px"><i class="ti ti-plus"></i> New trip</button>
+      <div id="trips-list"><div class="loading-indicator">Loading trips...</div></div>
+      <div id="trip-detail" style="display:none">
+        <button class="btn-outline btn-sm" onclick="document.getElementById('trip-detail').style.display='none';document.getElementById('trips-list').style.display='block'" style="margin-bottom:14px">← Back to trips</button>
+        <div id="trip-detail-content"></div>
+      </div>
+    </div>
+
+    <!-- MEETING PREP -->
+    <div class="screen" id="s-meeting">
+      <div class="pg-eyebrow">Operations</div>
+      <div class="pg-title">Meeting Prep</div>
+      <div class="pg-sub">Briefings, objectives, and prep checklists</div>
+      <button class="btn-primary" onclick="openMeetingModal()" style="margin-bottom:16px"><i class="ti ti-plus"></i> Add meeting</button>
+      <div id="meetings-list"><div class="loading-indicator">Loading meetings...</div></div>
+    </div>
+
+    <!-- EXEC CHAT -->
+    <div class="screen" id="s-chat">
+      <div class="pg-eyebrow">Operations</div>
+      <div class="pg-title">Executive Chat</div>
+      <div class="pg-sub">Private CEO — EA workspace · real-time · all messages saved</div>
+      <div class="panel">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #1a1a2a">
+          <div style="display:flex"><div class="av av-ceo" style="width:26px;height:26px;font-size:10px">CD</div><div class="av av-ea" style="width:26px;height:26px;font-size:10px;margin-left:-6px">JR</div></div>
+          <div><div style="font-size:13px;font-weight:500;color:#ddd">Executive Chat</div><div style="font-size:11px;color:#555">CEO & EA · Encrypted · Messages saved</div></div>
+          <div style="margin-left:auto;font-size:11px;color:#1D9E75" id="chat-status">● Live</div>
+        </div>
+        <div class="chat-col" id="chat-messages"><div class="loading-indicator">Loading messages...</div></div>
+        <div class="input-row">
+          <input type="text" id="chat-input" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendMessage()">
+          <button class="send-btn" onclick="sendMessage()">Send</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTIFICATIONS -->
+    <div class="screen" id="s-notifications">
+      <div class="pg-eyebrow">Command</div>
+      <div class="pg-title">Notifications</div>
+      <div class="pg-sub">All alerts and updates</div>
+      <button class="btn-outline btn-sm" onclick="markAllRead()" style="margin-bottom:14px">Mark all read</button>
+      <div id="notifications-list"><div class="loading-indicator">Loading...</div></div>
+    </div>
+
+    <!-- AI BRIEFING -->
+    <div class="screen" id="s-briefing">
+      <div class="pg-eyebrow">AI Daily Briefing</div>
+      <div class="pg-title" id="brief-date">Loading...</div>
+      <div class="pg-sub">Personalised executive intelligence · NexusOS AI</div>
+      <div class="summary-box">
+        <div class="greet" id="brief-greet">Good morning.</div>
+        <p id="brief-body">Generating your briefing...</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-alert-circle"></i> Critical actions</div></div>
+          <div id="brief-actions"><div class="loading-indicator">Loading...</div></div>
+        </div>
+        <div class="panel">
+          <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-star"></i> Suggested priorities</div></div>
+          <div id="brief-priorities"><div class="loading-indicator">Loading...</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTELLIGENCE -->
+    <div class="screen" id="s-intel">
+      <div class="pg-eyebrow">Intelligence centre</div>
+      <div class="pg-title">Live risk monitor</div>
+      <div class="pg-sub">Real-time view of decisions, risks, and follow-ups</div>
+      <div class="stat-row">
+        <div class="stat"><div class="stat-lbl">Overdue tasks</div><div class="stat-val c-red" id="intel-overdue">—</div></div>
+        <div class="stat"><div class="stat-lbl">Pending approvals</div><div class="stat-val c-amber" id="intel-approvals">—</div></div>
+        <div class="stat"><div class="stat-lbl">Open tasks</div><div class="stat-val c-white" id="intel-open">—</div></div>
+        <div class="stat"><div class="stat-lbl">Trips saved</div><div class="stat-val c-green" id="intel-trips">—</div></div>
+      </div>
+      <div class="three-col">
+        <div class="intel-col">
+          <div class="intel-head">Overdue tasks</div>
+          <div id="intel-overdue-list"><div class="loading-indicator">Loading...</div></div>
+        </div>
+        <div class="intel-col">
+          <div class="intel-head">Pending decisions</div>
+          <div id="intel-approval-list"><div class="loading-indicator">Loading...</div></div>
+        </div>
+        <div class="intel-col">
+          <div class="intel-head">High priority open</div>
+          <div id="intel-high-list"><div class="loading-indicator">Loading...</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PE DASHBOARD -->
+    <div class="screen" id="s-pe">
+      <div class="pg-eyebrow">PE investor dashboard</div>
+      <div class="pg-title">Acquisition Pipeline</div>
+      <div class="pg-sub">Deal intelligence · [Your Company] · Confidential</div>
+      <div class="warn-banner"><i class="ti ti-alert-triangle"></i> Active deal is 10 days without response — Key Contact 1 follow-up required today</div>
+      <div class="stat-row">
+        <div class="stat"><div class="stat-lbl">Pipeline value</div><div class="stat-val c-white" style="font-size:18px;padding-top:4px">—</div></div>
+        <div class="stat"><div class="stat-lbl">Avg deal size</div><div class="stat-val c-amber" style="font-size:18px;padding-top:4px">—</div></div>
+        <div class="stat"><div class="stat-lbl">Active LOIs</div><div class="stat-val c-white" style="font-size:18px;padding-top:4px">—</div></div>
+        <div class="stat"><div class="stat-lbl">MA LOI status</div><div class="stat-val c-green" style="font-size:14px;padding-top:8px">Set up</div></div>
+      </div>
+      <div class="panel" style="margin-bottom:12px">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-chart-line"></i> Key investors & deal contacts</div></div>
+        <div class="leg-row"><div class="leg-time">Key Contact 1<br><span style="color:#555;font-size:10px">CFO · [Your Company]</span></div><div class="leg-body"><p>Deal — awaiting signature</p><span style="color:#E24B4A">Last contact: — · Not set</span></div></div>
+        <div class="leg-row"><div class="leg-time">Key Contact 2<br><span style="color:#555;font-size:10px">Chairman</span></div><div class="leg-body"><p>Board meeting — upcoming</p><span style="color:#1D9E75">Last contact: — · Not set</span></div></div>
+        <div class="leg-row"><div class="leg-time">Key Contact 3<br><span style="color:#555;font-size:10px">COO · [Your Company]</span></div><div class="leg-body"><p>Active — regular review</p><span style="color:#1D9E75">Last contact: — · Not set</span></div></div>
+        <div class="leg-row"><div class="leg-time">M&A Counsel<br><span style="color:#555;font-size:10px">Deal Legal Team</span></div><div class="leg-body"><p>Active — reviewing terms</p><span style="color:#1D9E75">Last contact: — · Not set</span></div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-file-text"></i> Active acquisition pipeline</div></div>
+        <div class="two-col" style="font-size:12px;color:#666;line-height:2.2">
+          <div><div>MA Target: <span style="color:#f0b429;font-weight:500">$8-12M</span></div><div>PA Target: <span style="color:#bbb">$15-20M</span></div><div>NJ Target: <span style="color:#bbb">$10-14M</span></div><div>Active LOIs: <span style="color:#bbb">4 signed</span></div></div>
+          <div><div>Deal pace: <span style="color:#bbb">1 close per quarter</span></div><div>Pipeline target: <span style="color:#bbb">1 new LOI/month</span></div><div>Next close: <span style="color:#f0b429;font-weight:500">Q3 2026</span></div><div>Counsel: <span style="color:#bbb">M&A Legal Team</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RELATIONSHIPS -->
+    <div class="screen" id="s-relationships">
+      <div class="pg-eyebrow">Intelligence</div>
+      <div class="pg-title">Relationship Intel</div>
+      <div class="pg-sub">Key contacts · follow-up cadence · managed by EA</div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="contact-row"><div class="av-sm" style="background:#081510;color:#1D9E75">JJ</div><div><div style="font-size:12px;color:#ddd;font-weight:500">Key Contact 1</div><div style="font-size:11px;color:#777">CFO · [Your Company]</div><div style="font-size:11px;color:#555;font-style:italic;margin:4px 0">Key finance contact. Have financials ready.</div><div style="font-size:10px;color:#444">Last follow-up: <span style="color:#888">Not set</span></div></div></div>
+          <div class="contact-row"><div class="av-sm" style="background:#100e22;color:#7F77DD">SB</div><div><div style="font-size:12px;color:#ddd;font-weight:500">Key Contact 3</div><div style="font-size:11px;color:#777">COO · [Your Company]</div><div style="font-size:11px;color:#555;font-style:italic;margin:4px 0">Operations lead. Key internal relationship.</div><div style="font-size:10px;color:#444">Last follow-up: <span style="color:#888">Not set</span></div></div></div>
+        </div>
+        <div class="panel">
+          <div class="contact-row"><div class="av-sm" style="background:#181408;color:#f0b429">SS</div><div><div style="font-size:12px;color:#ddd;font-weight:500">Key Contact 2</div><div style="font-size:11px;color:#777">Chairman · [Your Company]</div><div style="font-size:11px;color:#555;font-style:italic;margin:4px 0">Board Chairman. Monthly updates critical.</div><div style="font-size:10px;color:#444">Last follow-up: <span style="color:#888">Not set</span></div></div></div>
+          <div class="contact-row"><div class="av-sm" style="background:#150808;color:#E24B4A">MC</div><div><div style="font-size:12px;color:#ddd;font-weight:500">M&A Legal Counsel</div><div style="font-size:11px;color:#777">Primary Deal Counsel</div><div style="font-size:11px;color:#555;font-style:italic;margin:4px 0">Primary legal counsel. Very responsive.</div><div style="font-size:10px;color:#444">Last follow-up: <span style="color:#888">Not set</span></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTES -->
+    <div class="screen" id="s-notes">
+      <div class="pg-eyebrow">Intelligence</div>
+      <div class="pg-title">Notes Hub</div>
+      <div class="pg-sub">Capture ideas, decisions, and reference material</div>
+      <button class="btn-primary" onclick="openNoteModal()" style="margin-bottom:16px"><i class="ti ti-plus"></i> New note</button>
+      <div id="notes-list"><div class="loading-indicator">Loading notes...</div></div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /layout -->
+
+<!-- MODALS -->
+<!-- Task Modal -->
+<div class="modal-overlay" id="task-modal">
+  <div class="modal">
+    <div class="modal-title" id="task-modal-title">New task</div>
+    <input type="hidden" id="task-id">
+    <label>Task name</label>
+    <input type="text" id="task-name" placeholder="e.g. Prepare Q3 Board Presentation">
+    <label>Description</label>
+    <textarea id="task-desc" placeholder="Additional details..."></textarea>
+    <div class="form-row">
+      <div>
+        <label>Priority</label>
+        <select id="task-priority">
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+      </div>
+      <div>
+        <label>Status</label>
+        <select id="task-status">
+          <option value="pending">Pending</option>
+          <option value="in_progress">In progress</option>
+          <option value="waiting">Waiting</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div><label>Due date</label><input type="date" id="task-due"></div>
+      <div><label>Assigned to</label><select id="task-owner"><option value="EA">EA</option><option value="CEO">CEO</option><option value="Both">Both</option></select></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="closeModal('task-modal')">Cancel</button>
+      <button class="btn-primary" onclick="saveTask()">Save task</button>
+    </div>
+  </div>
+</div>
+
+<!-- Approval Modal -->
+<div class="modal-overlay" id="approval-modal">
+  <div class="modal">
+    <div class="modal-title">Submit approval request</div>
+    <label>Request title</label>
+    <input type="text" id="appr-title" placeholder="e.g. Executive Travel to Boston">
+    <label>Description / context</label>
+    <textarea id="appr-desc" placeholder="Provide full context so CEO can decide..."></textarea>
+    <div class="form-row">
+      <div><label>Amount ($)</label><input type="number" id="appr-amount" placeholder="0"></div>
+      <div><label>Category</label><select id="appr-category"><option>Travel</option><option>Legal</option><option>Events</option><option>Equipment</option><option>Marketing</option><option>Other</option></select></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="closeModal('approval-modal')">Cancel</button>
+      <button class="btn-primary" onclick="submitApproval()">Submit for approval</button>
+    </div>
+  </div>
+</div>
+
+<!-- Trip Modal -->
+<div class="modal-overlay" id="trip-modal">
+  <div class="modal">
+    <div class="modal-title">New trip</div>
+    <label>Trip name</label>
+    <input type="text" id="trip-name" placeholder="e.g. Boston M&A Trip">
+    <div class="form-row">
+      <div><label>Departure date</label><input type="date" id="trip-dep"></div>
+      <div><label>Return date</label><input type="date" id="trip-ret"></div>
+    </div>
+    <div class="form-row">
+      <div><label>Traveller</label><input type="text" id="trip-traveller" placeholder="CEO, CEO"></div>
+      <div><label>Approved budget ($)</label><input type="number" id="trip-budget" placeholder="8500"></div>
+    </div>
+    <label>Trip objectives</label>
+    <textarea id="trip-objectives" placeholder="1. Review MA acquisition target&#10;2. Meet with board members"></textarea>
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="closeModal('trip-modal')">Cancel</button>
+      <button class="btn-primary" onclick="saveTrip()">Create trip</button>
+    </div>
+  </div>
+</div>
+
+<!-- Meeting Modal -->
+<div class="modal-overlay" id="meeting-modal">
+  <div class="modal">
+    <div class="modal-title">Add meeting</div>
+    <label>Meeting title</label>
+    <input type="text" id="meet-title" placeholder="e.g. Q3 Acquisition Board Review">
+    <div class="form-row">
+      <div><label>Date</label><input type="date" id="meet-date"></div>
+      <div><label>Time</label><input type="text" id="meet-time" placeholder="9:00 AM"></div>
+    </div>
+    <label>Location / Link</label>
+    <input type="text" id="meet-location" placeholder="Conference Room A or Teams link">
+    <label>Key participants</label>
+    <input type="text" id="meet-participants" placeholder="Key Contact 1, Key Contact 2">
+    <label>Objectives</label>
+    <textarea id="meet-objectives" placeholder="What needs to be decided or accomplished?"></textarea>
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="closeModal('meeting-modal')">Cancel</button>
+      <button class="btn-primary" onclick="saveMeeting()">Save meeting</button>
+    </div>
+  </div>
+</div>
+
+<!-- Note Modal -->
+<div class="modal-overlay" id="note-modal">
+  <div class="modal">
+    <div class="modal-title">New note</div>
+    <label>Title</label>
+    <input type="text" id="note-title" placeholder="e.g. LOI key terms">
+    <label>Content</label>
+    <textarea id="note-content" placeholder="Your note content..." style="min-height:120px"></textarea>
+    <label>Tag</label>
+    <select id="note-tag"><option>strategy</option><option>investment</option><option>governance</option><option>legal</option><option>pr</option><option>vendor</option><option>general</option></select>
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="closeModal('note-modal')">Cancel</button>
+      <button class="btn-primary" onclick="saveNote()">Save note</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// SUPABASE CONFIG — NexusOS v3.0
+// © Jhun Rey Velado 2026 — Proprietary
+// ============================================================
+const SUPABASE_URL = 'https://jqhijnkoxwyqgpmjrakx.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpxaGlqbmtveHd5cWdwbWpyYWt4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI2MDc5ODIsImV4cCI6MjA5ODE4Mzk4Mn0.H1MsVKsUW4BwRnckepPPQJAyXS3wsPFkH_id6VVO0YQ';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let currentUser = null;
+let currentProfile = null;
+let chatSubscription = null;
+let notifSubscription = null;
+
+// ============================================================
+// AUTH
+// ============================================================
+function switchTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.auth-form').forEach(f=>f.classList.remove('active'));
+  document.getElementById('form-'+tab).classList.add('active');
+  event.target.classList.add('active');
+}
+
+async function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass = document.getElementById('login-password').value;
+  const err = document.getElementById('login-error');
+  err.style.display='none';
+  if(!email||!pass){err.textContent='Please enter email and password.';err.style.display='block';return;}
+  const {data,error} = await sb.auth.signInWithPassword({email,password:pass});
+  if(error){err.textContent=error.message;err.style.display='block';}
+  else{await initApp(data.user);}
+}
+
+async function doSignup() {
+  const name = document.getElementById('signup-name').value.trim();
+  const email = document.getElementById('signup-email').value.trim();
+  const pass = document.getElementById('signup-password').value;
+  const role = document.getElementById('signup-role').value;
+  const err = document.getElementById('signup-error');
+  const suc = document.getElementById('signup-success');
+  err.style.display='none'; suc.style.display='none';
+  if(!name||!email||!pass){err.textContent='Please fill all fields.';err.style.display='block';return;}
+  const {data,error} = await sb.auth.signUp({email,password:pass,options:{data:{full_name:name,role}}});
+  if(error){err.textContent=error.message;err.style.display='block';}
+  else{
+    // Create profile
+    if(data.user){
+      await sb.from('profiles').upsert({id:data.user.id,full_name:name,role,email});
+    }
+    suc.style.display='block';
+  }
+}
+
+async function doLogout() {
+  if(chatSubscription) sb.removeChannel(chatSubscription);
+  if(notifSubscription) sb.removeChannel(notifSubscription);
+  await sb.auth.signOut();
+  currentUser=null; currentProfile=null;
+  document.getElementById('auth-screen').classList.add('active');
+}
+
+async function initApp(user) {
+  currentUser = user;
+  // Get or create profile
+  let {data:profile} = await sb.from('profiles').select('*').eq('id',user.id).single();
+  if(!profile){
+    const meta = user.user_metadata||{};
+    await sb.from('profiles').upsert({id:user.id,full_name:meta.full_name||user.email,role:meta.role||'EA',email:user.email});
+    let {data:p2} = await sb.from('profiles').select('*').eq('id',user.id).single();
+    profile=p2;
+  }
+  currentProfile = profile||{full_name:user.email,role:'EA'};
+  document.getElementById('auth-screen').classList.remove('active');
+  setupUI();
+  loadDashboard();
+  setupRealtime();
+}
+
+function setupUI() {
+  const p = currentProfile;
+  const name = p.full_name||p.email||'User';
+  const role = p.role||'EA';
+  document.getElementById('top-role').textContent = role==='CEO'?'Chief Executive Officer':'Executive Assistant';
+  document.getElementById('top-name').textContent = name;
+  document.getElementById('top-av').textContent = name.substring(0,2).toUpperCase();
+  document.getElementById('top-av').className = 'av '+(role==='CEO'?'av-ceo':'av-ea');
+  document.getElementById('dash-name').textContent = name.split(' ')[0];
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('dash-date').textContent = dateStr+' · Prepared by EA — Jhun Rey Velado';
+  document.getElementById('brief-date').textContent = dateStr;
+  document.getElementById('brief-greet').textContent = 'Good '+(now.getHours()<12?'morning':now.getHours()<17?'afternoon':'evening')+', '+name.split(' ')[0]+'.';
+  // Show/hide EA-only sections
+  if(role==='CEO'){
+    const s=document.getElementById('ea-submit-section');
+    if(s)s.style.display='none';
+  }
+}
+
+// ============================================================
+// REALTIME
+// ============================================================
+function setupRealtime() {
+  // Chat realtime
+  chatSubscription = sb.channel('chat-room').on('postgres_changes',{event:'INSERT',schema:'public',table:'messages'},payload=>{
+    appendChatMessage(payload.new);
+  }).subscribe();
+  // Notifications realtime
+  notifSubscription = sb.channel('notif-room').on('postgres_changes',{event:'INSERT',schema:'public',table:'notifications'},payload=>{
+    if(payload.new.user_id===currentUser.id || payload.new.user_id===null){
+      updateNotifBadge();
+    }
+  }).subscribe();
+  updateNotifBadge();
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function nav(screen) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('s-'+screen).classList.add('active');
+  const ni=document.getElementById('n-'+screen);
+  if(ni)ni.classList.add('active');
+  // Load data for screen
+  const loaders={tasks:loadTasks,approvals:loadApprovals,travel:loadTrips,meeting:loadMeetings,chat:loadChat,notifications:loadNotifications,briefing:loadBriefing,intel:loadIntel,notes:loadNotes};
+  if(loaders[screen])loaders[screen]();
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+async function loadDashboard() {
+  const [tasks,approvals,meetings] = await Promise.all([
+    sb.from('tasks').select('*').order('created_at',{ascending:false}),
+    sb.from('approvals').select('*').eq('status','pending'),
+    sb.from('meetings').select('*').order('meeting_date').limit(4)
+  ]);
+  const t = tasks.data||[];
+  const pending = t.filter(x=>x.status!=='completed');
+  const done = t.filter(x=>x.status==='completed');
+  const high = t.filter(x=>x.priority==='high'&&x.status!=='completed');
+  document.getElementById('stat-total').textContent=t.length;
+  document.getElementById('stat-pending').textContent=pending.length;
+  document.getElementById('stat-done').textContent=done.length;
+  document.getElementById('stat-high').textContent=high.length;
+  // Top tasks
+  const topTasks = pending.slice(0,3);
+  document.getElementById('dash-tasks').innerHTML = topTasks.length ? topTasks.map(task=>
+    `<div class="task-item ${task.priority}">
+      <div class="task-body">
+        <div class="task-name">${task.name}</div>
+        <div class="task-meta"><span class="tag tag-r">${task.priority}</span><span class="tag tag-gr">${task.status}</span>${task.due_date?`<span class="tag tag-gr">Due: ${task.due_date}</span>`:''}</div>
+      </div>
+    </div>`).join('') : '<div class="empty-state"><i class="ti ti-check"></i>All caught up!</div>';
+  // Approvals
+  const ap = approvals.data||[];
+  const apprCount = ap.length;
+  if(apprCount>0){document.getElementById('appr-count').textContent=apprCount;document.getElementById('appr-count').style.display='inline';}
+  document.getElementById('dash-approvals').innerHTML = ap.length ? ap.slice(0,2).map(a=>
+    `<div class="appr-row">
+      <div class="appr-name">${a.title}</div>
+      <div class="appr-meta">From EA · ${a.category} · $${Number(a.amount||0).toLocaleString()}</div>
+      <div class="appr-amt">$${Number(a.amount||0).toLocaleString()}</div>
+      ${currentProfile.role==='CEO'?`<div class="btn-row"><button class="btn-reject btn-sm" onclick="decideApproval('${a.id}','rejected')">Reject</button><button class="btn-approve btn-sm" onclick="decideApproval('${a.id}','approved')">Approve</button></div>`:''}
+    </div>`).join('') : '<div class="empty-state"><i class="ti ti-check"></i>No pending approvals</div>';
+  // Meetings
+  const m = meetings.data||[];
+  document.getElementById('dash-meetings').innerHTML = m.length ? m.map(x=>
+    `<div class="meeting-row"><div class="meet-time">${x.time||'TBD'}</div><div class="meet-body"><p>${x.title}</p><span>${x.participants||''} · ${x.location||''}</span></div></div>`
+  ).join('') : '<div class="empty-state"><i class="ti ti-calendar-off"></i>No meetings — add in Meeting Prep</div>';
+}
+
+// ============================================================
+// TASKS
+// ============================================================
+async function loadTasks() {
+  const statusF = document.getElementById('task-filter')?.value||'all';
+  const priorityF = document.getElementById('task-priority-filter')?.value||'all';
+  let q = sb.from('tasks').select('*').order('created_at',{ascending:false});
+  if(statusF!=='all') q=q.eq('status',statusF);
+  if(priorityF!=='all') q=q.eq('priority',priorityF);
+  const {data} = await q;
+  const tasks = data||[];
+  document.getElementById('tasks-list').innerHTML = tasks.length ? tasks.map(t=>
+    `<div class="task-item ${t.priority}" id="task-${t.id}">
+      <div class="task-check ${t.status==='completed'?'done':''}" onclick="toggleTask('${t.id}','${t.status}')"></div>
+      <div class="task-body">
+        <div class="task-name ${t.status==='completed'?'done-text':''}">${t.name}</div>
+        <div class="task-meta"><span class="tag tag-r">${t.priority}</span><span class="tag tag-gr">${t.status}</span>${t.assigned_to?`<span class="tag tag-b">${t.assigned_to}</span>`:''} ${t.due_date?`<span class="tag tag-gr">Due: ${t.due_date}</span>`:''}</div>
+        ${t.description?`<div style="font-size:11px;color:#555;margin-top:4px">${t.description}</div>`:''}
+        <div class="task-actions">
+          <button class="btn-outline btn-sm" onclick="editTask(${JSON.stringify(t).replace(/"/g,'&quot;')})">Edit</button>
+          <button class="btn-danger btn-sm" onclick="deleteTask('${t.id}')">Delete</button>
+        </div>
+      </div>
+    </div>`
+  ).join('') : '<div class="empty-state"><i class="ti ti-list"></i>No tasks yet — create your first task</div>';
+}
+
+function openTaskModal(task) {
+  document.getElementById('task-id').value='';
+  document.getElementById('task-name').value='';
+  document.getElementById('task-desc').value='';
+  document.getElementById('task-priority').value='high';
+  document.getElementById('task-status').value='pending';
+  document.getElementById('task-due').value='';
+  document.getElementById('task-owner').value='EA';
+  document.getElementById('task-modal-title').textContent='New task';
+  document.getElementById('task-modal').classList.add('active');
+}
+
+function editTask(t) {
+  document.getElementById('task-id').value=t.id;
+  document.getElementById('task-name').value=t.name;
+  document.getElementById('task-desc').value=t.description||'';
+  document.getElementById('task-priority').value=t.priority;
+  document.getElementById('task-status').value=t.status;
+  document.getElementById('task-due').value=t.due_date||'';
+  document.getElementById('task-owner').value=t.assigned_to||'EA';
+  document.getElementById('task-modal-title').textContent='Edit task';
+  document.getElementById('task-modal').classList.add('active');
+}
+
+async function saveTask() {
+  const id=document.getElementById('task-id').value;
+  const task={
+    name:document.getElementById('task-name').value.trim(),
+    description:document.getElementById('task-desc').value.trim(),
+    priority:document.getElementById('task-priority').value,
+    status:document.getElementById('task-status').value,
+    due_date:document.getElementById('task-due').value||null,
+    assigned_to:document.getElementById('task-owner').value,
+    created_by:currentUser.id
+  };
+  if(!task.name){alert('Task name is required');return;}
+  if(id){await sb.from('tasks').update(task).eq('id',id);}
+  else{await sb.from('tasks').insert(task);}
+  closeModal('task-modal');
+  loadTasks();
+  loadDashboard();
+  createNotification('Task '+(id?'updated':'created')+': '+task.name);
+}
+
+async function toggleTask(id,currentStatus) {
+  const newStatus = currentStatus==='completed'?'pending':'completed';
+  await sb.from('tasks').update({status:newStatus}).eq('id',id);
+  loadTasks();
+  loadDashboard();
+}
+
+async function deleteTask(id) {
+  if(!confirm('Delete this task?'))return;
+  await sb.from('tasks').delete().eq('id',id);
+  loadTasks();
+  loadDashboard();
+}
+
+// ============================================================
+// APPROVALS
+// ============================================================
+async function loadApprovals() {
+  const [{data:pending},{data:history}] = await Promise.all([
+    sb.from('approvals').select('*').eq('status','pending').order('created_at',{ascending:false}),
+    sb.from('approvals').select('*').neq('status','pending').order('created_at',{ascending:false}).limit(10)
+  ]);
+  const p=pending||[]; const h=history||[];
+  const apprCount=p.length;
+  if(apprCount>0){document.getElementById('appr-count').textContent=apprCount;document.getElementById('appr-count').style.display='inline';}
+  else document.getElementById('appr-count').style.display='none';
+  const ceo=currentProfile.role==='CEO';
+  document.getElementById('pending-approvals').innerHTML = p.length ? p.map(a=>
+    `<div class="appr-row">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between">
+        <div><div class="appr-name">${a.title} <span class="tag tag-a">Pending</span></div><div class="appr-meta">${a.description||''} · From EA · ${a.category} · ${new Date(a.created_at).toLocaleDateString()}</div></div>
+        <div class="appr-amt">$${Number(a.amount||0).toLocaleString()}</div>
+      </div>
+      ${ceo?`<div class="btn-row"><button class="btn-reject" onclick="decideApproval('${a.id}','rejected')">Reject</button><button class="btn-approve" onclick="decideApproval('${a.id}','approved')">Approve</button></div>`:'<div style="font-size:11px;color:#555;margin-top:6px">Awaiting CEO decision</div>'}
+    </div>`).join('') : '<div class="empty-state"><i class="ti ti-check"></i>No pending approvals</div>';
+  document.getElementById('history-approvals').innerHTML = h.length ? h.map(a=>
+    `<div class="appr-row"><div style="display:flex;justify-content:space-between"><div><div class="appr-name">${a.title} <span class="tag ${a.status==='approved'?'tag-g':'tag-r'}">${a.status}</span></div><div class="appr-meta">From EA · $${Number(a.amount||0).toLocaleString()}</div></div></div></div>`
+  ).join('') : '<div class="empty-state">No history yet</div>';
+}
+
+function openApprovalModal(){document.getElementById('approval-modal').classList.add('active');}
+
+async function submitApproval() {
+  const title=document.getElementById('appr-title').value.trim();
+  const desc=document.getElementById('appr-desc').value.trim();
+  const amount=document.getElementById('appr-amount').value;
+  const category=document.getElementById('appr-category').value;
+  if(!title){alert('Title required');return;}
+  await sb.from('approvals').insert({title,description:desc,amount:amount||0,category,status:'pending',submitted_by:currentUser.id});
+  closeModal('approval-modal');
+  document.getElementById('appr-title').value='';
+  document.getElementById('appr-desc').value='';
+  document.getElementById('appr-amount').value='';
+  loadApprovals();
+  createNotification('New approval request: '+title+' — $'+Number(amount||0).toLocaleString());
+}
+
+async function decideApproval(id,decision) {
+  await sb.from('approvals').update({status:decision,decided_by:currentUser.id,decided_at:new Date().toISOString()}).eq('id',id);
+  loadApprovals();
+  loadDashboard();
+  createNotification('Approval '+decision+' by CEO');
+}
+
+// ============================================================
+// TRAVEL
+// ============================================================
+async function loadTrips() {
+  const {data} = await sb.from('trips').select('*').order('departure_date',{ascending:true});
+  const trips=data||[];
+  document.getElementById('intel-trips').textContent=trips.length;
+  document.getElementById('trips-list').innerHTML = trips.length ? trips.map(t=>
+    `<div class="trip-card" onclick="viewTrip('${t.id}')">
+      <div class="trip-card-title">✈ ${t.name}</div>
+      <div class="trip-card-meta">${t.traveller||'CEO'} · ${t.departure_date||'TBD'}${t.return_date?' → '+t.return_date:''} · Budget: $${Number(t.budget||0).toLocaleString()}</div>
+      <div style="font-size:11px;color:#534AB7;margin-top:6px">Click to view full itinerary →</div>
+    </div>`
+  ).join('') : '<div class="empty-state"><i class="ti ti-plane"></i>No trips yet — create your first trip</div>';
+}
+
+async function viewTrip(id) {
+  const {data:t} = await sb.from('trips').select('*').eq('id',id).single();
+  const {data:legs} = await sb.from('trip_legs').select('*').eq('trip_id',id).order('position');
+  const {data:expenses} = await sb.from('trip_expenses').select('*').eq('trip_id',id);
+  if(!t)return;
+  document.getElementById('trips-list').style.display='none';
+  const detail=document.getElementById('trip-detail');
+  detail.style.display='block';
+  const exp=expenses||[];
+  const total=exp.reduce((s,e)=>s+Number(e.amount||0),0);
+  detail.querySelector('#trip-detail-content')?document.getElementById('trip-detail').innerHTML=`
+    <button class="btn-outline btn-sm" onclick="document.getElementById('trip-detail').style.display='none';document.getElementById('trips-list').style.display='block'" style="margin-bottom:14px">← Back to trips</button>
+    <div id="trip-detail-content">
+      <div style="background:#181408;border:1px solid #3a3000;border-radius:10px;padding:16px 20px;text-align:center;margin-bottom:14px">
+        <div style="font-size:18px;font-weight:500;color:#f0b429;margin-bottom:4px">${t.name}</div>
+        <div style="font-size:12px;color:#888">${t.traveller||'CEO'} · ${t.departure_date||''}${t.return_date?' → '+t.return_date:''} · Budget: $${Number(t.budget||0).toLocaleString()}</div>
+      </div>
+      ${t.objectives?`<div class="summary-box"><div class="greet">Trip objectives</div><p>${t.objectives}</p></div>`:''}
+      <div class="panel" style="margin-bottom:12px">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-route"></i> Itinerary</div>
+        <button class="btn-primary btn-sm" onclick="openLegModal('${t.id}')">+ Add leg</button></div>
+        <div id="legs-container">
+          ${legs&&legs.length?legs.map(l=>`
+            <div class="leg-row">
+              <div class="leg-time">${l.datetime||'TBD'}</div>
+              <div class="leg-ico"><i class="ti ti-${l.type==='flight'?'plane':l.type==='hotel'?'building':l.type==='car'?'car':l.type==='meeting'?'users':'tools'}"></i></div>
+              <div class="leg-body"><p>${l.details||''}</p><span>${l.location||''}</span>${l.confirmation?`<div><span class="conf-pill">Conf: ${l.confirmation}</span></div>`:''}</div>
+              <button class="btn-danger btn-sm" onclick="deleteLeg('${l.id}','${t.id}')" style="margin-left:auto;flex-shrink:0">×</button>
+            </div>`).join(''):'<div class="empty-state"><i class="ti ti-route"></i>No legs yet — add flights, hotels, meetings</div>'}
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-receipt"></i> Expenses</div><button class="btn-primary btn-sm" onclick="openExpenseModal('${t.id}')">+ Add</button></div>
+          <table class="exp-tbl">
+            <tr><th>Item</th><th>Amount</th><th>Status</th></tr>
+            ${exp.map(e=>`<tr><td>${e.item}</td><td>$${Number(e.amount).toLocaleString()}</td><td>${e.status}</td></tr>`).join('')}
+            <tr><td>Total vs $${Number(t.budget||0).toLocaleString()} budget</td><td>$${total.toLocaleString()}</td><td style="color:${total<=Number(t.budget||0)?'#1D9E75':'#E24B4A'}">${total<=Number(t.budget||0)?'Under budget ✓':'Over budget !'}</td></tr>
+          </table>
+        </div>
+        <div class="panel">
+          <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-list-check"></i> Pre-departure checklist</div></div>
+          <div class="check-item"><input type="checkbox"> Passport / ID confirmed</div>
+          <div class="check-item"><input type="checkbox"> Boarding passes downloaded</div>
+          <div class="check-item"><input type="checkbox"> Hotel confirmation saved</div>
+          <div class="check-item"><input type="checkbox"> Meeting prep reviewed</div>
+          <div class="check-item"><input type="checkbox"> Key contacts saved to phone</div>
+          <div class="check-item"><input type="checkbox"> EA on standby during travel</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <button class="btn-danger" onclick="deleteTrip('${t.id}')">Delete trip</button>
+      </div>
+    </div>`:null;
+
+  // Re-render properly
+  document.getElementById('trip-detail').innerHTML = `
+    <button class="btn-outline btn-sm" onclick="document.getElementById('trip-detail').style.display='none';document.getElementById('trips-list').style.display='block'" style="margin-bottom:14px">← Back to trips</button>
+    <div style="background:#181408;border:1px solid #3a3000;border-radius:10px;padding:16px 20px;text-align:center;margin-bottom:14px">
+      <div style="font-size:18px;font-weight:500;color:#f0b429;margin-bottom:4px">${t.name}</div>
+      <div style="font-size:12px;color:#888">${t.traveller||'CEO'} · ${t.departure_date||''}${t.return_date?' → '+t.return_date:''} · Budget: $${Number(t.budget||0).toLocaleString()}</div>
+    </div>
+    ${t.objectives?`<div class="summary-box"><div class="greet">Trip objectives</div><p>${t.objectives}</p></div>`:''}
+    <div class="panel" style="margin-bottom:12px">
+      <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-route"></i> Itinerary</div>
+      <button class="btn-primary btn-sm" onclick="openLegModal('${t.id}')">+ Add leg</button></div>
+      <div id="legs-container">
+        ${legs&&legs.length?legs.map(l=>`
+          <div class="leg-row">
+            <div class="leg-time">${l.datetime||'TBD'}</div>
+            <div class="leg-ico"><i class="ti ti-${l.type==='flight'?'plane':l.type==='hotel'?'building':l.type==='car'?'car':l.type==='meeting'?'users':'tools'}"></i></div>
+            <div class="leg-body"><p>${l.details||''}</p><span>${l.location||''}</span>${l.confirmation?`<div><span class="conf-pill">Conf: ${l.confirmation}</span></div>`:''}</div>
+            <button class="btn-danger btn-sm" onclick="deleteLeg('${l.id}','${t.id}')" style="margin-left:auto;flex-shrink:0">×</button>
+          </div>`).join(''):'<div class="empty-state"><i class="ti ti-route"></i>No legs yet — add flights, hotels, meetings</div>'}
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-receipt"></i> Expenses</div><button class="btn-primary btn-sm" onclick="openExpenseModal('${t.id}')">+ Add</button></div>
+        <table class="exp-tbl"><tr><th>Item</th><th>Amount</th><th>Status</th></tr>
+        ${exp.map(e=>`<tr><td>${e.item}</td><td>$${Number(e.amount).toLocaleString()}</td><td>${e.status}</td></tr>`).join('')}
+        <tr><td><strong>Total vs $${Number(t.budget||0).toLocaleString()} budget</strong></td><td><strong>$${total.toLocaleString()}</strong></td><td style="color:${total<=Number(t.budget||0)?'#1D9E75':'#E24B4A'}">${total<=Number(t.budget||0)?'Under budget ✓':'Over budget !'}</td></tr>
+        </table>
+      </div>
+      <div class="panel">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-list-check"></i> Pre-departure checklist</div></div>
+        <div class="check-item"><input type="checkbox"> Passport / ID confirmed</div>
+        <div class="check-item"><input type="checkbox"> Boarding passes downloaded</div>
+        <div class="check-item"><input type="checkbox"> Hotel confirmation saved</div>
+        <div class="check-item"><input type="checkbox"> Meeting prep reviewed</div>
+        <div class="check-item"><input type="checkbox"> Key contacts saved to phone</div>
+        <div class="check-item"><input type="checkbox"> EA on standby during travel</div>
+      </div>
+    </div>
+    <button class="btn-danger" onclick="deleteTrip('${t.id}')" style="margin-top:12px">Delete trip</button>`;
+}
+
+function openTripModal(){document.getElementById('trip-modal').classList.add('active');}
+
+async function saveTrip() {
+  const name=document.getElementById('trip-name').value.trim();
+  if(!name){alert('Trip name required');return;}
+  await sb.from('trips').insert({name,departure_date:document.getElementById('trip-dep').value||null,return_date:document.getElementById('trip-ret').value||null,traveller:document.getElementById('trip-traveller').value,budget:document.getElementById('trip-budget').value||0,objectives:document.getElementById('trip-objectives').value,created_by:currentUser.id});
+  closeModal('trip-modal');
+  loadTrips();
+}
+
+async function deleteTrip(id){
+  if(!confirm('Delete this trip and all its data?'))return;
+  await sb.from('trip_legs').delete().eq('trip_id',id);
+  await sb.from('trip_expenses').delete().eq('trip_id',id);
+  await sb.from('trips').delete().eq('id',id);
+  document.getElementById('trip-detail').style.display='none';
+  document.getElementById('trips-list').style.display='block';
+  loadTrips();
+}
+
+// Leg modal
+let currentTripId=null;
+function openLegModal(tripId){
+  currentTripId=tripId;
+  const m=document.createElement('div');
+  m.className='modal-overlay active';
+  m.id='leg-modal-temp';
+  m.innerHTML=`<div class="modal">
+    <div class="modal-title">Add itinerary leg</div>
+    <label>Date & time</label><input type="text" id="leg-dt" placeholder="Mon Jun 30 · 7:00 AM" style="width:100%;background:#0a0a12;border:1px solid #252535;color:#f0f0f0;border-radius:8px;padding:9px 12px;font-size:13px;margin-bottom:12px">
+    <label>Type</label><select id="leg-type" style="width:100%;background:#0a0a12;border:1px solid #252535;color:#f0f0f0;border-radius:8px;padding:9px 12px;font-size:13px;margin-bottom:12px"><option value="flight">Flight</option><option value="hotel">Hotel</option><option value="meeting">Meeting</option><option value="car">Ground transport</option><option value="dinner">Dinner/Event</option></select>
+    <label>Details</label><input type="text" id="leg-details" placeholder="AA 204 — LAX to BOS · First class" style="width:100%;background:#0a0a12;border:1px solid #252535;color:#f0f0f0;border-radius:8px;padding:9px 12px;font-size:13px;margin-bottom:12px">
+    <label>Location</label><input type="text" id="leg-loc" placeholder="Terminal B · Boston Logan" style="width:100%;background:#0a0a12;border:1px solid #252535;color:#f0f0f0;border-radius:8px;padding:9px 12px;font-size:13px;margin-bottom:12px">
+    <label>Confirmation #</label><input type="text" id="leg-conf" placeholder="AA-88421" style="width:100%;background:#0a0a12;border:1px solid #252535;color:#f0f0f0;border-radius:8px;padding:9px 12px;font-size:13px;margin-bottom:12px">
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+      <button class="btn-outline" onclick="document.getElementById('leg-modal-temp').remove()">Cancel</button>
+      <button class="btn-primary" onclick="saveLeg()">Add leg</button>
+    </div>
+  </div>`;
+  document.body.appendChild(m);
+}
+
+async function saveLeg(){
+  const data={trip_id:currentTripId,datetime:document.getElementById('leg-dt').value,type:document.getElementById('leg-type').value,details:document.getElementById('leg-details').value,location:document.getElementById('leg-loc').value,confirmation:document.getElementById('leg-conf').value,position:Date.now()};
+  await sb.from('trip_legs').insert(data);
+  document.getElementById('leg-modal-temp')?.remove();
+  viewTrip(currentTripId);
+}
+
+async function deleteLeg(legId,tripId){await sb.from('trip_legs').delete().eq('id',legId);viewTrip(tripId);}
+
+// Expense modal
+function openExpenseModal(tripId){
+  currentTripId=tripId;
+  const m=document.createElement('div');m.className='modal-overlay active';m.id='exp-modal-temp';
+  m.innerHTML=`<div class="modal"><div class="modal-title">Add expense</div>
+    <label>Item</label><input type="text" id="exp-item" placeholder="Flights" style="width:100%;background:#0a0a12;border:1px solid #252535;color:#f0f0f0;border-radius:8px;padding:9px 12px;font-size:13px;margin-bottom:12px">
+    <label>Amount ($)</label><input type="number" id="exp-amount" placeholder="0" style="width:100%;background:#0a0a12;border:1px solid #252535;color:#f0f0f0;border-radius:8px;padding:9px 12px;font-size:13px;margin-bottom:12px">
+    <label>Status</label><select id="exp-status" style="width:100%;background:#0a0a12;border:1px solid #252535;color:#f0f0f0;border-radius:8px;padding:9px 12px;font-size:13px;margin-bottom:12px"><option>Booked</option><option>Pending</option><option>Estimated</option><option>Reimbursable</option></select>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+      <button class="btn-outline" onclick="document.getElementById('exp-modal-temp').remove()">Cancel</button>
+      <button class="btn-primary" onclick="saveExpense()">Add expense</button>
+    </div>
+  </div>`;
+  document.body.appendChild(m);
+}
+
+async function saveExpense(){
+  await sb.from('trip_expenses').insert({trip_id:currentTripId,item:document.getElementById('exp-item').value,amount:document.getElementById('exp-amount').value||0,status:document.getElementById('exp-status').value});
+  document.getElementById('exp-modal-temp')?.remove();
+  viewTrip(currentTripId);
+}
+
+// ============================================================
+// MEETINGS
+// ============================================================
+async function loadMeetings(){
+  const {data}=await sb.from('meetings').select('*').order('meeting_date');
+  const m=data||[];
+  document.getElementById('meetings-list').innerHTML=m.length?m.map(x=>`
+    <div class="panel" style="margin-bottom:10px">
+      <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-calendar"></i> ${x.title}</div><button class="btn-danger btn-sm" onclick="deleteMeeting('${x.id}')">Delete</button></div>
+      <div style="font-size:12px;color:#888;margin-bottom:8px">${x.meeting_date||''} · ${x.time||''} · ${x.location||''}</div>
+      ${x.participants?`<div style="font-size:12px;color:#ccc;margin-bottom:4px"><strong>Participants:</strong> ${x.participants}</div>`:''}
+      ${x.objectives?`<div style="font-size:12px;color:#ccc"><strong>Objectives:</strong> ${x.objectives}</div>`:''}
+    </div>`).join(''):'<div class="empty-state"><i class="ti ti-calendar-off"></i>No meetings yet</div>';
+}
+
+function openMeetingModal(){document.getElementById('meeting-modal').classList.add('active');}
+
+async function saveMeeting(){
+  const title=document.getElementById('meet-title').value.trim();
+  if(!title){alert('Title required');return;}
+  await sb.from('meetings').insert({title,meeting_date:document.getElementById('meet-date').value||null,time:document.getElementById('meet-time').value,location:document.getElementById('meet-location').value,participants:document.getElementById('meet-participants').value,objectives:document.getElementById('meet-objectives').value,created_by:currentUser.id});
+  closeModal('meeting-modal');loadMeetings();loadDashboard();
+}
+
+async function deleteMeeting(id){if(!confirm('Delete meeting?'))return;await sb.from('meetings').delete().eq('id',id);loadMeetings();}
+
+// ============================================================
+// CHAT
+// ============================================================
+async function loadChat(){
+  const {data}=await sb.from('messages').select('*').order('created_at',{ascending:true}).limit(50);
+  const col=document.getElementById('chat-messages');
+  col.innerHTML='';
+  (data||[]).forEach(m=>appendChatMessage(m,false));
+  col.scrollTop=col.scrollHeight;
+}
+
+function appendChatMessage(m, scroll=true){
+  const col=document.getElementById('chat-messages');
+  const isMe=m.user_id===currentUser?.id;
+  const div=document.createElement('div');
+  div.innerHTML=`<div class="chat-bubble ${isMe?'bubble-ceo':'bubble-ea'}">${m.content}</div><div class="bubble-meta" style="${isMe?'text-align:right':''}">${m.sender_name||'User'} · ${new Date(m.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div>`;
+  col.appendChild(div);
+  if(scroll)col.scrollTop=col.scrollHeight;
+}
+
+async function sendMessage(){
+  const inp=document.getElementById('chat-input');
+  const content=inp.value.trim();
+  if(!content)return;
+  inp.value='';
+  const name=currentProfile?.full_name||'User';
+  await sb.from('messages').insert({content,user_id:currentUser.id,sender_name:name,sender_role:currentProfile?.role||'EA'});
+}
+
+// ============================================================
+// NOTIFICATIONS
+// ============================================================
+async function createNotification(message){
+  await sb.from('notifications').insert({message,user_id:null,is_read:false,created_by:currentUser.id});
+  updateNotifBadge();
+}
+
+async function updateNotifBadge(){
+  const {count}=await sb.from('notifications').select('*',{count:'exact',head:true}).eq('is_read',false);
+  const c=count||0;
+  document.getElementById('notif-count').textContent=c;
+  document.getElementById('notif-count').style.display=c>0?'inline':'none';
+  document.getElementById('notif-dot').style.display=c>0?'block':'none';
+  if(document.getElementById('appr-count')) {
+    const {count:ac}=await sb.from('approvals').select('*',{count:'exact',head:true}).eq('status','pending');
+    if(ac>0){document.getElementById('appr-count').textContent=ac;document.getElementById('appr-count').style.display='inline';}
+  }
+}
+
+async function loadNotifications(){
+  const {data}=await sb.from('notifications').select('*').order('created_at',{ascending:false}).limit(20);
+  const n=data||[];
+  document.getElementById('notifications-list').innerHTML=n.length?n.map(x=>`
+    <div style="padding:12px;background:${x.is_read?'#0a0a12':'#13131f'};border-radius:8px;margin-bottom:8px;border-left:3px solid ${x.is_read?'#1e1e2e':'#534AB7'}">
+      <div style="font-size:13px;color:#ddd;margin-bottom:3px">${x.message}</div>
+      <div style="font-size:11px;color:#555">${new Date(x.created_at).toLocaleString()}</div>
+    </div>`).join(''):'<div class="empty-state"><i class="ti ti-bell-off"></i>No notifications</div>';
+  // Mark all read
+  await sb.from('notifications').update({is_read:true}).eq('is_read',false);
+  updateNotifBadge();
+}
+
+async function markAllRead(){await sb.from('notifications').update({is_read:true}).eq('is_read',false);loadNotifications();}
+
+// ============================================================
+// BRIEFING
+// ============================================================
+async function loadBriefing(){
+  const [{data:tasks},{data:approvals},{data:trips}]=await Promise.all([
+    sb.from('tasks').select('*').neq('status','completed'),
+    sb.from('approvals').select('*').eq('status','pending'),
+    sb.from('trips').select('*').order('departure_date').limit(1)
+  ]);
+  const t=tasks||[]; const a=approvals||[];
+  const overdue=t.filter(x=>x.due_date&&new Date(x.due_date)<new Date());
+  const high=t.filter(x=>x.priority==='high');
+  document.getElementById('brief-body').textContent=`Today requires attention in ${Math.min(4,a.length+overdue.length+high.length)} areas: ${a.length} approval request${a.length!==1?'s':''} awaiting decision, ${overdue.length} overdue task${overdue.length!==1?'s':''} needing action, and ${high.length} high-priority item${high.length!==1?'s':''} open.${trips&&trips.data&&trips.data[0]?' Next trip: '+trips.data[0].name+' on '+trips.data[0].departure_date+'.':''}`;
+  document.getElementById('brief-actions').innerHTML=[
+    a.length?`<div class="check-item"><input type="checkbox"> ${a.length} approval request${a.length!==1?'s':''} awaiting decision</div>`:'',
+    overdue.length?`<div class="check-item"><input type="checkbox"> ${overdue.length} overdue task${overdue.length!==1?'s':''} needing action</div>`:'',
+    high.length?`<div class="check-item"><input type="checkbox"> ${high.length} high-priority task${high.length!==1?'s':''} open</div>`:'',
+    '<div class="check-item"><input type="checkbox"> Review relationship follow-ups</div>'
+  ].join('')||'<div class="empty-state">All clear today</div>';
+  document.getElementById('brief-priorities').innerHTML=[
+    a.length?`<div class="check-item"><input type="checkbox"> Approve pending requests (${a.length})</div>`:'',
+    high.length?`<div class="check-item"><input type="checkbox"> Action high-priority tasks</div>`:'',
+    '<div class="check-item"><input type="checkbox"> Review PE Dashboard — LOI status</div>',
+    '<div class="check-item"><input type="checkbox"> Check relationship follow-ups</div>'
+  ].join('');
+}
+
+// ============================================================
+// INTELLIGENCE
+// ============================================================
+async function loadIntel(){
+  const [{data:tasks},{data:approvals},{data:trips}]=await Promise.all([
+    sb.from('tasks').select('*').neq('status','completed'),
+    sb.from('approvals').select('*').eq('status','pending'),
+    sb.from('trips').select('*')
+  ]);
+  const t=tasks||[]; const a=approvals||[];
+  const overdue=t.filter(x=>x.due_date&&new Date(x.due_date)<new Date());
+  const high=t.filter(x=>x.priority==='high');
+  document.getElementById('intel-overdue').textContent=overdue.length;
+  document.getElementById('intel-approvals').textContent=a.length;
+  document.getElementById('intel-open').textContent=t.length;
+  document.getElementById('intel-trips').textContent=(trips?.data||[]).length;
+  document.getElementById('intel-overdue-list').innerHTML=overdue.length?overdue.map(x=>`<div class="intel-item bad"><i class="ti ti-alert-circle"></i>${x.name} — Due: ${x.due_date}</div>`).join(''):'<div class="intel-item ok"><i class="ti ti-check"></i>No overdue tasks</div>';
+  document.getElementById('intel-approval-list').innerHTML=a.length?a.map(x=>`<div class="intel-item bad"><i class="ti ti-alert-circle"></i>${x.title} — $${Number(x.amount||0).toLocaleString()}</div>`).join(''):'<div class="intel-item ok"><i class="ti ti-check"></i>No pending approvals</div>';
+  document.getElementById('intel-high-list').innerHTML=high.length?high.map(x=>`<div class="intel-item bad"><i class="ti ti-alert-circle"></i>${x.name}</div>`).join(''):'<div class="intel-item ok"><i class="ti ti-check"></i>No high-priority open tasks</div>';
+}
+
+// ============================================================
+// NOTES
+// ============================================================
+async function loadNotes(){
+  const {data}=await sb.from('notes').select('*').order('created_at',{ascending:false});
+  const n=data||[];
+  document.getElementById('notes-list').innerHTML=n.length?n.map(x=>`
+    <div class="note-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <div class="note-title">${x.title}</div>
+        <div style="display:flex;gap:6px"><span class="tag tag-p">${x.tag||'general'}</span><button class="btn-danger btn-sm" onclick="deleteNote('${x.id}')">×</button></div>
+      </div>
+      <div class="note-body">${x.content}</div>
+      <div style="font-size:10px;color:#444">${new Date(x.created_at).toLocaleDateString()}</div>
+    </div>`).join(''):'<div class="empty-state"><i class="ti ti-notes"></i>No notes yet</div>';
+}
+
+function openNoteModal(){document.getElementById('note-modal').classList.add('active');}
+
+async function saveNote(){
+  const title=document.getElementById('note-title').value.trim();
+  if(!title){alert('Title required');return;}
+  await sb.from('notes').insert({title,content:document.getElementById('note-content').value,tag:document.getElementById('note-tag').value,created_by:currentUser.id});
+  closeModal('note-modal');loadNotes();
+}
+
+async function deleteNote(id){if(!confirm('Delete note?'))return;await sb.from('notes').delete().eq('id',id);loadNotes();}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function closeModal(id){document.getElementById(id).classList.remove('active');}
+document.querySelectorAll('.modal-overlay').forEach(m=>{m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('active');});});
+
+// ============================================================
+// INIT — Check session on load
+// ============================================================
+window.addEventListener('DOMContentLoaded',async()=>{
+  const {data:{session}}=await sb.auth.getSession();
+  if(session){await initApp(session.user);}
+  else{document.getElementById('auth-screen').classList.add('active');}
+  sb.auth.onAuthStateChange(async(event,session)=>{
+    if(event==='SIGNED_IN'&&session){await initApp(session.user);}
+    else if(event==='SIGNED_OUT'){document.getElementById('auth-screen').classList.add('active');}
+  });
+});
+</script>
+</body>
+</html>
