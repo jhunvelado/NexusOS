@@ -219,6 +219,22 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 .sw-title{font-size:13px;font-weight:600;color:#f0b429;margin-bottom:5px;display:flex;align-items:center;gap:6px}
 .sw-msg{font-size:12px;color:#888;margin-bottom:12px;line-height:1.55}
 .sw-btns{display:flex;gap:8px}
+#dev-panel{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:99999;background:#0d0d1a;border:1px solid #534AB7;border-radius:14px;padding:24px 28px;min-width:300px;box-shadow:0 20px 60px rgba(0,0,0,0.8);display:none}
+#dev-panel.show{display:block}
+#dev-panel-overlay{position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,0.6);display:none}
+#dev-panel-overlay.show{display:block}
+.dev-title{font-size:13px;font-weight:700;color:#534AB7;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.dev-sub{font-size:11px;color:#444;margin-bottom:18px}
+.dev-plan-btns{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.dev-plan-btn{padding:11px 16px;border-radius:8px;border:1px solid #1e1e2e;background:#0a0a12;color:#888;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all 0.15s}
+.dev-plan-btn:hover{border-color:#534AB7;color:#fff}
+.dev-plan-btn.active{border-color:#534AB7;background:#13131f;color:#fff}
+.dev-plan-btn .dev-pill{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:700}
+.dev-reset{width:100%;padding:9px;border-radius:7px;border:1px solid #1e1e2e;background:transparent;color:#555;font-size:12px;cursor:pointer;transition:all 0.15s}
+.dev-reset:hover{border-color:#f0b429;color:#f0b429}
+.dev-hint{font-size:11px;color:#2a2a3e;text-align:center;margin-top:12px}
+.dev-badge{position:fixed;bottom:60px;right:20px;z-index:9997;background:#0d0d1a;border:1px solid #534AB7;border-radius:6px;padding:4px 10px;font-size:10px;color:#534AB7;font-weight:700;letter-spacing:0.06em;display:none;cursor:pointer}
+.dev-badge.show{display:block}
 @media(max-width:768px){
   body{overflow:hidden}
   .sidebar{display:none!important}
@@ -995,7 +1011,7 @@ const PLAN_FEATURES={
   enterprise:new Set(['dashboard','briefing','tasks','approvals','chat','notes','pricing','settings','notifications','travel','pe','relationships','meeting','intel','commitments','calendar','inbox','members','branding'])
 };
 const PLAN_LABELS={travel:'Professional',pe:'Professional',relationships:'Professional',meeting:'Professional',intel:'Professional',commitments:'Professional',calendar:'Enterprise',inbox:'Enterprise',members:'Enterprise',branding:'Enterprise'};
-function getEffectivePlan(){if(!currentSubscription)return'starter';const{plan,status,trial_ends_at,current_period_end}=currentSubscription;if(status==='trialing')return(trial_ends_at&&new Date(trial_ends_at)<new Date())?'starter':(plan||'professional');if(status==='active'){if(current_period_end&&new Date(current_period_end)<new Date())return'starter';return plan||'starter';}return'starter';}
+function _origGetEffectivePlan_unused(){if(!currentSubscription)return'starter';const{plan,status,trial_ends_at,current_period_end}=currentSubscription;if(status==='trialing')return(trial_ends_at&&new Date(trial_ends_at)<new Date())?'starter':(plan||'professional');if(status==='active'){if(current_period_end&&new Date(current_period_end)<new Date())return'starter';return plan||'starter';}return'starter';}
 function hasFeature(f){return PLAN_FEATURES[getEffectivePlan()]?.has(f)||false;}
 function applyPlanGating(){const gated=['travel','pe','relationships','meeting','intel','commitments','calendar','inbox','members'];gated.forEach(f=>{const el=document.getElementById('n-'+f);if(!el)return;if(hasFeature(f)){el.classList.remove('locked');el.querySelector('.nav-lock')?.remove();}else{if(!el.classList.contains('locked')){el.classList.add('locked');const lock=document.createElement('i');lock.className='ti ti-lock nav-lock';el.appendChild(lock);}}});document.getElementById('brand-panel').style.display=hasFeature('branding')?'block':'none';document.getElementById('ws-switcher-wrap').style.display=hasFeature('members')?'block':'none';const sub=currentSubscription;if(sub&&sub.status==='trialing'&&sub.trial_ends_at){const days=Math.ceil((new Date(sub.trial_ends_at)-new Date())/864e5);if(days>0){document.getElementById('trial-days').textContent=days;document.getElementById('trial-banner').style.display='flex';}else{document.getElementById('trial-banner').style.display='none';document.getElementById('renewal-banner').style.display='flex';}}else if(getEffectivePlan()==='starter'&&sub&&sub.status!=='active'){document.getElementById('renewal-banner').style.display='flex';}updatePricingScreen();renderDashboardPlanCard();
   document.querySelectorAll('.mob-drawer-panel .nav-item').forEach(function(el){var oc=el.getAttribute('onclick')||'';var m=oc.match(/nav\('([^']+)'/);if(!m)return;var feat=FEATURE_MAP[m[1]];if(!feat)return;var isLocked=!hasFeature(feat);var existLock=el.querySelector('.nav-lock');if(isLocked&&!existLock){var lk=document.createElement('i');lk.className='ti ti-lock nav-lock';el.style.opacity='0.5';el.appendChild(lk);}else if(!isLocked&&existLock){existLock.remove();el.style.opacity='';}});
@@ -1037,11 +1053,75 @@ async function loadSubscription(){if(!currentWorkspaceId)return;const{data}=awai
 function updatePricingScreen(){const plan=getEffectivePlan();const sub=currentSubscription;const names={starter:'Starter — $49/month',professional:'Professional — $149/month',enterprise:'Enterprise — $399/month'};const pe=document.getElementById('current-plan-name');const se=document.getElementById('current-plan-sub');const be=document.getElementById('plan-status-badge');if(pe)pe.textContent=names[plan]||'Free Trial';if(sub){const s=sub.status;if(se)se.textContent=s==='trialing'?'14-day Professional trial':(sub.current_period_end?'Renews '+new Date(sub.current_period_end).toLocaleDateString():'');if(be){be.textContent=s==='trialing'?'Trial':s;be.style.color=s==='active'||s==='trialing'?'#1D9E75':'#E24B4A';}if(document.getElementById('info-plan'))document.getElementById('info-plan').textContent=plan.charAt(0).toUpperCase()+plan.slice(1)+(s==='trialing'?' (trial)':'');}}
 
 
+// ── DEV PLAN OVERRIDE ───────────────────────────────────────
+let _devPlanOverride = null;
+function _origGetEffectivePlan_unused(){
+  if(_devPlanOverride) return _devPlanOverride;
+  return currentSubscription?.plan || 'starter';
+}
+function openDevPanel(){
+  const panel=document.getElementById('dev-panel');
+  const overlay=document.getElementById('dev-panel-overlay');
+  if(!panel)return;
+  // Update active state
+  ['starter','professional','enterprise'].forEach(p=>{
+    const btn=document.getElementById('dev-btn-'+p);
+    if(btn) btn.classList.toggle('active', getEffectivePlan()===p);
+  });
+  panel.classList.add('show');
+  overlay.classList.add('show');
+}
+function closeDevPanel(){
+  document.getElementById('dev-panel')?.classList.remove('show');
+  document.getElementById('dev-panel-overlay')?.classList.remove('show');
+}
+function setDevPlan(plan){
+  _devPlanOverride = plan;
+  // Update badge
+  const badge=document.getElementById('dev-badge');
+  if(badge){badge.textContent='DEV: '+plan.toUpperCase();badge.classList.add('show');}
+  // Update active button
+  ['starter','professional','enterprise'].forEach(p=>{
+    document.getElementById('dev-btn-'+p)?.classList.toggle('active',p===plan);
+  });
+  // Reapply gating with override
+  applyPlanGating();
+  closeDevPanel();
+  // Show toast
+  showToast('Plan override: '+plan+' (local only)','#534AB7');
+}
+function resetDevPlan(){
+  _devPlanOverride = null;
+  document.getElementById('dev-badge')?.classList.remove('show');
+  applyPlanGating();
+  closeDevPanel();
+  showToast('Reset to real plan: '+(currentSubscription?.plan||'starter'),'#22c55e');
+}
+function showToast(msg,color){
+  let t=document.getElementById('_dev_toast');
+  if(!t){t=document.createElement('div');t.id='_dev_toast';t.style.cssText='position:fixed;top:70px;right:20px;z-index:99999;padding:9px 16px;border-radius:8px;font-size:12px;font-weight:600;color:#fff;opacity:0;transition:opacity 0.2s;pointer-events:none';document.body.appendChild(t);}
+  t.textContent=msg;t.style.background=color||'#534AB7';t.style.opacity='1';
+  clearTimeout(t._tid);t._tid=setTimeout(()=>{t.style.opacity='0';},2500);
+}
+// Keyboard shortcut: Shift+Ctrl+P
+document.addEventListener('keydown',function(e){
+  if(e.shiftKey&&e.ctrlKey&&e.key==='P'){
+    e.preventDefault();
+    const panel=document.getElementById('dev-panel');
+    if(panel?.classList.contains('show'))closeDevPanel();
+    else openDevPanel();
+  }
+  if(e.key==='Escape') closeDevPanel();
+});
+
+// ── AUDIT LOGGING ────────────────────────────────────────────
 async function auditLog(action,resourceType,resourceId,details){
   if(!currentUser||!currentWorkspaceId)return;
   try{await sb.from('audit_logs').insert({workspace_id:currentWorkspaceId,user_id:currentUser.id,user_email:currentUser.email||'',action,resource_type:resourceType||null,resource_id:resourceId?String(resourceId):null,details:details||null,created_at:new Date().toISOString()});}
   catch(e){console.warn('[Audit]',e.message);}
 }
+
+// ── SESSION TIMEOUT ───────────────────────────────────────────
 const SESSION_TIMEOUT=15*60*1000,SESSION_WARN_AT=SESSION_TIMEOUT-60*1000;
 let _sessTimer=null,_warnTimer=null,_cdTimer=null;
 function resetActivity(){
@@ -1059,6 +1139,8 @@ function showSessionWarn(){
 }
 function extendSession(){resetActivity();auditLog('session_extended','user',currentUser?.id,null);}
 function initSessionTimeout(){['mousedown','mousemove','keydown','scroll','touchstart','click'].forEach(e=>{document.addEventListener(e,resetActivity,{passive:true});});resetActivity();}
+
+// ── PLAN GATE DASHBOARD CARD ──────────────────────────────────
 function renderDashboardPlanCard(){
   const cardEl=document.getElementById('dash-plan-card');if(!cardEl)return;
   const plan=getEffectivePlan();
@@ -1075,7 +1157,8 @@ function renderDashboardPlanCard(){
   const wrapper=document.createElement('div');
   const hdr=document.createElement('div');hdr.style.cssText='display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px';
   hdr.innerHTML='<div style="display:flex;align-items:center;gap:7px;font-size:12px;color:#bbb;font-weight:500"><i class="ti ti-lock" style="color:'+planColor+';font-size:14px"></i> '+planNames[plan]+' plan — '+locked.length+' feature'+(locked.length!==1?'s':'')+' locked</div>';
-  const upBtn=document.createElement('button');upBtn.textContent='Unlock '+planNames[nextPlan]+' — '+(plan==='starter'?'$149/mo':'$399/mo');
+  const upBtn=document.createElement('button');
+  upBtn.textContent='Unlock '+planNames[nextPlan]+' — '+(plan==='starter'?'$149/mo':'$399/mo');
   upBtn.style.cssText='background:'+nextColor+';border:none;color:'+nextTextColor+';padding:5px 14px;border-radius:6px;font-size:11px;cursor:pointer;font-weight:600;white-space:nowrap';
   upBtn.onclick=function(){payWithPayMongo(nextPlan);};hdr.appendChild(upBtn);wrapper.appendChild(hdr);
   const grid=document.createElement('div');grid.style.cssText='display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:6px';
@@ -1296,5 +1379,37 @@ window.addEventListener('DOMContentLoaded',async()=>{
   window.addEventListener('resize',()=>{if(window.innerWidth<=768&&currentUser)document.getElementById('mobile-nav').style.display='flex';else document.getElementById('mobile-nav').style.display='none';});
 });
 </script>
-<div id="session-warn"><div class="sw-title"><i class="ti ti-clock"></i> Session expiring</div><div class="sw-msg">You'll be signed out in <strong id="session-cd">60</strong>s due to inactivity.</div><div class="sw-btns"><button class="btn-primary btn-sm" onclick="extendSession()">Stay signed in</button><button class="btn-outline btn-sm" onclick="doLogout()">Sign out now</button></div></div></body>
+<!-- DEV PLAN OVERRIDE PANEL (Shift+Ctrl+P) -->
+<div id="dev-panel-overlay" onclick="closeDevPanel()"></div>
+<div id="dev-panel">
+  <div class="dev-title"><i class="ti ti-code"></i> Dev: Plan Override</div>
+  <div class="dev-sub">Local override only — does not change Supabase. Press Esc to close.</div>
+  <div class="dev-plan-btns">
+    <button class="dev-plan-btn" id="dev-btn-starter" onclick="setDevPlan('starter')">
+      <span>Starter</span>
+      <span class="dev-pill" style="background:#1a1a2e;color:#888">$49/mo</span>
+    </button>
+    <button class="dev-plan-btn" id="dev-btn-professional" onclick="setDevPlan('professional')">
+      <span>Professional</span>
+      <span class="dev-pill" style="background:#1a1730;color:#534AB7">$149/mo</span>
+    </button>
+    <button class="dev-plan-btn" id="dev-btn-enterprise" onclick="setDevPlan('enterprise')">
+      <span>Enterprise</span>
+      <span class="dev-pill" style="background:#1a1400;color:#f0b429">$399/mo</span>
+    </button>
+  </div>
+  <button class="dev-reset" onclick="resetDevPlan()">↩ Reset to real plan from Supabase</button>
+  <div class="dev-hint">Shift+Ctrl+P to toggle this panel</div>
+</div>
+<div id="dev-badge" class="dev-badge" onclick="openDevPanel()" title="Click to change plan override">DEV</div>
+<!-- SESSION TIMEOUT WARNING -->
+<div id="session-warn">
+  <div class="sw-title"><i class="ti ti-clock"></i> Session expiring</div>
+  <div class="sw-msg">You'll be signed out in <strong id="session-cd">60</strong>s due to inactivity.</div>
+  <div class="sw-btns">
+    <button class="btn-primary btn-sm" onclick="extendSession()">Stay signed in</button>
+    <button class="btn-outline btn-sm" onclick="doLogout()">Sign out now</button>
+  </div>
+</div>
+</body>
 </html>
