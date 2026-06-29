@@ -958,13 +958,6 @@ const SUPABASE_KEY = 'sb_publishable_s1-WhNevY4SxYNhp9RZjag_MCBUNFyd';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const GOOGLE_CLIENT_ID = '626206970912-ie8vji85vjecqbb0i0uva1271u8tgi1a.apps.googleusercontent.com';
 const MICROSOFT_CLIENT_ID = 'YOUR_MICROSOFT_CLIENT_ID';
-const PAYMONGO_PUBLIC_KEY = 'pk_live_kgebNbVzapdTFjxEGX9mRFGr';
-// PayMongo secret key removed — lives only in Supabase Edge Function
-const PLAN_PRICES = {
-  starter:      { amount: 4900,  label: 'Starter',      php: '₱49'  },
-  professional: { amount: 14900, label: 'Professional',  php: '₱149' },
-  enterprise:   { amount: 39900, label: 'Enterprise',    php: '₱399' }
-};
 const APP_URL = 'https://jhunvelado.github.io/NexusOS/nexusos-app.html';
 
 // GLOBAL STATE
@@ -1133,41 +1126,27 @@ async function advanceStage(id,nextStage){await sb.from('commitments').update({s
 async function closeCommitment(id){if(!confirm('Mark as closed?'))return;await sb.from('commitments').update({stage:'closed',closed_at:new Date().toISOString()}).eq('id',id);loadCommitments();}
 async function deleteCommitment(id){if(!confirm('Delete commitment?'))return;await sb.from('commitments').delete().eq('id',id);loadCommitments();}
 
-// PHASE 3: PAYMONGO — calls Edge Function; secret key never in frontend
-async function payWithPayMongo(plan){
-  if(!currentUser){alert('Please log in first.');return;}
-  if(!currentWorkspaceId){alert('Workspace not loaded — please refresh.');return;}
-  const price=PLAN_PRICES[plan];
-  if(!price){alert('Unknown plan: '+plan);return;}
-  const btn=event?.currentTarget||document.querySelector('[data-plan="'+plan+'"]');
-  const orig=btn?.textContent;
-  if(btn){btn.textContent='Redirecting…';btn.disabled=true;}
+// PHASE 3: PAYMONGO — direct payment links
+const PAYMONGO_PUBLIC_KEY = 'pk_live_msugF7xNXaKtrmpGiny5k1Sx';
+const PAYMONGO_LINKS = {
+  starter:      'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/Obx7Nwm',
+  professional: 'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/RhLYfWY',
+  enterprise:   'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/Q8gM3IF',
+};
+
+function payWithPayMongo(plan) {
+  const links = {
+    starter:      'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/Obx7Nwm',
+    professional: 'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/RhLYfWY',
+    enterprise:   'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/Q8gM3IF',
+  };
+  if (!links[plan]) { alert('Unknown plan'); return; }
+  localStorage.setItem('nexus_pending_plan', plan);
+  localStorage.setItem('nexus_pending_ws',   currentWorkspaceId || '');
   document.getElementById('upgrade-modal')?.classList.remove('active');
-  try{
-    const{data:{session}}=await sb.auth.getSession();
-    if(!session?.access_token)throw new Error('Session expired — please log in again.');
-    const resp=await fetch('https://jqhijnkoxwyqgpmjrakx.supabase.co/functions/v1/paymongo-checkout',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+session.access_token},
-      body:JSON.stringify({plan,workspace_id:currentWorkspaceId,company_name:currentProfile?.company_name||''})
-    });
-    const data=await resp.json().catch(()=>({}));
-    if(!resp.ok)throw new Error(data?.error||'Server error '+resp.status);
-    const checkoutUrl=data?.checkout_url;
-    if(!checkoutUrl)throw new Error('No checkout URL returned.');
-    localStorage.setItem('nexus_pending_plan',plan);
-    localStorage.setItem('nexus_pending_ws',currentWorkspaceId);
-    window.location.href=checkoutUrl;
-  }catch(e){
-    console.error('PayMongo error:',e);
-    let msg=e.message;
-    if(msg.includes('Failed to fetch')||msg.includes('NetworkError')||msg.includes('Load failed')){
-      msg='Network error — check your connection and try again.';
-    }
-    alert('Payment error:\n\n'+msg);
-    if(btn){btn.textContent=orig;btn.disabled=false;}
-  }
+  window.location.href = links[plan];
 }
+
 function checkPaymentStatus(){
   const p=new URLSearchParams(window.location.search);
   const payment=p.get('payment');
