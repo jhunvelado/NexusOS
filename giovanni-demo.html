@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NexusOS — Personal Demo for Giovanni Amato</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#09090f;color:#e4e4f0;overflow-x:hidden}
+
+/* ── LANDING ── */
+#landing{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center}
+.demo-pill{display:inline-block;background:#0f0d1e;border:1px solid #534AB7;border-radius:20px;padding:6px 18px;font-size:12px;color:#a89eff;margin-bottom:28px}
+#landing h1{font-size:clamp(30px,5vw,52px);font-weight:900;line-height:1.18;color:#fff;margin-bottom:16px}
+#landing h1 span{background:linear-gradient(90deg,#534AB7,#a89eff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+#landing p{font-size:15px;color:#555;line-height:1.8;max-width:500px;margin:0 auto 36px}
+.note-card{background:#0d0d1a;border:1px solid #1e1e2e;border-left:4px solid #534AB7;border-radius:12px;padding:22px 26px;max-width:520px;text-align:left;margin:0 auto 36px}
+.note-from{font-size:10px;color:#333;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px}
+.note-text{font-size:13px;color:#666;line-height:1.85}
+.note-sig{margin-top:14px;font-size:13px;color:#534AB7;font-weight:600}
+.launch-btn{background:linear-gradient(90deg,#534AB7,#7c6fff);color:#fff;border:none;border-radius:12px;padding:16px 36px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;margin-bottom:12px}
+.launch-btn:hover{opacity:0.87}
+.demo-hint{font-size:11px;color:#2a2a3e;margin-top:8px}
+
+/* ── DEMO APP SHELL ── */
+#app{display:none;position:fixed;inset:0;background:#09090f;z-index:50;flex-direction:column}
+#app.open{display:flex}
+
+/* Demo banner */
+#demo-bar{background:#0f0d1e;border-bottom:1px solid #534AB7;padding:7px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+#demo-bar span{font-size:11px;color:#534AB7;font-weight:600}
+#demo-bar button{background:none;border:1px solid #1e1e2e;border-radius:6px;padding:4px 12px;color:#444;font-size:11px;cursor:pointer;font-family:inherit;transition:color 0.12s}
+#demo-bar button:hover{color:#f87171;border-color:#3a1414}
+
+/* Layout */
+.app-layout{display:flex;flex:1;overflow:hidden}
+
+/* Sidebar */
+.sidebar{width:210px;min-width:210px;background:#070710;border-right:1px solid #1e1e2e;display:flex;flex-direction:column;overflow-y:auto}
+.sb-logo{padding:18px 16px 14px;font-size:17px;font-weight:900;background:linear-gradient(90deg,#534AB7,#a89eff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #1e1e2e}
+.sb-section{padding:12px 10px 4px;font-size:9px;color:#2a2a3e;text-transform:uppercase;letter-spacing:0.1em}
+.sb-item{display:flex;align-items:center;gap:9px;padding:9px 12px;margin:1px 6px;border-radius:7px;cursor:pointer;color:#444;font-size:13px;transition:all 0.12s}
+.sb-item:hover{background:#0d0d1a;color:#a89eff}
+.sb-item.active{background:#0f0d1e;color:#a89eff;font-weight:600}
+.sb-item .sb-icon{font-size:14px;width:18px;text-align:center}
+.sb-footer{margin-top:auto;padding:12px 14px;border-top:1px solid #0e0e1a;font-size:10px;color:#2a2a3e}
+.sb-footer .sb-user{color:#333;font-size:12px;font-weight:600;margin-bottom:2px}
+
+/* Main content */
+.main{flex:1;overflow-y:auto;padding:24px 28px;background:#09090f}
+.screen{display:none}
+.screen.active{display:block}
+
+/* Shared content styles */
+.pg-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:4px}
+.pg-sub{font-size:13px;color:#444;margin-bottom:24px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:22px}
+.stat-card{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:10px;padding:16px}
+.stat-label{font-size:11px;color:#333;margin-bottom:6px}
+.stat-val{font-size:26px;font-weight:800;color:#fff}
+.stat-delta{font-size:11px;margin-top:4px}
+.dg{color:#22c55e}.dr{color:#f87171}.dy{color:#f0b429}.dp{color:#a89eff}
+.card{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:10px;padding:18px;margin-bottom:14px}
+.card-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.row-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #0a0a12}
+.row-item:last-child{border-bottom:none}
+.row-main{font-size:13px;color:#c4c4d4}
+.row-sub{font-size:11px;color:#444;margin-top:2px}
+.badge{font-size:10px;padding:3px 9px;border-radius:5px;font-weight:600;white-space:nowrap}
+.bg{background:#0a160e;color:#22c55e;border:1px solid #14532d}
+.bp{background:#0f0d1e;color:#a89eff;border:1px solid #2a1e6e}
+.by{background:#1a1400;color:#f0b429;border:1px solid #3a2e00}
+.br{background:#160a0a;color:#f87171;border:1px solid #3a1414}
+.btn-sm{background:#534AB7;border:none;border-radius:7px;padding:7px 14px;color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity 0.12s}
+.btn-sm:hover{opacity:0.82}
+.btn-ghost{background:none;border:1px solid #1e1e2e;border-radius:7px;padding:7px 14px;color:#666;font-size:12px;cursor:pointer;font-family:inherit}
+.tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.tag{font-size:10px;padding:3px 8px;border-radius:4px;background:#13131f;border:1px solid #1e1e2e;color:#444}
+.input-fake{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:7px;padding:10px 14px;font-size:13px;color:#333;width:100%;margin-bottom:10px}
+.section-hdr{font-size:15px;font-weight:700;color:#fff;margin-bottom:12px;margin-top:20px;display:flex;align-items:center;gap:8px}
+.pe-kpi{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:10px;padding:14px;text-align:center}
+.pe-kpi .k-val{font-size:22px;font-weight:800;color:#fff;margin-bottom:2px}
+.pe-kpi .k-lbl{font-size:10px;color:#333}
+.pe-kpi .k-delta{font-size:11px;margin-top:4px}
+.progress-bar{height:5px;background:#1e1e2e;border-radius:3px;margin-top:6px;overflow:hidden}
+.progress-fill{height:100%;background:#534AB7;border-radius:3px}
+.intel-card{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:10px;padding:16px;margin-bottom:12px}
+.intel-src{font-size:10px;color:#333;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px}
+.intel-title{font-size:13px;font-weight:600;color:#e4e4f0;margin-bottom:6px}
+.intel-body{font-size:12px;color:#555;line-height:1.7}
+.travel-seg{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:10px;padding:16px;margin-bottom:10px;display:flex;gap:16px;align-items:flex-start}
+.travel-icon{font-size:22px;min-width:32px;text-align:center;margin-top:2px}
+.travel-info{flex:1}
+.travel-info .t-title{font-size:13px;font-weight:600;color:#e4e4f0;margin-bottom:3px}
+.travel-info .t-detail{font-size:12px;color:#444;line-height:1.6}
+@media(max-width:640px){
+  .sidebar{display:none}
+  .grid-3{grid-template-columns:repeat(2,1fr)}
+  .grid-2{grid-template-columns:1fr}
+  .main{padding:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── LANDING ─────────────────────────────────────────────── -->
+<div id="landing">
+  <div class="demo-pill">&#127942; Personal demo &mdash; Giovanni Amato</div>
+  <h1>Meet <span>NexusOS</span> &mdash;<br>your executive OS</h1>
+  <p>A fully interactive demo. Click every section, explore every screen. This is a sandbox &mdash; nothing is saved, no account needed.</p>
+
+  <div class="note-card">
+    <div class="note-from">&#128140; From Jhun Rey Velado</div>
+    <div class="note-text">Giovanni &mdash; your feedback shaped this product. I wanted you to see everything before anyone else. Click every nav item inside. The PE Dashboard and Commitment Tracker are the two features that exist nowhere else in the market &mdash; I built those with your input in mind.<br><br>This is a demo sandbox. Navigate freely. Nothing is saved.</div>
+    <div class="note-sig">&mdash; Jhun Rey Velado, Creator of NexusOS</div>
+  </div>
+
+  <button class="launch-btn" onclick="openDemo()">&#9889; Open Interactive Demo</button>
+  <div class="demo-hint">No login required &middot; All data is sample data &middot; Nothing is stored</div>
+</div>
+
+<!-- ── DEMO APP ─────────────────────────────────────────────── -->
+<div id="app">
+  <div id="demo-bar">
+    <span>&#127881; DEMO MODE &mdash; Sample data only. Nothing is saved.</span>
+    <button onclick="closeDemo()">&#10005; Exit Demo</button>
+  </div>
+
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sb-logo">NexusOS</div>
+      <div class="sb-section">Main</div>
+      <div class="sb-item active" onclick="showScreen('dashboard',this)"><span class="sb-icon">&#9729;&#65039;</span>Dashboard</div>
+      <div class="sb-item" onclick="showScreen('tasks',this)"><span class="sb-icon">&#10003;</span>Task Centre</div>
+      <div class="sb-item" onclick="showScreen('approvals',this)"><span class="sb-icon">&#9989;</span>Approval Centre</div>
+      <div class="sb-section">Executive</div>
+      <div class="sb-item" onclick="showScreen('commitments',this)"><span class="sb-icon">&#128279;</span>Commitment Tracker</div>
+      <div class="sb-item" onclick="showScreen('relationships',this)"><span class="sb-icon">&#129309;</span>Relationships</div>
+      <div class="sb-item" onclick="showScreen('notes',this)"><span class="sb-icon">&#128221;</span>Notes Hub</div>
+      <div class="sb-item" onclick="showScreen('travel',this)"><span class="sb-icon">&#9992;&#65039;</span>Travel Hub</div>
+      <div class="sb-section">Intelligence</div>
+      <div class="sb-item" onclick="showScreen('intel',this)"><span class="sb-icon">&#129504;</span>Intelligence Centre</div>
+      <div class="sb-item" onclick="showScreen('meeting',this)"><span class="sb-icon">&#127775;</span>Meeting Prep AI</div>
+      <div class="sb-item" onclick="showScreen('pe',this)"><span class="sb-icon">&#128202;</span>PE Dashboard</div>
+      <div class="sb-section">Settings</div>
+      <div class="sb-item" onclick="showScreen('profile',this)"><span class="sb-icon">&#128100;</span>Profile</div>
+      <div class="sb-footer"><div class="sb-user">Giovanni Amato</div>Enterprise Plan &middot; Demo Mode</div>
+    </div>
+
+    <!-- Screens -->
+    <div class="main">
+
+      <!-- DASHBOARD -->
+      <div class="screen active" id="sc-dashboard">
+        <div class="pg-title">Good morning, Giovanni &#9728;&#65039;</div>
+        <div class="pg-sub">Tuesday, June 30 &middot; 3 items need your attention today</div>
+        <div class="grid-3">
+          <div class="stat-card"><div class="stat-label">Open Tasks</div><div class="stat-val">14</div><div class="stat-delta dg">&#8593; 3 added this week</div></div>
+          <div class="stat-card"><div class="stat-label">Pending Approvals</div><div class="stat-val">4</div><div class="stat-delta dy">1 marked urgent</div></div>
+          <div class="stat-card"><div class="stat-label">Commitments</div><div class="stat-val">7</div><div class="stat-delta dr">2 overdue</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Today&rsquo;s Priority Items <span class="btn-sm" onclick="showScreen('tasks',document.querySelector('[onclick*=tasks]'))">View all</span></div>
+          <div class="row-item"><div><div class="row-main">Review Series B term sheet (Andreessen deck)</div><div class="row-sub">Due today &middot; Finance</div></div><span class="badge by">Due today</span></div>
+          <div class="row-item"><div><div class="row-main">Confirm Amsterdam travel logistics with EA</div><div class="row-sub">Due today &middot; Travel</div></div><span class="badge bp">In progress</span></div>
+          <div class="row-item"><div><div class="row-main">Follow up with David Chen &mdash; committed last Monday</div><div class="row-sub">Overdue by 3 days &middot; Commitment</div></div><span class="badge br">Overdue</span></div>
+          <div class="row-item"><div><div class="row-main">Approve Q3 budget revision &mdash; submitted by CFO</div><div class="row-sub">Awaiting your sign-off &middot; Finance</div></div><span class="badge by">Awaiting</span></div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">AI Morning Briefing</div>
+            <div style="font-size:12px;color:#555;line-height:1.8">&#128161; <strong style="color:#c4c4d4">3 competitor moves</strong> flagged overnight &mdash; Sintra AI raised $12M Series A.<br>&#128201; <strong style="color:#c4c4d4">Portfolio update:</strong> MedCore KPIs up 18% MoM.<br>&#128338; <strong style="color:#c4c4d4">Calendar gap:</strong> Friday afternoon is open &mdash; 3 pending requests.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Upcoming Travel</div>
+            <div style="font-size:13px;color:#888;margin-bottom:8px">&#9992;&#65039; Amsterdam &mdash; <span style="color:#a89eff">Jul 8&ndash;11</span></div>
+            <div style="font-size:12px;color:#444;line-height:1.7">KLM 0842 &middot; Dep 08:15 MNL<br>Waldorf Astoria Amsterdam &middot; 3 nights<br>Board meeting Jul 9 @ 14:00 CET</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TASKS -->
+      <div class="screen" id="sc-tasks">
+        <div class="pg-title">Task Centre</div>
+        <div class="pg-sub">14 open tasks across 4 categories</div>
+        <div class="card">
+          <div class="card-title">High Priority <span class="badge br">3 overdue</span></div>
+          <div class="row-item"><div><div class="row-main">Review Series B term sheet</div><div class="row-sub">Owner: Giovanni &middot; Due Jun 30 &middot; Finance</div></div><span class="badge br">Overdue</span></div>
+          <div class="row-item"><div><div class="row-main">Follow up: David Chen intro email</div><div class="row-sub">Owner: EA &middot; Due Jun 27 &middot; Relationships</div></div><span class="badge br">Overdue</span></div>
+          <div class="row-item"><div><div class="row-main">Approve Q3 marketing budget</div><div class="row-sub">Owner: Giovanni &middot; Due Jul 1 &middot; Finance</div></div><span class="badge by">Due soon</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title">In Progress <span class="badge bp">5 tasks</span></div>
+          <div class="row-item"><div><div class="row-main">Amsterdam board deck preparation</div><div class="row-sub">Owner: EA &middot; Due Jul 7 &middot; Board</div></div><span class="badge bp">In progress</span></div>
+          <div class="row-item"><div><div class="row-main">Due diligence: MedCore portfolio review</div><div class="row-sub">Owner: Giovanni &middot; Due Jul 5 &middot; PE</div></div><span class="badge bp">In progress</span></div>
+          <div class="row-item"><div><div class="row-main">Update investor relations mailing list</div><div class="row-sub">Owner: EA &middot; Due Jul 3 &middot; Investors</div></div><span class="badge bp">In progress</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Completed this week <span class="badge bg">6 done</span></div>
+          <div class="row-item"><div><div class="row-main">Q3 board pack sent to all directors</div><div class="row-sub">Completed Jun 28 &middot; Board</div></div><span class="badge bg">Done</span></div>
+          <div class="row-item"><div><div class="row-main">Signed NDA with Apex Ventures</div><div class="row-sub">Completed Jun 27 &middot; Legal</div></div><span class="badge bg">Done</span></div>
+        </div>
+      </div>
+
+      <!-- APPROVALS -->
+      <div class="screen" id="sc-approvals">
+        <div class="pg-title">Approval Centre</div>
+        <div class="pg-sub">4 items awaiting your decision</div>
+        <div class="card">
+          <div class="card-title" style="color:#f0b429">&#9888; Urgent</div>
+          <div class="row-item">
+            <div><div class="row-main">Q3 Budget Revision &mdash; +$240,000 over plan</div><div class="row-sub">Submitted by: Ana Reyes (CFO) &middot; Jun 28 &middot; Reason: New hire + infra upgrade</div></div>
+            <div style="display:flex;gap:8px;flex-shrink:0"><button class="btn-sm" style="background:#22c55e" onclick="demoAction('Approved Q3 budget')">Approve</button><button class="btn-ghost" onclick="demoAction('Rejected Q3 budget')">Reject</button></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Pending</div>
+          <div class="row-item">
+            <div><div class="row-main">Vendor contract renewal &mdash; Salesforce Enterprise</div><div class="row-sub">Submitted by: EA &middot; Jun 29 &middot; $84,000/yr</div></div>
+            <div style="display:flex;gap:8px;flex-shrink:0"><button class="btn-sm" onclick="demoAction('Approved Salesforce renewal')">Approve</button><button class="btn-ghost" onclick="demoAction('Rejected Salesforce')">Reject</button></div>
+          </div>
+          <div class="row-item">
+            <div><div class="row-main">Travel upgrade: Business class to Amsterdam</div><div class="row-sub">Submitted by: EA &middot; Jun 29 &middot; +$1,800 vs economy</div></div>
+            <div style="display:flex;gap:8px;flex-shrink:0"><button class="btn-sm" onclick="demoAction('Approved travel upgrade')">Approve</button><button class="btn-ghost" onclick="demoAction('Rejected travel upgrade')">Reject</button></div>
+          </div>
+          <div class="row-item">
+            <div><div class="row-main">New hire offer: Senior Data Analyst</div><div class="row-sub">Submitted by: HR &middot; Jun 27 &middot; $95,000 base + equity</div></div>
+            <div style="display:flex;gap:8px;flex-shrink:0"><button class="btn-sm" onclick="demoAction('Approved offer letter')">Approve</button><button class="btn-ghost" onclick="demoAction('Rejected offer')">Reject</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMMITMENTS -->
+      <div class="screen" id="sc-commitments">
+        <div class="pg-title">Commitment Tracker</div>
+        <div class="pg-sub">Every promise made &mdash; logged, tracked, followed up. Nothing gets dropped.</div>
+        <div style="background:#0a160a;border:1px solid #14532d;border-radius:8px;padding:12px 16px;font-size:12px;color:#4ade80;margin-bottom:20px">&#10024; <strong>Unique to NexusOS</strong> &mdash; This feature does not exist in any competing platform.</div>
+        <div class="card">
+          <div class="card-title"><span style="color:#f87171">Overdue &mdash; 2 commitments</span></div>
+          <div class="row-item">
+            <div><div class="row-main">Send intro email connecting David Chen to Marco Rossi</div><div class="row-sub">Committed to: David Chen &middot; Made Jun 23 in board call &middot; 7 days overdue</div></div>
+            <div style="display:flex;gap:8px;flex-shrink:0"><button class="btn-sm" onclick="demoAction('Marked commitment done')">Mark done</button></div>
+          </div>
+          <div class="row-item">
+            <div><div class="row-main">Share MedCore Q2 financials with Apex Ventures</div><div class="row-sub">Committed to: Apex Ventures &middot; Made Jun 25 &middot; 5 days overdue</div></div>
+            <div style="display:flex;gap:8px;flex-shrink:0"><button class="btn-sm" onclick="demoAction('Marked commitment done')">Mark done</button></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Upcoming</div>
+          <div class="row-item"><div><div class="row-main">Send Amsterdam itinerary to board directors</div><div class="row-sub">Committed to: Board &middot; Due Jul 5 &middot; Made Jun 30 in board call</div></div><span class="badge bp">Due Jul 5</span></div>
+          <div class="row-item"><div><div class="row-main">Intro call with Dr. Santos re: HealthTech partnership</div><div class="row-sub">Committed to: Dr. Santos &middot; Due Jul 8 &middot; Made Jun 28</div></div><span class="badge by">Due Jul 8</span></div>
+          <div class="row-item"><div><div class="row-main">Share Q3 roadmap with Series B lead investor</div><div class="row-sub">Committed to: Andreessen team &middot; Due Jul 10</div></div><span class="badge by">Due Jul 10</span></div>
+        </div>
+      </div>
+
+      <!-- RELATIONSHIPS -->
+      <div class="screen" id="sc-relationships">
+        <div class="pg-title">Relationship Intelligence</div>
+        <div class="pg-sub">Know who matters, what was discussed, and when to reach out next.</div>
+        <div class="card">
+          <div class="card-title">Key Contacts</div>
+          <div class="row-item"><div><div class="row-main">David Chen &mdash; Partner, Andreessen Horowitz</div><div class="row-sub">Last contact: Jun 23 &middot; Board call &middot; Next: Send intro email (overdue)</div></div><span class="badge br">Follow up</span></div>
+          <div class="row-item"><div><div class="row-main">Ana Reyes &mdash; CFO, Internal</div><div class="row-sub">Last contact: Jun 28 &middot; Budget review &middot; Next: Budget approval pending</div></div><span class="badge bp">Active</span></div>
+          <div class="row-item"><div><div class="row-main">Marco Rossi &mdash; CEO, MedCore (Portfolio)</div><div class="row-sub">Last contact: Jun 20 &middot; Monthly KPI review &middot; Next: Jul 15</div></div><span class="badge bg">Current</span></div>
+          <div class="row-item"><div><div class="row-main">Dr. Elena Santos &mdash; CEO, HealthTech Partners</div><div class="row-sub">Last contact: Jun 15 &middot; Intro dinner &middot; Next: Intro call committed Jul 8</div></div><span class="badge by">Scheduled</span></div>
+          <div class="row-item"><div><div class="row-main">James Whitfield &mdash; MD, Apex Ventures</div><div class="row-sub">Last contact: Jun 25 &middot; NDA signed &middot; Next: Share MedCore financials (overdue)</div></div><span class="badge br">Follow up</span></div>
+        </div>
+      </div>
+
+      <!-- NOTES -->
+      <div class="screen" id="sc-notes">
+        <div class="pg-title">Notes Hub</div>
+        <div class="pg-sub">Meeting notes, action items, and follow-ups all in one place.</div>
+        <div class="card">
+          <div class="card-title">Recent Notes</div>
+          <div class="row-item" onclick="demoAction('Opened note')"><div><div class="row-main">Board Call &mdash; Jun 30, 2026</div><div class="row-sub">Attendees: Giovanni, David Chen, Ana Reyes, board directors &middot; 14 action items</div></div><span class="badge dp">14 actions</span></div>
+          <div class="row-item" onclick="demoAction('Opened note')"><div><div class="row-main">Series B Investor Update &mdash; Jun 28</div><div class="row-sub">Andreessen Horowitz meeting &middot; Term sheet reviewed &middot; 3 action items</div></div><span class="badge dp">3 actions</span></div>
+          <div class="row-item" onclick="demoAction('Opened note')"><div><div class="row-main">MedCore Q2 KPI Review &mdash; Jun 20</div><div class="row-sub">Marco Rossi &middot; Revenue +18% MoM &middot; 5 action items</div></div><span class="badge bg">Done</span></div>
+          <div class="row-item" onclick="demoAction('Opened note')"><div><div class="row-main">HealthTech Partnership &mdash; Intro dinner Jun 15</div><div class="row-sub">Dr. Elena Santos &middot; Exploring JV &middot; Next: Formal proposal</div></div><span class="badge by">Follow-up</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Quick note</div>
+          <div class="input-fake" contenteditable="true" style="min-height:60px;outline:none;color:#888" onclick="this.style.color='#e4e4f0'">Type a note&hellip;</div>
+          <button class="btn-sm" onclick="demoAction('Note saved')">Save note</button>
+        </div>
+      </div>
+
+      <!-- TRAVEL -->
+      <div class="screen" id="sc-travel">
+        <div class="pg-title">Travel Hub</div>
+        <div class="pg-sub">All itineraries, confirmations, and logistics in one view.</div>
+        <div class="section-hdr">&#9992;&#65039; Upcoming &mdash; Amsterdam, Netherlands &middot; Jul 8&ndash;11</div>
+        <div class="travel-seg"><div class="travel-icon">&#9992;&#65039;</div><div class="travel-info"><div class="t-title">KLM 0842 &mdash; MNL &#8594; AMS</div><div class="t-detail">Departure: Jul 8, 08:15 &middot; Arrival: Jul 8, 16:40 (local)<br>Business class &middot; Seat 3A &middot; Confirmation: KLM-8842XJ</div></div><span class="badge bp">Confirmed</span></div>
+        <div class="travel-seg"><div class="travel-icon">&#127970;</div><div class="travel-info"><div class="t-title">Waldorf Astoria Amsterdam</div><div class="t-detail">Check-in: Jul 8 &middot; Check-out: Jul 11 &middot; 3 nights<br>Herengracht 542&ndash;556 &middot; Junior Suite &middot; Conf: WA-2026-4471</div></div><span class="badge bp">Confirmed</span></div>
+        <div class="travel-seg"><div class="travel-icon">&#128338;</div><div class="travel-info"><div class="t-title">Board Meeting &mdash; Jul 9 @ 14:00 CET</div><div class="t-detail">Location: Keizersgracht 424, Amsterdam<br>Attendees: 8 directors &middot; Duration: 3 hours &middot; Deck ready</div></div><span class="badge bg">Confirmed</span></div>
+        <div class="travel-seg"><div class="travel-icon">&#128663;</div><div class="travel-info"><div class="t-title">Ground transport &mdash; Schiphol to hotel</div><div class="t-detail">Private transfer booked &middot; Driver: Hans Vermeer &middot; +31-6-1234-5678<br>Meet at arrivals, Terminal 2</div></div><span class="badge bg">Booked</span></div>
+        <div class="travel-seg"><div class="travel-icon">&#9992;&#65039;</div><div class="travel-info"><div class="t-title">KLM 0843 &mdash; AMS &#8594; MNL (Return)</div><div class="t-detail">Departure: Jul 11, 12:30 &middot; Arrival: Jul 12, 07:15<br>Business class &middot; Seat 4A &middot; Confirmation: KLM-8843XK</div></div><span class="badge bp">Confirmed</span></div>
+      </div>
+
+      <!-- INTELLIGENCE -->
+      <div class="screen" id="sc-intel">
+        <div class="pg-title">Intelligence Centre</div>
+        <div class="pg-sub">Daily briefings, competitor moves, and market intel curated for your morning review.</div>
+        <div class="section-hdr">&#127975; Today&rsquo;s Briefing &mdash; Jun 30, 2026</div>
+        <div class="intel-card"><div class="intel-src">&#128202; Market Intelligence</div><div class="intel-title">Sintra AI raises $12M Series A &mdash; positions against executive platforms</div><div class="intel-body">Singapore-based Sintra AI closed a $12M round led by GIC. The platform targets EA automation with AI agents. Relevance: direct competitor entering the CEO-OS space. Recommend: accelerate NexusOS AI features roadmap.</div><div class="tag-row"><span class="tag">Competitor</span><span class="tag">Funding</span><span class="tag">AI</span></div></div>
+        <div class="intel-card"><div class="intel-src">&#128201; Portfolio Update</div><div class="intel-title">MedCore Health KPIs &mdash; Revenue up 18% MoM, patient volume +22%</div><div class="intel-body">MedCore Q2 performance exceeds target across all KPIs. Marco Rossi reports strong retention (94%) and new hospital partnerships in Visayas region. Board presentation ready for Amsterdam.</div><div class="tag-row"><span class="tag">Portfolio</span><span class="tag">MedCore</span><span class="tag">Positive</span></div></div>
+        <div class="intel-card"><div class="intel-src">&#128240; Industry News</div><div class="intel-title">PE deal volume in SEA down 14% Q2 2026 &mdash; healthcare and SaaS bucking trend</div><div class="intel-body">Bain &amp; Co report shows overall PE deal volume contracting in Q2, but healthcare and B2B SaaS remain resilient. Your portfolio is well-positioned in both sectors.</div><div class="tag-row"><span class="tag">PE</span><span class="tag">Market</span><span class="tag">SEA</span></div></div>
+      </div>
+
+      <!-- MEETING PREP AI -->
+      <div class="screen" id="sc-meeting">
+        <div class="pg-title">Meeting Prep AI</div>
+        <div class="pg-sub">Briefed, informed, and ready &mdash; before every meeting.</div>
+        <div class="card">
+          <div class="card-title">Upcoming meetings today</div>
+          <div class="row-item"><div><div class="row-main">Series B call &mdash; Andreessen Horowitz</div><div class="row-sub">14:00 &middot; 45 min &middot; David Chen, Sarah Park</div></div><button class="btn-sm" onclick="showMeetingBrief()">View brief</button></div>
+          <div class="row-item"><div><div class="row-main">Weekly EA sync</div><div class="row-sub">16:00 &middot; 30 min &middot; Internal</div></div><button class="btn-sm" onclick="demoAction('Brief loaded')">View brief</button></div>
+        </div>
+        <div class="card" id="meeting-brief" style="display:none">
+          <div class="card-title">&#127775; AI Brief &mdash; Andreessen Horowitz &middot; 14:00</div>
+          <div style="font-size:13px;color:#c4c4d4;font-weight:600;margin-bottom:8px">About David Chen</div>
+          <div style="font-size:12px;color:#555;line-height:1.75;margin-bottom:14px">Partner at a16z since 2019. Led investments in Figma, Notion, Linear. Strong preference for execution-first founders. Last meeting: board call Jun 23 &mdash; raised concerns about Q3 burn rate.</div>
+          <div style="font-size:13px;color:#c4c4d4;font-weight:600;margin-bottom:8px">Key topics to prepare for</div>
+          <div style="font-size:12px;color:#555;line-height:1.75;margin-bottom:14px">1. Q3 burn rate &mdash; have your updated CFO projections ready<br>2. Series B use of funds &mdash; Chen will ask for a breakdown<br>3. Amsterdam board outcomes &mdash; he&rsquo;ll want a preview</div>
+          <div style="font-size:13px;color:#c4c4d4;font-weight:600;margin-bottom:8px">Things to avoid</div>
+          <div style="font-size:12px;color:#555;line-height:1.75">David Chen does not respond well to slides-first presentations. Lead with numbers, then context. He values brevity.</div>
+        </div>
+      </div>
+
+      <!-- PE DASHBOARD -->
+      <div class="screen" id="sc-pe">
+        <div class="pg-title">PE Dashboard</div>
+        <div class="pg-sub">Portfolio KPIs, deal flow, and board commitments &mdash; all in one place.</div>
+        <div style="background:#0a160a;border:1px solid #14532d;border-radius:8px;padding:12px 16px;font-size:12px;color:#4ade80;margin-bottom:20px">&#10024; <strong>Unique to NexusOS</strong> &mdash; This dashboard does not exist in any competing platform on the market.</div>
+        <div class="section-hdr">&#128201; Portfolio Overview</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">
+          <div class="pe-kpi"><div class="k-val">3</div><div class="k-lbl">Active portfolio cos.</div></div>
+          <div class="pe-kpi"><div class="k-val">$48M</div><div class="k-lbl">Total AUM</div><div class="k-delta dg">&#8593; $4.2M vs last quarter</div></div>
+          <div class="pe-kpi"><div class="k-val">2.4x</div><div class="k-lbl">Avg MOIC</div><div class="k-delta dg">&#8593; 0.3x MoM</div></div>
+          <div class="pe-kpi"><div class="k-val">18%</div><div class="k-lbl">Avg revenue growth</div><div class="k-delta dg">Above target</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Portfolio Companies</div>
+          <div class="row-item">
+            <div style="flex:1"><div class="row-main">MedCore Health</div><div class="row-sub">Healthcare SaaS &middot; Series B &middot; CEO: Marco Rossi</div><div class="progress-bar"><div class="progress-fill" style="width:82%"></div></div></div>
+            <div style="text-align:right;margin-left:20px"><div style="font-size:14px;font-weight:700;color:#22c55e">+18%</div><div style="font-size:10px;color:#333">Rev MoM</div></div>
+          </div>
+          <div class="row-item">
+            <div style="flex:1"><div class="row-main">LogiStack</div><div class="row-sub">Supply chain AI &middot; Series A &middot; CEO: Priya Kapoor</div><div class="progress-bar"><div class="progress-fill" style="width:65%;background:#f0b429"></div></div></div>
+            <div style="text-align:right;margin-left:20px"><div style="font-size:14px;font-weight:700;color:#f0b429">+7%</div><div style="font-size:10px;color:#333">Rev MoM</div></div>
+          </div>
+          <div class="row-item">
+            <div style="flex:1"><div class="row-main">FinPath</div><div class="row-sub">B2B Fintech &middot; Seed &middot; CEO: James Uy</div><div class="progress-bar"><div class="progress-fill" style="width:45%;background:#534AB7"></div></div></div>
+            <div style="text-align:right;margin-left:20px"><div style="font-size:14px;font-weight:700;color:#a89eff">+31%</div><div style="font-size:10px;color:#333">Rev MoM</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Deal Pipeline</div>
+          <div class="row-item"><div><div class="row-main">NovaCare &mdash; Healthcare diagnostics</div><div class="row-sub">Stage: LOI signed &middot; Valuation: $18M pre-money &middot; Lead: Giovanni</div></div><span class="badge bp">LOI Signed</span></div>
+          <div class="row-item"><div><div class="row-main">EduBridge &mdash; EdTech Southeast Asia</div><div class="row-sub">Stage: Due diligence &middot; Estimated close: Q3 2026</div></div><span class="badge by">Due diligence</span></div>
+          <div class="row-item"><div><div class="row-main">GreenRoute &mdash; Climate logistics</div><div class="row-sub">Stage: First meeting &middot; Intro via James Whitfield</div></div><span class="badge dp">Exploring</span></div>
+        </div>
+      </div>
+
+      <!-- PROFILE -->
+      <div class="screen" id="sc-profile">
+        <div class="pg-title">Profile</div>
+        <div class="pg-sub">Your account and workspace settings</div>
+        <div class="card">
+          <div class="card-title">Account Details</div>
+          <div class="row-item"><div class="row-main">Name</div><div style="font-size:13px;color:#666">Giovanni Amato</div></div>
+          <div class="row-item"><div class="row-main">Role</div><div style="font-size:13px;color:#666">Chief Executive Officer</div></div>
+          <div class="row-item"><div class="row-main">Plan</div><div><span class="badge bp">Enterprise</span></div></div>
+          <div class="row-item"><div class="row-main">Workspace</div><div style="font-size:13px;color:#666">Amato Holdings</div></div>
+        </div>
+        <div class="card" style="background:#0a160a;border-color:#14532d">
+          <div class="card-title" style="color:#4ade80">&#128275; Demo Mode Active</div>
+          <div style="font-size:13px;color:#2a6a3a;line-height:1.75">You are exploring a read-only demo. All data shown is sample data. Nothing you do here is saved. To create a real account and workspace, visit the live app at <a href="https://jhunvelado.github.io/NexusOS/nexusos-app.html" target="_blank" style="color:#4ade80">jhunvelado.github.io/NexusOS</a>.</div>
+        </div>
+      </div>
+
+    </div><!-- /main -->
+  </div><!-- /app-layout -->
+</div><!-- /app -->
+
+<!-- Toast -->
+<div id="toast" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#13131f;border:1px solid #534AB7;border-radius:10px;padding:10px 20px;font-size:13px;color:#a89eff;z-index:9999;display:none;transition:opacity 0.2s"></div>
+
+<script>
+function openDemo(){
+  document.getElementById('landing').style.display='none';
+  document.getElementById('app').classList.add('open');
+}
+function closeDemo(){
+  document.getElementById('app').classList.remove('open');
+  document.getElementById('landing').style.display='flex';
+}
+function showScreen(id,el){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+  var sc=document.getElementById('sc-'+id);
+  if(sc)sc.classList.add('active');
+  document.querySelectorAll('.sb-item').forEach(function(i){i.classList.remove('active');});
+  if(el)el.classList.add('active');
+}
+function showMeetingBrief(){
+  var b=document.getElementById('meeting-brief');
+  if(b){b.style.display=b.style.display==='none'?'block':'none';}
+}
+function demoAction(msg){
+  var t=document.getElementById('toast');
+  t.textContent='&#10003; '+msg+' (demo only — not saved)';
+  t.style.display='block';t.style.opacity='1';
+  setTimeout(function(){t.style.opacity='0';setTimeout(function(){t.style.display='none';},300);},2200);
+}
+// Landing is flex by default
+document.getElementById('landing').style.display='flex';
+</script>
+</body>
+</html>
