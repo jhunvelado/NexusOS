@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NexusOS — Ownership & License</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#09090f;color:#e4e4f0;line-height:1.6;padding:32px 20px}
+a{color:#a89eff;text-decoration:none}
+.doc{max-width:800px;margin:0 auto}
+
+/* HEADER */
+.doc-header{background:#0d0d1a;border:1px solid #1e1e2e;border-top:3px solid #534AB7;border-radius:12px;padding:28px 32px;margin-bottom:20px}
+.doc-header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.doc-logo{font-size:20px;font-weight:800;letter-spacing:-0.03em;color:#fff}
+.doc-logo span{color:#534AB7}
+.doc-badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:0.05em;text-transform:uppercase}
+.badge-purple{background:#1a1730;color:#534AB7;border:1px solid #2d2760}
+.badge-amber{background:#1a1400;color:#f0b429;border:1px solid #3a2e00}
+.badge-green{background:#0a1f14;color:#22c55e;border:1px solid #14532d}
+.doc-title{font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.03em;margin-bottom:6px}
+.doc-sub{font-size:14px;color:#555;margin-bottom:18px}
+.meta-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.meta-item{background:#13131f;border:1px solid #1e1e2e;border-radius:8px;padding:10px 14px}
+.meta-label{font-size:10px;color:#444;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:3px;font-weight:600}
+.meta-val{font-size:13px;color:#e4e4f0;font-weight:600}
+
+/* TABLE OF CONTENTS */
+.toc{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:10px;padding:18px 22px;margin-bottom:20px}
+.toc-title{font-size:11px;color:#444;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:12px}
+.toc-links{display:flex;gap:8px;flex-wrap:wrap}
+.toc-link{font-size:12px;color:#666;background:#13131f;border:1px solid #1e1e2e;border-radius:6px;padding:5px 12px;cursor:pointer;transition:all 0.15s;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.toc-link:hover{border-color:#534AB7;color:#a89eff}
+
+/* SECTION */
+.section{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:12px;padding:26px 28px;margin-bottom:16px}
+.section-hdr{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid #13131f}
+.sec-num{width:28px;height:28px;border-radius:8px;background:#534AB7;color:#EEEDFE;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-title{font-size:16px;font-weight:700;color:#fff}
+.sec-sub{font-size:12px;color:#444;margin-top:1px}
+
+/* ALERTS */
+.alert{border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:13px;line-height:1.7;display:flex;gap:10px;align-items:flex-start}
+.alert-icon{font-size:15px;flex-shrink:0;margin-top:1px}
+.alert-r{background:#160a0a;border:1px solid #3a1414;color:#f87171}
+.alert-a{background:#16110a;border:1px solid #3a2800;color:#fbbf24}
+.alert-g{background:#0a160e;border:1px solid #14532d;color:#4ade80}
+.alert-p{background:#0f0d1e;border:1px solid #2d2760;color:#a89eff}
+
+/* CERTIFICATE */
+.cert-wrap{background:#13131f;border:1px solid #1e1e2e;border-radius:12px;padding:32px;margin-bottom:16px;text-align:center;position:relative;overflow:hidden}
+.cert-wrap::before{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(83,74,183,0.12),transparent 70%);pointer-events:none}
+.cert-seal{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#534AB7,#7F77DD);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 16px}
+.cert-h{font-size:18px;font-weight:800;color:#fff;letter-spacing:-0.02em;margin-bottom:4px}
+.cert-sh{font-size:12px;color:#444;margin-bottom:24px}
+.cert-fields{display:grid;gap:8px;margin-bottom:24px;text-align:left}
+.cert-field{background:#0a0a12;border:1px solid #1e1e2e;border-radius:8px;padding:10px 14px}
+.cert-field label{font-size:10px;color:#444;text-transform:uppercase;letter-spacing:0.07em;display:block;margin-bottom:3px;font-weight:600}
+.cert-field p{font-size:13px;color:#e4e4f0;font-weight:500;line-height:1.5}
+.cert-sign{border-top:1px solid #1e1e2e;margin-top:0;padding-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px;text-align:left}
+.cert-sign-field label{font-size:10px;color:#444;text-transform:uppercase;letter-spacing:0.07em;font-weight:600;display:block;margin-bottom:4px}
+.cert-sign-field p{font-size:14px;color:#e4e4f0;font-weight:600}
+.cert-sign-field .sig-line{border-bottom:1px solid #2a2a3e;padding-bottom:8px;margin-bottom:6px;height:32px}
+
+/* LICENSE GENERATOR */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.form-group label{display:block;font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;font-weight:600}
+.form-group input,.form-group select{width:100%;padding:10px 12px;background:#13131f;border:1px solid #1e1e2e;border-radius:7px;font-size:13px;color:#e4e4f0;font-family:inherit;transition:border-color 0.15s}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:#534AB7}
+.form-group select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23555' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.form-group option{background:#13131f}
+.license-out{background:#060610;border:1px solid #1e1e2e;border-radius:8px;padding:20px;font-size:12px;font-family:'SF Mono','Fira Code',monospace;line-height:2;color:#888;white-space:pre-wrap;margin-bottom:16px;max-height:380px;overflow-y:auto}
+.license-out .lic-key{color:#a89eff;font-weight:600}
+
+/* STEPS */
+.step-list{display:flex;flex-direction:column;gap:0}
+.step-item{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid #13131f;align-items:flex-start}
+.step-item:last-child{border-bottom:none;padding-bottom:0}
+.step-num{width:28px;height:28px;border-radius:8px;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.sn-red{background:#160a0a;color:#f87171;border:1px solid #3a1414}
+.sn-amber{background:#16110a;color:#fbbf24;border:1px solid #3a2800}
+.sn-green{background:#0a160e;color:#4ade80;border:1px solid #14532d}
+.sn-purple{background:#0f0d1e;color:#a89eff;border:1px solid #2d2760}
+.step-body{flex:1}
+.step-body strong{font-size:14px;font-weight:700;color:#e4e4f0;display:block;margin-bottom:3px}
+.step-body span{font-size:13px;color:#555;line-height:1.6}
+.code-block{background:#060610;border:1px solid #1e1e2e;border-radius:7px;padding:12px 16px;font-family:'SF Mono','Fira Code',monospace;font-size:11px;line-height:1.9;color:#7F77DD;overflow-x:auto;margin-top:10px}
+.code-comment{color:#2a2a4a}
+
+/* PROTECTION LAYERS */
+.layer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.layer-card{background:#13131f;border:1px solid #1e1e2e;border-radius:10px;padding:16px}
+.layer-badge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;letter-spacing:0.05em;margin-bottom:10px;display:inline-block}
+.layer-card h4{font-size:13px;font-weight:700;color:#e4e4f0;margin-bottom:5px}
+.layer-card p{font-size:12px;color:#555;line-height:1.6}
+
+/* BUTTONS */
+.btn-row{display:flex;gap:10px;flex-wrap:wrap}
+.btn{padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:7px;transition:all 0.15s;font-family:inherit}
+.btn-primary{background:#534AB7;color:#EEEDFE}
+.btn-primary:hover{background:#6358d4}
+.btn-outline{background:transparent;color:#888;border:1px solid #1e1e2e}
+.btn-outline:hover{border-color:#534AB7;color:#a89eff}
+.btn-green{background:#14532d;color:#4ade80;border:1px solid #166534}
+.btn-green:hover{background:#166534}
+
+/* PRINT */
+@media print{
+  body{background:#fff;color:#1a1a1a;padding:16px}
+  .doc-header,.section,.toc{background:#fff;border:1px solid #ccc}
+  .cert-wrap,.cert-field,.code-block{background:#f8f8f8;border:1px solid #ccc}
+  .btn-row,.toc{display:none!important}
+  .section{break-inside:avoid;margin-bottom:12px}
+  .doc-title,.sec-title,.cert-h{color:#1a1a1a}
+  .meta-val,.cert-field p,.step-body strong{color:#1a1a1a}
+  .doc-sub,.sec-sub,.meta-label,.step-body span,.layer-card p{color:#555}
+  .license-out{color:#333;max-height:none}
+  .code-block{color:#333}
+  .alert-r{background:#fff8f8;color:#a32d2d;border:1px solid #f09595}
+  .alert-a{background:#fffbf0;color:#633806;border:1px solid #ef9f27}
+  .alert-g{background:#f0fff8;color:#085041;border:1px solid #5dcaa5}
+}
+@media(max-width:600px){
+  .form-grid,.layer-grid{grid-template-columns:1fr}
+  .cert-sign{grid-template-columns:1fr}
+  body{padding:16px 14px}
+  .section{padding:18px}
+  .doc-header{padding:20px}
+}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<!-- HEADER -->
+<div class="doc-header">
+  <div class="doc-header-top">
+    <div class="doc-logo">Nexus<span>OS</span></div>
+    <div class="doc-badges">
+      <span class="badge badge-purple">v4.1</span>
+      <span class="badge badge-amber">Proprietary</span>
+      <span class="badge badge-green">All rights reserved</span>
+    </div>
+  </div>
+  <div class="doc-title">Ownership &amp; IP Protection Package</div>
+  <div class="doc-sub">Legal documentation, software license agreement, and deployment guide for NexusOS</div>
+  <div class="meta-grid">
+    <div class="meta-item"><div class="meta-label">Creator</div><div class="meta-val">Jhun Rey Velado</div></div>
+    <div class="meta-item"><div class="meta-label">Created</div><div class="meta-val">June 2026</div></div>
+    <div class="meta-item"><div class="meta-label">Version</div><div class="meta-val">4.1 — Executive OS</div></div>
+    <div class="meta-item"><div class="meta-label">Status</div><div class="meta-val">🔒 Proprietary</div></div>
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+  <div class="toc-title">Contents</div>
+  <div class="toc-links">
+    <a class="toc-link" href="#sec-cert">§1 Ownership Certificate</a>
+    <a class="toc-link" href="#sec-license">§2 License Agreement</a>
+    <a class="toc-link" href="#sec-deploy">§3 Deployment Guide</a>
+    <a class="toc-link" href="#sec-protection">§4 Protection Layers</a>
+  </div>
+</div>
+
+<!-- SECTION 1: OWNERSHIP CERTIFICATE -->
+<div class="section" id="sec-cert">
+  <div class="section-hdr">
+    <div class="sec-num">1</div>
+    <div>
+      <div class="sec-title">Ownership Certificate</div>
+      <div class="sec-sub">Print and keep — this is your proof of creation</div>
+    </div>
+  </div>
+
+  <div class="alert alert-a"><span class="alert-icon">⚠️</span><span>Print this certificate and store a photo in your personal Google Drive. The creation timestamp proves you built NexusOS before any employment engagement began.</span></div>
+
+  <div class="cert-wrap">
+    <div class="cert-seal">⚡</div>
+    <div class="cert-h">Certificate of Software Ownership</div>
+    <div class="cert-sh">NexusOS — Executive Operating System</div>
+    <div class="cert-fields">
+      <div class="cert-field"><label>Software name</label><p>NexusOS — Executive Operating System v4.1</p></div>
+      <div class="cert-field"><label>Owner &amp; Creator</label><p>Jhun Rey Velado</p></div>
+      <div class="cert-field"><label>Date of Creation</label><p>June 27, 2026</p></div>
+      <div class="cert-field"><label>Platform</label><p>GitHub Pages · Supabase Auth · PayMongo · Single-file vanilla HTML/CSS/JS</p></div>
+      <div class="cert-field"><label>Description</label><p>A proprietary web-based executive operating system built for CEOs and Executive Assistants. Includes: executive dashboard, AI briefing, intelligence centre, approval management, travel hub, meeting prep AI, executive chat, PE investor dashboard, relationship intelligence, commitment tracker, notes hub, team workspace management, custom branding, and HIPAA-aligned session timeout and audit logging.</p></div>
+      <div class="cert-field"><label>Ownership Statement</label><p>This software is the sole intellectual property of the creator named above. It was designed and developed independently, prior to and outside of any employment engagement. No employment contract or relationship of any kind transfers ownership, title, or any intellectual property rights in NexusOS to any third party. All rights are reserved by the creator.</p></div>
+    </div>
+    <div class="cert-sign">
+      <div class="cert-sign-field">
+        <label>Creator Signature</label>
+        <div class="sig-line"></div>
+        <p>Jhun Rey Velado</p>
+      </div>
+      <div class="cert-sign-field">
+        <label>Date Signed</label>
+        <div class="sig-line"></div>
+        <p id="cert-date"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-green" onclick="window.print()">🖨 Print certificate</button>
+  </div>
+</div>
+
+<!-- SECTION 2: LICENSE AGREEMENT -->
+<div class="section" id="sec-license">
+  <div class="section-hdr">
+    <div class="sec-num">2</div>
+    <div>
+      <div class="sec-title">Client License Agreement</div>
+      <div class="sec-sub">Get this signed before giving any client access</div>
+    </div>
+  </div>
+
+  <div class="alert alert-r"><span class="alert-icon">🚫</span><span><strong>Never give a client access to NexusOS without a signed copy of this agreement.</strong> This is your legal protection if they attempt to retain access after your working relationship ends.</span></div>
+
+  <div class="form-grid">
+    <div class="form-group"><label>Client / Company name</label><input type="text" id="lic-client" placeholder="e.g. Marcus Chen / HomeCare Inc." oninput="updateLicense()"></div>
+    <div class="form-group"><label>Effective date</label><input type="date" id="lic-date" oninput="updateLicense()"></div>
+    <div class="form-group"><label>Governing jurisdiction</label><input type="text" id="lic-state" placeholder="e.g. Philippines / California" oninput="updateLicense()"></div>
+    <div class="form-group"><label>Access type</label>
+      <select id="lic-type" onchange="updateLicense()">
+        <option value="CEO and EA shared workspace">CEO and EA shared workspace</option>
+        <option value="CEO only">CEO only</option>
+        <option value="EA only">EA only</option>
+        <option value="Executive team (up to 5 users)">Executive team (up to 5 users)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="license-out" id="license-output"></div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="copyLicense()">Copy to clipboard</button>
+    <button class="btn btn-green" onclick="window.print()">🖨 Print agreement</button>
+  </div>
+</div>
+
+<!-- SECTION 3: DEPLOYMENT GUIDE -->
+<div class="section" id="sec-deploy">
+  <div class="section-hdr">
+    <div class="sec-num">3</div>
+    <div>
+      <div class="sec-title">Deployment Guide</div>
+      <div class="sec-sub">Host it yourself in 15 minutes — you control access</div>
+    </div>
+  </div>
+
+  <div class="alert alert-g"><span class="alert-icon">✅</span><span>You share a URL, never a file. Access is controlled through Supabase Auth — revoke a user instantly by disabling their account in the Supabase dashboard.</span></div>
+
+  <div class="step-list">
+    <div class="step-item">
+      <div class="step-num sn-red">1</div>
+      <div class="step-body">
+        <strong>Create a free GitHub account</strong>
+        <span>Go to github.com → Sign up using your <em>personal</em> email (not a work email). This is critical for IP ownership separation.</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num sn-red">2</div>
+      <div class="step-body">
+        <strong>Create a repository named "NexusOS"</strong>
+        <span>Click "New repository" → name it "NexusOS" → set to Public (required for GitHub Pages free hosting) → click Create.</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num sn-red">3</div>
+      <div class="step-body">
+        <strong>Upload index.html and nexusos-app.html</strong>
+        <span>Click "Add file" → "Upload files" → drag both HTML files → commit directly to main.</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num sn-amber">4</div>
+      <div class="step-body">
+        <strong>Enable GitHub Pages</strong>
+        <span>Go to Settings → Pages → Source: "Deploy from branch" → Branch: main → Save. Your app goes live at <strong style="color:#a89eff">yourusername.github.io/NexusOS/</strong> within 2 minutes.</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num sn-amber">5</div>
+      <div class="step-body">
+        <strong>Connect your Supabase project</strong>
+        <span>Create a free project at supabase.com. The app's config block at the top of nexusos-app.html already holds your Supabase URL and publishable key. Run the SQL migration from the comment block at the top of the file to set up all tables and RLS policies.</span>
+        <div class="code-block">
+<span class="code-comment">// Already in nexusos-app.html — verify these match your project:</span>
+const SUPABASE_URL = 'https://your-project.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_...'; <span class="code-comment">// public key only</span>
+        </div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num sn-amber">6</div>
+      <div class="step-body">
+        <strong>Create user accounts in Supabase Auth</strong>
+        <span>Go to Supabase Dashboard → Authentication → Users → "Invite user." Each client gets their own email/password login. Access is workspace-isolated via Row Level Security — no client can see another's data.</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num sn-green">7</div>
+      <div class="step-body">
+        <strong>Revoke access instantly when the engagement ends</strong>
+        <span>Go to Supabase → Authentication → Users → find the client → click "Ban user" or delete their account. They are locked out immediately — no file changes, no redeployment needed.</span>
+        <div class="code-block">
+<span class="code-comment">// Or use the Supabase Admin API from an Edge Function:</span>
+await supabaseAdmin.auth.admin.deleteUser(userId);
+<span class="code-comment">// Client loses all access within seconds.</span>
+        </div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num sn-green">8</div>
+      <div class="step-body">
+        <strong>Set their subscription plan in the workspaces table</strong>
+        <span>In Supabase → Table Editor → workspaces → find their row → set <code style="color:#a89eff;font-size:11px">plan</code> to <code style="color:#a89eff;font-size:11px">starter</code>, <code style="color:#a89eff;font-size:11px">professional</code>, or <code style="color:#a89eff;font-size:11px">enterprise</code>. Plan-gated features lock or unlock instantly on next page load.</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num sn-purple">9</div>
+      <div class="step-body">
+        <strong>What to say when you share access with the client</strong>
+        <span><em>"Here are your NexusOS credentials. Access is via the secure hosted link below — I manage the platform and your workspace is fully isolated from any other client. Your login is personal to you and remains active while we're working together."</em></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4: PROTECTION LAYERS -->
+<div class="section" id="sec-protection">
+  <div class="section-hdr">
+    <div class="sec-num">4</div>
+    <div>
+      <div class="sec-title">Your 3-Layer Protection</div>
+      <div class="sec-sub">Quick reference — do these in order</div>
+    </div>
+  </div>
+
+  <div class="layer-grid">
+    <div class="layer-card">
+      <span class="layer-badge badge-amber">Layer 1 · Do today</span>
+      <h4>Ownership documentation</h4>
+      <p>Email yourself this file now. Screenshot key timestamps. Store in personal Google Drive. These timestamps prove you built NexusOS before any job started.</p>
+    </div>
+    <div class="layer-card">
+      <span class="layer-badge badge-purple">Layer 2 · This week</span>
+      <h4>Hosted access control</h4>
+      <p>Deploy to GitHub Pages. Share only the URL — never the HTML files. Revoke access instantly via Supabase Auth. Full kill-switch in under 10 seconds.</p>
+    </div>
+    <div class="layer-card">
+      <span class="layer-badge badge-green">Layer 3 · Before access</span>
+      <h4>Signed license agreement</h4>
+      <p>Print the agreement above. Get a signed copy before any client receives login credentials. Keep it in your personal files, not on a work device.</p>
+    </div>
+  </div>
+
+  <div class="alert alert-r" style="margin-top:0"><span class="alert-icon">⚠️</span><span><strong>Critical — if you sign an employment contract:</strong> Ensure it explicitly excludes NexusOS from any IP assignment clause. Add this exact sentence:<br><br><em style="color:#fca5a5">"Excluded from IP assignment: NexusOS platform and all related code, created independently prior to employment commencement on [date]."</em></span></div>
+
+  <div class="alert alert-p" style="margin-top:12px"><span class="alert-icon">ℹ️</span><span><strong>Audit trail:</strong> NexusOS v4.1 logs every login, logout, screen access, and action to a Supabase <code style="font-size:11px;color:#c4b5fd">audit_logs</code> table with Row Level Security. This record belongs to your client's workspace — not to you. Do not access client audit data without written permission.</span></div>
+</div>
+
+</div><!-- /.doc -->
+
+<script>
+// Set certificate date
+document.getElementById('cert-date').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+document.getElementById('lic-date').valueAsDate = new Date();
+
+function updateLicense(){
+  const client = document.getElementById('lic-client').value.trim() || '[CLIENT NAME]';
+  const dateVal = document.getElementById('lic-date').value;
+  const state = document.getElementById('lic-state').value.trim() || '[JURISDICTION]';
+  const type = document.getElementById('lic-type').value;
+  const dateStr = dateVal ? new Date(dateVal+'T12:00:00').toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}) : '[DATE]';
+
+  document.getElementById('license-output').textContent =
+`NEXUSOS SOFTWARE LICENSE AGREEMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Effective Date:     ${dateStr}
+Licensor (Creator): Jhun Rey Velado
+Licensee (Client):  ${client}
+Access Type:        ${type}
+Software Version:   NexusOS v4.1 — Executive Operating System
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. OWNERSHIP
+   NexusOS, including all code, design, features, screens,
+   architecture, and documentation, is the sole intellectual
+   property of Jhun Rey Velado ("Creator"). This agreement
+   grants a limited license to use NexusOS. It does not
+   transfer ownership or any intellectual property rights
+   of any kind to the Licensee.
+
+2. LICENSE GRANT
+   Creator grants Licensee a non-exclusive, non-transferable,
+   non-sublicensable license to access and use NexusOS solely
+   during the active working relationship between Creator and
+   Licensee. No rights are granted beyond those expressly
+   stated in this agreement.
+
+3. ACCESS AND CONTROL
+   Access is provided via a hosted URL and login credentials
+   managed exclusively by the Creator through Supabase Auth.
+   Credentials are personal to the Licensee and may not be
+   shared with any third party. Creator retains the right to
+   modify, suspend, or revoke access at any time and for any
+   reason, with or without notice.
+
+4. TERMINATION
+   This license terminates automatically and immediately upon
+   the end of the working relationship between Creator and
+   Licensee, for any reason including resignation, termination,
+   contract expiry, or mutual agreement. Upon termination,
+   Licensee loses all access to NexusOS and must cease all
+   use immediately. No data export rights are granted unless
+   separately agreed in writing.
+
+5. RESTRICTIONS
+   Licensee may not:
+     (a) Copy, download, or reverse-engineer NexusOS
+     (b) Resell, sublicense, or share access with any
+         third party
+     (c) Claim ownership of NexusOS or any part of it
+     (d) Use NexusOS after the working relationship ends
+     (e) Attempt to access NexusOS after credentials
+         are revoked or suspended
+     (f) Circumvent, disable, or interfere with any
+         access-control or security mechanism
+
+6. DATA AND CONFIDENTIALITY
+   Both parties agree to keep the terms of this agreement
+   confidential. Data entered into NexusOS by Licensee
+   remains the property of the Licensee. Creator will not
+   access Licensee workspace data without prior written
+   permission, except for maintenance or security purposes.
+   A full audit log of system access is maintained and
+   available to Licensee upon written request.
+
+7. INDEPENDENT CONTRACTOR CLAUSE
+   This license exists independently of any employment or
+   contractor agreement between the parties. NexusOS was
+   created prior to and outside of any employment engagement
+   and is explicitly excluded from any IP assignment clause
+   in any employment or service contract between these parties.
+
+8. GOVERNING LAW
+   This agreement is governed by the laws of ${state}.
+   Any disputes shall be resolved in the courts of ${state}.
+
+9. ENTIRE AGREEMENT
+   This agreement constitutes the entire agreement between
+   the parties regarding NexusOS and supersedes all prior
+   understandings, representations, or agreements.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SIGNATURES
+
+CREATOR (LICENSOR):
+Name:       Jhun Rey Velado
+Signature:  _________________________________
+Date:       _________________________________
+
+LICENSEE:
+Name:       _________________________________
+Title:      _________________________________
+Company:    _________________________________
+Signature:  _________________________________
+Date:       _________________________________
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+}
+
+function copyLicense(){
+  const text = document.getElementById('license-output').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copied!';
+    btn.style.background = '#14532d';
+    setTimeout(()=>{btn.textContent=orig;btn.style.background='';},2200);
+  });
+}
+
+// Smooth scroll for TOC links
+document.querySelectorAll('.toc-link').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+});
+
+updateLicense();
+</script>
+</body>
+</html>
