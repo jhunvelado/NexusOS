@@ -999,12 +999,8 @@ function getEffectivePlan(){if(!currentSubscription)return'starter';const{plan,s
 function hasFeature(f){return PLAN_FEATURES[getEffectivePlan()]?.has(f)||false;}
 function applyPlanGating(){const gated=['travel','pe','relationships','meeting','intel','commitments','calendar','inbox','members'];gated.forEach(f=>{const el=document.getElementById('n-'+f);if(!el)return;if(hasFeature(f)){el.classList.remove('locked');el.querySelector('.nav-lock')?.remove();}else{if(!el.classList.contains('locked')){el.classList.add('locked');const lock=document.createElement('i');lock.className='ti ti-lock nav-lock';el.appendChild(lock);}}});document.getElementById('brand-panel').style.display=hasFeature('branding')?'block':'none';document.getElementById('ws-switcher-wrap').style.display=hasFeature('members')?'block':'none';const sub=currentSubscription;if(sub&&sub.status==='trialing'&&sub.trial_ends_at){const days=Math.ceil((new Date(sub.trial_ends_at)-new Date())/864e5);if(days>0){document.getElementById('trial-days').textContent=days;document.getElementById('trial-banner').style.display='flex';}else{document.getElementById('trial-banner').style.display='none';document.getElementById('renewal-banner').style.display='flex';}}else if(getEffectivePlan()==='starter'&&sub&&sub.status!=='active'){document.getElementById('renewal-banner').style.display='flex';}updatePricingScreen();renderDashboardPlanCard();
   document.querySelectorAll('.mob-drawer-panel .nav-item').forEach(function(el){
-    var oc=el.getAttribute('onclick')||'';
-    var m=oc.match(/nav\('([^']+)'/);
-    if(!m)return;
-    var feat=FEATURE_MAP[m[1]];
-    if(!feat)return;
-    var isLocked=!hasFeature(feat);
+    var oc=el.getAttribute('onclick')||'';var m=oc.match(/nav\('([^']+)'/);if(!m)return;
+    var feat=FEATURE_MAP[m[1]];if(!feat)return;var isLocked=!hasFeature(feat);
     var existLock=el.querySelector('.nav-lock');
     if(isLocked&&!existLock){var lk=document.createElement('i');lk.className='ti ti-lock nav-lock';el.style.opacity='0.5';el.appendChild(lk);}
     else if(!isLocked&&existLock){existLock.remove();el.style.opacity='';}
@@ -1047,24 +1043,20 @@ async function loadSubscription(){if(!currentWorkspaceId)return;const{data}=awai
 function updatePricingScreen(){const plan=getEffectivePlan();const sub=currentSubscription;const names={starter:'Starter — $49/month',professional:'Professional — $149/month',enterprise:'Enterprise — $399/month'};const pe=document.getElementById('current-plan-name');const se=document.getElementById('current-plan-sub');const be=document.getElementById('plan-status-badge');if(pe)pe.textContent=names[plan]||'Free Trial';if(sub){const s=sub.status;if(se)se.textContent=s==='trialing'?'14-day Professional trial':(sub.current_period_end?'Renews '+new Date(sub.current_period_end).toLocaleDateString():'');if(be){be.textContent=s==='trialing'?'Trial':s;be.style.color=s==='active'||s==='trialing'?'#1D9E75':'#E24B4A';}if(document.getElementById('info-plan'))document.getElementById('info-plan').textContent=plan.charAt(0).toUpperCase()+plan.slice(1)+(s==='trialing'?' (trial)':'');}}
 
 
-// AUDIT LOGGING (HIPAA-aligned — all actions logged per workspace)
+// AUDIT LOGGING (HIPAA-aligned)
 async function auditLog(action,resourceType,resourceId,details){
   if(!currentUser||!currentWorkspaceId)return;
   try{
     await sb.from('audit_logs').insert({
-      workspace_id:currentWorkspaceId,
-      user_id:currentUser.id,
-      user_email:currentUser.email||'',
-      action,
-      resource_type:resourceType||null,
-      resource_id:resourceId?String(resourceId):null,
-      details:details||null,
-      created_at:new Date().toISOString()
+      workspace_id:currentWorkspaceId,user_id:currentUser.id,
+      user_email:currentUser.email||'',action,
+      resource_type:resourceType||null,resource_id:resourceId?String(resourceId):null,
+      details:details||null,created_at:new Date().toISOString()
     });
   }catch(e){console.warn('[Audit]',e.message);}
 }
 
-// SESSION TIMEOUT — 15 min inactivity, 60s warning (HIPAA-aligned)
+// SESSION TIMEOUT (15 min inactivity, 60s warning)
 const SESSION_TIMEOUT=15*60*1000;
 const SESSION_WARN_AT=SESSION_TIMEOUT-60*1000;
 let _sessTimer=null,_warnTimer=null,_cdTimer=null;
@@ -1081,31 +1073,19 @@ function resetActivity(){
 }
 function showSessionWarn(){
   const w=document.getElementById('session-warn');if(!w)return;
-  let secs=60;
-  const cd=document.getElementById('session-cd');if(cd)cd.textContent=secs;
+  let secs=60;const cd=document.getElementById('session-cd');if(cd)cd.textContent=secs;
   w.classList.add('show');
-  _cdTimer=setInterval(()=>{
-    secs--;
-    const el=document.getElementById('session-cd');
-    if(el)el.textContent=Math.max(0,secs);
-    if(secs<=0)clearInterval(_cdTimer);
-  },1000);
+  _cdTimer=setInterval(()=>{secs--;const el=document.getElementById('session-cd');if(el)el.textContent=Math.max(0,secs);if(secs<=0)clearInterval(_cdTimer);},1000);
 }
-function extendSession(){
-  resetActivity();
-  auditLog('session_extended','user',currentUser?.id,null);
-}
+function extendSession(){resetActivity();auditLog('session_extended','user',currentUser?.id,null);}
 function initSessionTimeout(){
-  ['mousedown','mousemove','keydown','scroll','touchstart','click'].forEach(e=>{
-    document.addEventListener(e,resetActivity,{passive:true});
-  });
+  ['mousedown','mousemove','keydown','scroll','touchstart','click'].forEach(e=>{document.addEventListener(e,resetActivity,{passive:true});});
   resetActivity();
 }
 
 // PLAN GATE DASHBOARD CARD
 function renderDashboardPlanCard(){
-  const cardEl=document.getElementById('dash-plan-card');
-  if(!cardEl)return;
+  const cardEl=document.getElementById('dash-plan-card');if(!cardEl)return;
   const plan=getEffectivePlan();
   if(plan==='enterprise'){cardEl.style.display='none';return;}
   cardEl.style.display='block';
@@ -1131,20 +1111,18 @@ function renderDashboardPlanCard(){
   const wrapper=document.createElement('div');
   const hdr=document.createElement('div');
   hdr.style.cssText='display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px';
-  hdr.innerHTML='<div style="display:flex;align-items:center;gap:7px;font-size:12px;color:#bbb;font-weight:500"><i class="ti ti-lock" style="color:'+planColor+';font-size:14px"></i> '+planNames[plan]+' plan — '+locked.length+' feature'+(locked.length!==1?'s':'')+' locked</div>';
+  hdr.innerHTML='<div style="display:flex;align-items:center;gap:7px;font-size:12px;color:#bbb;font-weight:500"><i class="ti ti-lock" style="color:'+planColor+';font-size:14px"></i> '+planNames[plan]+' plan — '+locked.length+' feature'+(locked.length!==1?'s':'')+' locked</div>';
   const upBtn=document.createElement('button');
   upBtn.textContent='Unlock '+planNames[nextPlan]+' — '+(plan==='starter'?'₱149/mo':'₱399/mo');
   upBtn.style.cssText='background:'+nextColor+';border:none;color:'+nextTextColor+';padding:5px 14px;border-radius:6px;font-size:11px;cursor:pointer;font-weight:600;white-space:nowrap';
   upBtn.onclick=function(){payWithPayMongo(nextPlan);};
-  hdr.appendChild(upBtn);
-  wrapper.appendChild(hdr);
+  hdr.appendChild(upBtn);wrapper.appendChild(hdr);
   const grid=document.createElement('div');
   grid.style.cssText='display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:6px';
   locked.forEach(function(f){
     const nc=f.needs==='enterprise'?'#f0b429':'#534AB7';
     const nl=f.needs==='enterprise'?'Enterprise':'Professional';
-    const tile=document.createElement('div');
-    tile.className='plan-gate-feat';
+    const tile=document.createElement('div');tile.className='plan-gate-feat';
     tile.onclick=(function(sid){return function(){nav(sid);};})(f.id);
     tile.innerHTML='<i class="ti '+f.icon+'" style="font-size:14px;color:#555"></i>'
       +'<div style="flex:1;min-width:0"><div style="font-size:11px;color:#666;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+f.label+'</div>'
@@ -1152,9 +1130,7 @@ function renderDashboardPlanCard(){
       +'<i class="ti ti-lock" style="font-size:10px;color:'+nc+';opacity:0.6;flex-shrink:0"></i>';
     grid.appendChild(tile);
   });
-  wrapper.appendChild(grid);
-  cardEl.innerHTML='';
-  cardEl.appendChild(wrapper);
+  wrapper.appendChild(grid);cardEl.innerHTML='';cardEl.appendChild(wrapper);
 }
 // AUTH (PHASE 1)
 function showForm(tab){['login','signup','reset'].forEach(f=>{const el=document.getElementById('form-'+f);if(el)el.style.display='none';});const t=document.getElementById('form-'+tab);if(t)t.style.display='block';const tabs=document.getElementById('auth-tabs');if(tab==='reset'){tabs.style.display='none';return;}tabs.style.display='flex';const active={color:'#f0f0f0',background:'#13131f',border:'1px solid #2a2a3d'};const inactive={color:'#777',background:'transparent',border:'none'};Object.assign(document.getElementById('tab-login-btn').style,tab==='login'?active:inactive);Object.assign(document.getElementById('tab-signup-btn').style,tab==='signup'?active:inactive);}
