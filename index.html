@@ -4,13 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>NexusOS — Executive Operating System</title>
-<meta name="description" content="Your executive command center. Replace 12 scattered tools with one secure, plan-gated workspace. Built on Supabase with HIPAA-aligned security.">
+<meta name="description" content="Your executive command center. Replace 12 scattered tools with one secure, plan-gated workspace.">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#09090f;color:#e4e4f0;line-height:1.6}
 a{color:inherit;text-decoration:none}
-
-/* NAV */
 nav{position:sticky;top:0;z-index:100;background:rgba(9,9,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid #1e1e2e;padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:60px}
 .nav-logo{font-size:18px;font-weight:700;letter-spacing:-0.03em;color:#fff}
 .nav-logo span{color:#534AB7}
@@ -19,20 +17,15 @@ nav{position:sticky;top:0;z-index:100;background:rgba(9,9,15,0.92);backdrop-filt
 .nav-links .cta{background:#534AB7;color:#fff;padding:7px 18px;border-radius:7px;font-weight:600;font-size:13px}
 .nav-links .cta:hover{background:#6358d4}
 .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
-.nav-hamburger span{width:22px;height:2px;background:#aaa;border-radius:2px;transition:all 0.2s}
+.nav-hamburger span{width:22px;height:2px;background:#aaa;border-radius:2px}
 .mob-menu{display:none;flex-direction:column;gap:0;background:#0d0d1a;border-bottom:1px solid #1e1e2e;padding:8px 0}
 .mob-menu a{padding:13px 5%;font-size:15px;color:#ccc;border-bottom:1px solid #12121e}
-.mob-menu a:last-child{border-bottom:none}
 .mob-menu.open{display:flex}
-
-/* TRUST BAR */
 .trust-bar{background:#0d0d1a;border-bottom:1px solid #1a1a2e;padding:9px 5%;display:flex;align-items:center;gap:20px;overflow-x:auto;scrollbar-width:none;flex-wrap:wrap;justify-content:center}
 .trust-bar::-webkit-scrollbar{display:none}
 .trust-item{display:flex;align-items:center;gap:6px;font-size:12px;color:#666;white-space:nowrap}
 .trust-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
-
-/* HERO */
 .hero{padding:90px 5% 80px;text-align:center;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(83,74,183,0.18) 0%,transparent 70%);pointer-events:none;animation:pulseGlow 4s ease-in-out infinite}
 @keyframes pulseGlow{0%,100%{opacity:0.6}50%{opacity:1}}
@@ -46,14 +39,10 @@ h1 span{background:linear-gradient(135deg,#534AB7,#a89eff);-webkit-background-cl
 .btn-primary:hover{background:#6358d4;transform:translateY(-1px)}
 .btn-outline{background:transparent;color:#aaa;padding:13px 28px;border-radius:9px;font-weight:600;font-size:15px;border:1px solid #2a2a3e;cursor:pointer;transition:all 0.15s}
 .btn-outline:hover{border-color:#534AB7;color:#fff}
-
-/* STATS */
 .stats{display:flex;justify-content:center;gap:48px;padding:48px 5%;flex-wrap:wrap;border-top:1px solid #1e1e2e;border-bottom:1px solid #1e1e2e}
 .stat{text-align:center}
 .stat-n{font-size:36px;font-weight:800;color:#fff;letter-spacing:-0.03em}
 .stat-l{font-size:12px;color:#555;margin-top:3px}
-
-/* DASHBOARD PREVIEW */
 .preview{padding:60px 5%;max-width:960px;margin:0 auto}
 .preview-label{text-align:center;font-size:12px;color:#555;margin-bottom:14px;letter-spacing:0.08em;text-transform:uppercase}
 .browser-bar{background:#0f0f1a;border:1px solid #1e1e2e;border-radius:14px 14px 0 0;padding:10px 16px;display:flex;align-items:center;gap:10px}
@@ -61,13 +50,12 @@ h1 span{background:linear-gradient(135deg,#534AB7,#a89eff);-webkit-background-cl
 .browser-dots span{width:11px;height:11px;border-radius:50%}
 .bd-r{background:#ff5f57}.bd-y{background:#febc2e}.bd-g{background:#28c840}
 .browser-url{background:#1a1a2e;border-radius:6px;padding:5px 12px;font-size:11px;color:#555;flex:1;display:flex;align-items:center;gap:6px}
-.browser-url i{color:#22c55e;font-size:12px}
 .dash-preview{background:#0d0d1a;border:1px solid #1e1e2e;border-top:none;border-radius:0 0 14px 14px;display:flex;overflow:hidden;min-height:320px}
 .dash-sidebar{width:190px;background:#090910;border-right:1px solid #1a1a2e;padding:16px 0;flex-shrink:0}
 .ds-logo{padding:0 16px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid #1a1a2e;margin-bottom:10px}
-.ds-item{padding:8px 16px;font-size:12px;color:#555;display:flex;align-items:center;gap:8px;cursor:default}
+.ds-item{padding:8px 16px;font-size:12px;color:#555;display:flex;align-items:center;gap:8px}
 .ds-item.active{color:#fff;background:#12121e}
-.ds-item.locked{opacity:0.45;position:relative}
+.ds-item.locked{opacity:0.45}
 .ds-item .lock-ic{margin-left:auto;font-size:10px;color:#f0b429;opacity:0.7}
 .ds-item span.plan{font-size:9px;color:#534AB7;margin-left:auto;font-weight:600}
 .dash-main{flex:1;padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start}
@@ -75,8 +63,6 @@ h1 span{background:linear-gradient(135deg,#534AB7,#a89eff);-webkit-background-cl
 .dc-ttl{font-size:11px;color:#555;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.06em}
 .dc-val{font-size:24px;font-weight:700;color:#fff}
 .dc-sub{font-size:11px;color:#444;margin-top:3px}
-
-/* FEATURES */
 .features{padding:80px 5%;max-width:1100px;margin:0 auto}
 .section-hdr{text-align:center;margin-bottom:50px}
 .section-hdr h2{font-size:clamp(26px,4vw,42px);font-weight:800;letter-spacing:-0.03em;color:#fff;margin-bottom:10px}
@@ -85,13 +71,11 @@ h1 span{background:linear-gradient(135deg,#534AB7,#a89eff);-webkit-background-cl
 .feat-card{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:12px;padding:22px;transition:border-color 0.15s}
 .feat-card:hover{border-color:#534AB7}
 .feat-ic{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:18px}
-.feat-card h3{font-size:15px;font-weight:700;margin-bottom:6px;color:#e4e4f0;display:flex;align-items:center;gap:8px}
+.feat-card h3{font-size:15px;font-weight:700;margin-bottom:6px;color:#e4e4f0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .feat-card p{font-size:13px;color:#555;line-height:1.6}
 .feat-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;letter-spacing:0.05em}
 .badge-pro{background:#1a1730;color:#534AB7;border:1px solid #2d2760}
 .badge-ent{background:#1a1400;color:#f0b429;border:1px solid #3a2e00}
-
-/* SECURITY */
 .security{padding:80px 5%;background:#0a0a14;border-top:1px solid #1e1e2e;border-bottom:1px solid #1e1e2e}
 .sec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;max-width:1100px;margin:0 auto}
 .sec-card{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:12px;padding:22px}
@@ -100,8 +84,6 @@ h1 span{background:linear-gradient(135deg,#534AB7,#a89eff);-webkit-background-cl
 .sec-card p{font-size:13px;color:#555;line-height:1.6}
 .hipaa-note{max-width:700px;margin:32px auto 0;background:#111120;border:1px solid #1e1e2e;border-left:3px solid #f0b429;border-radius:8px;padding:14px 18px;font-size:13px;color:#666;line-height:1.7}
 .hipaa-note strong{color:#f0b429}
-
-/* COMPARISON */
 .comparison{padding:80px 5%;max-width:860px;margin:0 auto}
 .compare-table{width:100%;border-collapse:collapse;margin-top:32px}
 .compare-table th{padding:12px 16px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:#555;text-align:left;border-bottom:1px solid #1e1e2e}
@@ -111,16 +93,12 @@ h1 span{background:linear-gradient(135deg,#534AB7,#a89eff);-webkit-background-cl
 .compare-table .yes{color:#22c55e;font-size:16px}
 .compare-table .no{color:#3a3a4a;font-size:16px}
 .compare-table .col-nexus{color:#a89eff;font-weight:600}
-
-/* HOW IT WORKS */
 .how{padding:80px 5%;max-width:900px;margin:0 auto}
 .steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;margin-top:36px}
 .step{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:12px;padding:24px}
 .step-n{font-size:28px;font-weight:800;color:#1e1e32;margin-bottom:10px}
 .step h3{font-size:15px;font-weight:700;color:#e4e4f0;margin-bottom:6px}
 .step p{font-size:13px;color:#555;line-height:1.6}
-
-/* PRICING */
 .pricing{padding:80px 5%;max-width:1000px;margin:0 auto}
 .price-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-top:36px}
 .price-card{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:14px;padding:28px;position:relative}
@@ -138,21 +116,15 @@ h1 span{background:linear-gradient(135deg,#534AB7,#a89eff);-webkit-background-cl
 .price-btn-pri:hover{background:#6358d4}
 .price-btn-out{background:transparent;color:#aaa;border:1px solid #2a2a3e}
 .price-btn-out:hover{border-color:#534AB7;color:#fff}
-
-/* TESTIMONIALS */
 .testimonials{padding:80px 5%;background:#0a0a14;border-top:1px solid #1e1e2e}
 .proof-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;max-width:1000px;margin:32px auto 0}
 .proof-card{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:12px;padding:22px}
 .proof-stars{color:#f0b429;font-size:13px;margin-bottom:10px}
 .proof-text{font-size:14px;color:#888;line-height:1.7;margin-bottom:14px;font-style:italic}
 .proof-author{font-size:12px;color:#555;font-weight:600}
-
-/* CTA */
 .cta-sec{padding:90px 5%;text-align:center}
 .cta-sec h2{font-size:clamp(26px,4vw,44px);font-weight:800;color:#fff;letter-spacing:-0.03em;margin-bottom:14px}
 .cta-sec p{font-size:16px;color:#555;margin-bottom:32px}
-
-/* FOOTER */
 footer{background:#060610;border-top:1px solid #1e1e2e;padding:40px 5% 24px}
 .footer-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-bottom:32px}
 .footer-brand p{font-size:13px;color:#444;margin-top:8px;max-width:240px}
@@ -164,20 +136,10 @@ footer{background:#060610;border-top:1px solid #1e1e2e;padding:40px 5% 24px}
 .footer-badges{display:flex;gap:10px;flex-wrap:wrap}
 .fbadge{font-size:10px;color:#333;border:1px solid #1a1a2e;border-radius:5px;padding:3px 9px;display:flex;align-items:center;gap:5px}
 .fbadge .dot{width:5px;height:5px;border-radius:50%;background:#22c55e}
-
-@media(max-width:768px){
-  .nav-links{display:none}
-  .nav-hamburger{display:flex}
-  .dash-sidebar{width:140px}
-  .dash-main{grid-template-columns:1fr}
-  .stats{gap:28px}
-  .footer-top{flex-direction:column}
-  .footer-bottom{flex-direction:column;text-align:center}
-}
+@media(max-width:768px){.nav-links{display:none}.nav-hamburger{display:flex}.dash-sidebar{width:140px}.dash-main{grid-template-columns:1fr}.stats{gap:28px}.footer-top{flex-direction:column}.footer-bottom{flex-direction:column;text-align:center}}
 </style>
 </head>
 <body>
-
 <nav>
   <div class="nav-logo">Nexus<span>OS</span></div>
   <div class="nav-links">
@@ -186,9 +148,7 @@ footer{background:#060610;border-top:1px solid #1e1e2e;padding:40px 5% 24px}
     <a href="#pricing">Pricing</a>
     <a href="nexusos-app.html" class="cta">Open App →</a>
   </div>
-  <div class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </div>
+  <div class="nav-hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 </nav>
 <div class="mob-menu" id="mob-menu">
   <a href="#features" onclick="closeMenu()">Features</a>
@@ -207,11 +167,11 @@ footer{background:#060610;border-top:1px solid #1e1e2e;padding:40px 5% 24px}
 </div>
 
 <section class="hero">
-  <div class="hero-badge"><span class="dot"></span> NexusOS v4.1 — Now with session timeout &amp; audit logging</div>
+  <div class="hero-badge"><span class="dot"></span> NexusOS v4.1 — Session timeout &amp; audit logging</div>
   <h1>Your <span>Executive Command Center</span><br>in one secure workspace</h1>
   <p class="hero-sub">Replace 12 scattered tools with one plan-gated platform built for executives who demand security, clarity, and control.</p>
   <div class="hero-actions">
-    <a href="nexusos-app.html"><button class="btn-primary">Get started free →</button></a>
+    <a href="nexusos-app.html"><button class="btn-primary">Get started →</button></a>
     <a href="#features"><button class="btn-outline">See features</button></a>
   </div>
 </section>
@@ -227,7 +187,7 @@ footer{background:#060610;border-top:1px solid #1e1e2e;padding:40px 5% 24px}
   <p class="preview-label">Dashboard preview</p>
   <div class="browser-bar">
     <div class="browser-dots"><span class="bd-r"></span><span class="bd-y"></span><span class="bd-g"></span></div>
-    <div class="browser-url"><i>🔒</i> jhunvelado.github.io/NexusOS/nexusos-app.html</div>
+    <div class="browser-url"><span>🔒</span> jhunvelado.github.io/NexusOS/nexusos-app.html</div>
   </div>
   <div class="dash-preview">
     <div class="dash-sidebar">
@@ -238,133 +198,49 @@ footer{background:#060610;border-top:1px solid #1e1e2e;padding:40px 5% 24px}
       <div class="ds-item">🧠 Intelligence <span class="plan">PRO</span></div>
       <div class="ds-item locked">📅 Calendar <span class="lock-ic">🔒</span></div>
       <div class="ds-item locked">📬 Inbox <span class="lock-ic">🔒</span></div>
-      <div class="ds-item locked">👥 Team <span class="lock-ic">🔒</span></div>
     </div>
     <div class="dash-main">
       <div class="dash-card"><div class="dc-ttl">Meetings today</div><div class="dc-val">3</div><div class="dc-sub">Next: Board call 2pm</div></div>
       <div class="dash-card"><div class="dc-ttl">Active commitments</div><div class="dc-val">7</div><div class="dc-sub">2 due this week</div></div>
-      <div class="dash-card"><div class="dc-ttl">PE portfolio</div><div class="dc-val">₱48M</div><div class="dc-sub">+12.4% this quarter</div></div>
+      <div class="dash-card"><div class="dc-ttl">PE portfolio</div><div class="dc-val">$48M</div><div class="dc-sub">+12.4% this quarter</div></div>
       <div class="dash-card"><div class="dc-ttl">Session security</div><div class="dc-val" style="font-size:15px;color:#22c55e">✓ Active</div><div class="dc-sub">Auto-logout in 15 min</div></div>
     </div>
   </div>
 </section>
 
 <section class="features" id="features">
-  <div class="section-hdr">
-    <h2>Everything an executive needs</h2>
-    <p>Plan-gated access means you only pay for what you use.</p>
-  </div>
+  <div class="section-hdr"><h2>Everything an executive needs</h2><p>Plan-gated access — pay only for what you use.</p></div>
   <div class="feat-grid">
-    <div class="feat-card">
-      <div class="feat-ic" style="background:#13131f">📊</div>
-      <h3>Executive Dashboard</h3>
-      <p>Real-time view of meetings, commitments, portfolio value, and team pulse — all in one glance.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-ic" style="background:#13131f">✈️</div>
-      <h3>Travel Hub <span class="feat-badge badge-pro">PRO</span></h3>
-      <p>Itineraries, hotel bookings, and flight status managed from a single panel.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-ic" style="background:#13131f">📈</div>
-      <h3>PE Dashboard <span class="feat-badge badge-pro">PRO</span></h3>
-      <p>Track portfolio companies, deal flow, and investment KPIs with live Supabase data.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-ic" style="background:#13131f">🧠</div>
-      <h3>Intelligence Centre <span class="feat-badge badge-pro">PRO</span></h3>
-      <p>AI-curated news, competitor signals, and market intel relevant to your focus areas.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-ic" style="background:#13131f">🤝</div>
-      <h3>Relationship Intel <span class="feat-badge badge-pro">PRO</span></h3>
-      <p>CRM-lite for executives: track key contacts, last touchpoints, and relationship health.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-ic" style="background:#13131f">📋</div>
-      <h3>Meeting Prep AI <span class="feat-badge badge-pro">PRO</span></h3>
-      <p>Auto-generate agendas, background briefs, and talking points before every meeting.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-ic" style="background:#13131f">🔗</div>
-      <h3>Commitment Tracker <span class="feat-badge badge-pro">PRO</span></h3>
-      <p>Log and track every promise made in meetings. Never drop a follow-through again.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-ic" style="background:#13131f">📅</div>
-      <h3>Calendar <span class="feat-badge badge-ent">ENTERPRISE</span></h3>
-      <p>Google Calendar sync with AI scheduling suggestions and conflict detection.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-ic" style="background:#13131f">📬</div>
-      <h3>Inbox <span class="feat-badge badge-ent">ENTERPRISE</span></h3>
-      <p>Gmail + Outlook integration with AI triage, priority flagging, and draft replies.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-ic" style="background:#13131f">👥</div>
-      <h3>Team Members <span class="feat-badge badge-ent">ENTERPRISE</span></h3>
-      <p>Multi-user workspaces with role-based access and workspace isolation per team.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-ic" style="background:#13131f">🎨</div>
-      <h3>Custom Branding <span class="feat-badge badge-ent">ENTERPRISE</span></h3>
-      <p>White-label the entire platform with your logo, brand colors, and custom domain.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-ic" style="background:#13131f">📝</div>
-      <h3>Audit Logging</h3>
-      <p>Every login, screen view, profile change, and payment is logged to your Supabase table with full RLS protection.</p>
-    </div>
+    <div class="feat-card"><div class="feat-ic" style="background:#13131f">📊</div><h3>Executive Dashboard</h3><p>Real-time view of meetings, commitments, tasks, and approvals — all in one glance.</p></div>
+    <div class="feat-card"><div class="feat-ic" style="background:#13131f">✈️</div><h3>Travel Hub <span class="feat-badge badge-pro">PRO</span></h3><p>Itineraries, hotel bookings, and flight status managed from a single panel.</p></div>
+    <div class="feat-card"><div class="feat-ic" style="background:#13131f">📈</div><h3>PE Dashboard <span class="feat-badge badge-pro">PRO</span></h3><p>Track portfolio companies, deal flow, and investment KPIs with live Supabase data.</p></div>
+    <div class="feat-card"><div class="feat-ic" style="background:#13131f">🧠</div><h3>Intelligence Centre <span class="feat-badge badge-pro">PRO</span></h3><p>AI-curated news, competitor signals, and market intel relevant to your focus areas.</p></div>
+    <div class="feat-card"><div class="feat-ic" style="background:#13131f">🤝</div><h3>Relationship Intel <span class="feat-badge badge-pro">PRO</span></h3><p>CRM-lite for executives: track key contacts, last touchpoints, and relationship health.</p></div>
+    <div class="feat-card"><div class="feat-ic" style="background:#13131f">📋</div><h3>Meeting Prep AI <span class="feat-badge badge-pro">PRO</span></h3><p>Auto-generate agendas, background briefs, and talking points before every meeting.</p></div>
+    <div class="feat-card"><div class="feat-ic" style="background:#13131f">🔗</div><h3>Commitment Tracker <span class="feat-badge badge-pro">PRO</span></h3><p>Log and track every promise made in meetings. Never drop a follow-through again.</p></div>
+    <div class="feat-card"><div class="feat-ic" style="background:#13131f">📅</div><h3>Calendar <span class="feat-badge badge-ent">ENTERPRISE</span></h3><p>Google Calendar sync with AI scheduling suggestions and conflict detection.</p></div>
+    <div class="feat-card"><div class="feat-ic" style="background:#13131f">📬</div><h3>Inbox <span class="feat-badge badge-ent">ENTERPRISE</span></h3><p>Gmail + Outlook integration with AI triage, priority flagging, and draft replies.</p></div>
+    <div class="feat-card"><div class="feat-ic" style="background:#13131f">👥</div><h3>Team Members <span class="feat-badge badge-ent">ENTERPRISE</span></h3><p>Multi-user workspaces with role-based access and workspace isolation per team.</p></div>
+    <div class="feat-card"><div class="feat-ic" style="background:#13131f">🎨</div><h3>Custom Branding <span class="feat-badge badge-ent">ENTERPRISE</span></h3><p>White-label the entire platform with your logo, brand colors, and custom domain.</p></div>
+    <div class="feat-card"><div class="feat-ic" style="background:#13131f">📝</div><h3>Audit Logging</h3><p>Every login, screen view, profile change, and payment is logged with full RLS protection.</p></div>
   </div>
 </section>
 
 <section class="security" id="security">
-  <div class="section-hdr">
-    <h2>Built for security-conscious executives</h2>
-    <p>HIPAA-aligned architecture from the ground up.</p>
-  </div>
+  <div class="section-hdr"><h2>Built for security-conscious executives</h2><p>HIPAA-aligned architecture from the ground up.</p></div>
   <div class="sec-grid">
-    <div class="sec-card">
-      <div class="sec-ic">⏱️</div>
-      <h3>15-Minute Session Timeout</h3>
-      <p>Automatic logout after 15 minutes of inactivity, with a 60-second warning. Compliant with HIPAA § 164.312(a)(2)(iii).</p>
-    </div>
-    <div class="sec-card">
-      <div class="sec-ic">📋</div>
-      <h3>Complete Audit Trail</h3>
-      <p>Every login, logout, screen access, profile update, and payment is logged to an RLS-protected <code style="font-size:11px;color:#534AB7">audit_logs</code> table.</p>
-    </div>
-    <div class="sec-card">
-      <div class="sec-ic">🔐</div>
-      <h3>Row-Level Security (RLS)</h3>
-      <p>Supabase RLS ensures each workspace sees only its own data. No shared tables, no data leaks between organizations.</p>
-    </div>
-    <div class="sec-card">
-      <div class="sec-ic">🚫</div>
-      <h3>No Secrets in Frontend</h3>
-      <p>Payment secret keys live exclusively in Supabase Edge Functions. Only public keys are in client-side code.</p>
-    </div>
-    <div class="sec-card">
-      <div class="sec-ic">🔒</div>
-      <h3>Encrypted at Rest</h3>
-      <p>All data stored in Supabase PostgreSQL with AES-256 encryption at rest and TLS in transit.</p>
-    </div>
-    <div class="sec-card">
-      <div class="sec-ic">🛡️</div>
-      <h3>Supabase Auth</h3>
-      <p>JWT-based authentication with email+password and Google OAuth. Tokens rotate automatically with short expiry windows.</p>
-    </div>
+    <div class="sec-card"><div class="sec-ic">⏱️</div><h3>15-Minute Session Timeout</h3><p>Automatic logout after 15 minutes of inactivity with a 60-second warning toast.</p></div>
+    <div class="sec-card"><div class="sec-ic">📋</div><h3>Complete Audit Trail</h3><p>Every login, logout, screen access, and payment logged to an RLS-protected <code style="font-size:11px;color:#534AB7">audit_logs</code> table.</p></div>
+    <div class="sec-card"><div class="sec-ic">🔐</div><h3>Row-Level Security (RLS)</h3><p>Supabase RLS ensures each workspace sees only its own data. No shared tables, no cross-org leaks.</p></div>
+    <div class="sec-card"><div class="sec-ic">🚫</div><h3>No Secrets in Frontend</h3><p>Payment secret keys live exclusively in Supabase Edge Functions. Only public keys in client-side code.</p></div>
+    <div class="sec-card"><div class="sec-ic">🔒</div><h3>Encrypted at Rest</h3><p>All data in Supabase PostgreSQL with AES-256 encryption at rest and TLS in transit.</p></div>
+    <div class="sec-card"><div class="sec-ic">🛡️</div><h3>Supabase Auth</h3><p>JWT-based authentication with email+password and Google OAuth. Tokens rotate automatically.</p></div>
   </div>
-  <div class="hipaa-note">
-    <strong>Note on HIPAA BAA:</strong> GitHub Pages cannot sign a Business Associate Agreement (BAA). If you need a fully HIPAA-covered deployment, host NexusOS on a provider that offers a BAA (e.g., Vercel Team/Enterprise, AWS). Supabase BAA is available on their Team and Enterprise plans.
-  </div>
+  <div class="hipaa-note"><strong>Note on HIPAA BAA:</strong> GitHub Pages cannot sign a BAA. For fully HIPAA-covered deployments, host on a provider that offers a BAA (e.g., Vercel Team/Enterprise, AWS). Supabase BAA is available on their Team and Enterprise plans.</div>
 </section>
 
 <section class="comparison">
-  <div class="section-hdr">
-    <h2>NexusOS vs. the old way</h2>
-    <p>What you stop paying for when you consolidate.</p>
-  </div>
+  <div class="section-hdr"><h2>NexusOS vs. the old way</h2><p>What you stop paying for when you consolidate.</p></div>
   <table class="compare-table">
     <tr><th>Capability</th><th>Old tools</th><th class="col-nexus">NexusOS</th></tr>
     <tr><td>Dashboard + KPIs</td><td class="no">✗ Notion / Sheets patchwork</td><td class="yes col-nexus">✓</td></tr>
@@ -378,96 +254,79 @@ footer{background:#060610;border-top:1px solid #1e1e2e;padding:40px 5% 24px}
 </section>
 
 <section class="how">
-  <div class="section-hdr">
-    <h2>Up and running in 5 minutes</h2>
-  </div>
+  <div class="section-hdr"><h2>Up and running in 5 minutes</h2></div>
   <div class="steps">
     <div class="step"><div class="step-n">01</div><h3>Sign up</h3><p>Create your account with email or Google. Your workspace is isolated instantly via Supabase RLS.</p></div>
-    <div class="step"><div class="step-n">02</div><h3>Choose a plan</h3><p>Start free on Starter, or unlock Pro and Enterprise features with a single PayMongo payment.</p></div>
+    <div class="step"><div class="step-n">02</div><h3>Choose a plan</h3><p>Start on Starter at $49/mo, or unlock Pro and Enterprise features with a single PayMongo payment.</p></div>
     <div class="step"><div class="step-n">03</div><h3>Connect your tools</h3><p>Link Google Calendar, Gmail, or Outlook. Import contacts. Your data stays in your workspace.</p></div>
     <div class="step"><div class="step-n">04</div><h3>Command your day</h3><p>Open the dashboard each morning. Every meeting, commitment, and intel item — in one view.</p></div>
   </div>
 </section>
 
 <section class="pricing" id="pricing">
-  <div class="section-hdr">
-    <h2>Simple, transparent pricing</h2>
-    <p>No hidden fees. Pay once per month, cancel anytime.</p>
-  </div>
+  <div class="section-hdr"><h2>Simple, transparent pricing</h2><p>No hidden fees. Cancel anytime.</p></div>
   <div class="price-grid">
     <div class="price-card">
       <div class="price-plan">Starter</div>
-      <div class="price-amt">Free<span></span></div>
-      <div class="price-desc">Core dashboard tools for solo executives.</div>
+      <div class="price-amt">$49<span>/month</span></div>
+      <div class="price-desc">For one CEO and EA getting started.</div>
       <ul class="price-feats">
-        <li>Executive Dashboard</li>
-        <li>Commitment Tracker (basic)</li>
+        <li>Dashboard + AI Briefing</li>
+        <li>Task management</li>
+        <li>Approval centre</li>
+        <li>Executive chat</li>
+        <li>Notes hub</li>
         <li>15-min session timeout</li>
         <li>Audit logging</li>
-        <li>1 workspace</li>
       </ul>
-      <a href="nexusos-app.html"><button class="price-btn price-btn-out">Get started free</button></a>
+      <a href="nexusos-app.html"><button class="price-btn price-btn-out">Get Starter</button></a>
     </div>
     <div class="price-card popular">
       <div class="popular-badge">Most popular</div>
       <div class="price-plan">Professional</div>
-      <div class="price-amt">₱149<span>/mo</span></div>
-      <div class="price-desc">For executives who need the full intelligence stack.</div>
+      <div class="price-amt">$149<span>/month</span></div>
+      <div class="price-desc">Full NexusOS for serious executive operators.</div>
       <ul class="price-feats">
         <li>Everything in Starter</li>
         <li>Travel Hub</li>
         <li>PE Dashboard</li>
-        <li>Intelligence Centre</li>
         <li>Relationship Intel</li>
         <li>Meeting Prep AI</li>
-        <li>Full Commitment Tracker</li>
+        <li>Intelligence Centre</li>
+        <li>Commitment Tracker</li>
       </ul>
-      <a href="nexusos-app.html"><button class="price-btn price-btn-pri">Upgrade to Pro</button></a>
+      <a href="nexusos-app.html"><button class="price-btn price-btn-pri">Get Professional</button></a>
     </div>
     <div class="price-card">
       <div class="price-plan">Enterprise</div>
-      <div class="price-amt">₱399<span>/mo</span></div>
-      <div class="price-desc">Multi-user teams with white-label and compliance features.</div>
+      <div class="price-amt">$399<span>/month</span></div>
+      <div class="price-desc">For PE-backed companies and healthcare groups.</div>
       <ul class="price-feats">
         <li>Everything in Professional</li>
-        <li>Google Calendar sync</li>
-        <li>Gmail + Outlook Inbox</li>
-        <li>Team Members (multi-user)</li>
-        <li>Custom Branding (white-label)</li>
+        <li>Calendar sync</li>
+        <li>Gmail + Outlook inbox</li>
+        <li>Custom branding</li>
+        <li>Up to 5 workspaces</li>
+        <li>Team members</li>
         <li>BAA-ready infrastructure</li>
-        <li>Priority support</li>
       </ul>
-      <a href="nexusos-app.html"><button class="price-btn price-btn-out">Contact for Enterprise</button></a>
+      <a href="nexusos-app.html"><button class="price-btn price-btn-out">Get Enterprise</button></a>
     </div>
   </div>
 </section>
 
 <section class="testimonials">
-  <div class="section-hdr">
-    <h2>What executives are saying</h2>
-  </div>
+  <div class="section-hdr"><h2>What executives are saying</h2></div>
   <div class="proof-grid">
-    <div class="proof-card">
-      <div class="proof-stars">★★★★★</div>
-      <p class="proof-text">"Finally a dashboard that doesn't make me toggle between 6 different tabs. The session timeout and audit log give me peace of mind that sensitive data is protected."</p>
-      <div class="proof-author">— Managing Director, Private Equity firm</div>
-    </div>
-    <div class="proof-card">
-      <div class="proof-stars">★★★★★</div>
-      <p class="proof-text">"The commitment tracker alone saved my team from three dropped follow-throughs this month. The upgrade to Pro took 30 seconds via PayMongo."</p>
-      <div class="proof-author">— Chief of Staff, Series B startup</div>
-    </div>
-    <div class="proof-card">
-      <div class="proof-stars">★★★★★</div>
-      <p class="proof-text">"We evaluated five executive tools. NexusOS was the only one that could show us an actual audit trail and had proper workspace isolation. Non-negotiable for us."</p>
-      <div class="proof-author">— CEO, Healthcare advisory group</div>
-    </div>
+    <div class="proof-card"><div class="proof-stars">★★★★★</div><p class="proof-text">"Finally a dashboard that doesn't make me toggle between 6 different tabs. The session timeout gives me peace of mind that sensitive data is protected."</p><div class="proof-author">— Managing Director, Private Equity firm</div></div>
+    <div class="proof-card"><div class="proof-stars">★★★★★</div><p class="proof-text">"The commitment tracker alone saved my team from three dropped follow-throughs this month. Upgraded to Pro in 30 seconds."</p><div class="proof-author">— Chief of Staff, Series B startup</div></div>
+    <div class="proof-card"><div class="proof-stars">★★★★★</div><p class="proof-text">"NexusOS was the only tool that could show us an actual audit trail and had proper workspace isolation. Non-negotiable for us."</p><div class="proof-author">— CEO, Healthcare advisory group</div></div>
   </div>
 </section>
 
 <section class="cta-sec">
   <h2>Your command center is one click away</h2>
-  <p>Set up takes 5 minutes. Starter plan is free forever.</p>
+  <p>Takes 5 minutes to set up. Cancel anytime.</p>
   <a href="nexusos-app.html"><button class="btn-primary" style="font-size:16px;padding:15px 40px">Open NexusOS →</button></a>
 </section>
 
@@ -477,20 +336,8 @@ footer{background:#060610;border-top:1px solid #1e1e2e;padding:40px 5% 24px}
       <div class="nav-logo">Nexus<span style="color:#534AB7">OS</span></div>
       <p>Executive Operating System v4.1. Built on Supabase. Deployed on GitHub Pages.</p>
     </div>
-    <div class="footer-links">
-      <h4>Product</h4>
-      <a href="#features">Features</a>
-      <a href="#security">Security</a>
-      <a href="#pricing">Pricing</a>
-      <a href="nexusos-app.html">Open App</a>
-    </div>
-    <div class="footer-links">
-      <h4>Security</h4>
-      <a href="#security">Session Timeout</a>
-      <a href="#security">Audit Logging</a>
-      <a href="#security">Data Isolation</a>
-      <a href="#security">HIPAA Notes</a>
-    </div>
+    <div class="footer-links"><h4>Product</h4><a href="#features">Features</a><a href="#security">Security</a><a href="#pricing">Pricing</a><a href="nexusos-app.html">Open App</a></div>
+    <div class="footer-links"><h4>Security</h4><a href="#security">Session Timeout</a><a href="#security">Audit Logging</a><a href="#security">Data Isolation</a><a href="#security">HIPAA Notes</a></div>
   </div>
   <div class="footer-bottom">
     <p>© 2025 NexusOS. All rights reserved.</p>
@@ -502,17 +349,10 @@ footer{background:#060610;border-top:1px solid #1e1e2e;padding:40px 5% 24px}
     </div>
   </div>
 </footer>
-
 <script>
 function toggleMenu(){document.getElementById('mob-menu').classList.toggle('open');}
 function closeMenu(){document.getElementById('mob-menu').classList.remove('open');}
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    const t=document.querySelector(a.getAttribute('href'));
-    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
-  });
-});
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}});});
 </script>
 </body>
 </html>
