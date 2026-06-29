@@ -254,6 +254,21 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 .onboard-btn:hover{opacity:0.88}
 .onboard-skip{text-align:center;font-size:11px;color:#2a2a3e;cursor:pointer;transition:color 0.15s}
 .onboard-skip:hover{color:#534AB7}
+/* PWA install + notification styles */
+#pwa-install-banner{position:fixed;bottom:0;left:0;right:0;z-index:9996;background:#0d0d1a;border-top:1px solid #534AB7;padding:14px 20px;display:none;align-items:center;gap:14px;box-shadow:0 -8px 32px rgba(0,0,0,0.5)}
+#pwa-install-banner.show{display:flex}
+.pwa-banner-icon{font-size:28px;flex-shrink:0}
+.pwa-banner-text{flex:1}
+.pwa-banner-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:2px}
+.pwa-banner-sub{font-size:11px;color:#555}
+.pwa-banner-btns{display:flex;gap:8px;flex-shrink:0}
+.pwa-install-btn{background:#534AB7;border:none;border-radius:8px;padding:9px 16px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
+.pwa-dismiss-btn{background:none;border:1px solid #1e1e2e;border-radius:8px;padding:9px 12px;color:#444;font-size:12px;cursor:pointer;font-family:inherit}
+#notif-prompt{position:fixed;top:70px;right:16px;z-index:9995;background:#0d0d1a;border:1px solid #534AB7;border-radius:12px;padding:16px 18px;max-width:280px;box-shadow:0 8px 32px rgba(0,0,0,0.6);display:none}
+#notif-prompt.show{display:block}
+.notif-prompt-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:5px}
+.notif-prompt-sub{font-size:11px;color:#555;line-height:1.6;margin-bottom:12px}
+.notif-prompt-btns{display:flex;gap:8px}
 
 @media(max-width:768px){
   body{overflow:hidden}
@@ -279,6 +294,16 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
   .pg-title{font-size:18px}
 }
 </style>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#534AB7">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="NexusOS">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="NexusOS">
 </head>
 <body>
 <!-- PHASE 1: AUTH SCREEN -->
@@ -1069,13 +1094,13 @@ function showForm(tab){['login','signup','reset'].forEach(f=>{const el=document.
 async function doLogin(){const email=document.getElementById('login-email').value.trim();const pass=document.getElementById('login-password').value;const err=document.getElementById('login-error');err.style.display='none';if(!email||!pass){err.textContent='Please enter email and password.';err.style.display='block';return;}const{data,error}=await sb.auth.signInWithPassword({email,password:pass});if(error){err.textContent=error.message;err.style.display='block';}else await initApp(data.user);}
 async function doSignup(){const name=document.getElementById('signup-name').value.trim();const email=document.getElementById('signup-email').value.trim();const pass=document.getElementById('signup-password').value;const role=document.getElementById('signup-role').value;const company=document.getElementById('signup-company').value.trim();const err=document.getElementById('signup-error');const suc=document.getElementById('signup-success');err.style.display='none';suc.style.display='none';if(!name||!email||!pass||!company){err.textContent='Please fill all fields.';err.style.display='block';return;}const inviteWsId=window.pendingInviteWorkspaceId||null;const{data,error}=await sb.auth.signUp({email,password:pass,options:{data:{full_name:name,role,company_name:company,invite_workspace_id:inviteWsId}}});if(error){err.textContent=error.message;err.style.display='block';}else{suc.style.display='block';}}
 async function doReset(){const email=document.getElementById('reset-email').value.trim();const err=document.getElementById('reset-error');const suc=document.getElementById('reset-success');err.style.display='none';suc.style.display='none';if(!email){err.textContent='Please enter your email.';err.style.display='block';return;}const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:APP_URL});if(error){err.textContent=error.message;err.style.display='block';}else suc.style.display='block';}
-async function doLogout(){clearTimeout(window._sessTimer);clearTimeout(window._warnTimer);clearInterval(window._cdTimer);auditLog("logout","user",typeof currentUser!=="undefined"?currentUser?.id:null,null);if(chatSubscription)sb.removeChannel(chatSubscription);if(notifSubscription)sb.removeChannel(notifSubscription);await sb.auth.signOut();currentUser=null;currentProfile=null;currentWorkspaceId=null;currentSubscription=null;document.getElementById('trial-banner').style.display='none';document.getElementById('renewal-banner').style.display='none';showAuthScreen();}
+async function doLogout(){clearTimeout(window._sessTimer);clearTimeout(window._warnTimer);clearInterval(window._cdTimer);if(typeof auditLog==="function")auditLog("logout","user",typeof currentUser!=="undefined"?currentUser?.id:null,null);if(chatSubscription)sb.removeChannel(chatSubscription);if(notifSubscription)sb.removeChannel(notifSubscription);await sb.auth.signOut();currentUser=null;currentProfile=null;currentWorkspaceId=null;currentSubscription=null;document.getElementById('trial-banner').style.display='none';document.getElementById('renewal-banner').style.display='none';showAuthScreen();}
 function showAuthScreen(){const a=document.getElementById('auth-screen');if(a)a.style.display='flex';document.querySelector('.topbar').style.display='none';document.querySelector('.layout').style.display='none';document.getElementById('mobile-nav').style.display='none';}
 function hideAuthScreen(){const a=document.getElementById('auth-screen');if(a)a.style.display='none';document.querySelector('.topbar').style.display='flex';document.querySelector('.layout').style.display='flex';if(window.innerWidth<=768)document.getElementById('mobile-nav').style.display='flex';}
 
 // INIT
 async function initApp(user){
-  hideAuthScreen();initSessionTimeout();auditLog("login","user",typeof currentUser!=="undefined"?currentUser?.id:null,{email:typeof currentUser!=="undefined"?currentUser?.email:""});setTimeout(checkShowOnboarding,800);currentUser=user;
+  hideAuthScreen();initSessionTimeout();if(typeof auditLog==="function")auditLog("login","user",typeof currentUser!=="undefined"?currentUser?.id:null,{email:typeof currentUser!=="undefined"?currentUser?.email:""});setTimeout(checkShowOnboarding,800);currentUser=user;
   let{data:profile}=await sb.from('profiles').select('*').eq('id',user.id).maybeSingle();
   if(!profile){
     const meta=user.user_metadata||{};const inviteWsId=meta.invite_workspace_id;let workspaceId;
@@ -1323,7 +1348,7 @@ window.addEventListener('DOMContentLoaded',async()=>{
 <!-- NexusOS v4.1 Additions -->
 <div id="session-warn">
   <div class="sw-title">&#9203; Session Expiring</div>
-  <div class="sw-msg">Your session will expire in <span id="sw-cd">60</span>s due to inactivity.</div>
+  <div class="sw-msg">Your session expires in <span id="sw-cd">60</span>s due to inactivity.</div>
   <div class="sw-btns">
     <button onclick="extendSession()" style="flex:1;padding:8px;background:#534AB7;border:none;border-radius:7px;color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">Stay Signed In</button>
     <button onclick="doLogout()" style="padding:8px 12px;background:#13131f;border:1px solid #1e1e2e;border-radius:7px;color:#888;font-size:12px;cursor:pointer;font-family:inherit">Sign Out</button>
@@ -1332,7 +1357,7 @@ window.addEventListener('DOMContentLoaded',async()=>{
 <div id="dev-panel-overlay" onclick="closeDevPanel()"></div>
 <div id="dev-panel">
   <div class="dev-title">Dev: Plan Override</div>
-  <div class="dev-sub">Local only. Does not change Supabase. Press Esc or Shift+Cmd+P to close.</div>
+  <div class="dev-sub">Local only. Does not change Supabase. Esc or Shift+Cmd+P to close.</div>
   <div class="dev-plan-btns">
     <button class="dev-plan-btn" id="dev-btn-starter" onclick="setDevPlan('starter')"><span>Starter</span><span class="dev-pill" style="background:#1a1a2e;color:#888">$49/mo</span></button>
     <button class="dev-plan-btn" id="dev-btn-professional" onclick="setDevPlan('professional')"><span>Professional</span><span class="dev-pill" style="background:#1a1730;color:#534AB7">$149/mo</span></button>
@@ -1346,22 +1371,45 @@ window.addEventListener('DOMContentLoaded',async()=>{
   <div class="onboard-box">
     <div class="onboard-logo">NexusOS</div>
     <div class="onboard-title">Welcome to your executive OS</div>
-    <div class="onboard-sub">You're in. Here's how to get the most from NexusOS in the next 5 minutes:</div>
+    <div class="onboard-sub">You're in. Here's how to get the most from NexusOS in 5 minutes:</div>
     <div class="onboard-steps">
       <div class="onboard-step"><div class="onboard-step-num">1</div><div class="onboard-step-text"><strong>Complete your profile</strong> &mdash; add your name and role so your workspace is personalised.</div></div>
       <div class="onboard-step"><div class="onboard-step-num">2</div><div class="onboard-step-text"><strong>Add your first task</strong> &mdash; head to Task Centre and create something your team is working on.</div></div>
       <div class="onboard-step"><div class="onboard-step-num">3</div><div class="onboard-step-text"><strong>Log a commitment</strong> &mdash; open Commitment Tracker and log a promise that needs following up.</div></div>
-      <div class="onboard-step"><div class="onboard-step-num">4</div><div class="onboard-step-text"><strong>Check your plan</strong> &mdash; tap your avatar to see which features are available at your tier.</div></div>
+      <div class="onboard-step"><div class="onboard-step-num">4</div><div class="onboard-step-text"><strong>Install on your phone</strong> &mdash; tap the install banner below to add NexusOS to your home screen.</div></div>
     </div>
     <button class="onboard-btn" onclick="dismissOnboarding()">Let's go &rarr;</button>
     <div class="onboard-skip" onclick="dismissOnboarding()">Skip for now</div>
   </div>
 </div>
 
+<!-- PWA Install Banner -->
+<div id="pwa-install-banner">
+  <div class="pwa-banner-icon">&#9889;</div>
+  <div class="pwa-banner-text">
+    <div class="pwa-banner-title">Install NexusOS</div>
+    <div class="pwa-banner-sub" id="pwa-banner-sub">Add to your home screen for the full app experience</div>
+  </div>
+  <div class="pwa-banner-btns">
+    <button class="pwa-install-btn" id="pwa-install-btn" onclick="triggerPWAInstall()">Install</button>
+    <button class="pwa-dismiss-btn" onclick="dismissPWABanner()">&#10005;</button>
+  </div>
+</div>
+
+<!-- Push Notification Prompt -->
+<div id="notif-prompt">
+  <div class="notif-prompt-title">&#128276; Enable push notifications</div>
+  <div class="notif-prompt-sub">Get alerts for new approvals, overdue commitments, and session timeouts &mdash; even when the app is in the background.</div>
+  <div class="notif-prompt-btns">
+    <button class="pwa-install-btn" style="flex:1" onclick="requestPushPermission()">Enable</button>
+    <button class="pwa-dismiss-btn" onclick="dismissNotifPrompt()">Not now</button>
+  </div>
+</div>
+
 <script>
 /* === NexusOS v4.1 JS === */
 
-/* PayMongo direct links — NO secret key in frontend */
+/* PayMongo direct links */
 var PAYMONGO_LINKS={
   starter:'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/Obx7Nwm',
   professional:'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/RhLYfWY',
@@ -1369,7 +1417,7 @@ var PAYMONGO_LINKS={
 };
 function payWithPayMongo(plan){
   if(typeof currentUser==='undefined'||!currentUser){alert('Please log in first.');return;}
-  if(typeof auditLog==='function')auditLog('payment_initiated','subscription',plan,{workspace_id:typeof currentWorkspaceId!=='undefined'?currentWorkspaceId:null});
+  if(typeof auditLog==='function')auditLog('payment_initiated','subscription',plan,null);
   localStorage.setItem('nexus_pending_plan',plan);
   localStorage.setItem('nexus_pending_ws',typeof currentWorkspaceId!=='undefined'?(currentWorkspaceId||''):'');
   var m=document.getElementById('upgrade-modal');if(m)m.classList.remove('active');
@@ -1392,18 +1440,18 @@ function closeDevPanel(){
   document.getElementById('dev-panel').classList.remove('show');
   document.getElementById('dev-panel-overlay').classList.remove('show');
 }
-function setDevPlan(plan){
-  _devPlanOverride=plan;
-  var lbl=document.getElementById('dev-current-label');
-  if(lbl)lbl.textContent=plan.charAt(0).toUpperCase()+plan.slice(1)+' (override)';
+function setDevPlan(p){
+  _devPlanOverride=p;
+  var l=document.getElementById('dev-current-label');
+  if(l)l.textContent=p.charAt(0).toUpperCase()+p.slice(1)+' (override)';
   _updateDevBtns();
   if(typeof applyPlanGating==='function')applyPlanGating();
   closeDevPanel();
-  if(typeof showToast==='function')showToast('Dev override: '+plan+' plan','#534AB7');
+  if(typeof showToast==='function')showToast('Dev override: '+p+' plan','#534AB7');
 }
 function resetDevPlan(){
   _devPlanOverride=null;
-  var lbl=document.getElementById('dev-current-label');if(lbl)lbl.textContent='Supabase';
+  var l=document.getElementById('dev-current-label');if(l)l.textContent='Supabase';
   _updateDevBtns();
   if(typeof applyPlanGating==='function')applyPlanGating();
   closeDevPanel();
@@ -1441,8 +1489,7 @@ function resetActivity(){
 }
 function showSessionWarn(){
   var w=document.getElementById('session-warn');if(!w)return;
-  _cdVal=60;
-  var cd=document.getElementById('sw-cd');if(cd)cd.textContent=_cdVal;
+  _cdVal=60;var cd=document.getElementById('sw-cd');if(cd)cd.textContent=_cdVal;
   w.classList.add('show');
   window._cdTimer=setInterval(function(){_cdVal--;if(cd)cd.textContent=_cdVal;if(_cdVal<=0)clearInterval(window._cdTimer);},1000);
 }
@@ -1463,14 +1510,11 @@ async function auditLog(action,resourceType,resourceId,details){
   if(typeof currentWorkspaceId==='undefined'||!currentWorkspaceId)return;
   try{
     await sb.from('audit_logs').insert({
-      workspace_id:currentWorkspaceId,
-      user_id:currentUser.id,
-      user_email:currentUser.email||'',
-      action:action,
+      workspace_id:currentWorkspaceId,user_id:currentUser.id,
+      user_email:currentUser.email||'',action:action,
       resource_type:resourceType||null,
       resource_id:resourceId?String(resourceId):null,
-      details:details||null,
-      created_at:new Date().toISOString()
+      details:details||null,created_at:new Date().toISOString()
     });
   }catch(e){console.warn('[Audit]',e.message);}
 }
@@ -1486,7 +1530,153 @@ function checkShowOnboarding(){
 function dismissOnboarding(){
   var m=document.getElementById('onboard-modal');if(m)m.classList.remove('show');
   if(typeof currentUser!=='undefined'&&currentUser)localStorage.setItem('nexus_onboarded_'+currentUser.id,'1');
+  // Show notification prompt after onboarding
+  setTimeout(maybeShowNotifPrompt, 1500);
 }
+
+/* ── PWA: Service Worker Registration ───────────────────── */
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('/NexusOS/sw.js', {scope:'/NexusOS/'})
+      .then(function(reg){
+        console.log('[NexusOS] SW registered:', reg.scope);
+        // Listen for messages from SW (notification click routing)
+        navigator.serviceWorker.addEventListener('message', function(e){
+          if(e.data && e.data.type==='notification_click'){
+            if(e.data.notifType==='approval'&&typeof nav==='function')nav('approvals');
+            if(e.data.notifType==='commitment'&&typeof nav==='function')nav('commitments');
+          }
+        });
+      })
+      .catch(function(err){ console.warn('[NexusOS] SW failed:', err); });
+  });
+}
+
+/* ── PWA: Install Prompt ─────────────────────────────────── */
+var _deferredInstallPrompt = null;
+var _isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+var _isInStandaloneMode = ('standalone' in window.navigator) && window.navigator.standalone
+  || window.matchMedia('(display-mode: standalone)').matches;
+
+window.addEventListener('beforeinstallprompt', function(e){
+  e.preventDefault();
+  _deferredInstallPrompt = e;
+  if(!localStorage.getItem('nexus_pwa_dismissed') && !_isInStandaloneMode){
+    setTimeout(showPWABanner, 3000);
+  }
+});
+
+function showPWABanner(){
+  if(_isInStandaloneMode) return;
+  var banner = document.getElementById('pwa-install-banner');
+  if(!banner) return;
+  if(_isIOS){
+    document.getElementById('pwa-banner-sub').textContent = 'Tap Share ↓ then "Add to Home Screen" to install';
+    document.getElementById('pwa-install-btn').textContent = 'Got it';
+    document.getElementById('pwa-install-btn').onclick = dismissPWABanner;
+  }
+  banner.classList.add('show');
+}
+
+function triggerPWAInstall(){
+  if(_deferredInstallPrompt){
+    _deferredInstallPrompt.prompt();
+    _deferredInstallPrompt.userChoice.then(function(result){
+      if(result.outcome==='accepted'){
+        if(typeof showToast==='function')showToast('NexusOS installed on your device!','#22c55e');
+        if(typeof auditLog==='function')auditLog('pwa_installed','device',null,null);
+      }
+      _deferredInstallPrompt=null;
+      dismissPWABanner();
+    });
+  }
+}
+
+function dismissPWABanner(){
+  var b=document.getElementById('pwa-install-banner');if(b)b.classList.remove('show');
+  localStorage.setItem('nexus_pwa_dismissed','1');
+}
+
+window.addEventListener('appinstalled', function(){
+  if(typeof showToast==='function')showToast('NexusOS added to home screen!','#22c55e');
+  dismissPWABanner();
+});
+
+/* ── PWA: Push Notifications ─────────────────────────────── */
+var ONESIGNAL_APP_ID = 'YOUR_ONESIGNAL_APP_ID'; // Replace in OneSignal dashboard
+
+function maybeShowNotifPrompt(){
+  if(!('Notification' in window)) return;
+  if(Notification.permission === 'granted') return;
+  if(Notification.permission === 'denied') return;
+  if(localStorage.getItem('nexus_notif_dismissed')) return;
+  var p = document.getElementById('notif-prompt');
+  if(p) p.classList.add('show');
+}
+
+function dismissNotifPrompt(){
+  var p=document.getElementById('notif-prompt');if(p)p.classList.remove('show');
+  localStorage.setItem('nexus_notif_dismissed','1');
+}
+
+async function requestPushPermission(){
+  dismissNotifPrompt();
+  if(!('Notification' in window)){
+    if(typeof showToast==='function')showToast('Push notifications not supported on this browser','#f0b429');
+    return;
+  }
+  try{
+    var permission = await Notification.requestPermission();
+    if(permission === 'granted'){
+      if(typeof showToast==='function')showToast('Push notifications enabled!','#22c55e');
+      if(typeof auditLog==='function')auditLog('push_enabled','user',typeof currentUser!=='undefined'?currentUser?.id:null,null);
+      subscribeToPush();
+    } else {
+      if(typeof showToast==='function')showToast('Notifications blocked. You can enable them in browser settings.','#f0b429');
+    }
+  }catch(e){ console.warn('[NexusOS] Push permission error:',e); }
+}
+
+async function subscribeToPush(){
+  if(!navigator.serviceWorker) return;
+  try{
+    var reg = await navigator.serviceWorker.ready;
+    // VAPID public key — replace with your own from OneSignal or web-push library
+    var VAPID_PUBLIC_KEY = 'YOUR_VAPID_PUBLIC_KEY';
+    var sub = await reg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+    });
+    console.log('[NexusOS] Push subscription:', JSON.stringify(sub));
+    // TODO: send sub to your Supabase edge function to store per-user
+  }catch(e){ console.warn('[NexusOS] Push subscribe error:',e); }
+}
+
+function urlBase64ToUint8Array(base64String){
+  var padding = '='.repeat((4 - base64String.length % 4) % 4);
+  var base64 = (base64String + padding).replace(/-/g,'+').replace(/_/g,'/');
+  var rawData = window.atob(base64);
+  var outputArray = new Uint8Array(rawData.length);
+  for(var i=0;i<rawData.length;++i) outputArray[i]=rawData.charCodeAt(i);
+  return outputArray;
+}
+
+/* Helper: send push from app (triggers via Supabase Edge Function in production) */
+function sendLocalNotification(title, body, type, url){
+  if(Notification.permission !== 'granted') return;
+  if(!navigator.serviceWorker.controller) return;
+  navigator.serviceWorker.controller.postMessage({
+    type: 'SHOW_NOTIFICATION',
+    payload: {title:title, body:body, type:type, url:url||'/NexusOS/nexusos-app.html'}
+  });
+}
+
+/* Expose so other parts of app can trigger notifications */
+window.nexusNotify = {
+  approval: function(msg){ sendLocalNotification('NexusOS — New Approval', msg||'An approval is waiting for you.', 'approval'); },
+  commitment: function(msg){ sendLocalNotification('NexusOS — Commitment Due', msg||'A commitment is overdue.', 'commitment'); },
+  general: function(title,msg){ sendLocalNotification(title, msg, 'general'); }
+};
 </script>
 </body>
 </html>
