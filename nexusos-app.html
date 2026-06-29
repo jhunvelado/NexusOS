@@ -36,11 +36,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .nav-item{display:flex;align-items:center;gap:9px;padding:7px 16px;font-size:12px;color:#666;cursor:pointer;border-left:2px solid transparent;transition:all 0.12s;position:relative;min-height:36px}
 .nav-item:hover{color:#bbb;background:#161626}
 .nav-item.active{color:var(--brand-primary);background:#1a1908;border-left-color:var(--brand-primary);font-weight:500}
-.nav-item.locked{opacity:0.5;cursor:not-allowed}
-.nav-item.locked:hover{background:rgba(240,180,41,0.04)!important;color:#666}
+.nav-item.locked{opacity:0.45;cursor:not-allowed}
+.nav-item.locked:hover{background:transparent;color:#666}
 .nav-item i{font-size:15px}
 .nav-badge{background:#E24B4A;color:#fff;font-size:9px;padding:1px 6px;border-radius:10px;margin-left:auto;font-weight:700}
-.nav-lock{margin-left:auto;font-size:11px;color:#f0b429;opacity:0.65}
+.nav-lock{margin-left:auto;font-size:10px;color:#3a3a4a}
 .sidebar-footer{margin-top:auto;padding:10px 14px;border-top:1px solid #1a1a24;font-size:10px;color:#3a3a4a;text-align:center;line-height:1.6}
 .sidebar-footer span{color:#534AB7;font-weight:500}
 .content{flex:1;overflow-y:auto;padding:20px 24px;background:#0d0d14}
@@ -210,6 +210,8 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 #trial-banner,#renewal-banner{flex-shrink:0;padding:8px 20px;display:none;align-items:center;justify-content:space-between;font-size:12px}
 #trial-banner{background:linear-gradient(90deg,#100e22,#13131f);border-bottom:1px solid #534AB7;color:#aaa}
 #renewal-banner{background:#160808;border-bottom:1px solid #2a1010;color:#E24B4A}
+
+/* === NexusOS v4.1 Additions === */
 .plan-gate-card{background:#13131f;border:1px solid #1e1e2e;border-left:3px solid #534AB7;border-radius:10px;padding:15px;margin-top:12px}
 .plan-gate-feat{background:#0a0a12;border:1px solid #1e1e2e;border-radius:8px;padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:border-color 0.12s}
 .plan-gate-feat:hover{border-color:#534AB7}
@@ -223,20 +225,37 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 #dev-panel.show{display:block}
 #dev-panel-overlay{position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,0.6);display:none}
 #dev-panel-overlay.show{display:block}
-.dev-title{font-size:13px;font-weight:700;color:#534AB7;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;display:flex;align-items:center;gap:8px}
-.dev-sub{font-size:11px;color:#444;margin-bottom:18px}
-.dev-plan-btns{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
-.dev-plan-btn{padding:11px 16px;border-radius:8px;border:1px solid #1e1e2e;background:#0a0a12;color:#888;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all 0.15s}
-.dev-plan-btn:hover{border-color:#534AB7;color:#fff}
-.dev-plan-btn.active{border-color:#534AB7;background:#13131f;color:#fff}
-.dev-plan-btn .dev-pill{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:700}
-.dev-reset{width:100%;padding:9px;border-radius:7px;border:1px solid #1e1e2e;background:transparent;color:#555;font-size:12px;cursor:pointer;transition:all 0.15s}
-.dev-reset:hover{border-color:#f0b429;color:#f0b429}
-.dev-hint{font-size:11px;color:#2a2a3e;text-align:center;margin-top:12px}
-.dev-badge{position:fixed;bottom:60px;right:20px;z-index:9997;background:#0d0d1a;border:1px solid #534AB7;border-radius:6px;padding:4px 10px;font-size:10px;color:#534AB7;font-weight:700;letter-spacing:0.06em;display:none;cursor:pointer}
+.dev-title{font-size:15px;font-weight:800;color:#fff;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.dev-sub{font-size:11px;color:#444;margin-bottom:16px}
+.dev-plan-btns{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.dev-plan-btn{background:#0a0a12;border:1px solid #1e1e2e;border-radius:8px;padding:10px 14px;cursor:pointer;color:#e4e4f0;font-size:13px;display:flex;align-items:center;justify-content:space-between;transition:border-color 0.12s;font-family:inherit}
+.dev-plan-btn:hover,.dev-plan-btn.active{border-color:#534AB7}
+.dev-plan-btn.active{background:#0f0d1e}
+.dev-pill{font-size:10px;padding:2px 8px;border-radius:4px}
+.dev-reset{background:none;border:1px solid #1e1e2e;border-radius:6px;padding:7px 12px;color:#555;font-size:11px;cursor:pointer;width:100%;font-family:inherit;margin-bottom:10px;transition:color 0.12s}
+.dev-reset:hover{color:#f87171;border-color:#3a1414}
+.dev-hint{font-size:10px;color:#2a2a3e;text-align:center}
+.dev-badge{position:fixed;bottom:80px;right:16px;z-index:9997;background:#13131f;border:1px solid #534AB7;border-radius:6px;padding:4px 9px;font-size:10px;font-weight:700;color:#534AB7;cursor:pointer;letter-spacing:0.08em;display:none}
 .dev-badge.show{display:block}
 .sidebar-footer a.license-link{display:block;font-size:10px;color:#2a2a3e;margin-top:6px;text-decoration:none;transition:color 0.15s}
 .sidebar-footer a.license-link:hover{color:#534AB7}
+/* Onboarding modal */
+#onboard-modal{position:fixed;inset:0;z-index:99990;background:rgba(0,0,0,0.75);display:flex;align-items:center;justify-content:center;display:none}
+#onboard-modal.show{display:flex}
+.onboard-box{background:#0d0d1a;border:1px solid #534AB7;border-radius:16px;padding:36px 32px;max-width:480px;width:90%;box-shadow:0 24px 80px rgba(0,0,0,0.85)}
+.onboard-logo{font-size:28px;font-weight:900;background:linear-gradient(90deg,#534AB7,#a89eff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
+.onboard-title{font-size:20px;font-weight:800;color:#fff;margin-bottom:8px}
+.onboard-sub{font-size:13px;color:#555;line-height:1.65;margin-bottom:22px}
+.onboard-steps{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.onboard-step{display:flex;align-items:flex-start;gap:12px;background:#070710;border:1px solid #1e1e2e;border-radius:8px;padding:10px 14px}
+.onboard-step-num{width:24px;height:24px;min-width:24px;border-radius:6px;background:#534AB7;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff}
+.onboard-step-text{font-size:12px;color:#888;line-height:1.6}
+.onboard-step-text strong{color:#c4c4d4}
+.onboard-btn{width:100%;padding:13px;background:linear-gradient(90deg,#534AB7,#7c6fff);border:none;border-radius:9px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:10px;transition:opacity 0.15s}
+.onboard-btn:hover{opacity:0.88}
+.onboard-skip{text-align:center;font-size:11px;color:#2a2a3e;cursor:pointer;transition:color 0.15s}
+.onboard-skip:hover{color:#534AB7}
+
 @media(max-width:768px){
   body{overflow:hidden}
   .sidebar{display:none!important}
@@ -267,7 +286,7 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 <div id="auth-screen" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#0d0d14;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-y:auto;padding:20px">
   <div style="background:#13131f;border:1px solid #2a2a3d;border-radius:14px;padding:36px 32px;width:100%;max-width:400px">
     <div id="auth-logo" style="color:#f0b429;font-weight:700;font-size:20px;margin-bottom:4px">⚡ NexusOS</div>
-    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v4.1</div>
+    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v4.0</div>
     <div id="auth-tabs" style="display:flex;gap:4px;background:#0d0d14;padding:4px;border-radius:8px;margin-bottom:20px">
       <button id="tab-login-btn" onclick="showForm('login')" style="flex:1;padding:8px;text-align:center;font-size:12px;font-weight:500;cursor:pointer;border-radius:6px;color:#f0f0f0;border:1px solid #2a2a3d;background:#13131f">Sign in</button>
       <button id="tab-signup-btn" onclick="showForm('signup')" style="flex:1;padding:8px;text-align:center;font-size:12px;font-weight:500;cursor:pointer;border-radius:6px;color:#777;border:none;background:transparent">Create account</button>
@@ -395,7 +414,6 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
         <div class="panel"><div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-circle-check"></i> Pending approvals</div><span style="font-size:11px;color:#534AB7;cursor:pointer" onclick="nav('approvals')">View all</span></div><div id="dash-approvals"><div class="loading-indicator">Loading...</div></div></div>
       </div>
       <div class="panel"><div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-calendar"></i> Today's meetings</div></div><div id="dash-meetings"><div class="empty-state"><i class="ti ti-calendar-off"></i>No meetings today</div></div></div>
-      <div class="plan-gate-card" id="dash-plan-card" style="display:none"></div>
     </div>
     <!-- TASKS -->
     <div class="screen" id="s-tasks">
@@ -973,12 +991,6 @@ CREATE TABLE IF NOT EXISTS workspace_members (id UUID DEFAULT gen_random_uuid() 
 ALTER TABLE workspace_members ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "rls_members" ON workspace_members USING (workspace_id = get_my_workspace_id()) WITH CHECK (workspace_id = get_my_workspace_id());
 
-
--- AUDIT LOG
-CREATE TABLE IF NOT EXISTS audit_logs (id UUID DEFAULT gen_random_uuid() PRIMARY KEY, workspace_id UUID REFERENCES workspaces(id), user_id UUID REFERENCES auth.users(id), user_email TEXT, action TEXT NOT NULL, resource_type TEXT, resource_id TEXT, details JSONB, created_at TIMESTAMPTZ DEFAULT NOW());
-ALTER TABLE audit_logs ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "rls_audit_select" ON audit_logs FOR SELECT USING (workspace_id = get_my_workspace_id());
-CREATE POLICY "rls_audit_insert" ON audit_logs FOR INSERT WITH CHECK (workspace_id = get_my_workspace_id());
 MANUAL SETUP:
 - Phase 6: Google Cloud Console -> enable Calendar API + Gmail API -> OAuth 2.0 Client ID (Web) -> add jhunvelado.github.io to authorized origins -> replace GOOGLE_CLIENT_ID
 - Phase 7: Azure Portal -> register app -> Mail.Read + User.Read permissions -> replace MICROSOFT_CLIENT_ID
@@ -992,7 +1004,8 @@ const SUPABASE_KEY = 'sb_publishable_s1-WhNevY4SxYNhp9RZjag_MCBUNFyd';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const GOOGLE_CLIENT_ID = '626206970912-ie8vji85vjecqbb0i0uva1271u8tgi1a.apps.googleusercontent.com';
 const MICROSOFT_CLIENT_ID = 'YOUR_MICROSOFT_CLIENT_ID';
-const PAYMONGO_PUBLIC_KEY = 'pk_live_msugF7xNXaKtrmpGiny5k1Sx';
+const PAYMONGO_PUBLIC_KEY = 'pk_live_kgebNbVzapdTFjxEGX9mRFGr';
+const PAYMONGO_SECRET_KEY = 'REMOVED_SK';
 const PLAN_PRICES = {
   starter:      { amount: 4900,  label: 'Starter',      php: '₱49'  },
   professional: { amount: 14900, label: 'Professional',  php: '₱149' },
@@ -1015,9 +1028,7 @@ const PLAN_FEATURES={
 const PLAN_LABELS={travel:'Professional',pe:'Professional',relationships:'Professional',meeting:'Professional',intel:'Professional',commitments:'Professional',calendar:'Enterprise',inbox:'Enterprise',members:'Enterprise',branding:'Enterprise'};
 function _origGetEffectivePlan_unused(){if(!currentSubscription)return'starter';const{plan,status,trial_ends_at,current_period_end}=currentSubscription;if(status==='trialing')return(trial_ends_at&&new Date(trial_ends_at)<new Date())?'starter':(plan||'professional');if(status==='active'){if(current_period_end&&new Date(current_period_end)<new Date())return'starter';return plan||'starter';}return'starter';}
 function hasFeature(f){return PLAN_FEATURES[getEffectivePlan()]?.has(f)||false;}
-function applyPlanGating(){const gated=['travel','pe','relationships','meeting','intel','commitments','calendar','inbox','members'];gated.forEach(f=>{const el=document.getElementById('n-'+f);if(!el)return;if(hasFeature(f)){el.classList.remove('locked');el.querySelector('.nav-lock')?.remove();}else{if(!el.classList.contains('locked')){el.classList.add('locked');const lock=document.createElement('i');lock.className='ti ti-lock nav-lock';el.appendChild(lock);}}});document.getElementById('brand-panel').style.display=hasFeature('branding')?'block':'none';document.getElementById('ws-switcher-wrap').style.display=hasFeature('members')?'block':'none';const sub=currentSubscription;if(sub&&sub.status==='trialing'&&sub.trial_ends_at){const days=Math.ceil((new Date(sub.trial_ends_at)-new Date())/864e5);if(days>0){document.getElementById('trial-days').textContent=days;document.getElementById('trial-banner').style.display='flex';}else{document.getElementById('trial-banner').style.display='none';document.getElementById('renewal-banner').style.display='flex';}}else if(getEffectivePlan()==='starter'&&sub&&sub.status!=='active'){document.getElementById('renewal-banner').style.display='flex';}updatePricingScreen();renderDashboardPlanCard();
-  document.querySelectorAll('.mob-drawer-panel .nav-item').forEach(function(el){var oc=el.getAttribute('onclick')||'';var m=oc.match(/nav\('([^']+)'/);if(!m)return;var feat=FEATURE_MAP[m[1]];if(!feat)return;var isLocked=!hasFeature(feat);var existLock=el.querySelector('.nav-lock');if(isLocked&&!existLock){var lk=document.createElement('i');lk.className='ti ti-lock nav-lock';el.style.opacity='0.5';el.appendChild(lk);}else if(!isLocked&&existLock){existLock.remove();el.style.opacity='';}});
-}
+function applyPlanGating(){const gated=['travel','pe','relationships','meeting','intel','commitments','calendar','inbox','members'];gated.forEach(f=>{const el=document.getElementById('n-'+f);if(!el)return;if(hasFeature(f)){el.classList.remove('locked');el.querySelector('.nav-lock')?.remove();}else{if(!el.classList.contains('locked')){el.classList.add('locked');const lock=document.createElement('i');lock.className='ti ti-lock nav-lock';el.appendChild(lock);}}});document.getElementById('brand-panel').style.display=hasFeature('branding')?'block':'none';document.getElementById('ws-switcher-wrap').style.display=hasFeature('members')?'block':'none';const sub=currentSubscription;if(sub&&sub.status==='trialing'&&sub.trial_ends_at){const days=Math.ceil((new Date(sub.trial_ends_at)-new Date())/864e5);if(days>0){document.getElementById('trial-days').textContent=days;document.getElementById('trial-banner').style.display='flex';}else{document.getElementById('trial-banner').style.display='none';document.getElementById('renewal-banner').style.display='flex';}}else if(getEffectivePlan()==='starter'&&sub&&sub.status!=='active'){document.getElementById('renewal-banner').style.display='flex';}updatePricingScreen();}
 function showUpgradeModal(feature){
   const enterpriseFeats=new Set(['calendar','inbox','members','branding']);
   const professionalFeats=new Set(['travel','pe','relationships','meeting','intel','commitments']);
@@ -1054,109 +1065,21 @@ function showUpgradeModal(feature){
 async function loadSubscription(){if(!currentWorkspaceId)return;const{data}=await sb.from('subscriptions').select('*').eq('workspace_id',currentWorkspaceId).maybeSingle();currentSubscription=data;}
 function updatePricingScreen(){const plan=getEffectivePlan();const sub=currentSubscription;const names={starter:'Starter — $49/month',professional:'Professional — $149/month',enterprise:'Enterprise — $399/month'};const pe=document.getElementById('current-plan-name');const se=document.getElementById('current-plan-sub');const be=document.getElementById('plan-status-badge');if(pe)pe.textContent=names[plan]||'Free Trial';if(sub){const s=sub.status;if(se)se.textContent=s==='trialing'?'14-day Professional trial':(sub.current_period_end?'Renews '+new Date(sub.current_period_end).toLocaleDateString():'');if(be){be.textContent=s==='trialing'?'Trial':s;be.style.color=s==='active'||s==='trialing'?'#1D9E75':'#E24B4A';}if(document.getElementById('info-plan'))document.getElementById('info-plan').textContent=plan.charAt(0).toUpperCase()+plan.slice(1)+(s==='trialing'?' (trial)':'');}}
 
-
-// ── DEV PLAN OVERRIDE ────────────────────────────────────────
-let _devPlanOverride=null;
-function _origGetEffectivePlan_unused(){
-  if(_devPlanOverride)return _devPlanOverride;
-  return currentSubscription?.plan||'starter';
-}
-function openDevPanel(){
-  ['starter','professional','enterprise'].forEach(p=>{document.getElementById('dev-btn-'+p)?.classList.toggle('active',getEffectivePlan()===p);});
-  document.getElementById('dev-panel')?.classList.add('show');
-  document.getElementById('dev-panel-overlay')?.classList.add('show');
-}
-function closeDevPanel(){
-  document.getElementById('dev-panel')?.classList.remove('show');
-  document.getElementById('dev-panel-overlay')?.classList.remove('show');
-}
-function setDevPlan(plan){
-  _devPlanOverride=plan;
-  const badge=document.getElementById('dev-badge');
-  if(badge){badge.textContent='DEV: '+plan.toUpperCase();badge.classList.add('show');}
-  ['starter','professional','enterprise'].forEach(p=>{document.getElementById('dev-btn-'+p)?.classList.toggle('active',p===plan);});
-  applyPlanGating();closeDevPanel();
-  _showDevToast('Plan override: '+plan+' (local only)','#534AB7');
-}
-function resetDevPlan(){
-  _devPlanOverride=null;
-  document.getElementById('dev-badge')?.classList.remove('show');
-  applyPlanGating();closeDevPanel();
-  _showDevToast('Reset to real plan: '+(currentSubscription?.plan||'starter'),'#22c55e');
-}
-function _showDevToast(msg,color){
-  let t=document.getElementById('_dev_toast');
-  if(!t){t=document.createElement('div');t.id='_dev_toast';t.style.cssText='position:fixed;top:70px;right:20px;z-index:99999;padding:9px 16px;border-radius:8px;font-size:12px;font-weight:600;color:#fff;opacity:0;transition:opacity 0.2s;pointer-events:none';document.body.appendChild(t);}
-  t.textContent=msg;t.style.background=color||'#534AB7';t.style.opacity='1';
-  clearTimeout(t._tid);t._tid=setTimeout(()=>{t.style.opacity='0';},2500);
-}
-document.addEventListener('keydown',function(e){
-  if(e.shiftKey&&e.metaKey&&e.key==='P'){e.preventDefault();const panel=document.getElementById('dev-panel');if(panel?.classList.contains('show'))closeDevPanel();else openDevPanel();}
-  if(e.key==='Escape')closeDevPanel();
-});
-
-// ── AUDIT LOGGING ─────────────────────────────────────────────
-async function auditLog(action,resourceType,resourceId,details){
-  if(!currentUser||!currentWorkspaceId)return;
-  try{await sb.from('audit_logs').insert({workspace_id:currentWorkspaceId,user_id:currentUser.id,user_email:currentUser.email||'',action,resource_type:resourceType||null,resource_id:resourceId?String(resourceId):null,details:details||null,created_at:new Date().toISOString()});}
-  catch(e){console.warn('[Audit]',e.message);}
-}
-
-// ── SESSION TIMEOUT ───────────────────────────────────────────
-const SESSION_TIMEOUT=15*60*1000,SESSION_WARN_AT=SESSION_TIMEOUT-60*1000;
-let _sessTimer=null,_warnTimer=null,_cdTimer=null;
-function resetActivity(){
-  if(!currentUser)return;
-  clearTimeout(_sessTimer);clearTimeout(_warnTimer);clearInterval(_cdTimer);
-  const w=document.getElementById('session-warn');if(w)w.classList.remove('show');
-  _warnTimer=setTimeout(showSessionWarn,SESSION_WARN_AT);
-  _sessTimer=setTimeout(async()=>{clearInterval(_cdTimer);await auditLog('session_timeout','user',currentUser?.id,null);doLogout();},SESSION_TIMEOUT);
-}
-function showSessionWarn(){
-  const w=document.getElementById('session-warn');if(!w)return;
-  let secs=60;const cd=document.getElementById('session-cd');if(cd)cd.textContent=secs;
-  w.classList.add('show');
-  _cdTimer=setInterval(()=>{secs--;const el=document.getElementById('session-cd');if(el)el.textContent=Math.max(0,secs);if(secs<=0)clearInterval(_cdTimer);},1000);
-}
-function extendSession(){resetActivity();auditLog('session_extended','user',currentUser?.id,null);}
-function initSessionTimeout(){['mousedown','mousemove','keydown','scroll','touchstart','click'].forEach(e=>{document.addEventListener(e,resetActivity,{passive:true});});resetActivity();}
-
-// ── PLAN GATE DASHBOARD CARD ──────────────────────────────────
-function renderDashboardPlanCard(){
-  const cardEl=document.getElementById('dash-plan-card');if(!cardEl)return;
-  const plan=getEffectivePlan();
-  if(plan==='enterprise'){cardEl.style.display='none';return;}
-  cardEl.style.display='block';
-  const planNames={starter:'Starter',professional:'Professional',enterprise:'Enterprise'};
-  const nextPlan=plan==='starter'?'professional':'enterprise';
-  const nextColor=plan==='starter'?'#534AB7':'#f0b429';
-  const nextTextColor=plan==='starter'?'#EEEDFE':'#1a1400';
-  const planColor=plan==='starter'?'#888':'#534AB7';
-  const features=[{id:'travel',label:'Travel Hub',icon:'ti-plane',needs:'professional'},{id:'pe',label:'PE Dashboard',icon:'ti-chart-line',needs:'professional'},{id:'relationships',label:'Relationship Intel',icon:'ti-users',needs:'professional'},{id:'meeting',label:'Meeting Prep',icon:'ti-clipboard-list',needs:'professional'},{id:'intel',label:'Intelligence Centre',icon:'ti-radar',needs:'professional'},{id:'commitments',label:'Commitment Tracker',icon:'ti-git-merge',needs:'professional'},{id:'calendar',label:'Calendar',icon:'ti-calendar',needs:'enterprise'},{id:'inbox',label:'Inbox',icon:'ti-inbox',needs:'enterprise'},{id:'members',label:'Team Members',icon:'ti-users-group',needs:'enterprise'},{id:'branding',label:'Custom Branding',icon:'ti-palette',needs:'enterprise'}];
-  const locked=features.filter(f=>!hasFeature(f.id));
-  if(!locked.length){cardEl.style.display='none';return;}
-  const wrapper=document.createElement('div');
-  const hdr=document.createElement('div');hdr.style.cssText='display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px';
-  hdr.innerHTML='<div style="display:flex;align-items:center;gap:7px;font-size:12px;color:#bbb;font-weight:500"><i class="ti ti-lock" style="color:'+planColor+';font-size:14px"></i> '+planNames[plan]+' plan — '+locked.length+' feature'+(locked.length!==1?'s':'')+' locked</div>';
-  const upBtn=document.createElement('button');upBtn.textContent='Unlock '+planNames[nextPlan]+' — '+(plan==='starter'?'$149/mo':'$399/mo');
-  upBtn.style.cssText='background:'+nextColor+';border:none;color:'+nextTextColor+';padding:5px 14px;border-radius:6px;font-size:11px;cursor:pointer;font-weight:600;white-space:nowrap';
-  upBtn.onclick=function(){payWithPayMongo(nextPlan);};hdr.appendChild(upBtn);wrapper.appendChild(hdr);
-  const grid=document.createElement('div');grid.style.cssText='display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:6px';
-  locked.forEach(function(f){const nc=f.needs==='enterprise'?'#f0b429':'#534AB7';const nl=f.needs==='enterprise'?'Enterprise':'Professional';const tile=document.createElement('div');tile.className='plan-gate-feat';tile.onclick=(function(sid){return function(){nav(sid);};})(f.id);tile.innerHTML='<i class="ti '+f.icon+'" style="font-size:14px;color:#555"></i><div style="flex:1;min-width:0"><div style="font-size:11px;color:#666;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+f.label+'</div><div style="font-size:9px;color:'+nc+';font-weight:600;letter-spacing:0.05em;margin-top:1px">'+nl+'</div></div><i class="ti ti-lock" style="font-size:10px;color:'+nc+';opacity:0.6;flex-shrink:0"></i>';grid.appendChild(tile);});
-  wrapper.appendChild(grid);cardEl.innerHTML='';cardEl.appendChild(wrapper);
-}
 // AUTH (PHASE 1)
 function showForm(tab){['login','signup','reset'].forEach(f=>{const el=document.getElementById('form-'+f);if(el)el.style.display='none';});const t=document.getElementById('form-'+tab);if(t)t.style.display='block';const tabs=document.getElementById('auth-tabs');if(tab==='reset'){tabs.style.display='none';return;}tabs.style.display='flex';const active={color:'#f0f0f0',background:'#13131f',border:'1px solid #2a2a3d'};const inactive={color:'#777',background:'transparent',border:'none'};Object.assign(document.getElementById('tab-login-btn').style,tab==='login'?active:inactive);Object.assign(document.getElementById('tab-signup-btn').style,tab==='signup'?active:inactive);}
 async function doLogin(){const email=document.getElementById('login-email').value.trim();const pass=document.getElementById('login-password').value;const err=document.getElementById('login-error');err.style.display='none';if(!email||!pass){err.textContent='Please enter email and password.';err.style.display='block';return;}const{data,error}=await sb.auth.signInWithPassword({email,password:pass});if(error){err.textContent=error.message;err.style.display='block';}else await initApp(data.user);}
 async function doSignup(){const name=document.getElementById('signup-name').value.trim();const email=document.getElementById('signup-email').value.trim();const pass=document.getElementById('signup-password').value;const role=document.getElementById('signup-role').value;const company=document.getElementById('signup-company').value.trim();const err=document.getElementById('signup-error');const suc=document.getElementById('signup-success');err.style.display='none';suc.style.display='none';if(!name||!email||!pass||!company){err.textContent='Please fill all fields.';err.style.display='block';return;}const inviteWsId=window.pendingInviteWorkspaceId||null;const{data,error}=await sb.auth.signUp({email,password:pass,options:{data:{full_name:name,role,company_name:company,invite_workspace_id:inviteWsId}}});if(error){err.textContent=error.message;err.style.display='block';}else{suc.style.display='block';}}
 async function doReset(){const email=document.getElementById('reset-email').value.trim();const err=document.getElementById('reset-error');const suc=document.getElementById('reset-success');err.style.display='none';suc.style.display='none';if(!email){err.textContent='Please enter your email.';err.style.display='block';return;}const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:APP_URL});if(error){err.textContent=error.message;err.style.display='block';}else suc.style.display='block';}
-async function doLogout(){clearTimeout(_sessTimer);clearTimeout(_warnTimer);clearInterval(_cdTimer);if(currentUser)await auditLog('logout','user',currentUser?.id,null);if(chatSubscription)sb.removeChannel(chatSubscription);if(notifSubscription)sb.removeChannel(notifSubscription);await sb.auth.signOut();currentUser=null;currentProfile=null;currentWorkspaceId=null;currentSubscription=null;document.getElementById('trial-banner').style.display='none';document.getElementById('renewal-banner').style.display='none';showAuthScreen();}
+async function doLogout(){clearTimeout(_sessTimer);clearTimeout(_warnTimer);clearInterval(_cdTimer);auditLog("logout","user",currentUser?.id,null);if(chatSubscription)sb.removeChannel(chatSubscription);if(notifSubscription)sb.removeChannel(notifSubscription);await sb.auth.signOut();currentUser=null;currentProfile=null;currentWorkspaceId=null;currentSubscription=null;document.getElementById('trial-banner').style.display='none';document.getElementById('renewal-banner').style.display='none';showAuthScreen();}
 function showAuthScreen(){const a=document.getElementById('auth-screen');if(a)a.style.display='flex';document.querySelector('.topbar').style.display='none';document.querySelector('.layout').style.display='none';document.getElementById('mobile-nav').style.display='none';}
 function hideAuthScreen(){const a=document.getElementById('auth-screen');if(a)a.style.display='none';document.querySelector('.topbar').style.display='flex';document.querySelector('.layout').style.display='flex';if(window.innerWidth<=768)document.getElementById('mobile-nav').style.display='flex';}
 
 // INIT
 async function initApp(user){
-  hideAuthScreen();currentUser=user;
+  hideAuthScreen();
+      initSessionTimeout();
+      auditLog('login','user',currentUser?.id,{email:currentUser?.email});
+      setTimeout(checkShowOnboarding,800);currentUser=user;
   let{data:profile}=await sb.from('profiles').select('*').eq('id',user.id).maybeSingle();
   if(!profile){
     const meta=user.user_metadata||{};const inviteWsId=meta.invite_workspace_id;let workspaceId;
@@ -1166,7 +1089,7 @@ async function initApp(user){
     const{data:p2}=await sb.from('profiles').select('*').eq('id',user.id).maybeSingle();profile=p2;
   }
   currentProfile=profile||{full_name:user.email,role:'EA'};currentWorkspaceId=currentProfile.workspace_id;
-  await loadSubscription();await loadBranding();setupUI();applyPlanGating();setupRealtime();loadDashboard();checkPaymentStatus();initSessionTimeout();await auditLog('login','user',user.id,{email:user.email});nav('dashboard');
+  await loadSubscription();await loadBranding();setupUI();applyPlanGating();setupRealtime();loadDashboard();checkPaymentStatus();nav('dashboard');
 }
 function setupUI(){const p=currentProfile;const name=p.full_name||p.email||'User';const role=p.role||'EA';document.getElementById('top-role').textContent=role==='CEO'?'Chief Executive Officer':'Executive Assistant';document.getElementById('top-name').textContent=name;document.getElementById('top-av').textContent=name.substring(0,2).toUpperCase();document.getElementById('top-av').className='av '+(role==='CEO'?'av-ceo':'av-ea');document.getElementById('dash-name').textContent=name.split(' ')[0];const now=new Date();document.getElementById('dash-date').textContent=now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'})+(p.company_name?' · '+p.company_name:'');document.getElementById('brief-date').textContent=now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});document.getElementById('brief-greet').textContent='Good '+(now.getHours()<12?'morning':now.getHours()<17?'afternoon':'evening')+', '+name.split(' ')[0]+'.';document.getElementById('info-email').textContent=currentUser.email||'—';document.getElementById('info-role').textContent=role;document.getElementById('info-company').textContent=p.company_name||'Not set';document.getElementById('info-since').textContent=new Date(currentUser.created_at).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});if(role==='CEO'){const s=document.getElementById('ea-submit-section');if(s)s.style.display='none';}if(role==='CEO'){const f=document.getElementById('flagged-emails-section');if(f)f.style.display='block';}document.getElementById('ws-current-name').textContent=p.company_name||'Workspace';}
 
@@ -1175,7 +1098,7 @@ function setupRealtime(){chatSubscription=sb.channel('chat-'+currentWorkspaceId)
 
 // NAVIGATION
 const FEATURE_MAP={travel:'travel',pe:'pe',relationships:'relationships',meeting:'meeting',intel:'intel',commitments:'commitments',calendar:'calendar',inbox:'inbox',members:'members'};
-function nav(screen){const feat=FEATURE_MAP[screen];if(feat&&!hasFeature(feat)){auditLog('feature_gate','screen',screen,{plan:getEffectivePlan()});showUpgradeModal(feat);return;}if(currentUser)auditLog('screen_view','screen',screen,null);document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));const scr=document.getElementById('s-'+screen);if(scr)scr.classList.add('active');const ni=document.getElementById('n-'+screen);if(ni)ni.classList.add('active');const loaders={tasks:loadTasks,approvals:loadApprovals,travel:loadTrips,meeting:loadMeetings,chat:loadChat,notifications:loadNotifications,briefing:loadBriefing,intel:loadIntel,notes:loadNotes,settings:loadSettings,relationships:loadRelationships,commitments:loadCommitments,calendar:loadCalendar,inbox:loadInbox,members:loadMembers};if(loaders[screen])loaders[screen]();}
+function nav(screen){auditLog("screen_view","screen",screen,null);const feat=FEATURE_MAP[screen];if(feat&&!hasFeature(feat)){showUpgradeModal(feat);return;}document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));const scr=document.getElementById('s-'+screen);if(scr)scr.classList.add('active');const ni=document.getElementById('n-'+screen);if(ni)ni.classList.add('active');const loaders={tasks:loadTasks,approvals:loadApprovals,travel:loadTrips,meeting:loadMeetings,chat:loadChat,notifications:loadNotifications,briefing:loadBriefing,intel:loadIntel,notes:loadNotes,settings:loadSettings,relationships:loadRelationships,commitments:loadCommitments,calendar:loadCalendar,inbox:loadInbox,members:loadMembers};if(loaders[screen])loaders[screen]();}
 
 // DASHBOARD
 async function loadDashboard(){if(!currentWorkspaceId)return;const[tr,ar,mr]=await Promise.all([sb.from('tasks').select('*').eq('workspace_id',currentWorkspaceId).order('created_at',{ascending:false}),sb.from('approvals').select('*').eq('workspace_id',currentWorkspaceId).eq('status','pending'),sb.from('meetings').select('*').eq('workspace_id',currentWorkspaceId).order('meeting_date').limit(4)]);const t=tr.data||[],a=ar.data||[],m=mr.data||[];const pending=t.filter(x=>x.status!=='completed'),done=t.filter(x=>x.status==='completed'),high=t.filter(x=>x.priority==='high'&&x.status!=='completed');document.getElementById('stat-total').textContent=t.length;document.getElementById('stat-pending').textContent=pending.length;document.getElementById('stat-done').textContent=done.length;document.getElementById('stat-high').textContent=high.length;document.getElementById('dash-tasks').innerHTML=pending.slice(0,3).map(task=>`<div class="task-item ${task.priority}"><div class="task-body"><div class="task-name">${task.name}</div><div class="task-meta"><span class="tag tag-r">${task.priority}</span><span class="tag tag-gr">${task.status}</span>${task.due_date?`<span class="tag tag-gr">Due: ${task.due_date}</span>`:''}</div></div></div>`).join('')||'<div class="empty-state"><i class="ti ti-check"></i>All caught up!</div>';const ac=a.length;if(ac>0){document.getElementById('appr-count').textContent=ac;document.getElementById('appr-count').style.display='inline';}document.getElementById('dash-approvals').innerHTML=a.slice(0,2).map(ap=>`<div class="appr-row"><div class="appr-name">${ap.title}</div><div class="appr-meta">${ap.category} · $${Number(ap.amount||0).toLocaleString()}</div>${currentProfile.role==='CEO'?`<div class="btn-row"><button class="btn-reject btn-sm" onclick="decideApproval('${ap.id}','rejected')">Reject</button><button class="btn-approve btn-sm" onclick="decideApproval('${ap.id}','approved')">Approve</button></div>`:''}</div>`).join('')||'<div class="empty-state"><i class="ti ti-check"></i>No pending approvals</div>';document.getElementById('dash-meetings').innerHTML=m.length?m.map(x=>`<div class="meeting-row"><div class="meet-time">${x.time||'TBD'}</div><div class="meet-body"><p>${x.title}</p><span>${x.participants||''}</span></div></div>`).join(''):'<div class="empty-state"><i class="ti ti-calendar-off"></i>No meetings today</div>';}
@@ -1236,9 +1159,9 @@ async function deleteNote(id){if(!confirm('Delete note?'))return;await sb.from('
 
 // SETTINGS
 async function loadSettings(){if(!currentUser||!currentProfile)return;const p=currentProfile;document.getElementById('settings-name').value=p.full_name||'';document.getElementById('settings-role').value=p.role||'EA';document.getElementById('settings-email').value=p.email||currentUser.email||'';document.getElementById('settings-company').value=p.company_name||'';document.getElementById('settings-industry').value=p.industry||'Healthcare';document.getElementById('settings-size').value=p.company_size||'1-10 employees';if(currentBranding){document.getElementById('brand-name-input').value=currentBranding.company_name||'';document.getElementById('brand-color-hex').value=currentBranding.primary_color||'#f0b429';document.getElementById('brand-color').value=currentBranding.primary_color||'#f0b429';if(currentBranding.logo_url){document.getElementById('logo-preview').src=currentBranding.logo_url;document.getElementById('logo-preview').style.display='block';document.getElementById('logo-placeholder').style.display='none';}}}
-async function saveProfile(){const name=document.getElementById('settings-name').value.trim(),role=document.getElementById('settings-role').value;if(!name){alert('Name required');return;}const{error}=await sb.from('profiles').update({full_name:name,role,updated_at:new Date().toISOString()}).eq('id',currentUser.id);if(!error){currentProfile={...currentProfile,full_name:name,role};auditLog('profile_update','user',currentUser.id,{role});setupUI();const s=document.getElementById('settings-success');s.style.display='block';setTimeout(()=>s.style.display='none',3000);}}
+async function saveProfile(){const name=document.getElementById('settings-name').value.trim(),role=document.getElementById('settings-role').value;if(!name){alert('Name required');return;}const{error}=await sb.from('profiles').update({full_name:name,role,updated_at:new Date().toISOString()}).eq('id',currentUser.id);if(!error){currentProfile={...currentProfile,full_name:name,role};setupUI();const s=document.getElementById('settings-success');s.style.display='block';setTimeout(()=>s.style.display='none',3000);}}
 async function saveCompany(){const company=document.getElementById('settings-company').value.trim(),industry=document.getElementById('settings-industry').value,size=document.getElementById('settings-size').value;const{error}=await sb.from('profiles').update({company_name:company,industry,company_size:size,updated_at:new Date().toISOString()}).eq('id',currentUser.id);if(!error){currentProfile={...currentProfile,company_name:company,industry,company_size:size};document.getElementById('info-company').textContent=company||'Not set';if(currentWorkspaceId)await sb.from('workspaces').update({company_name:company}).eq('id',currentWorkspaceId);const s=document.getElementById('settings-success');s.style.display='block';setTimeout(()=>s.style.display='none',3000);}}
-async function changePassword(){const np=document.getElementById('settings-newpass').value,cp=document.getElementById('settings-confirmpass').value,msg=document.getElementById('pass-msg');msg.style.display='none';if(!np||np.length<6){msg.textContent='Password must be at least 6 characters.';msg.style.color='#E24B4A';msg.style.display='block';return;}if(np!==cp){msg.textContent='Passwords do not match.';msg.style.color='#E24B4A';msg.style.display='block';return;}const{error}=await sb.auth.updateUser({password:np});if(!error)auditLog('password_change','user',currentUser.id,null);msg.textContent=error?error.message:'Password updated successfully!';msg.style.color=error?'#E24B4A':'#1D9E75';msg.style.display='block';document.getElementById('settings-newpass').value='';document.getElementById('settings-confirmpass').value='';}
+async function changePassword(){const np=document.getElementById('settings-newpass').value,cp=document.getElementById('settings-confirmpass').value,msg=document.getElementById('pass-msg');msg.style.display='none';if(!np||np.length<6){msg.textContent='Password must be at least 6 characters.';msg.style.color='#E24B4A';msg.style.display='block';return;}if(np!==cp){msg.textContent='Passwords do not match.';msg.style.color='#E24B4A';msg.style.display='block';return;}const{error}=await sb.auth.updateUser({password:np});msg.textContent=error?error.message:'Password updated successfully!';msg.style.color=error?'#E24B4A':'#1D9E75';msg.style.display='block';document.getElementById('settings-newpass').value='';document.getElementById('settings-confirmpass').value='';}
 
 // RELATIONSHIPS
 async function loadRelationships(){if(!currentWorkspaceId)return;const filter=document.getElementById('rel-filter')?.value||'all';let q=sb.from('contacts').select('*').eq('workspace_id',currentWorkspaceId).order('last_contact_date',{ascending:true,nullsFirst:true});if(filter!=='all')q=q.eq('category',filter);const{data}=await q;const contacts=data||[];const listEl=document.getElementById('relationships-list');if(!listEl)return;if(!contacts.length){listEl.innerHTML='<div class="empty-state"><i class="ti ti-users"></i><div style="margin-top:8px">No contacts yet</div></div>';return;}const warmColors={hot:'#E24B4A',warm:'#f0b429',neutral:'#534AB7',cold:'#888'};const today=new Date();const freqDays={weekly:7,biweekly:14,monthly:30,quarterly:90,asneeded:999};let html='';contacts.forEach(c=>{const lastDate=c.last_contact_date?new Date(c.last_contact_date):null;const daysSince=lastDate?Math.floor((today-lastDate)/864e5):null;const maxDays=freqDays[c.follow_up_frequency]||30;const isOverdue=daysSince!==null&&daysSince>maxDays;const parts=(c.name||'?').split(' ');let initials='';for(let j=0;j<Math.min(parts.length,2);j++){if(parts[j])initials+=parts[j][0];}initials=initials.toUpperCase();const wc=warmColors[c.warmth]||'#888';const statusText=isOverdue?'OVERDUE':(daysSince===0?'Today':(daysSince!==null?daysSince+'d ago':'No contact yet'));const statusColor=isOverdue?'#E24B4A':'#1D9E75';const catClass=c.category==='investor'?'tag-p':(c.category==='board'?'tag-a':(c.category==='legal'?'tag-r':'tag-gr'));html+=`<div class="panel" style="margin-bottom:10px"><div style="display:flex;align-items:flex-start;gap:14px"><div class="av-sm" style="background:${wc}22;color:${wc};border:1px solid ${wc}44;width:40px;height:40px;font-size:13px;flex-shrink:0">${initials}</div><div style="flex:1"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px"><div><div style="font-size:13px;font-weight:500;color:#ddd;margin-bottom:2px">${c.name||''}</div><div style="font-size:11px;color:#777;margin-bottom:4px">${c.job_title||''}${c.company?' · '+c.company:''}</div>${c.email?`<div style="font-size:11px;color:#555">${c.email}</div>`:''}</div><div style="text-align:right;flex-shrink:0"><span class="tag ${catClass}">${c.category||'other'}</span><div style="font-size:10px;margin-top:4px;color:${statusColor}">${statusText}</div></div></div>${c.notes?`<div style="font-size:11px;color:#555;font-style:italic;margin:8px 0;background:#0a0a12;padding:8px;border-radius:6px">${c.notes}</div>`:''}<div style="display:flex;gap:6px;margin-top:8px;align-items:center"><span style="font-size:10px;color:#444">Follow-up: ${c.follow_up_frequency||'monthly'}</span><div style="margin-left:auto;display:flex;gap:6px"><button class="btn-primary btn-sm" data-id="${c.id}" onclick="logContact(this.dataset.id)">Log contact</button><button class="btn-outline btn-sm" data-id="${c.id}" onclick="editContactById(this.dataset.id)">Edit</button><button class="btn-danger btn-sm" data-id="${c.id}" onclick="deleteContact(this.dataset.id)">×</button></div></div></div></div></div>`;});listEl.innerHTML=html;}
@@ -1260,8 +1183,49 @@ async function closeCommitment(id){if(!confirm('Mark as closed?'))return;await s
 async function deleteCommitment(id){if(!confirm('Delete commitment?'))return;await sb.from('commitments').delete().eq('id',id);loadCommitments();}
 
 // PHASE 3: PAYMONGO
-const PAYMONGO_LINKS={starter:'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/Obx7Nwm',professional:'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/RhLYfWY',enterprise:'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/Q8gM3IF'};
-function payWithPayMongo(plan){if(!currentUser){alert('Please log in first.');return;}if(!PAYMONGO_LINKS[plan]){alert('Unknown plan: '+plan);return;}auditLog('payment_initiated','subscription',plan,{workspace_id:currentWorkspaceId});localStorage.setItem('nexus_pending_plan',plan);localStorage.setItem('nexus_pending_ws',currentWorkspaceId||'');document.getElementById('upgrade-modal')?.classList.remove('active');window.location.href=PAYMONGO_LINKS[plan];}
+async function payWithPayMongo(plan){
+  if(!currentUser){alert('Please log in first.');return;}
+  if(!currentWorkspaceId){alert('Workspace not loaded — please refresh.');return;}
+  const price=PLAN_PRICES[plan];
+  if(!price){alert('Unknown plan: '+plan);return;}
+  const btn=event?.currentTarget||document.querySelector('[data-plan="'+plan+'"]');
+  const orig=btn?.textContent;
+  if(btn){btn.textContent='Redirecting…';btn.disabled=true;}
+  document.getElementById('upgrade-modal')?.classList.remove('active');
+  try{
+    const resp=await fetch('https://api.paymongo.com/v1/checkout_sessions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Basic '+btoa(PAYMONGO_SECRET_KEY+':')},
+      body:JSON.stringify({data:{attributes:{
+        billing:{name:currentProfile?.full_name||'',email:currentUser.email||''},
+        send_email_receipt:true,show_description:true,show_line_items:true,
+        line_items:[{currency:'PHP',amount:price.amount,name:'NexusOS '+price.label+' Plan',description:'Monthly subscription — billed every 30 days',quantity:1}],
+        payment_method_types:['card','gcash','maya','grab_pay'],
+        success_url:APP_URL+'?payment=success&plan='+plan+'&ws='+currentWorkspaceId,
+        cancel_url:APP_URL+'?payment=cancelled',
+        description:'NexusOS '+price.label+' — '+(currentProfile?.company_name||currentUser.email),
+        metadata:{plan,workspace_id:currentWorkspaceId,user_id:currentUser.id,user_email:currentUser.email}
+      }}})
+    });
+    const data=await resp.json().catch(()=>({}));
+    if(!resp.ok){throw new Error(data?.errors?.[0]?.detail||data?.errors?.[0]?.code||'Server returned '+resp.status);}
+    const checkoutUrl=data?.data?.attributes?.checkout_url;
+    if(!checkoutUrl)throw new Error('PayMongo did not return a checkout URL.');
+    localStorage.setItem('nexus_pending_plan',plan);
+    localStorage.setItem('nexus_pending_ws',currentWorkspaceId);
+    window.location.href=checkoutUrl;
+  }catch(e){
+    console.error('PayMongo error:',e);
+    let msg=e.message;
+    if(msg.includes('Failed to fetch')||msg.includes('Load failed')||msg.includes('NetworkError')){
+      msg='Network error connecting to PayMongo.\n\n• Check your internet connection\n• Try disabling browser extensions (ad blockers can block payment APIs)\n• Try a different browser';
+    }else if(msg.includes('401')||msg.includes('unauthorized')){
+      msg='Payment configuration error (invalid API key). Please contact support.';
+    }
+    alert('Payment error:\n\n'+msg);
+    if(btn){btn.textContent=orig;btn.disabled=false;}
+  }
+}
 function checkPaymentStatus(){
   const p=new URLSearchParams(window.location.search);
   const payment=p.get('payment');
@@ -1359,7 +1323,17 @@ window.addEventListener('DOMContentLoaded',async()=>{
   window.addEventListener('resize',()=>{if(window.innerWidth<=768&&currentUser)document.getElementById('mobile-nav').style.display='flex';else document.getElementById('mobile-nav').style.display='none';});
 });
 </script>
-<!-- DEV PLAN OVERRIDE (⇧⌘P) -->
+
+<!-- NexusOS v4.1 Additions -->
+<div id="session-warn">
+  <div class="sw-title">⏱️ Session Expiring</div>
+  <div class="sw-msg">Your session will expire in <span id="sw-cd">60</span>s due to inactivity. Stay signed in?</div>
+  <div class="sw-btns">
+    <button onclick="extendSession()" style="flex:1;padding:8px;background:#534AB7;border:none;border-radius:7px;color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">Stay Signed In</button>
+    <button onclick="doLogout()" style="padding:8px 12px;background:#13131f;border:1px solid #1e1e2e;border-radius:7px;color:#888;font-size:12px;cursor:pointer;font-family:inherit">Sign Out</button>
+  </div>
+</div>
+
 <div id="dev-panel-overlay" onclick="closeDevPanel()"></div>
 <div id="dev-panel">
   <div class="dev-title"><i class="ti ti-code"></i> Dev: Plan Override</div>
@@ -1376,16 +1350,144 @@ window.addEventListener('DOMContentLoaded',async()=>{
     </button>
   </div>
   <button class="dev-reset" onclick="resetDevPlan()">↩ Reset to real Supabase plan</button>
-  <div class="dev-hint">⇧⌘P to toggle</div>
+  <div class="dev-hint">⇧⌘P to toggle · Current: <span id="dev-current-label">Supabase</span></div>
 </div>
-<div id="dev-badge" class="dev-badge" onclick="openDevPanel()" title="Click to change plan override">DEV</div>
-<div id="session-warn">
-  <div class="sw-title"><i class="ti ti-clock"></i> Session expiring</div>
-  <div class="sw-msg">You'll be signed out in <strong id="session-cd">60</strong>s due to inactivity.</div>
-  <div class="sw-btns">
-    <button class="btn-primary btn-sm" onclick="extendSession()">Stay signed in</button>
-    <button class="btn-outline btn-sm" onclick="doLogout()">Sign out now</button>
+<div id="dev-badge" class="dev-badge" onclick="openDevPanel()">DEV</div>
+
+<!-- Onboarding Modal -->
+<div id="onboard-modal">
+  <div class="onboard-box">
+    <div class="onboard-logo">NexusOS</div>
+    <div class="onboard-title">Welcome to your executive OS 👋</div>
+    <div class="onboard-sub">You're in. Here's how to get the most from NexusOS in the next 5 minutes:</div>
+    <div class="onboard-steps">
+      <div class="onboard-step"><div class="onboard-step-num">1</div><div class="onboard-step-text"><strong>Complete your profile</strong> — add your name and role so your workspace is personalised.</div></div>
+      <div class="onboard-step"><div class="onboard-step-num">2</div><div class="onboard-step-text"><strong>Add your first task</strong> — head to Task Centre and create something your team is working on.</div></div>
+      <div class="onboard-step"><div class="onboard-step-num">3</div><div class="onboard-step-text"><strong>Log a commitment</strong> — open Commitment Tracker and log a promise that needs following up.</div></div>
+      <div class="onboard-step"><div class="onboard-step-num">4</div><div class="onboard-step-text"><strong>Check your plan</strong> — tap your avatar to see which features are available at your tier.</div></div>
+    </div>
+    <button class="onboard-btn" onclick="dismissOnboarding()">Let's go →</button>
+    <div class="onboard-skip" onclick="dismissOnboarding()">Skip for now</div>
   </div>
 </div>
+
+<script>
+// ── PAYMONGO DIRECT LINKS ─────────────────────────────────────────────────────
+const PAYMONGO_LINKS={
+  starter:'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/Obx7Nwm',
+  professional:'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/RhLYfWY',
+  enterprise:'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/Q8gM3IF'
+};
+function payWithPayMongo(plan){
+  if(!currentUser){alert('Please log in first.');return;}
+  auditLog('payment_initiated','subscription',plan,{workspace_id:currentWorkspaceId});
+  localStorage.setItem('nexus_pending_plan',plan);
+  localStorage.setItem('nexus_pending_ws',currentWorkspaceId||'');
+  document.getElementById('upgrade-modal')?.classList.remove('active');
+  window.location.href=PAYMONGO_LINKS[plan];
+}
+
+// ── DEV PLAN OVERRIDE ─────────────────────────────────────────────────────────
+let _devPlanOverride=null;
+function getEffectivePlan(){
+  if(_devPlanOverride)return _devPlanOverride;
+  return currentSubscription?.plan||'starter';
+}
+function openDevPanel(){
+  document.getElementById('dev-panel').classList.add('show');
+  document.getElementById('dev-panel-overlay').classList.add('show');
+  updateDevBtns();
+}
+function closeDevPanel(){
+  document.getElementById('dev-panel').classList.remove('show');
+  document.getElementById('dev-panel-overlay').classList.remove('show');
+}
+function setDevPlan(plan){
+  _devPlanOverride=plan;
+  document.getElementById('dev-current-label').textContent=plan.charAt(0).toUpperCase()+plan.slice(1)+' (override)';
+  updateDevBtns();
+  applyPlanGating();
+  closeDevPanel();
+  showToast('Dev override: '+plan+' plan active','#534AB7');
+}
+function resetDevPlan(){
+  _devPlanOverride=null;
+  document.getElementById('dev-current-label').textContent='Supabase';
+  updateDevBtns();
+  applyPlanGating();
+  closeDevPanel();
+  showToast('Plan reset to Supabase value','#22c55e');
+}
+function updateDevBtns(){
+  ['starter','professional','enterprise'].forEach(p=>{
+    const btn=document.getElementById('dev-btn-'+p);
+    if(btn)btn.classList.toggle('active',_devPlanOverride===p);
+  });
+}
+document.addEventListener('keydown',function(e){
+  if(e.shiftKey&&e.metaKey&&e.key==='P'){
+    e.preventDefault();
+    const panel=document.getElementById('dev-panel');
+    if(panel.classList.contains('show'))closeDevPanel();else openDevPanel();
+  }
+  if(e.key==='Escape')closeDevPanel();
+});
+// Show DEV badge in development (localhost or no custom domain)
+if(location.hostname==='localhost'||location.hostname==='127.0.0.1'||location.hostname.includes('github.io')){
+  const b=document.getElementById('dev-badge');if(b)b.classList.add('show');
+}
+
+// ── SESSION TIMEOUT ───────────────────────────────────────────────────────────
+const SESSION_TIMEOUT=15*60*1000,SESSION_WARN_AT=SESSION_TIMEOUT-60*1000;
+let _sessTimer=null,_warnTimer=null,_cdTimer=null,_cdVal=60;
+function resetActivity(){
+  clearTimeout(_sessTimer);clearTimeout(_warnTimer);clearInterval(_cdTimer);
+  const w=document.getElementById('session-warn');if(w)w.classList.remove('show');
+  _warnTimer=setTimeout(showSessionWarn,SESSION_WARN_AT);
+  _sessTimer=setTimeout(()=>{auditLog('session_timeout','user',currentUser?.id,null);doLogout();},SESSION_TIMEOUT);
+}
+function showSessionWarn(){
+  const w=document.getElementById('session-warn');if(!w)return;
+  _cdVal=60;
+  const cd=document.getElementById('sw-cd');if(cd)cd.textContent=_cdVal;
+  w.classList.add('show');
+  _cdTimer=setInterval(()=>{_cdVal--;if(cd)cd.textContent=_cdVal;if(_cdVal<=0)clearInterval(_cdTimer);},1000);
+}
+function extendSession(){resetActivity();auditLog('session_extended','user',currentUser?.id,null);}
+function initSessionTimeout(){
+  ['mousedown','mousemove','keydown','scroll','touchstart','click'].forEach(ev=>{
+    document.addEventListener(ev,resetActivity,{passive:true});
+  });
+  resetActivity();
+}
+
+// ── AUDIT LOGGING ─────────────────────────────────────────────────────────────
+async function auditLog(action,resourceType,resourceId,details){
+  if(!currentUser||!currentWorkspaceId)return;
+  try{
+    await sb.from('audit_logs').insert({
+      workspace_id:currentWorkspaceId,user_id:currentUser.id,
+      user_email:currentUser.email||'',action,
+      resource_type:resourceType||null,
+      resource_id:resourceId?String(resourceId):null,
+      details:details||null,created_at:new Date().toISOString()
+    });
+  }catch(e){console.warn('[Audit]',e.message);}
+}
+
+// ── ONBOARDING ────────────────────────────────────────────────────────────────
+function checkShowOnboarding(){
+  if(!currentUser)return;
+  const key='nexus_onboarded_'+currentUser.id;
+  if(!localStorage.getItem(key)){
+    const m=document.getElementById('onboard-modal');if(m)m.classList.add('show');
+  }
+}
+function dismissOnboarding(){
+  const m=document.getElementById('onboard-modal');if(m)m.classList.remove('show');
+  if(currentUser)localStorage.setItem('nexus_onboarded_'+currentUser.id,'1');
+}
+<\/script>
+
 </body>
 </html>
