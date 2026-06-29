@@ -1053,68 +1053,54 @@ async function loadSubscription(){if(!currentWorkspaceId)return;const{data}=awai
 function updatePricingScreen(){const plan=getEffectivePlan();const sub=currentSubscription;const names={starter:'Starter — $49/month',professional:'Professional — $149/month',enterprise:'Enterprise — $399/month'};const pe=document.getElementById('current-plan-name');const se=document.getElementById('current-plan-sub');const be=document.getElementById('plan-status-badge');if(pe)pe.textContent=names[plan]||'Free Trial';if(sub){const s=sub.status;if(se)se.textContent=s==='trialing'?'14-day Professional trial':(sub.current_period_end?'Renews '+new Date(sub.current_period_end).toLocaleDateString():'');if(be){be.textContent=s==='trialing'?'Trial':s;be.style.color=s==='active'||s==='trialing'?'#1D9E75':'#E24B4A';}if(document.getElementById('info-plan'))document.getElementById('info-plan').textContent=plan.charAt(0).toUpperCase()+plan.slice(1)+(s==='trialing'?' (trial)':'');}}
 
 
-// ── DEV PLAN OVERRIDE ───────────────────────────────────────
-let _devPlanOverride = null;
+// ── DEV PLAN OVERRIDE ────────────────────────────────────────
+let _devPlanOverride=null;
 function _origGetEffectivePlan_unused(){
-  if(_devPlanOverride) return _devPlanOverride;
-  return currentSubscription?.plan || 'starter';
+  if(_devPlanOverride)return _devPlanOverride;
+  return currentSubscription?.plan||'starter';
 }
 function openDevPanel(){
-  const panel=document.getElementById('dev-panel');
-  const overlay=document.getElementById('dev-panel-overlay');
-  if(!panel)return;
-  // Update active state
-  ['starter','professional','enterprise'].forEach(p=>{
-    const btn=document.getElementById('dev-btn-'+p);
-    if(btn) btn.classList.toggle('active', getEffectivePlan()===p);
-  });
-  panel.classList.add('show');
-  overlay.classList.add('show');
+  ['starter','professional','enterprise'].forEach(p=>{document.getElementById('dev-btn-'+p)?.classList.toggle('active',getEffectivePlan()===p);});
+  document.getElementById('dev-panel')?.classList.add('show');
+  document.getElementById('dev-panel-overlay')?.classList.add('show');
 }
 function closeDevPanel(){
   document.getElementById('dev-panel')?.classList.remove('show');
   document.getElementById('dev-panel-overlay')?.classList.remove('show');
 }
 function setDevPlan(plan){
-  _devPlanOverride = plan;
-  // Update badge
+  _devPlanOverride=plan;
   const badge=document.getElementById('dev-badge');
   if(badge){badge.textContent='DEV: '+plan.toUpperCase();badge.classList.add('show');}
-  // Update active button
-  ['starter','professional','enterprise'].forEach(p=>{
-    document.getElementById('dev-btn-'+p)?.classList.toggle('active',p===plan);
-  });
-  // Reapply gating with override
+  ['starter','professional','enterprise'].forEach(p=>{document.getElementById('dev-btn-'+p)?.classList.toggle('active',p===plan);});
   applyPlanGating();
   closeDevPanel();
-  // Show toast
-  showToast('Plan override: '+plan+' (local only)','#534AB7');
+  _showDevToast('Plan override: '+plan+' (local only)','#534AB7');
 }
 function resetDevPlan(){
-  _devPlanOverride = null;
+  _devPlanOverride=null;
   document.getElementById('dev-badge')?.classList.remove('show');
   applyPlanGating();
   closeDevPanel();
-  showToast('Reset to real plan: '+(currentSubscription?.plan||'starter'),'#22c55e');
+  _showDevToast('Reset to real plan: '+(currentSubscription?.plan||'starter'),'#22c55e');
 }
-function showToast(msg,color){
+function _showDevToast(msg,color){
   let t=document.getElementById('_dev_toast');
   if(!t){t=document.createElement('div');t.id='_dev_toast';t.style.cssText='position:fixed;top:70px;right:20px;z-index:99999;padding:9px 16px;border-radius:8px;font-size:12px;font-weight:600;color:#fff;opacity:0;transition:opacity 0.2s;pointer-events:none';document.body.appendChild(t);}
   t.textContent=msg;t.style.background=color||'#534AB7';t.style.opacity='1';
   clearTimeout(t._tid);t._tid=setTimeout(()=>{t.style.opacity='0';},2500);
 }
-// Keyboard shortcut: Shift+Ctrl+P
+// ⇧⌘P on Mac (metaKey = ⌘)
 document.addEventListener('keydown',function(e){
-  if(e.shiftKey&&e.ctrlKey&&e.key==='P'){
+  if(e.shiftKey&&e.metaKey&&e.key==='P'){
     e.preventDefault();
     const panel=document.getElementById('dev-panel');
-    if(panel?.classList.contains('show'))closeDevPanel();
-    else openDevPanel();
+    if(panel?.classList.contains('show'))closeDevPanel();else openDevPanel();
   }
-  if(e.key==='Escape') closeDevPanel();
+  if(e.key==='Escape')closeDevPanel();
 });
 
-// ── AUDIT LOGGING ────────────────────────────────────────────
+// ── AUDIT LOGGING ─────────────────────────────────────────────
 async function auditLog(action,resourceType,resourceId,details){
   if(!currentUser||!currentWorkspaceId)return;
   try{await sb.from('audit_logs').insert({workspace_id:currentWorkspaceId,user_id:currentUser.id,user_email:currentUser.email||'',action,resource_type:resourceType||null,resource_id:resourceId?String(resourceId):null,details:details||null,created_at:new Date().toISOString()});}
@@ -1157,8 +1143,7 @@ function renderDashboardPlanCard(){
   const wrapper=document.createElement('div');
   const hdr=document.createElement('div');hdr.style.cssText='display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px';
   hdr.innerHTML='<div style="display:flex;align-items:center;gap:7px;font-size:12px;color:#bbb;font-weight:500"><i class="ti ti-lock" style="color:'+planColor+';font-size:14px"></i> '+planNames[plan]+' plan — '+locked.length+' feature'+(locked.length!==1?'s':'')+' locked</div>';
-  const upBtn=document.createElement('button');
-  upBtn.textContent='Unlock '+planNames[nextPlan]+' — '+(plan==='starter'?'$149/mo':'$399/mo');
+  const upBtn=document.createElement('button');upBtn.textContent='Unlock '+planNames[nextPlan]+' — '+(plan==='starter'?'$149/mo':'$399/mo');
   upBtn.style.cssText='background:'+nextColor+';border:none;color:'+nextTextColor+';padding:5px 14px;border-radius:6px;font-size:11px;cursor:pointer;font-weight:600;white-space:nowrap';
   upBtn.onclick=function(){payWithPayMongo(nextPlan);};hdr.appendChild(upBtn);wrapper.appendChild(hdr);
   const grid=document.createElement('div');grid.style.cssText='display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:6px';
@@ -1379,30 +1364,26 @@ window.addEventListener('DOMContentLoaded',async()=>{
   window.addEventListener('resize',()=>{if(window.innerWidth<=768&&currentUser)document.getElementById('mobile-nav').style.display='flex';else document.getElementById('mobile-nav').style.display='none';});
 });
 </script>
-<!-- DEV PLAN OVERRIDE PANEL (Shift+Ctrl+P) -->
+<!-- DEV PLAN OVERRIDE (⇧⌘P) -->
 <div id="dev-panel-overlay" onclick="closeDevPanel()"></div>
 <div id="dev-panel">
   <div class="dev-title"><i class="ti ti-code"></i> Dev: Plan Override</div>
-  <div class="dev-sub">Local override only — does not change Supabase. Press Esc to close.</div>
+  <div class="dev-sub">Local only — does not change Supabase. Press Esc or ⇧⌘P to close.</div>
   <div class="dev-plan-btns">
     <button class="dev-plan-btn" id="dev-btn-starter" onclick="setDevPlan('starter')">
-      <span>Starter</span>
-      <span class="dev-pill" style="background:#1a1a2e;color:#888">$49/mo</span>
+      <span>Starter</span><span class="dev-pill" style="background:#1a1a2e;color:#888">$49/mo</span>
     </button>
     <button class="dev-plan-btn" id="dev-btn-professional" onclick="setDevPlan('professional')">
-      <span>Professional</span>
-      <span class="dev-pill" style="background:#1a1730;color:#534AB7">$149/mo</span>
+      <span>Professional</span><span class="dev-pill" style="background:#1a1730;color:#534AB7">$149/mo</span>
     </button>
     <button class="dev-plan-btn" id="dev-btn-enterprise" onclick="setDevPlan('enterprise')">
-      <span>Enterprise</span>
-      <span class="dev-pill" style="background:#1a1400;color:#f0b429">$399/mo</span>
+      <span>Enterprise</span><span class="dev-pill" style="background:#1a1400;color:#f0b429">$399/mo</span>
     </button>
   </div>
-  <button class="dev-reset" onclick="resetDevPlan()">↩ Reset to real plan from Supabase</button>
-  <div class="dev-hint">Shift+Ctrl+P to toggle this panel</div>
+  <button class="dev-reset" onclick="resetDevPlan()">↩ Reset to real Supabase plan</button>
+  <div class="dev-hint">⇧⌘P to toggle</div>
 </div>
 <div id="dev-badge" class="dev-badge" onclick="openDevPanel()" title="Click to change plan override">DEV</div>
-<!-- SESSION TIMEOUT WARNING -->
 <div id="session-warn">
   <div class="sw-title"><i class="ti ti-clock"></i> Session expiring</div>
   <div class="sw-msg">You'll be signed out in <strong id="session-cd">60</strong>s due to inactivity.</div>
