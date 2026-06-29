@@ -159,6 +159,8 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 .upgrade-wall i{font-size:36px;color:#534AB7;display:block;margin-bottom:12px}
 .upgrade-wall h3{font-size:16px;font-weight:500;color:#f0f0f0;margin-bottom:6px}
 .upgrade-wall p{font-size:12px;color:#666;margin-bottom:16px}
+.active-tier{background:#181408 !important;border-bottom:2px solid #f0b429}
+.active-tier div:last-child{color:#f0b429 !important}
 /* PHASE 4: MOBILE RESPONSIVE */
 .mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;height:58px;background:#0f0f1a;border-top:1px solid #1e1e2e;z-index:200;justify-content:space-around;align-items:center;padding:0 4px}
 .mob-btn{background:none;border:none;color:#666;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 12px;border-radius:8px;min-width:44px;min-height:44px;justify-content:center}
@@ -560,9 +562,9 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
         <div id="plan-status-badge" style="font-size:12px;color:#1D9E75;background:#081510;padding:6px 14px;border-radius:20px;border:1px solid #1D9E7544">Active</div>
       </div>
       <div id="pricing-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:24px">
-        <div class="plan-card"><div style="font-size:12px;color:#888;font-weight:500;margin-bottom:6px">Starter</div><div style="font-size:38px;font-weight:700;color:#f0f0f0;margin-bottom:4px">$49<span style="font-size:15px;color:#666;font-weight:400">/month</span></div><div style="font-size:12px;color:#666;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid #1e1e2e">For one CEO and EA getting started.</div><div style="font-size:12px;color:#aaa;line-height:2.2"><div>✓ Dashboard + AI Briefing</div><div>✓ Task management</div><div>✓ Approval centre</div><div>✓ Executive chat</div><div>✓ Notes hub</div></div><button class="btn-outline" style="width:100%;margin-top:20px;padding:11px" onclick="payWithPayMongo('starter',49,'NexusOS Starter','Dashboard, Tasks, Approvals, Chat, Notes')">Get Starter</button></div>
-        <div class="plan-card featured"><div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#534AB7;color:#EEEDFE;font-size:11px;font-weight:600;padding:4px 16px;border-radius:20px;white-space:nowrap">Most popular</div><div style="font-size:12px;color:#888;font-weight:500;margin-bottom:6px">Professional</div><div style="font-size:38px;font-weight:700;color:#f0f0f0;margin-bottom:4px">$149<span style="font-size:15px;color:#666;font-weight:400">/month</span></div><div style="font-size:12px;color:#666;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid #1e1e2e">Full NexusOS for serious executive operators.</div><div style="font-size:12px;color:#aaa;line-height:2.2"><div>✓ Everything in Starter</div><div>✓ Travel Hub</div><div>✓ PE Dashboard</div><div>✓ Relationship Intel</div><div>✓ Meeting Prep AI</div><div>✓ Intelligence Centre</div><div>✓ Commitment Tracker</div></div><button class="btn-primary" style="width:100%;margin-top:20px;padding:11px" onclick="payWithPayMongo('professional',149,'NexusOS Professional','Full feature suite')">Get Professional</button></div>
-        <div class="plan-card"><div style="font-size:12px;color:#888;font-weight:500;margin-bottom:6px">Enterprise</div><div style="font-size:38px;font-weight:700;color:#f0f0f0;margin-bottom:4px">$399<span style="font-size:15px;color:#666;font-weight:400">/month</span></div><div style="font-size:12px;color:#666;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid #1e1e2e">For PE-backed companies and healthcare groups.</div><div style="font-size:12px;color:#aaa;line-height:2.2"><div>✓ Everything in Professional</div><div>✓ Calendar sync</div><div>✓ Gmail + Outlook inbox</div><div>✓ Custom branding</div><div>✓ Up to 5 workspaces</div><div>✓ Team members</div></div><button style="width:100%;margin-top:20px;padding:11px;background:#f0b429;border:none;color:#1a1400;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer" onclick="payWithPayMongo('enterprise',399,'NexusOS Enterprise','Multi-workspace + branding')">Get Enterprise</button></div>
+        <div class="plan-card"><div style="font-size:12px;color:#888;font-weight:500;margin-bottom:6px">Starter</div><div style="font-size:38px;font-weight:700;color:#f0f0f0;margin-bottom:4px">$49<span style="font-size:15px;color:#666;font-weight:400">/month</span></div><div style="font-size:12px;color:#666;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid #1e1e2e">For one CEO and EA getting started.</div><div style="font-size:12px;color:#aaa;line-height:2.2"><div>✓ Dashboard + AI Briefing</div><div>✓ Task management</div><div>✓ Approval centre</div><div>✓ Executive chat</div><div>✓ Notes hub</div></div><button class="btn-outline" style="width:100%;margin-top:20px;padding:11px" data-plan="starter" onclick="payWithPayMongo('starter')">Get Starter</button></div>
+        <div class="plan-card featured"><div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#534AB7;color:#EEEDFE;font-size:11px;font-weight:600;padding:4px 16px;border-radius:20px;white-space:nowrap">Most popular</div><div style="font-size:12px;color:#888;font-weight:500;margin-bottom:6px">Professional</div><div style="font-size:38px;font-weight:700;color:#f0f0f0;margin-bottom:4px">$149<span style="font-size:15px;color:#666;font-weight:400">/month</span></div><div style="font-size:12px;color:#666;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid #1e1e2e">Full NexusOS for serious executive operators.</div><div style="font-size:12px;color:#aaa;line-height:2.2"><div>✓ Everything in Starter</div><div>✓ Travel Hub</div><div>✓ PE Dashboard</div><div>✓ Relationship Intel</div><div>✓ Meeting Prep AI</div><div>✓ Intelligence Centre</div><div>✓ Commitment Tracker</div></div><button class="btn-primary" style="width:100%;margin-top:20px;padding:11px" data-plan="professional" onclick="payWithPayMongo('professional')">Get Professional</button></div>
+        <div class="plan-card"><div style="font-size:12px;color:#888;font-weight:500;margin-bottom:6px">Enterprise</div><div style="font-size:38px;font-weight:700;color:#f0f0f0;margin-bottom:4px">$399<span style="font-size:15px;color:#666;font-weight:400">/month</span></div><div style="font-size:12px;color:#666;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid #1e1e2e">For PE-backed companies and healthcare groups.</div><div style="font-size:12px;color:#aaa;line-height:2.2"><div>✓ Everything in Professional</div><div>✓ Calendar sync</div><div>✓ Gmail + Outlook inbox</div><div>✓ Custom branding</div><div>✓ Up to 5 workspaces</div><div>✓ Team members</div></div><button style="width:100%;margin-top:20px;padding:11px;background:#f0b429;border:none;color:#1a1400;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer" data-plan="enterprise" onclick="payWithPayMongo('enterprise')">Get Enterprise</button></div>
       </div>
     </div>
     <!-- SETTINGS -->
@@ -675,17 +677,38 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 
 <!-- PHASE 3: UPGRADE MODAL -->
 <div class="modal-overlay" id="upgrade-modal">
-  <div class="modal">
-    <div style="text-align:center;padding:10px 0 16px">
-      <i class="ti ti-lock" style="font-size:36px;color:#534AB7;display:block;margin-bottom:12px"></i>
-      <div class="modal-title" id="upgrade-modal-title" style="border:none;text-align:center">Upgrade Required</div>
-      <p style="font-size:13px;color:#666;margin-bottom:6px" id="upgrade-modal-desc">This feature requires a higher plan.</p>
-      <p style="font-size:12px;color:#534AB7;font-weight:500;margin-bottom:20px" id="upgrade-modal-plan"></p>
+  <div class="modal" style="max-width:440px;text-align:center">
+    <div style="width:52px;height:52px;border-radius:14px;background:#1a1000;border:1px solid #2a1e00;display:flex;align-items:center;justify-content:center;margin:0 auto 18px">
+      <i class="ti ti-lock" style="font-size:22px;color:#f0b429"></i>
     </div>
-    <div style="display:flex;gap:8px;justify-content:center">
-      <button class="btn-outline" onclick="closeModal('upgrade-modal')">Maybe later</button>
-      <button class="btn-primary" onclick="closeModal('upgrade-modal');nav('pricing')">View plans</button>
+    <div id="upgrade-modal-title" style="font-size:17px;font-weight:600;color:#f0f0f0;margin-bottom:10px">Upgrade Required</div>
+    <div id="upgrade-modal-message" style="font-size:13px;color:#888;line-height:1.6;margin-bottom:24px">This feature requires a higher plan.</div>
+    <button id="upgrade-modal-cta" class="btn-primary"
+      style="width:100%;padding:13px;font-size:14px;font-weight:600;border-radius:10px;margin-bottom:20px"
+      onclick="payWithPayMongo('professional')">
+      Upgrade
+    </button>
+    <div style="display:flex;align-items:center;justify-content:center;gap:0;border:1px solid #1e1e2e;border-radius:10px;overflow:hidden;margin-bottom:16px">
+      <div id="upgrade-tier-starter"
+        style="flex:1;padding:10px 6px;text-align:center;background:#0a0a12;border-right:1px solid #1e1e2e;cursor:pointer"
+        onclick="payWithPayMongo('starter')">
+        <div style="font-size:10px;color:#777;margin-bottom:2px">STARTER</div>
+        <div style="font-size:13px;font-weight:600;color:#ccc">₱49<span style="font-size:10px;font-weight:400;color:#555">/mo</span></div>
+      </div>
+      <div id="upgrade-tier-professional"
+        style="flex:1;padding:10px 6px;text-align:center;background:#0a0a12;border-right:1px solid #1e1e2e;cursor:pointer"
+        onclick="payWithPayMongo('professional')">
+        <div style="font-size:10px;color:#777;margin-bottom:2px">PROFESSIONAL</div>
+        <div style="font-size:13px;font-weight:600;color:#ccc">₱149<span style="font-size:10px;font-weight:400;color:#555">/mo</span></div>
+      </div>
+      <div id="upgrade-tier-enterprise"
+        style="flex:1;padding:10px 6px;text-align:center;background:#0a0a12;cursor:pointer"
+        onclick="payWithPayMongo('enterprise')">
+        <div style="font-size:10px;color:#777;margin-bottom:2px">ENTERPRISE</div>
+        <div style="font-size:13px;font-weight:600;color:#ccc">₱399<span style="font-size:10px;font-weight:400;color:#555">/mo</span></div>
+      </div>
     </div>
+    <button class="btn-outline" style="width:100%" onclick="closeModal('upgrade-modal')">Maybe later</button>
   </div>
 </div>
 <!-- PHASE 8: INVITE MODAL -->
@@ -936,6 +959,12 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const GOOGLE_CLIENT_ID = '626206970912-ie8vji85vjecqbb0i0uva1271u8tgi1a.apps.googleusercontent.com';
 const MICROSOFT_CLIENT_ID = 'YOUR_MICROSOFT_CLIENT_ID';
 const PAYMONGO_PUBLIC_KEY = 'pk_live_kgebNbVzapdTFjxEGX9mRFGr';
+// PayMongo secret key removed — lives only in Supabase Edge Function
+const PLAN_PRICES = {
+  starter:      { amount: 4900,  label: 'Starter',      php: '₱49'  },
+  professional: { amount: 14900, label: 'Professional',  php: '₱149' },
+  enterprise:   { amount: 39900, label: 'Enterprise',    php: '₱399' }
+};
 const APP_URL = 'https://jhunvelado.github.io/NexusOS/nexusos-app.html';
 
 // GLOBAL STATE
@@ -954,7 +983,39 @@ const PLAN_LABELS={travel:'Professional',pe:'Professional',relationships:'Profes
 function getEffectivePlan(){if(!currentSubscription)return'starter';const{plan,status,trial_ends_at,current_period_end}=currentSubscription;if(status==='trialing')return(trial_ends_at&&new Date(trial_ends_at)<new Date())?'starter':(plan||'professional');if(status==='active'){if(current_period_end&&new Date(current_period_end)<new Date())return'starter';return plan||'starter';}return'starter';}
 function hasFeature(f){return PLAN_FEATURES[getEffectivePlan()]?.has(f)||false;}
 function applyPlanGating(){const gated=['travel','pe','relationships','meeting','intel','commitments','calendar','inbox','members'];gated.forEach(f=>{const el=document.getElementById('n-'+f);if(!el)return;if(hasFeature(f)){el.classList.remove('locked');el.querySelector('.nav-lock')?.remove();}else{if(!el.classList.contains('locked')){el.classList.add('locked');const lock=document.createElement('i');lock.className='ti ti-lock nav-lock';el.appendChild(lock);}}});document.getElementById('brand-panel').style.display=hasFeature('branding')?'block':'none';document.getElementById('ws-switcher-wrap').style.display=hasFeature('members')?'block':'none';const sub=currentSubscription;if(sub&&sub.status==='trialing'&&sub.trial_ends_at){const days=Math.ceil((new Date(sub.trial_ends_at)-new Date())/864e5);if(days>0){document.getElementById('trial-days').textContent=days;document.getElementById('trial-banner').style.display='flex';}else{document.getElementById('trial-banner').style.display='none';document.getElementById('renewal-banner').style.display='flex';}}else if(getEffectivePlan()==='starter'&&sub&&sub.status!=='active'){document.getElementById('renewal-banner').style.display='flex';}updatePricingScreen();}
-function showUpgradeModal(feature){const plan=PLAN_LABELS[feature]||'Professional';document.getElementById('upgrade-modal-title').textContent='Upgrade to '+plan;document.getElementById('upgrade-modal-desc').textContent='This feature requires the '+plan+' plan.';document.getElementById('upgrade-modal-plan').textContent=plan==='Professional'?'$149/month':'$399/month';document.getElementById('upgrade-modal').classList.add('active');}
+function showUpgradeModal(feature){
+  const enterpriseFeats=new Set(['calendar','inbox','members','branding']);
+  const professionalFeats=new Set(['travel','pe','relationships','meeting','intel','commitments']);
+  const sub=currentSubscription;
+  const trialExpired=sub&&sub.status==='trialing'&&sub.trial_ends_at&&new Date(sub.trial_ends_at)<new Date();
+  let title,message,btnLabel,btnPlan;
+  if(enterpriseFeats.has(feature)){
+    btnPlan='enterprise';
+    title='This is an Enterprise Feature';
+    message='Google Calendar, Gmail + Outlook, Custom Branding and Multi-workspace are built for PE-backed operators and multi-site healthcare groups.';
+    btnLabel='Upgrade to Enterprise — ₱399/mo';
+  } else if(professionalFeats.has(feature)){
+    btnPlan='professional';
+    title='This is a Professional Feature';
+    message='Travel Hub, PE Dashboard, Relationship Intel, Meeting Prep AI and Intelligence Centre are built for CEOs actively managing deals, travel and relationships.';
+    btnLabel='Upgrade to Professional — ₱149/mo';
+  } else {
+    btnPlan='starter';
+    title='Your Free Trial Has Ended';
+    message='Upgrade to Starter to keep access to Dashboard, Tasks, Approvals, Executive Chat and Notes Hub.';
+    btnLabel='Upgrade to Starter — ₱49/mo';
+  }
+  document.getElementById('upgrade-modal-title').textContent=title;
+  document.getElementById('upgrade-modal-message').textContent=message;
+  const cta=document.getElementById('upgrade-modal-cta');
+  cta.textContent=btnLabel;
+  cta.onclick=()=>payWithPayMongo(btnPlan);
+  ['starter','professional','enterprise'].forEach(t=>{
+    const el=document.getElementById('upgrade-tier-'+t);
+    if(el)el.classList.toggle('active-tier',t===btnPlan);
+  });
+  document.getElementById('upgrade-modal').classList.add('active');
+}
 async function loadSubscription(){if(!currentWorkspaceId)return;const{data}=await sb.from('subscriptions').select('*').eq('workspace_id',currentWorkspaceId).maybeSingle();currentSubscription=data;}
 function updatePricingScreen(){const plan=getEffectivePlan();const sub=currentSubscription;const names={starter:'Starter — $49/month',professional:'Professional — $149/month',enterprise:'Enterprise — $399/month'};const pe=document.getElementById('current-plan-name');const se=document.getElementById('current-plan-sub');const be=document.getElementById('plan-status-badge');if(pe)pe.textContent=names[plan]||'Free Trial';if(sub){const s=sub.status;if(se)se.textContent=s==='trialing'?'14-day Professional trial':(sub.current_period_end?'Renews '+new Date(sub.current_period_end).toLocaleDateString():'');if(be){be.textContent=s==='trialing'?'Trial':s;be.style.color=s==='active'||s==='trialing'?'#1D9E75':'#E24B4A';}if(document.getElementById('info-plan'))document.getElementById('info-plan').textContent=plan.charAt(0).toUpperCase()+plan.slice(1)+(s==='trialing'?' (trial)':'');}}
 
@@ -1072,9 +1133,62 @@ async function advanceStage(id,nextStage){await sb.from('commitments').update({s
 async function closeCommitment(id){if(!confirm('Mark as closed?'))return;await sb.from('commitments').update({stage:'closed',closed_at:new Date().toISOString()}).eq('id',id);loadCommitments();}
 async function deleteCommitment(id){if(!confirm('Delete commitment?'))return;await sb.from('commitments').delete().eq('id',id);loadCommitments();}
 
-// PHASE 3: PAYMONGO
-async function payWithPayMongo(plan,amount,name,description){const btn=event.target;const orig=btn.textContent;btn.textContent='Processing...';btn.disabled=true;try{const payload={data:{attributes:{billing:{email:currentUser?.email||'',name:currentProfile?.full_name||''},line_items:[{currency:'PHP',amount:Math.round(amount*5600),description,name,quantity:1}],payment_method_types:['card','gcash','maya'],success_url:`${APP_URL}?payment=success&plan=${plan}&ws=${currentWorkspaceId}`,cancel_url:`${APP_URL}?payment=cancelled`,description,metadata:{plan,user_id:currentUser?.id||'',workspace_id:currentWorkspaceId||''}}}};const resp=await fetch('https://api.paymongo.com/v1/checkout_sessions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Basic '+btoa(PAYMONGO_PUBLIC_KEY+':')},body:JSON.stringify(payload)});const data=await resp.json();if(data.data?.attributes?.checkout_url){window.location.href=data.data.attributes.checkout_url;}else throw new Error(data.errors?.[0]?.detail||'Payment setup failed');}catch(e){alert('Payment error: '+e.message);btn.textContent=orig;btn.disabled=false;}}
-function checkPaymentStatus(){const p=new URLSearchParams(window.location.search);const payment=p.get('payment'),plan=p.get('plan'),wsId=p.get('ws');if(payment==='success'&&plan&&wsId){const periodEnd=new Date();periodEnd.setMonth(periodEnd.getMonth()+1);sb.from('subscriptions').upsert({workspace_id:wsId,plan,status:'active',current_period_end:periodEnd.toISOString(),updated_at:new Date().toISOString()},{onConflict:'workspace_id'}).then(async()=>{await loadSubscription();applyPlanGating();createNotification('Welcome to NexusOS '+plan.charAt(0).toUpperCase()+plan.slice(1)+'! Subscription active.');nav('dashboard');});window.history.replaceState({},document.title,window.location.pathname);}else if(payment==='cancelled'){createNotification('Payment was cancelled. Upgrade anytime from Pricing & Plans.');window.history.replaceState({},document.title,window.location.pathname);}}
+// PHASE 3: PAYMONGO — calls Edge Function; secret key never in frontend
+async function payWithPayMongo(plan){
+  if(!currentUser){alert('Please log in first.');return;}
+  if(!currentWorkspaceId){alert('Workspace not loaded — please refresh.');return;}
+  const price=PLAN_PRICES[plan];
+  if(!price){alert('Unknown plan: '+plan);return;}
+  const btn=event?.currentTarget||document.querySelector('[data-plan="'+plan+'"]');
+  const orig=btn?.textContent;
+  if(btn){btn.textContent='Redirecting…';btn.disabled=true;}
+  document.getElementById('upgrade-modal')?.classList.remove('active');
+  try{
+    const{data:{session}}=await sb.auth.getSession();
+    if(!session?.access_token)throw new Error('Session expired — please log in again.');
+    const resp=await fetch('https://jqhijnkoxwyqgpmjrakx.supabase.co/functions/v1/paymongo-checkout',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+session.access_token},
+      body:JSON.stringify({plan,workspace_id:currentWorkspaceId,company_name:currentProfile?.company_name||''})
+    });
+    const data=await resp.json().catch(()=>({}));
+    if(!resp.ok)throw new Error(data?.error||'Server error '+resp.status);
+    const checkoutUrl=data?.checkout_url;
+    if(!checkoutUrl)throw new Error('No checkout URL returned.');
+    localStorage.setItem('nexus_pending_plan',plan);
+    localStorage.setItem('nexus_pending_ws',currentWorkspaceId);
+    window.location.href=checkoutUrl;
+  }catch(e){
+    console.error('PayMongo error:',e);
+    let msg=e.message;
+    if(msg.includes('Failed to fetch')||msg.includes('NetworkError')||msg.includes('Load failed')){
+      msg='Network error — check your connection and try again.';
+    }
+    alert('Payment error:\n\n'+msg);
+    if(btn){btn.textContent=orig;btn.disabled=false;}
+  }
+}
+function checkPaymentStatus(){
+  const p=new URLSearchParams(window.location.search);
+  const payment=p.get('payment');
+  const plan=p.get('plan')||localStorage.getItem('nexus_pending_plan');
+  const wsId=p.get('ws')||localStorage.getItem('nexus_pending_ws');
+  localStorage.removeItem('nexus_pending_plan');
+  localStorage.removeItem('nexus_pending_ws');
+  window.history.replaceState({},document.title,window.location.pathname);
+  if(payment==='success'&&plan&&wsId){
+    const periodEnd=new Date();periodEnd.setDate(periodEnd.getDate()+30);
+    sb.from('subscriptions').upsert({workspace_id:wsId,plan,status:'active',current_period_end:periodEnd.toISOString(),updated_at:new Date().toISOString()},{onConflict:'workspace_id'}).then(async()=>{
+      await loadSubscription();applyPlanGating();
+      const label=PLAN_PRICES[plan]?.label||plan;
+      createNotification('🎉 NexusOS '+label+' activated! Welcome aboard.');
+      nav('dashboard');
+    });
+  }else if(payment==='cancelled'){
+    createNotification('Payment cancelled. Upgrade anytime from Pricing & Plans.');
+    nav('pricing');
+  }
+}
 
 // PHASE 5: BRANDING
 async function loadBranding(){if(!currentWorkspaceId)return;const{data}=await sb.from('workspace_settings').select('*').eq('workspace_id',currentWorkspaceId).maybeSingle();currentBranding=data;if(data)applyBranding(data);}
