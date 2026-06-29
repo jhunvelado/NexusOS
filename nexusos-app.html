@@ -235,6 +235,8 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 .dev-hint{font-size:11px;color:#2a2a3e;text-align:center;margin-top:12px}
 .dev-badge{position:fixed;bottom:60px;right:20px;z-index:9997;background:#0d0d1a;border:1px solid #534AB7;border-radius:6px;padding:4px 10px;font-size:10px;color:#534AB7;font-weight:700;letter-spacing:0.06em;display:none;cursor:pointer}
 .dev-badge.show{display:block}
+.sidebar-footer a.license-link{display:block;font-size:10px;color:#2a2a3e;margin-top:6px;text-decoration:none;transition:color 0.15s}
+.sidebar-footer a.license-link:hover{color:#534AB7}
 @media(max-width:768px){
   body{overflow:hidden}
   .sidebar{display:none!important}
@@ -373,7 +375,7 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
       <div class="nav-item" id="n-pricing" onclick="nav('pricing')"><i class="ti ti-credit-card"></i> Pricing &amp; Plans</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer">NexusOS v4.0<br><span>© Jhun Rey Velado 2026</span></div>
+    <div class="sidebar-footer">NexusOS v4.1<br><span>© Jhun Rey Velado 2026</span><br><a class="license-link" href="NexusOS_LICENSE.html" target="_blank">⚖️ Ownership &amp; License</a></div>
   </div>
   <!-- CONTENT -->
   <div class="content">
@@ -1073,15 +1075,13 @@ function setDevPlan(plan){
   const badge=document.getElementById('dev-badge');
   if(badge){badge.textContent='DEV: '+plan.toUpperCase();badge.classList.add('show');}
   ['starter','professional','enterprise'].forEach(p=>{document.getElementById('dev-btn-'+p)?.classList.toggle('active',p===plan);});
-  applyPlanGating();
-  closeDevPanel();
+  applyPlanGating();closeDevPanel();
   _showDevToast('Plan override: '+plan+' (local only)','#534AB7');
 }
 function resetDevPlan(){
   _devPlanOverride=null;
   document.getElementById('dev-badge')?.classList.remove('show');
-  applyPlanGating();
-  closeDevPanel();
+  applyPlanGating();closeDevPanel();
   _showDevToast('Reset to real plan: '+(currentSubscription?.plan||'starter'),'#22c55e');
 }
 function _showDevToast(msg,color){
@@ -1090,13 +1090,8 @@ function _showDevToast(msg,color){
   t.textContent=msg;t.style.background=color||'#534AB7';t.style.opacity='1';
   clearTimeout(t._tid);t._tid=setTimeout(()=>{t.style.opacity='0';},2500);
 }
-// ⇧⌘P on Mac (metaKey = ⌘)
 document.addEventListener('keydown',function(e){
-  if(e.shiftKey&&e.metaKey&&e.key==='P'){
-    e.preventDefault();
-    const panel=document.getElementById('dev-panel');
-    if(panel?.classList.contains('show'))closeDevPanel();else openDevPanel();
-  }
+  if(e.shiftKey&&e.metaKey&&e.key==='P'){e.preventDefault();const panel=document.getElementById('dev-panel');if(panel?.classList.contains('show'))closeDevPanel();else openDevPanel();}
   if(e.key==='Escape')closeDevPanel();
 });
 
