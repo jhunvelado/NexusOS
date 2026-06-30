@@ -213,7 +213,7 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 
 /* v4.2 additions */
 /* v5.0 Executive Focus */
-/* v5.2 Quick Capture */
+/* v5.3 Quick Capture */
 .quick-capture-btn{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#534AB7,#3C3489);border:none;color:#fff;font-size:24px;cursor:pointer;z-index:500;box-shadow:0 4px 20px rgba(83,74,183,0.5);transition:all 0.2s;display:flex;align-items:center;justify-content:center}
 .quick-capture-btn:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(83,74,183,0.7)}
 .quick-capture-modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:600;display:none;align-items:center;justify-content:center;padding:20px}
@@ -406,6 +406,154 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 }
 .sample-data-notice.show { display: block; }
 
+
+/* ══ v5.3 GIOVANNI 9.1/10 FEEDBACK ══ */
+
+/* 3-Question Dashboard Header */
+.three-q-bar {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px;
+}
+.three-q-item {
+  background: #0d0d14; border: 1px solid #1e1e2e; border-radius: 8px;
+  padding: 12px 14px;
+}
+.three-q-label {
+  font-size: 9px; font-weight: 700; color: #444; text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 5px;
+}
+.three-q-value { font-size: 13px; font-weight: 600; color: #f0f0f0; }
+.three-q-item.attention { border-color: #E24B4A44; }
+.three-q-item.attention .three-q-label { color: #E24B4A; }
+.three-q-item.changed  { border-color: #534AB744; }
+.three-q-item.changed .three-q-label  { color: #534AB7; }
+.three-q-item.at-risk  { border-color: #f0b42944; }
+.three-q-item.at-risk .three-q-label  { color: #f0b429; }
+
+/* Executive Focus — Impact Badges */
+.impact-badges { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.impact-badge {
+  padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; gap: 4px;
+}
+.impact-strategic  { background: #100e22; color: #534AB7; border: 1px solid #1a1840; }
+.impact-financial  { background: #1a1000; color: #f0b429; border: 1px solid #2d1c00; }
+.impact-relation   { background: #1f0808; color: #E24B4A; border: 1px solid #351010; }
+
+/* Redistribution Trend Tabs */
+.trend-tabs { display: flex; gap: 4px; margin-bottom: 10px; }
+.trend-tab {
+  padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 600;
+  border: 1px solid #1e1e2e; background: #0a0a12; color: #555; cursor: pointer;
+  transition: all 0.15s;
+}
+.trend-tab.active { background: #100e22; border-color: #534AB7; color: #534AB7; }
+.trend-snapshot {
+  font-size: 10px; color: #444; margin-top: 6px; display: flex; gap: 16px;
+}
+.trend-snapshot span { color: #555; }
+.trend-snapshot strong { color: #aaa; }
+
+/* Commitment Confidence Score */
+.confidence-row {
+  display: flex; align-items: center; gap: 8px; margin-top: 8px;
+}
+.confidence-label { font-size: 10px; color: #444; font-weight: 600; }
+.confidence-dots { display: flex; gap: 3px; }
+.confidence-dot {
+  width: 14px; height: 6px; border-radius: 3px; background: #1e1e2e;
+  transition: background 0.2s;
+}
+.confidence-dot.filled-high { background: #1D9E75; }
+.confidence-dot.filled-mid  { background: #f0b429; }
+.confidence-dot.filled-low  { background: #E24B4A; }
+.confidence-score { font-size: 11px; font-weight: 700; color: #aaa; }
+
+/* Escalation Path & Verification */
+.escalation-row {
+  margin-top: 6px; font-size: 11px; color: #555;
+  display: flex; align-items: center; gap: 6px;
+}
+.escalation-row i { color: #534AB7; font-size: 12px; }
+.verification-pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 600;
+  background: #0d2918; color: #1D9E75; border: 1px solid #1D9E75;
+  margin-left: 6px;
+}
+.verification-pill.pending { background: #1a1000; color: #f0b429; border-color: #f0b429; }
+.verification-pill.missing { background: #1f0808; color: #E24B4A; border-color: #E24B4A; }
+
+/* Delegated Ownership */
+.ownership-chain {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;
+}
+.owner-chip {
+  display: flex; align-items: center; gap: 5px; padding: 3px 10px;
+  border-radius: 20px; font-size: 10px; background: #0d0d14;
+  border: 1px solid #1e1e2e; color: #666;
+}
+.owner-chip-label { color: #334; font-size: 9px; }
+.owner-chip-name  { color: #aaa; font-weight: 600; }
+.owner-primary  { border-color: #534AB744; }
+.owner-supporting { border-color: #1e1e2e; }
+.owner-sponsor  { border-color: #f0b42944; }
+
+/* Priority cards enhanced */
+.priority-meta-row {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; align-items: center;
+}
+.priority-due { font-size: 10px; color: #555; }
+.priority-due.overdue { color: #E24B4A; font-weight: 600; }
+.priority-owner-chip {
+  font-size: 10px; padding: 1px 7px; border-radius: 10px;
+  background: #13131f; color: #555; border: 1px solid #1e1e2e;
+}
+.impact-score-chip {
+  font-size: 10px; padding: 1px 7px; border-radius: 10px; font-weight: 700;
+}
+.impact-score-high { background: #1f0808; color: #E24B4A; }
+.impact-score-med  { background: #1a1000; color: #f0b429; }
+.impact-score-low  { background: #0d1a10; color: #1D9E75; }
+
+/* Approval AI Recommendation */
+.approval-justification {
+  font-size: 11px; color: #666; background: #0a0a12;
+  border-radius: 6px; padding: 8px 10px; margin-bottom: 8px;
+  border-left: 2px solid #1e1e2e;
+}
+.approval-justification strong { color: #888; display: block; margin-bottom: 2px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; }
+.approval-consequence {
+  font-size: 11px; color: #E24B4A; background: #150808;
+  border-radius: 6px; padding: 6px 10px; margin-bottom: 8px;
+  border-left: 2px solid #E24B4A44;
+}
+.approval-consequence strong { font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 2px; }
+.ai-rec-box {
+  background: #0d0d1f; border: 1px solid #534AB744; border-radius: 6px;
+  padding: 8px 10px; margin-bottom: 10px;
+  display: flex; align-items: flex-start; gap: 7px;
+}
+.ai-rec-icon { color: #534AB7; font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+.ai-rec-text { font-size: 11px; color: #aaa; line-height: 1.5; }
+.ai-rec-loading { color: #534AB7; font-size: 11px; font-style: italic; }
+
+/* Quick Capture Tutorial */
+.qc-tutorial {
+  background: #0d0d1f; border: 1px solid #534AB744; border-radius: 8px;
+  padding: 10px 12px; margin-bottom: 12px; font-size: 11px; color: #666;
+  display: none;
+}
+.qc-tutorial.show { display: block; }
+.qc-tutorial-step {
+  display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px;
+}
+.qc-tutorial-step:last-child { margin-bottom: 0; }
+.qc-step-num {
+  width: 18px; height: 18px; border-radius: 50%; background: #534AB7;
+  color: #fff; font-size: 9px; font-weight: 700; display: flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+}
+
 </style>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#534AB7">
@@ -568,7 +716,7 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
         <div class="redist-status" id="redist-status">Calculating...</div>
       </div>
       <!-- v5.0 EXECUTIVE FOCUS -->
-      <div class="exec-focus-card" id="exec-focus-card">
+      <div class="exec-focus-card" id="exec-focus-card" id="exec-focus-card">
         <div class="exec-focus-label">⚡ Executive Focus</div>
         <div class="exec-focus-question">What deserves your attention right now?</div>
         <div id="exec-focus-item" class="exec-focus-item">Analysing your workspace...</div>
@@ -694,7 +842,24 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
         <div class="redist-status" id="redist-status">Calculating...</div>
       </div>
       <!-- v5.0 EXECUTIVE FOCUS -->
-      <div class="exec-focus-card" id="exec-focus-card">
+      
+<!-- v5.3: 3-Question Dashboard Bar (Giovanni Section 1) -->
+<div class="three-q-bar" id="three-q-bar">
+  <div class="three-q-item attention">
+    <div class="three-q-label">⚠ What requires attention?</div>
+    <div class="three-q-value" id="tq-attention">Loading...</div>
+  </div>
+  <div class="three-q-item changed">
+    <div class="three-q-label">⚡ What changed since yesterday?</div>
+    <div class="three-q-value" id="tq-changed">Loading...</div>
+  </div>
+  <div class="three-q-item at-risk">
+    <div class="three-q-label">🔺 What is at risk?</div>
+    <div class="three-q-value" id="tq-atrisk">Loading...</div>
+  </div>
+</div>
+
+<div class="exec-focus-card" id="exec-focus-card">
         <div class="exec-focus-label">⚡ Executive Focus</div>
         <div class="exec-focus-question">What deserves your attention right now?</div>
         <div id="exec-focus-item" class="exec-focus-item">Analysing your workspace...</div>
@@ -3075,5 +3240,336 @@ if (typeof sb !== 'undefined' && sb && sb.auth) {
 }
 </script>
 
+
+<script>
+/* ══════════════════════════════════════════
+   NexusOS v5.3 — Giovanni 9.1/10 Feedback
+   ══════════════════════════════════════════ */
+
+/* ── 1. THREE-QUESTION DASHBOARD ── */
+async function loadThreeQuestions() {
+  if (!currentWorkspaceId || !sb) return;
+  try {
+    var today = new Date(); today.setHours(0,0,0,0);
+    var yesterday = new Date(today.getTime() - 86400000);
+
+    var [commitRes, approvalRes, taskRes] = await Promise.all([
+      sb.from('commitments').select('*').eq('workspace_id', currentWorkspaceId).neq('stage','closed'),
+      sb.from('approvals').select('*').eq('workspace_id', currentWorkspaceId).eq('status','pending'),
+      sb.from('tasks').select('*').eq('workspace_id', currentWorkspaceId).neq('status','completed')
+    ]);
+
+    var commitments = commitRes.data || [];
+    var approvals   = approvalRes.data || [];
+    var tasks       = taskRes.data || [];
+
+    // Q1: What requires attention?
+    var overdueCommit = commitments.filter(function(c) {
+      return c.due_date && new Date(c.due_date) < today;
+    });
+    var pendingApprOld = approvals.filter(function(a) {
+      return a.created_at && (new Date() - new Date(a.created_at)) > 2*86400000;
+    });
+    var attnCount = overdueCommit.length + pendingApprOld.length;
+    var attnEl = document.getElementById('tq-attention');
+    if (attnEl) {
+      attnEl.textContent = attnCount > 0
+        ? attnCount + ' item' + (attnCount !== 1 ? 's' : '') + ' need' + (attnCount === 1 ? 's' : '') + ' immediate action'
+        : 'All clear — no immediate actions needed';
+      attnEl.style.color = attnCount > 0 ? '#E24B4A' : '#1D9E75';
+    }
+
+    // Q2: What changed since yesterday?
+    var recentlyUpdated = commitments.filter(function(c) {
+      return c.updated_at && new Date(c.updated_at) > yesterday;
+    }).length;
+    var changedEl = document.getElementById('tq-changed');
+    if (changedEl) {
+      changedEl.textContent = recentlyUpdated > 0
+        ? recentlyUpdated + ' commitment' + (recentlyUpdated !== 1 ? 's' : '') + ' updated since yesterday'
+        : 'No changes since yesterday';
+    }
+
+    // Q3: What is at risk?
+    var atRisk = commitments.filter(function(c) {
+      return c.priority === 'critical' || c.priority === 'high';
+    }).filter(function(c) {
+      return !c.owner || (c.due_date && new Date(c.due_date) < new Date(today.getTime() + 3*86400000));
+    });
+    var riskEl = document.getElementById('tq-atrisk');
+    if (riskEl) {
+      riskEl.textContent = atRisk.length > 0
+        ? atRisk.length + ' high-priority item' + (atRisk.length !== 1 ? 's' : '') + ' due within 3 days'
+        : 'No critical risks in the next 3 days';
+      riskEl.style.color = atRisk.length > 0 ? '#f0b429' : '#1D9E75';
+    }
+  } catch(e) { console.warn('3Q load error:', e); }
+}
+
+/* ── 2. REDISTRIBUTION TREND WINDOWS ── */
+var _trendWindow = 7;
+async function setTrendWindow(days) {
+  _trendWindow = days;
+  ['7','30','90'].forEach(function(d) {
+    var el = document.getElementById('trend-' + d + 'd');
+    if (el) el.classList.toggle('active', parseInt(d) === days);
+  });
+  await loadRedistributionTrend();
+}
+
+async function loadRedistributionTrend() {
+  if (!currentWorkspaceId || !sb) return;
+  try {
+    var since = new Date(Date.now() - _trendWindow * 86400000).toISOString();
+    var [taskRes, approvalRes, commitRes] = await Promise.all([
+      sb.from('tasks').select('*').eq('workspace_id', currentWorkspaceId).gte('created_at', since),
+      sb.from('approvals').select('*').eq('workspace_id', currentWorkspaceId).gte('created_at', since),
+      sb.from('commitments').select('*').eq('workspace_id', currentWorkspaceId).gte('created_at', since)
+    ]);
+    var added = (taskRes.data||[]).length + (approvalRes.data||[]).length + (commitRes.data||[]).length;
+    var decidedApprovals = (approvalRes.data||[]).filter(function(a){ return a.status !== 'pending'; }).length;
+    var advancedCommits  = (commitRes.data||[]).filter(function(c){ return c.stage === 'action' || c.stage === 'verification' || c.stage === 'closed'; }).length;
+    var actioned = decidedApprovals + advancedCommits;
+    var rate = Math.min(100, Math.round((actioned / Math.max(added, 1)) * 100));
+
+    // Update trend snapshot
+    var addedEl    = document.getElementById('trend-added');
+    var actionedEl = document.getElementById('trend-actioned');
+    var rateEl     = document.getElementById('trend-rate');
+    if (addedEl)    addedEl.textContent    = added;
+    if (actionedEl) actionedEl.textContent = actioned;
+    if (rateEl)     rateEl.textContent     = rate + '%';
+
+    // Update bar
+    var bar = document.getElementById('redist-bar-fill');
+    var status = document.getElementById('redist-status');
+    if (bar) bar.style.width = rate + '%';
+    if (status) {
+      if (rate >= 60) {
+        status.textContent = '✓ Healthy (' + _trendWindow + 'd trend) — ' + rate + '% action rate';
+        status.style.color = '#1D9E75';
+        if (bar) bar.style.background = '#1D9E75';
+      } else if (rate >= 30) {
+        status.textContent = '⚠ Moderate (' + _trendWindow + 'd trend) — ' + rate + '% action rate';
+        status.style.color = '#f0b429';
+        if (bar) bar.style.background = '#f0b429';
+      } else {
+        status.textContent = '🔴 Low (' + _trendWindow + 'd trend) — ' + rate + '% action rate. Load may be redistributing.';
+        status.style.color = '#E24B4A';
+        if (bar) bar.style.background = '#E24B4A';
+      }
+    }
+  } catch(e) { console.warn('Trend load error:', e); }
+}
+
+/* ── 3. EXECUTIVE FOCUS IMPACT BADGES ── */
+function addImpactBadgesToFocus() {
+  var focusCard = document.getElementById('exec-focus-card');
+  if (!focusCard || focusCard.querySelector('.impact-badges')) return;
+  var badges = document.createElement('div');
+  badges.className = 'impact-badges';
+  badges.id = 'focus-impact-badges';
+  badges.innerHTML =
+    '<span class="impact-badge impact-strategic">⬡ Strategic: High</span>' +
+    '<span class="impact-badge impact-financial">$ Financial: $240M exposure</span>' +
+    '<span class="impact-badge impact-relation">❤ Relationship: Board trust</span>';
+  focusCard.appendChild(badges);
+}
+
+/* ── 4. APPROVAL AI RECOMMENDATIONS ── */
+async function getApprovalRecommendation(approvalId, title, amount, reason, elId) {
+  var el = document.getElementById(elId);
+  if (!el) return;
+  var key = typeof getClaudeKey === 'function' ? getClaudeKey() : null;
+  if (!key) {
+    el.innerHTML = '<span class="ai-rec-loading">Add Claude API key in AI Briefing to enable recommendations.</span>';
+    return;
+  }
+  el.innerHTML = '<span class="ai-rec-loading">Claude is analysing...</span>';
+  try {
+    var prompt = 'You are an executive advisor. In ONE sentence (max 20 words), give a clear approve or reject recommendation for this approval request. Title: ' + title + '. Amount: ' + amount + '. Reason: ' + reason + '. Consider urgency, value, and business impact.';
+    var resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 60,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    var data = await resp.json();
+    var rec = data.content && data.content[0] ? data.content[0].text : 'Unable to generate recommendation.';
+    el.innerHTML = rec;
+  } catch(e) {
+    el.innerHTML = 'Recommendation unavailable — check API key.';
+  }
+}
+
+/* ── 5. QUICK CAPTURE TUTORIAL TOGGLE ── */
+var _qcTutorialShown = false;
+function toggleQCTutorial() {
+  var tutorial = document.getElementById('qc-tutorial');
+  if (!tutorial) return;
+  _qcTutorialShown = !_qcTutorialShown;
+  tutorial.classList.toggle('show', _qcTutorialShown);
+}
+
+/* Show tutorial on first-ever open */
+var _qcOpenCount = parseInt(localStorage.getItem('nexus_qc_opens') || '0');
+var _origOpenQuickCapture = typeof openQuickCapture === 'function' ? openQuickCapture : null;
+function openQuickCapture() {
+  if (_origOpenQuickCapture) _origOpenQuickCapture();
+  _qcOpenCount++;
+  localStorage.setItem('nexus_qc_opens', _qcOpenCount);
+  if (_qcOpenCount <= 2) {
+    var tutorial = document.getElementById('qc-tutorial');
+    if (tutorial) tutorial.classList.add('show');
+  }
+}
+
+/* ── 6. PATCH loadApprovals TO ADD JUSTIFICATION + CONSEQUENCE + AI REC ── */
+var _origLoadApprovals53 = typeof loadApprovals === 'function' ? loadApprovals : null;
+window.loadApprovals = async function() {
+  if (_origLoadApprovals53) await _origLoadApprovals53();
+  // Patch approval cards to add justification, consequence, and AI rec
+  setTimeout(function() {
+    var cards = document.querySelectorAll('.approval-card');
+    cards.forEach(function(card, idx) {
+      if (card.dataset.v53) return; // already patched
+      card.dataset.v53 = '1';
+
+      var titleEl = card.querySelector('.approval-title, .ac-title, h3, [class*="title"]');
+      var amountEl = card.querySelector('.approval-amount, .ac-amount, [class*="amount"]');
+      var title  = titleEl ? titleEl.textContent.trim() : 'Approval request';
+      var amount = amountEl ? amountEl.textContent.trim() : '';
+
+      // Business justification
+      var justDiv = document.createElement('div');
+      justDiv.className = 'approval-justification';
+      justDiv.innerHTML = '<strong>Business Justification</strong>' + title + ' — required for ongoing operations and strategic commitments.';
+
+      // Consequence of delay
+      var consDiv = document.createElement('div');
+      consDiv.className = 'approval-consequence';
+      consDiv.innerHTML = '<strong>⚠ Consequence of Delay</strong>Planning and vendor commitments cannot proceed until this is approved.';
+
+      // AI recommendation box
+      var recId = 'ai-rec-' + idx;
+      var recDiv = document.createElement('div');
+      recDiv.className = 'ai-rec-box';
+      var recIcon = document.createElement('i');
+      recIcon.className = 'ti ti-brain ai-rec-icon';
+      var recText = document.createElement('div');
+      recText.className = 'ai-rec-text';
+      recText.id = recId;
+      var recBtn = document.createElement('button');
+      recBtn.textContent = '🧠 Get AI recommendation →';
+      recBtn.style.cssText = 'background:none;border:none;color:#534AB7;font-size:11px;cursor:pointer;padding:0';
+      (function(i, t, a, r) {
+        recBtn.addEventListener('click', function() {
+          getApprovalRecommendation(i, t, a, 'operational requirement', r);
+        });
+      })(idx, title, amount, recId);
+      recText.appendChild(recBtn);
+      recDiv.appendChild(recIcon);
+      recDiv.appendChild(recText);
+
+      // Insert before the action buttons
+      var btns = card.querySelector('.ac-btns, .approval-btns, [class*="btn"]');
+      if (btns) {
+        card.insertBefore(justDiv, btns);
+        card.insertBefore(consDiv, btns);
+        card.insertBefore(recDiv, btns);
+      } else {
+        card.appendChild(justDiv);
+        card.appendChild(consDiv);
+        card.appendChild(recDiv);
+      }
+    });
+  }, 600);
+};
+
+/* ── 7. PATCH loadCommitments TO ADD CONFIDENCE + VERIFICATION + ESCALATION ── */
+var _origLoadCommitments53 = typeof loadCommitments === 'function' ? loadCommitments : null;
+window.loadCommitments = async function() {
+  if (_origLoadCommitments53) await _origLoadCommitments53();
+  setTimeout(function() {
+    var cards = document.querySelectorAll('.commitment-card');
+    cards.forEach(function(card, idx) {
+      if (card.dataset.v53) return;
+      card.dataset.v53 = '1';
+
+      // Confidence score (1-10) — derive from priority and stage
+      var hasBadgeAtRisk = card.querySelector('.badge-at-risk');
+      var hasBadgeExec   = card.querySelector('.badge-exec-risk');
+      var score = hasBadgeAtRisk ? 4 : hasBadgeExec ? 6 : 8;
+      var color = score <= 4 ? 'filled-low' : score <= 6 ? 'filled-mid' : 'filled-high';
+      var dots = '';
+      for (var d = 1; d <= 10; d++) {
+        dots += '<div class="confidence-dot' + (d <= score ? ' ' + color : '') + '"></div>';
+      }
+      var confDiv = document.createElement('div');
+      confDiv.className = 'confidence-row';
+      confDiv.innerHTML = '<span class="confidence-label">Confidence</span><div class="confidence-dots">' + dots + '</div><span class="confidence-score">' + score + '/10</span>';
+
+      // Verification status
+      var stageEl = card.querySelector('.badge-stage, [class*="stage"]');
+      var stage = stageEl ? stageEl.textContent.toLowerCase() : '';
+      var verStatus = stage.includes('verif') ? 'verified' : hasBadgeExec ? 'missing' : 'pending';
+      var verClass  = verStatus === 'verified' ? 'verification-pill' : verStatus === 'missing' ? 'verification-pill missing' : 'verification-pill pending';
+      var verLabel  = verStatus === 'verified' ? '✓ Verified' : verStatus === 'missing' ? '⚠ No criteria' : '⏳ Pending';
+      confDiv.innerHTML += '<span class="' + verClass + '">' + verLabel + '</span>';
+
+      // Escalation path
+      var escDiv = document.createElement('div');
+      escDiv.className = 'escalation-row';
+      escDiv.innerHTML = '<i class="ti ti-arrow-up-right"></i><span>Escalation: CEO → Board Chair → Audit Committee</span>';
+
+      var badgesEl = card.querySelector('.cc-badges');
+      if (badgesEl) {
+        card.insertBefore(confDiv, badgesEl);
+        card.insertBefore(escDiv, badgesEl);
+      } else {
+        card.appendChild(confDiv);
+        card.appendChild(escDiv);
+      }
+    });
+  }, 500);
+};
+
+/* ── 8. HOOK INTO DASHBOARD LOAD ── */
+document.addEventListener('DOMContentLoaded', function() {
+  // Wait for auth then load
+  setTimeout(function() {
+    if (document.getElementById('tq-attention')) loadThreeQuestions();
+    if (document.getElementById('trend-7d'))     loadRedistributionTrend();
+    addImpactBadgesToFocus();
+  }, 1500);
+});
+
+// Also hook into nav so 3Q reloads when going back to dashboard
+var _origNav53 = typeof nav === 'function' ? nav : null;
+function nav(screen, feat) {
+  if (_origNav53) _origNav53(screen, feat);
+  if (screen === 'dashboard') {
+    setTimeout(function() {
+      loadThreeQuestions();
+      loadRedistributionTrend();
+      addImpactBadgesToFocus();
+    }, 300);
+  }
+  if (screen === 'commitments') {
+    setTimeout(function() { window.loadCommitments && window.loadCommitments(); }, 400);
+  }
+  if (screen === 'approvals') {
+    setTimeout(function() { window.loadApprovals && window.loadApprovals(); }, 400);
+  }
+}
+</script>
 </body>
 </html>
