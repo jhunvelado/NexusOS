@@ -405,7 +405,7 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
       <div class="nav-item" id="n-docs" onclick="nav('docs')"><i class="ti ti-folder-open"></i> Documents</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer">NexusOS v5.0 · Founder<br><span>© Jhun Rey Velado 2026</span><br><a href="https://jhunvelado.github.io/NexusOS/NexusOS_LICENSE.html" target="_blank" style="font-size:10px;color:#534AB7;text-decoration:none">⚖️ Ownership &amp; License</a></div>
+    <div class="sidebar-footer">NexusOS v5.0<br><span>© Jhun Rey Velado 2026</span><br><a href="https://jhunvelado.github.io/NexusOS/NexusOS_LICENSE.html" target="_blank" style="font-size:10px;color:#534AB7;text-decoration:none">⚖️ Ownership &amp; License</a></div>
   </div>
   <!-- CONTENT -->
   <div class="content">
@@ -1205,14 +1205,7 @@ function showUpgradeModal(feature){
   document.getElementById('upgrade-modal').classList.add('active');
 }
 async function loadSubscription(){if(!currentWorkspaceId)return;const{data}=await sb.from('subscriptions').select('*').eq('workspace_id',currentWorkspaceId).maybeSingle();currentSubscription=data;}
-function updatePricingScreen(){const plan=getEffectivePlan();const sub=currentSubscription;const names={starter:'Starter — $49/month',professional:'Professional — $149/month',enterprise:'Enterprise — $399/month'};// Founder badge on pricing
-if(currentUser&&currentUser.email==='jhun07.velado@gmail.com'){
-  var fp=document.getElementById('current-plan-name');
-  if(fp){fp.textContent='Enterprise — Founder Access';fp.style.color='#534AB7';}
-  var fb=document.getElementById('plan-status-badge');
-  if(fb){fb.textContent='Founder';fb.style.color='#534AB7';}
-}
-const pe=document.getElementById('current-plan-name');const se=document.getElementById('current-plan-sub');const be=document.getElementById('plan-status-badge');if(pe)pe.textContent=names[plan]||'Free Trial';if(sub){const s=sub.status;if(se)se.textContent=s==='trialing'?'14-day Professional trial':(sub.current_period_end?'Renews '+new Date(sub.current_period_end).toLocaleDateString():'');if(be){be.textContent=s==='trialing'?'Trial':s;be.style.color=s==='active'||s==='trialing'?'#1D9E75':'#E24B4A';}if(document.getElementById('info-plan'))document.getElementById('info-plan').textContent=plan.charAt(0).toUpperCase()+plan.slice(1)+(s==='trialing'?' (trial)':'');}}
+function updatePricingScreen(){const plan=getEffectivePlan();const sub=currentSubscription;const names={starter:'Starter — $49/month',professional:'Professional — $149/month',enterprise:'Enterprise — $399/month'};const pe=document.getElementById('current-plan-name');const se=document.getElementById('current-plan-sub');const be=document.getElementById('plan-status-badge');if(pe)pe.textContent=names[plan]||'Free Trial';if(sub){const s=sub.status;if(se)se.textContent=s==='trialing'?'14-day Professional trial':(sub.current_period_end?'Renews '+new Date(sub.current_period_end).toLocaleDateString():'');if(be){be.textContent=s==='trialing'?'Trial':s;be.style.color=s==='active'||s==='trialing'?'#1D9E75':'#E24B4A';}if(document.getElementById('info-plan'))document.getElementById('info-plan').textContent=plan.charAt(0).toUpperCase()+plan.slice(1)+(s==='trialing'?' (trial)':'');}}
 
 // AUTH (PHASE 1)
 function showForm(tab){['login','signup','reset'].forEach(f=>{const el=document.getElementById('form-'+f);if(el)el.style.display='none';});const t=document.getElementById('form-'+tab);if(t)t.style.display='block';const tabs=document.getElementById('auth-tabs');if(tab==='reset'){tabs.style.display='none';return;}tabs.style.display='flex';const active={color:'#f0f0f0',background:'#13131f',border:'1px solid #2a2a3d'};const inactive={color:'#777',background:'transparent',border:'none'};Object.assign(document.getElementById('tab-login-btn').style,tab==='login'?active:inactive);Object.assign(document.getElementById('tab-signup-btn').style,tab==='signup'?active:inactive);}
@@ -1594,7 +1587,6 @@ function payWithPayMongo(plan){
 // ══════════════════════════════════════════════════
 var _devPlanOverride=null;
 function getEffectivePlan(){
-  // FOUNDER BYPASS — full enterprise access, no subscription required
   if(currentUser&&currentUser.email==='jhun07.velado@gmail.com')return'enterprise';
   if(_devPlanOverride)return _devPlanOverride;
   if(typeof currentSubscription!=='undefined'&&currentSubscription&&currentSubscription.plan)
@@ -2371,6 +2363,46 @@ window.nav=function(screen){
   }
 };
 
+</script>
+<script>
+(function(){
+  var FOUNDER='jhun07.velado@gmail.com';
+
+  // Layer 1: Override hasFeature — called by nav() and applyPlanGating()
+  var _oHF=window.hasFeature;
+  window.hasFeature=function(f){
+    if(window.currentUser&&window.currentUser.email===FOUNDER)return true;
+    return typeof _oHF==='function'?_oHF(f):false;
+  };
+
+  // Layer 2: Re-unlock nav items visually and re-run plan gating
+  function founderUnlock(){
+    if(!window.currentUser||window.currentUser.email!==FOUNDER)return;
+    document.querySelectorAll('.nav-item.locked').forEach(function(el){
+      el.classList.remove('locked');
+      var lk=el.querySelector('.ti-lock,.nav-lock');if(lk)lk.remove();
+    });
+    document.querySelectorAll('.plan-gate-overlay').forEach(function(el){el.remove();});
+    var pn=document.getElementById('current-plan-name');
+    if(pn){pn.textContent='Enterprise — Founder Access';pn.style.color='#534AB7';}
+    var pb=document.getElementById('plan-status-badge');
+    if(pb){pb.textContent='Founder';pb.style.color='#534AB7';}
+    if(typeof applyPlanGating==='function')applyPlanGating();
+  }
+
+  // Layer 3: Run unlock after auth settles (poll every 500ms for 15s)
+  var _attempts=0;
+  var _poll=setInterval(function(){
+    _attempts++;
+    if(window.currentUser){founderUnlock();clearInterval(_poll);}
+    if(_attempts>30)clearInterval(_poll);
+  },500);
+
+  // Also run on every nav-item click (belt-and-suspenders for timing edge cases)
+  document.addEventListener('click',function(e){
+    if(e.target.closest('.nav-item'))founderUnlock();
+  },true);
+})();
 </script>
 </body>
 </html>
