@@ -1513,7 +1513,7 @@ async function closeCommitment(id){if(!confirm('Mark as closed?'))return;await s
 async function deleteCommitment(id){if(!confirm('Delete commitment?'))return;await sb.from('commitments').delete().eq('id',id);loadCommitments();}
 
 // PHASE 3: PAYMONGO
-async function payWithPayMongo(plan){
+async function _oldPayWithPayMongo_disabled(plan){
   if(!currentUser){alert('Please log in first.');return;}
   if(!currentWorkspaceId){alert('Workspace not loaded — please refresh.');return;}
   const price=PLAN_PRICES[plan];
@@ -1525,7 +1525,7 @@ async function payWithPayMongo(plan){
   try{
     const resp=await fetch('https://api.paymongo.com/v1/checkout_sessions',{
       method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Basic '+btoa(PAYMONGO_SECRET_KEY+':')},
+      headers:{'Content-Type':'application/json','Authorization':'Basic '+btoa('_removed_'+':')},
       body:JSON.stringify({data:{attributes:{
         billing:{name:currentProfile?.full_name||'',email:currentUser.email||''},
         send_email_receipt:true,show_description:true,show_line_items:true,
@@ -2059,8 +2059,8 @@ function renderDocsList(docs){
       +'<div class="doc-info"><div class="doc-name" title="'+d.name+'">'+d.name+'</div>'
       +'<div class="doc-meta">'+size+(date?' · '+date:'')+'</div></div>'
       +'<div class="doc-actions">'
-      +'<button class="btn-outline" style="padding:5px 10px;font-size:11px" onclick="docsDownload(''+d.name+'')"><i class="ti ti-download"></i></button>'
-      +'<button class="btn-outline" style="padding:5px 10px;font-size:11px;border-color:#E24B4A;color:#E24B4A" onclick="docsDelete(''+d.name+'')"><i class="ti ti-trash"></i></button>'
+      +'<button class="btn-outline" style="padding:5px 10px;font-size:11px" onclick="docsDownload(this.dataset.name)" data-name="'+d.name+'"><i class="ti ti-download"></i></button>'
+      +'<button class="btn-outline" style="padding:5px 10px;font-size:11px;border-color:#E24B4A;color:#E24B4A" onclick="docsDelete(this.dataset.name)" data-name="'+d.name+'"><i class="ti ti-trash"></i></button>'
       +'</div></div>';
   }).join('');
 }
@@ -2382,19 +2382,12 @@ window.loadBriefing=async function(){
     ]);
     var overdueTasks=(tasks||[]).filter(function(t){return t.due_date&&new Date(t.due_date)<today;});
     var overdueCommitments=(commitments||[]).filter(function(c){return c.due_date&&new Date(c.due_date)<today;});
-    var prompt='You are an executive intelligence AI for NexusOS. Provide a concise morning briefing for a CEO/Executive team. Be direct, actionable, and specific. Format with clear sections. Data:
-'+
-      '- Open tasks: '+(tasks||[]).length+' ('+overdueTasks.length+' overdue)
-'+
-      '- Pending approvals: '+(approvals||[]).length+'
-'+
-      '- Active commitments: '+(commitments||[]).length+' ('+overdueCommitments.length+' overdue)
-'+
-      '- Key contacts: '+(contacts||[]).length+'
-'+
-      '- Upcoming trips: '+(trips||[]).map(function(t){return t.name+' on '+t.departure_date;}).join(', ')+'
-
-'+
+    var prompt='You are an executive intelligence AI for NexusOS. Provide a concise morning briefing for a CEO/Executive team. Be direct, actionable, and specific. Format with clear sections. Data:\n'+
+      '- Open tasks: '+(tasks||[]).length+' ('+overdueTasks.length+' overdue)\n'+
+      '- Pending approvals: '+(approvals||[]).length+'\n'+
+      '- Active commitments: '+(commitments||[]).length+' ('+overdueCommitments.length+' overdue)\n'+
+      '- Key contacts: '+(contacts||[]).length+'\n'+
+      '- Upcoming trips: '+(trips||[]).map(function(t){return t.name+' on '+t.departure_date;}).join(', ')+'\n\n'+
       'Provide: 1) Executive Summary (2 sentences), 2) Top 3 Actions for today, 3) Risk Alert if any. Keep total under 200 words.';
 
     var response=await fetch('https://api.anthropic.com/v1/messages',{
@@ -2438,7 +2431,7 @@ window.loadBriefing=async function(){
       alert('Invalid API key — please re-enter your Claude key.');
     }else{
       document.getElementById('brief-body').innerHTML=
-        '<div style="color:#E24B4A;font-size:12px;padding:12px;background:#1f0808;border-radius:8px">AI Error: '+e.message+'<br><br><button class="btn-outline" onclick="localStorage.removeItem('nexus_claude_key');loadBriefing()" style="margin-top:8px;font-size:11px">Reset API Key</button></div>';
+        '<div style="color:#E24B4A;font-size:12px;padding:12px;background:#1f0808;border-radius:8px">AI Error: '+e.message+'<br><br><button class="btn-outline" onclick="localStorage.removeItem(&quot;nexus_claude_key&quot;);loadBriefing()" style="margin-top:8px;font-size:11px">Reset API Key</button></div>';
       if(typeof _origLoadBriefing==='function')await _origLoadBriefing();
     }
   }
@@ -2683,7 +2676,7 @@ window.loadCommitments=async function(){
     var detailEl=document.getElementById('conflict-detail');
     if(alertEl&&detailEl){
       if(conflicts.length>0){
-        detailEl.textContent=conflicts[0]+(conflicts.length>1?' (+'+（conflicts.length-1)+' more)':'');
+        detailEl.textContent=conflicts[0]+(conflicts.length>1?' (+'+(conflicts.length-1)+' more)':'');
         alertEl.classList.add('visible');
       }else{
         alertEl.classList.remove('visible');
@@ -2700,11 +2693,7 @@ var _origUpdateCommitmentStage=window.updateCommitmentStage;
 window.updateCommitmentStage=async function(id,newStage,currentOwner){
   // Block advancement to action/verification without owner
   if((newStage==='action'||newStage==='verification')&&!currentOwner){
-    var ownerInput=prompt('⚠ Ownership required
-
-Who is responsible for this commitment?
-
-Assign an owner to advance to "'+newStage+'":');
+    var ownerInput=prompt('⚠ Ownership required\n\nWho is responsible for this commitment?\n\nAssign an owner to advance to "'+newStage+'":"');
     if(!ownerInput||!ownerInput.trim()){
       showV51Toast('⚠ Advancement blocked — assign an owner first');
       return;
@@ -2995,7 +2984,7 @@ var _obSteps = [
   {
     icon: '✅',
     title: 'Approvals with Aging',
-    desc: 'Pending approvals show how long they've been waiting — yellow after 2 days, red after 5. You'll never let a decision sit too long again.'
+    desc: "Pending approvals show how long they've been waiting — yellow after 2 days, red after 5. You'll never let a decision sit too long again."
   },
   {
     icon: '🧠',
@@ -3005,7 +2994,7 @@ var _obSteps = [
   {
     icon: '🚀',
     title: "You're ready",
-    desc: 'Your workspace is set up with sample data so you can explore right away. Add your EA as a team member, then log your first real commitment from today's meetings.'
+    desc: "Your workspace is set up with sample data so you can explore right away. Add your EA as a team member, then log your first real commitment from today's meetings."
   }
 ];
 
