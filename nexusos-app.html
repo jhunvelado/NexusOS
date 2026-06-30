@@ -214,9 +214,10 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 /* v4.2 additions */
 /* v5.0 Executive Focus */
 /* v5.3 Quick Capture */
-.quick-capture-btn{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#534AB7,#3C3489);border:none;color:#fff;font-size:24px;cursor:pointer;z-index:500;box-shadow:0 4px 20px rgba(83,74,183,0.5);transition:all 0.2s;display:flex;align-items:center;justify-content:center}
+.quick-capture-btn{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#534AB7,#3C3489);border:none;color:#fff;font-size:24px;cursor:pointer;z-index:800;box-shadow:0 4px 20px rgba(83,74,183,0.5);transition:all 0.2s;display:flex;align-items:center;justify-content:center}
+@media(max-width:768px){.quick-capture-btn{bottom:72px;}}
 .quick-capture-btn:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(83,74,183,0.7)}
-.quick-capture-modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:600;display:none;align-items:center;justify-content:center;padding:20px}
+.quick-capture-modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:850;display:none;align-items:center;justify-content:center;padding:20px}
 .quick-capture-modal.open{display:flex}
 .qc-box{background:#0f0f1a;border:1px solid #534AB7;border-radius:14px;padding:28px;width:100%;max-width:480px}
 .qc-title{font-size:16px;font-weight:600;color:#f0f0f0;margin-bottom:6px}
@@ -1903,9 +1904,9 @@ window.addEventListener('DOMContentLoaded',async()=>{
 // PAYMONGO LINKS
 // ══════════════════════════════════════════════════
 var PAYMONGO_LINKS={
-  starter:'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/Obx7Nwm',
-  professional:'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/RhLYfWY',
-  enterprise:'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/Q8gM3IF'
+  starter:'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/mESnbjy',
+  professional:'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/lNLSlBI',
+  enterprise:'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/3BIk6zz'
 };
 function payWithPayMongo(plan){
   var url=PAYMONGO_LINKS[plan];
