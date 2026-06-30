@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexusOS v5.1 — Private Demo for Giovanni A. Amato</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#09090f;color:#f0f0f0;line-height:1.6;display:flex;height:100vh;overflow:hidden}
+
+/* SIDEBAR */
+.sidebar{width:220px;background:#0f0f1a;border-right:1px solid #1e1e2e;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.sidebar-brand{padding:20px 16px 12px;border-bottom:1px solid #1e1e2e}
+.brand-name{font-size:15px;font-weight:700;color:#f0b429}
+.brand-ver{font-size:10px;color:#534AB7;margin-top:2px;font-weight:600}
+.sidebar-section{padding:8px 0}
+.nav-lbl{font-size:9px;color:#2a2a4a;padding:8px 16px 4px;text-transform:uppercase;letter-spacing:0.1em;font-weight:700}
+.nav-item{padding:8px 16px;font-size:12px;color:#555;cursor:pointer;display:flex;align-items:center;gap:9px;transition:all 0.15s;border-left:2px solid transparent}
+.nav-item:hover{color:#aaa;background:#13131f}
+.nav-item.active{color:#f0f0f0;background:#13131f;border-left-color:#534AB7}
+.nav-item i{font-size:15px;flex-shrink:0}
+.sidebar-footer{padding:16px;border-top:1px solid #1e1e2e;font-size:10px;color:#333;margin-top:auto}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{background:#0a0a12;border-bottom:1px solid #1e1e2e;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.topbar-title{font-size:13px;color:#444}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.demo-badge{background:linear-gradient(135deg,#534AB7,#1D9E75);color:#fff;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:0.05em}
+.content{flex:1;overflow-y:auto;padding:28px 28px}
+
+/* SCREENS */
+.screen{display:none}
+.screen.active{display:block}
+.pg-eyebrow{font-size:10px;color:#444;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:4px}
+.pg-title{font-size:24px;font-weight:600;color:#f0f0f0;margin-bottom:4px}
+.pg-sub{font-size:13px;color:#555;margin-bottom:20px}
+
+/* PANELS */
+.panel{background:#13131f;border:1px solid #1e1e2e;border-radius:10px;padding:18px;margin-bottom:14px}
+.panel-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.panel-ttl{font-size:13px;font-weight:600;color:#ddd;display:flex;align-items:center;gap:7px}
+.panel-ttl i{color:#534AB7;font-size:15px}
+
+/* STATS ROW */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.stat{background:#13131f;border:1px solid #1e1e2e;border-radius:8px;padding:14px}
+.stat-lbl{font-size:10px;color:#444;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px}
+.stat-val{font-size:24px;font-weight:700}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+
+/* WELCOME BANNER */
+.welcome-banner{background:linear-gradient(135deg,#0d0d1f,#13102a);border:1px solid #534AB755;border-radius:12px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden}
+.welcome-banner::after{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(83,74,183,0.12) 0%,transparent 70%);pointer-events:none}
+.wb-eyebrow{font-size:10px;font-weight:700;color:#534AB7;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.wb-title{font-size:18px;font-weight:600;color:#f0f0f0;margin-bottom:6px}
+.wb-sub{font-size:13px;color:#666;line-height:1.6}
+
+/* EXEC FOCUS */
+.exec-focus{background:linear-gradient(135deg,#0d0d1f,#13102a);border:1px solid #534AB7;border-radius:10px;padding:16px 18px;margin-bottom:14px}
+.ef-label{font-size:9px;font-weight:700;color:#534AB7;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px}
+.ef-question{font-size:11px;color:#444;margin-bottom:10px}
+.ef-item{font-size:15px;font-weight:600;color:#f0f0f0;margin-bottom:6px}
+.ef-meta{font-size:11px;color:#555;margin-bottom:12px}
+
+/* CHANGELOG */
+.changelog{background:#0a0a12;border:1px solid #1e1e2e;border-radius:10px;padding:18px;margin-bottom:14px}
+.cl-title{font-size:12px;font-weight:600;color:#534AB7;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.cl-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #0f0f1a}
+.cl-item:last-child{border-bottom:none}
+.cl-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.cl-green{background:#081510;color:#1D9E75}
+.cl-purple{background:#100e22;color:#534AB7}
+.cl-yellow{background:#1a1000;color:#f0b429}
+.cl-red{background:#150808;color:#E24B4A}
+.cl-text{font-size:12px;color:#aaa;line-height:1.5}
+.cl-text strong{color:#ddd}
+.cl-quote{font-size:10px;color:#444;font-style:italic;margin-top:2px}
+
+/* COMMITMENT CARDS */
+.commitment-card{background:#0d0d14;border:1px solid #1e1e2e;border-radius:8px;padding:14px;margin-bottom:10px;position:relative}
+.cc-title{font-size:13px;font-weight:600;color:#f0f0f0;margin-bottom:6px}
+.cc-meta{font-size:11px;color:#555;margin-bottom:8px}
+.cc-badges{display:flex;gap:6px;flex-wrap:wrap}
+.badge{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700}
+.badge-stage{background:#13131f;color:#666;border:1px solid #1e1e2e}
+.badge-at-risk{background:#1f0808;color:#E24B4A;border:1px solid #351010}
+.badge-rel-risk{background:#1a1000;color:#f0b429;border:1px solid #2d1c00}
+.badge-exec-risk{background:#0a0a1f;color:#534AB7;border:1px solid #1a1840}
+.badge-priority-critical{background:#1f0808;color:#E24B4A;border:1px solid #351010}
+.badge-priority-high{background:#1a1000;color:#f0b429;border:1px solid #2d1c00}
+.stage-track{display:flex;gap:4px;margin-bottom:10px}
+.stage-dot{flex:1;height:4px;border-radius:2px;background:#1e1e2e}
+.stage-dot.done{background:#534AB7}
+.stage-dot.current{background:#f0b429}
+
+/* APPROVAL CARDS */
+.approval-card{background:#0d0d14;border:1px solid #1e1e2e;border-radius:8px;padding:14px;margin-bottom:10px}
+.ac-title{font-size:13px;font-weight:600;color:#f0f0f0;margin-bottom:4px}
+.ac-amount{font-size:18px;font-weight:700;color:#f0b429;margin-bottom:8px}
+.ac-meta{font-size:11px;color:#555;margin-bottom:10px}
+.ac-age{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;margin-left:6px}
+.ac-age-warn{background:#1a1000;color:#f0b429;border:1px solid #2d1c00}
+.ac-age-danger{background:#1f0808;color:#E24B4A;border:1px solid #351010}
+.ac-btns{display:flex;gap:8px}
+.btn-approve{background:#081510;border:1px solid #1D9E75;color:#1D9E75;padding:6px 16px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn-approve:hover{background:#1D9E75;color:#fff}
+.btn-reject{background:#150808;border:1px solid #E24B4A;color:#E24B4A;padding:6px 16px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn-reject:hover{background:#E24B4A;color:#fff}
+
+/* REDIST WIDGET */
+.redist-widget{background:#0d0d1f;border:1px solid #1e1e2e;border-radius:10px;padding:16px;margin-bottom:14px}
+.redist-lbl{font-size:11px;font-weight:600;color:#555;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.redist-bar-bg{background:#0a0a12;border-radius:4px;height:8px;margin-bottom:8px;overflow:hidden}
+.redist-bar-fill{height:100%;border-radius:4px;background:#1D9E75;width:68%;transition:width 0.8s}
+.redist-labels{display:flex;justify-content:space-between;font-size:10px;color:#444;margin-bottom:6px}
+.redist-status{font-size:12px;font-weight:600;color:#1D9E75}
+
+/* QUICK CAPTURE */
+.qc-float{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#534AB7,#3C3489);border:none;color:#fff;font-size:24px;cursor:pointer;z-index:500;box-shadow:0 4px 20px rgba(83,74,183,0.5);display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.qc-float:hover{transform:scale(1.1)}
+.qc-modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:600;display:none;align-items:center;justify-content:center;padding:20px}
+.qc-modal.open{display:flex}
+.qc-box{background:#0f0f1a;border:1px solid #534AB7;border-radius:14px;padding:28px;width:100%;max-width:460px}
+.qc-title{font-size:16px;font-weight:600;color:#f0f0f0;margin-bottom:4px}
+.qc-sub{font-size:12px;color:#555;margin-bottom:18px}
+.qc-types{display:flex;gap:8px;margin-bottom:14px}
+.qct{padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid #1e1e2e;background:#0a0a12;color:#666;cursor:pointer}
+.qct.active{background:#534AB722;border-color:#534AB7;color:#534AB7}
+input[type=text],textarea{width:100%;background:#0a0a12;border:1px solid #1e1e2e;border-radius:8px;padding:10px 12px;color:#f0f0f0;font-size:13px;margin-bottom:10px;font-family:inherit;transition:border-color 0.15s}
+input[type=text]:focus,textarea:focus{outline:none;border-color:#534AB7}
+.btn-primary{background:#534AB7;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn-primary:hover{background:#3C3489}
+.btn-outline{background:transparent;color:#888;border:1px solid #2a2a3d;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s}
+.btn-outline:hover{border-color:#534AB7;color:#534AB7}
+.qc-row{display:flex;gap:8px}
+
+/* STRESS MATRIX */
+.stress-matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.sm-cell{background:#0a0a12;border:1px solid #1e1e2e;border-radius:8px;padding:12px;text-align:center}
+.sm-var{font-size:10px;font-weight:700;color:#534AB7;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+.sm-status{font-size:11px;font-weight:600;margin-bottom:2px}
+.sm-desc{font-size:10px;color:#444;line-height:1.5}
+.sm-ok{color:#1D9E75}.sm-warn{color:#f0b429}.sm-risk{color:#E24B4A}
+
+/* PE DASHBOARD */
+.pe-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.pe-stat{background:#13131f;border:1px solid #1e1e2e;border-radius:8px;padding:14px}
+.pe-stat-lbl{font-size:10px;color:#444;text-transform:uppercase;margin-bottom:4px}
+.pe-stat-val{font-size:22px;font-weight:700;color:#f0f0f0}
+.deal-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #0f0f1a}
+.deal-row:last-child{border-bottom:none}
+.deal-name{font-size:13px;color:#ddd;font-weight:500}
+.deal-stage-tag{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600}
+.ds-loi{background:#1a1000;color:#f0b429;border:1px solid #2d1c00}
+.ds-dd{background:#100e22;color:#534AB7;border:1px solid #1a1840}
+.ds-closed{background:#081510;color:#1D9E75;border:1px solid #0d2918}
+
+/* TOAST */
+.toast{position:fixed;bottom:90px;right:28px;background:#0f0f1a;border:1px solid #1D9E75;color:#1D9E75;padding:10px 16px;border-radius:8px;font-size:12px;font-weight:500;z-index:700;display:none}
+.toast.show{display:block;animation:fadeIn 0.2s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* CONFLICT ALERT */
+.conflict-alert{background:#1f0808;border:1px solid #E24B4A44;border-radius:8px;padding:12px 14px;margin-bottom:12px;font-size:12px;color:#E24B4A;display:flex;align-items:flex-start;gap:8px}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-name">⚡ NexusOS</div>
+    <div class="brand-ver">v5.1 · Private Demo</div>
+  </div>
+  <div class="sidebar-section">
+    <div class="nav-lbl">Command</div>
+    <div class="nav-item active" onclick="nav('dashboard')"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
+    <div class="nav-item" onclick="nav('briefing')"><i class="ti ti-brain"></i> AI Briefing</div>
+    <div class="nav-item" onclick="nav('intel')"><i class="ti ti-radar"></i> Intelligence</div>
+  </div>
+  <div class="sidebar-section">
+    <div class="nav-lbl">Operations</div>
+    <div class="nav-item" onclick="nav('tasks')"><i class="ti ti-list-check"></i> Tasks</div>
+    <div class="nav-item" onclick="nav('approvals')"><i class="ti ti-circle-check"></i> Approvals</div>
+    <div class="nav-item" onclick="nav('commitments')"><i class="ti ti-git-merge"></i> Commitment Tracker</div>
+    <div class="nav-item" onclick="nav('travel')"><i class="ti ti-plane"></i> Travel Hub</div>
+  </div>
+  <div class="sidebar-section">
+    <div class="nav-lbl">Intelligence</div>
+    <div class="nav-item" onclick="nav('pe')"><i class="ti ti-chart-line"></i> PE Dashboard</div>
+    <div class="nav-item" onclick="nav('relationships')"><i class="ti ti-users"></i> Relationships</div>
+    <div class="nav-item" onclick="nav('meeting')"><i class="ti ti-clipboard-list"></i> Meeting Prep</div>
+  </div>
+  <div class="sidebar-footer">
+    Private demo · Giovanni A. Amato<br>NexusOS v5.1 © Jhun Rey Velado 2026
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-title">Private Demo — All features unlocked · No login required</div>
+    <div class="topbar-right">
+      <span style="font-size:11px;color:#444">Press <kbd style="background:#13131f;border:1px solid #1e1e2e;padding:2px 6px;border-radius:4px;font-size:10px">Q</kbd> for quick capture</span>
+      <div class="demo-badge">🔒 Giovanni's Private Access</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ═══ DASHBOARD ═══ -->
+    <div class="screen active" id="s-dashboard">
+      <div class="pg-eyebrow">Command Centre</div>
+      <div class="pg-title">Good morning, Giovanni.</div>
+      <div class="pg-sub">Tuesday, July 1, 2026 · NexusOS v5.1 — Built on your feedback</div>
+
+      <!-- Welcome banner -->
+      <div class="welcome-banner">
+        <div class="wb-eyebrow">👋 Personal Note from Jhun</div>
+        <div class="wb-title">This demo was rebuilt specifically for you, Giovanni.</div>
+        <div class="wb-sub">Every feature you see here was built in response to your 8.8/10 review and your subsequent LinkedIn feedback. The changelog below shows what changed and exactly which of your comments drove each decision. Thank you for the precision of your thinking.</div>
+      </div>
+
+      <!-- Redistribution Indicator -->
+      <div class="redist-widget">
+        <div class="redist-lbl"><i class="ti ti-arrows-exchange"></i> Workspace Health — Load Balance <span style="font-size:10px;color:#444;font-weight:400;margin-left:6px">New in v5.1 · Based on your "hidden redistribution" concern</span></div>
+        <div class="redist-bar-bg"><div class="redist-bar-fill"></div></div>
+        <div class="redist-labels"><span>EA items added this week (8)</span><span>CEO actions taken (6)</span></div>
+        <div class="redist-status">✓ Healthy — load is reducing, not redistributing (75% action rate)</div>
+      </div>
+
+      <!-- Executive Focus Card -->
+      <div class="exec-focus">
+        <div class="ef-label">⚡ Executive Focus — New in v5.1</div>
+        <div class="ef-question">What deserves your attention right now?</div>
+        <div class="ef-item">🔴 Critical commitment overdue · Board LOI — Massachusetts General (5 days)</div>
+        <div class="ef-meta">At Risk · No verification criteria set · Owner: Sarah Chen</div>
+        <button class="btn-primary" onclick="nav('commitments')" style="font-size:12px;padding:7px 16px">View Commitment Tracker →</button>
+        <span style="font-size:11px;color:#555;margin-left:12px">+2 more items need attention</span>
+      </div>
+
+      <!-- Stats -->
+      <div class="stat-row">
+        <div class="stat"><div class="stat-lbl">Active commitments</div><div class="stat-val" style="color:#534AB7">7</div></div>
+        <div class="stat"><div class="stat-lbl">Pending approvals</div><div class="stat-val" style="color:#f0b429">3</div></div>
+        <div class="stat"><div class="stat-lbl">Tasks</div><div class="stat-val" style="color:#f0f0f0">12</div></div>
+        <div class="stat"><div class="stat-lbl">At risk</div><div class="stat-val" style="color:#E24B4A">2</div></div>
+      </div>
+
+      <!-- Changelog panel -->
+      <div class="changelog">
+        <div class="cl-title"><i class="ti ti-git-commit"></i> What changed based on your feedback — v5.0 → v5.1</div>
+        <div class="cl-item">
+          <div class="cl-icon cl-purple"><i class="ti ti-bolt"></i></div>
+          <div class="cl-text"><strong>Executive Focus Card</strong> — surfaces #1 priority the moment you open the dashboard. Addresses your question: "What deserves my attention?" not "What do I need to do?"<div class="cl-quote">"Introducing a single Executive Focus item that identifies the most important decision requiring attention each day."</div></div>
+        </div>
+        <div class="cl-item">
+          <div class="cl-icon cl-red"><i class="ti ti-git-merge"></i></div>
+          <div class="cl-text"><strong>Commitment Risk Badges</strong> — At Risk, Relationship Risk, Execution Risk. Flags broken promises before they damage relationships.<div class="cl-quote">"Adding trust and accountability indicators within the Commitment Tracker."</div></div>
+        </div>
+        <div class="cl-item">
+          <div class="cl-icon cl-green"><i class="ti ti-arrows-exchange"></i></div>
+          <div class="cl-text"><strong>Redistribution Indicator</strong> — tracks EA input vs CEO action rate. Surfaces hidden redistribution before it compounds.<div class="cl-quote">"Systems don't usually fail suddenly — they degrade quietly through compensations that look like efficiency gains."</div></div>
+        </div>
+        <div class="cl-item">
+          <div class="cl-icon cl-yellow"><i class="ti ti-clock"></i></div>
+          <div class="cl-text"><strong>Approval Aging Badges</strong> — shows how long each approval has been waiting. Yellow after 2 days, red after 5.<div class="cl-quote">"Failure signals for clarity collapse: delays, duplication, escalation loops."</div></div>
+        </div>
+        <div class="cl-item">
+          <div class="cl-icon cl-purple"><i class="ti ti-lock"></i></div>
+          <div class="cl-text"><strong>Ownership Enforcement</strong> — blocks stage advancement without an assigned owner. Decision routing can't become implicit.<div class="cl-quote">"Where will overlap break first — execution, governance, or decision routing?"</div></div>
+        </div>
+        <div class="cl-item">
+          <div class="cl-icon cl-green"><i class="ti ti-plus"></i></div>
+          <div class="cl-text"><strong>Quick Capture (press Q)</strong> — one field, one tap. Log a commitment during a live meeting in under 5 seconds. Structure added later.<div class="cl-quote">"Under urgency, what minimum structure must always survive?"</div></div>
+        </div>
+      </div>
+
+      <!-- Decision Support -->
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-star"></i> Today's priorities</div></div>
+          <div style="background:#0a0a12;border-radius:6px;padding:9px;margin-bottom:8px;border-left:2px solid #E24B4A">
+            <div style="font-size:12px;color:#ccc;margin-bottom:2px">Prepare Q3 Board Presentation</div>
+            <span style="font-size:9px;padding:1px 6px;border-radius:10px;background:#1f0808;color:#E24B4A;border:1px solid #351010">overdue</span>
+          </div>
+          <div style="background:#0a0a12;border-radius:6px;padding:9px;margin-bottom:8px;border-left:2px solid #f0b429">
+            <div style="font-size:12px;color:#ccc;margin-bottom:2px">Review LOI — Massachusetts General</div>
+            <span style="font-size:9px;padding:1px 6px;border-radius:10px;background:#1a1000;color:#f0b429;border:1px solid #2d1c00">critical</span>
+          </div>
+          <div style="background:#0a0a12;border-radius:6px;padding:9px;border-left:2px solid #534AB7">
+            <div style="font-size:12px;color:#ccc;margin-bottom:2px">Strategic Partner Review — NovaCare</div>
+            <span style="font-size:9px;padding:1px 6px;border-radius:10px;background:#100e22;color:#534AB7;border:1px solid #1a1840">high</span>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-circle-check"></i> Pending approvals</div></div>
+          <div style="background:#0a0a12;border-radius:6px;padding:9px;margin-bottom:8px">
+            <div style="font-size:12px;color:#ccc;margin-bottom:2px">Executive Travel — Boston Summit <span class="ac-age ac-age-danger" style="font-size:9px;padding:1px 6px;border-radius:10px">⚠ 6d waiting</span></div>
+            <div style="font-size:14px;font-weight:700;color:#f0b429;margin:4px 0">$8,500</div>
+            <div style="display:flex;gap:6px"><button class="btn-reject" style="font-size:10px;padding:3px 10px">Reject</button><button class="btn-approve" style="font-size:10px;padding:3px 10px">Approve</button></div>
+          </div>
+          <div style="background:#0a0a12;border-radius:6px;padding:9px">
+            <div style="font-size:12px;color:#ccc;margin-bottom:2px">Legal Counsel Retainer <span class="ac-age ac-age-warn" style="font-size:9px;padding:1px 6px;border-radius:10px">⏳ 3d waiting</span></div>
+            <div style="font-size:14px;font-weight:700;color:#f0b429;margin:4px 0">$120,000</div>
+            <div style="display:flex;gap:6px"><button class="btn-reject" style="font-size:10px;padding:3px 10px">Reject</button><button class="btn-approve" style="font-size:10px;padding:3px 10px">Approve</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ COMMITMENT TRACKER ═══ -->
+    <div class="screen" id="s-commitments">
+      <div class="pg-eyebrow">Execution Integrity</div>
+      <div class="pg-title">Commitment Tracker</div>
+      <div class="pg-sub">Every promise made in a meeting — logged, owned, and followed through</div>
+
+      <div class="conflict-alert">
+        <i class="ti ti-alert-triangle" style="flex-shrink:0;margin-top:1px"></i>
+        <div><strong>Conflict detected:</strong> "NovaCare Partnership" has conflicting owners — Sarah Chen (Commitment Tracker) vs James Liu (Tasks). Resolve ownership to prevent execution gaps.</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-hdr">
+          <div class="panel-ttl"><i class="ti ti-git-merge"></i> Active Commitments <span style="font-size:10px;color:#444;font-weight:400;margin-left:8px">Risk badges new in v5.1</span></div>
+          <button class="btn-primary" onclick="openQC()" style="font-size:11px;padding:5px 12px">+ Quick Capture</button>
+        </div>
+
+        <div class="commitment-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+            <div class="cc-title">Board LOI — Massachusetts General Hospital</div>
+            <span class="badge badge-priority-critical">CRITICAL</span>
+          </div>
+          <div class="stage-track">
+            <div class="stage-dot done"></div><div class="stage-dot done"></div>
+            <div class="stage-dot current"></div><div class="stage-dot"></div>
+          </div>
+          <div class="cc-meta">Owner: Sarah Chen · Due: Jun 25, 2026 · Stage: Verification</div>
+          <div class="cc-badges">
+            <span class="badge badge-at-risk">⚠ At Risk — 5 days overdue</span>
+            <span class="badge badge-exec-risk">🎯 Execution Risk — no verification criteria</span>
+          </div>
+        </div>
+
+        <div class="commitment-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+            <div class="cc-title">NovaCare Strategic Partnership Review</div>
+            <span class="badge badge-priority-high">HIGH</span>
+          </div>
+          <div class="stage-track">
+            <div class="stage-dot done"></div><div class="stage-dot current"></div>
+            <div class="stage-dot"></div><div class="stage-dot"></div>
+          </div>
+          <div class="cc-meta">Owner: Unassigned · Due: Jul 5, 2026 · Stage: Action</div>
+          <div class="cc-badges">
+            <span class="badge badge-rel-risk">🤝 Relationship Risk — no owner in Action stage</span>
+          </div>
+        </div>
+
+        <div class="commitment-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+            <div class="cc-title">Q3 Board Deck Delivery</div>
+            <span class="badge" style="background:#100e22;color:#534AB7;border:1px solid #1a1840">MEDIUM</span>
+          </div>
+          <div class="stage-track">
+            <div class="stage-dot done"></div><div class="stage-dot done"></div>
+            <div class="stage-dot done"></div><div class="stage-dot"></div>
+          </div>
+          <div class="cc-meta">Owner: James Liu · Due: Jul 10, 2026 · Stage: Verification</div>
+          <div class="cc-badges">
+            <span class="badge" style="background:#081510;color:#1D9E75;border:1px solid #0d2918">✓ On track</span>
+          </div>
+        </div>
+
+        <div class="commitment-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+            <div class="cc-title">Physician Retention Program — Signed Off</div>
+            <span class="badge" style="background:#13131f;color:#555;border:1px solid #1e1e2e">CLOSED</span>
+          </div>
+          <div class="stage-track">
+            <div class="stage-dot done"></div><div class="stage-dot done"></div>
+            <div class="stage-dot done"></div><div class="stage-dot done"></div>
+          </div>
+          <div class="cc-meta">Owner: Maria Santos · Closed: Jun 28, 2026</div>
+          <div class="cc-badges">
+            <span class="badge" style="background:#081510;color:#1D9E75;border:1px solid #0d2918">✓ Complete</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stress matrix -->
+      <div class="panel">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-atom"></i> Stress Matrix — Giovanni's Framework <span style="font-size:10px;color:#444;font-weight:400;margin-left:8px">Break one variable, observe convergence</span></div></div>
+        <div class="stress-matrix">
+          <div class="sm-cell">
+            <div class="sm-var">Roles</div>
+            <div class="sm-status sm-warn">Partial</div>
+            <div class="sm-desc">Overlap detected in NovaCare commitment — dual owners in different modules</div>
+          </div>
+          <div class="sm-cell">
+            <div class="sm-var">Inputs</div>
+            <div class="sm-status sm-ok">Stable</div>
+            <div class="sm-desc">All active commitments have titles and stage. 1 missing verification criteria.</div>
+          </div>
+          <div class="sm-cell">
+            <div class="sm-var">Urgency</div>
+            <div class="sm-status sm-ok">Handled</div>
+            <div class="sm-desc">Quick Capture active. Minimum structure (title + type) survives under pressure.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ APPROVALS ═══ -->
+    <div class="screen" id="s-approvals">
+      <div class="pg-eyebrow">Decision Centre</div>
+      <div class="pg-title">Approvals</div>
+      <div class="pg-sub">Pending decisions — aging indicators show how long each has been waiting</div>
+      <div class="panel">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-circle-check"></i> Pending <span style="font-size:10px;color:#444;font-weight:400;margin-left:6px">Aging badges new in v5.1</span></div></div>
+        <div class="approval-card">
+          <div class="ac-title">Executive Travel — Boston Healthcare Summit <span class="ac-age ac-age-danger">⚠ 6 days waiting</span></div>
+          <div class="ac-amount">$8,500</div>
+          <div class="ac-meta">Requested by: EA Office · Category: Travel · Reason: Annual executive summit with key payer relationships</div>
+          <div class="ac-btns"><button class="btn-reject" onclick="showToast('Rejected')">Reject</button><button class="btn-approve" onclick="showToast('Approved ✓')">Approve</button></div>
+        </div>
+        <div class="approval-card">
+          <div class="ac-title">Legal Counsel Retainer — Sullivan & Cromwell <span class="ac-age ac-age-warn">⏳ 3 days waiting</span></div>
+          <div class="ac-amount">$120,000</div>
+          <div class="ac-meta">Requested by: CFO · Category: Legal · Reason: LOI transaction support for Massachusetts acquisition</div>
+          <div class="ac-btns"><button class="btn-reject" onclick="showToast('Rejected')">Reject</button><button class="btn-approve" onclick="showToast('Approved ✓')">Approve</button></div>
+        </div>
+        <div class="approval-card">
+          <div class="ac-title">Board Meeting Catering — July Session <span class="ac-age" style="background:#0a0a18;color:#555;border:1px solid #1e1e2e;padding:2px 8px;border-radius:20px;font-size:10px">1 day</span></div>
+          <div class="ac-amount">$2,200</div>
+          <div class="ac-meta">Requested by: Executive Assistant · Category: Events · Reason: Q3 board meeting at HQ</div>
+          <div class="ac-btns"><button class="btn-reject" onclick="showToast('Rejected')">Reject</button><button class="btn-approve" onclick="showToast('Approved ✓')">Approve</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ PE DASHBOARD ═══ -->
+    <div class="screen" id="s-pe">
+      <div class="pg-eyebrow">Portfolio Intelligence</div>
+      <div class="pg-title">PE Dashboard</div>
+      <div class="pg-sub">Leadership-level visibility without fragmentation — as you noted in your review</div>
+      <div class="pe-grid">
+        <div class="pe-stat"><div class="pe-stat-lbl">Active deals</div><div class="pe-stat-val">4</div></div>
+        <div class="pe-stat"><div class="pe-stat-lbl">Portfolio companies</div><div class="pe-stat-val">6</div></div>
+        <div class="pe-stat"><div class="pe-stat-lbl">Board commitments due</div><div class="pe-stat-val" style="color:#E24B4A">2</div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-chart-line"></i> Active Deal Pipeline</div></div>
+        <div class="deal-row"><div><div class="deal-name">Massachusetts General — Acquisition</div><div style="font-size:11px;color:#555">$240M · LOI signed Jun 15</div></div><span class="deal-stage-tag ds-loi">LOI</span></div>
+        <div class="deal-row"><div><div class="deal-name">NovaCare Systems — Strategic Partnership</div><div style="font-size:11px;color:#555">$18M ARR · Due diligence ongoing</div></div><span class="deal-stage-tag ds-dd">Due Diligence</span></div>
+        <div class="deal-row"><div><div class="deal-name">Meridian Health Group — Merger</div><div style="font-size:11px;color:#555">$85M · Term sheet negotiation</div></div><span class="deal-stage-tag ds-loi">Term Sheet</span></div>
+        <div class="deal-row"><div><div class="deal-name">CareFirst Network — Portfolio Add-on</div><div style="font-size:11px;color:#555">$32M · Closed Jun 1</div></div><span class="deal-stage-tag ds-closed">Closed ✓</span></div>
+      </div>
+    </div>
+
+    <!-- ═══ INTELLIGENCE ═══ -->
+    <div class="screen" id="s-intel">
+      <div class="pg-eyebrow">Risk Intelligence</div>
+      <div class="pg-title">Intelligence Centre</div>
+      <div class="pg-sub">Decision support — connecting tasks, approvals, commitments into clear recommendations</div>
+      <div class="panel" style="border-color:#E24B4A44;background:#0d0808">
+        <div class="panel-hdr"><div class="panel-ttl" style="color:#E24B4A"><i class="ti ti-alert-triangle" style="color:#E24B4A"></i> Critical Alerts</div></div>
+        <div style="font-size:13px;color:#aaa;padding:8px 0;border-bottom:1px solid #1e1e2e">🔴 Board LOI commitment is 5 days overdue with no verification criteria — escalation risk</div>
+        <div style="font-size:13px;color:#aaa;padding:8px 0">⚠ Executive Travel approval has been pending 6 days — decision delay creating planning risk</div>
+      </div>
+      <div class="panel" style="border-color:#f0b42944;background:#0d0a08">
+        <div class="panel-hdr"><div class="panel-ttl" style="color:#f0b429"><i class="ti ti-eye" style="color:#f0b429"></i> Relationship Risks</div></div>
+        <div style="font-size:13px;color:#aaa;padding:8px 0;border-bottom:1px solid #1e1e2e">🤝 NovaCare commitment has no owner in Action stage — relationship execution at risk</div>
+        <div style="font-size:13px;color:#aaa;padding:8px 0">❄ 2 board contacts flagged as cold — follow-up overdue by 14+ days</div>
+      </div>
+      <div class="panel" style="border-color:#534AB744">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-bulb"></i> Decision Recommendations</div></div>
+        <div style="font-size:13px;color:#aaa;padding:8px 0;border-bottom:1px solid #1e1e2e">💡 Approve the Boston travel — it's been 6 days and the summit is in 4 days</div>
+        <div style="font-size:13px;color:#aaa;padding:8px 0;border-bottom:1px solid #1e1e2e">💡 Assign owner to NovaCare commitment before the review meeting on Thursday</div>
+        <div style="font-size:13px;color:#aaa;padding:8px 0">💡 Add verification criteria to LOI commitment to unblock the final stage</div>
+      </div>
+    </div>
+
+    <!-- ═══ OTHER SCREENS (abbreviated) ═══ -->
+    <div class="screen" id="s-tasks">
+      <div class="pg-eyebrow">Operations</div>
+      <div class="pg-title">Tasks</div>
+      <div class="pg-sub">Shared task list — CEO and EA see the same live view</div>
+      <div class="panel"><div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-list-check"></i> Active Tasks</div></div>
+        <div style="background:#0a0a12;border-radius:6px;padding:10px;margin-bottom:8px;border-left:3px solid #E24B4A"><div style="font-size:13px;color:#ddd">Prepare Q3 Board Presentation</div><div style="font-size:11px;color:#555;margin-top:2px">Due: Jun 28 · Owner: James Liu · <span style="color:#E24B4A">Overdue</span></div></div>
+        <div style="background:#0a0a12;border-radius:6px;padding:10px;margin-bottom:8px;border-left:3px solid #534AB7"><div style="font-size:13px;color:#ddd">Review Sullivan & Cromwell engagement letter</div><div style="font-size:11px;color:#555;margin-top:2px">Due: Jul 2 · Owner: CEO · High priority</div></div>
+        <div style="background:#0a0a12;border-radius:6px;padding:10px;border-left:3px solid #1D9E75"><div style="font-size:13px;color:#ddd">Confirm board member travel for July session</div><div style="font-size:11px;color:#555;margin-top:2px">Due: Jul 3 · Owner: EA Office · On track</div></div>
+      </div>
+    </div>
+
+    <div class="screen" id="s-briefing">
+      <div class="pg-eyebrow">Executive Intelligence</div>
+      <div class="pg-title">AI Briefing</div>
+      <div class="pg-sub">Powered by Claude AI — real intelligence, not just summaries</div>
+      <div class="panel" style="border-color:#534AB744">
+        <div style="font-size:10px;font-weight:700;color:#534AB7;letter-spacing:1px;margin-bottom:12px">🧠 CLAUDE AI BRIEFING — July 1, 2026</div>
+        <div style="font-size:14px;color:#ddd;font-weight:500;margin-bottom:12px">Executive Summary</div>
+        <div style="font-size:13px;color:#aaa;line-height:1.8;margin-bottom:16px">You have 2 critical items requiring immediate action today. The Massachusetts General LOI commitment is 5 days overdue and lacks verification criteria — this is your #1 risk. The Boston Summit travel approval has been pending 6 days with the event 4 days away. Both need decisions before end of day.</div>
+        <div style="font-size:14px;color:#ddd;font-weight:500;margin-bottom:8px">Top 3 Actions for Today</div>
+        <div style="font-size:13px;color:#aaa;padding:8px 0;border-bottom:1px solid #0f0f1a">1. Approve or reschedule the Boston travel — decision window is closing</div>
+        <div style="font-size:13px;color:#aaa;padding:8px 0;border-bottom:1px solid #0f0f1a">2. Add verification criteria to the MGH LOI commitment to unblock final stage</div>
+        <div style="font-size:13px;color:#aaa;padding:8px 0">3. Assign an owner to the NovaCare commitment before Thursday's review</div>
+      </div>
+    </div>
+
+    <div class="screen" id="s-travel">
+      <div class="pg-eyebrow">Travel Operations</div>
+      <div class="pg-title">Travel Hub</div>
+      <div class="pg-sub">Upcoming trips with live weather risk indicators — New in v5.0</div>
+      <div class="panel">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-plane"></i> Boston Healthcare Summit</div></div>
+        <div style="font-size:12px;color:#555;margin-bottom:12px">Jul 5–7, 2026 · Boston, MA · Approval pending ($8,500)</div>
+        <div style="background:#0a0a12;border-radius:8px;padding:12px;margin-bottom:10px;display:flex;align-items:center;gap:12px">
+          <div style="font-size:28px">🌤</div>
+          <div><div style="font-size:22px;font-weight:700;color:#f0f0f0">24°C</div><div style="font-size:11px;color:#555">Partly cloudy · Wind: 18 km/h</div></div>
+        </div>
+        <div style="display:flex;gap:8px"><span style="padding:3px 10px;border-radius:20px;font-size:10px;font-weight:600;background:#0d2d1f;color:#1D9E75;border:1px solid #1D9E75">✓ Good conditions</span></div>
+      </div>
+    </div>
+
+    <div class="screen" id="s-relationships">
+      <div class="pg-eyebrow">Relationship Intelligence</div>
+      <div class="pg-title">Relationships</div>
+      <div class="pg-sub">Board members, investors, and strategic partners tracked with follow-up cadence</div>
+      <div class="panel"><div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-users"></i> Key Contacts</div></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #0f0f1a"><div><div style="font-size:13px;color:#ddd">Dr. Patricia Walsh — Board Chair</div><div style="font-size:11px;color:#555">Last contact: Jun 15 · Follow-up: overdue</div></div><span style="font-size:10px;padding:2px 8px;border-radius:20px;background:#1a1000;color:#f0b429;border:1px solid #2d1c00">Needs warming</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #0f0f1a"><div><div style="font-size:13px;color:#ddd">Michael Torres — Lead Investor</div><div style="font-size:11px;color:#555">Last contact: Jun 28 · Follow-up: Jul 5</div></div><span style="font-size:10px;padding:2px 8px;border-radius:20px;background:#0d2d1f;color:#1D9E75;border:1px solid #1D9E75">Warm</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0"><div><div style="font-size:13px;color:#ddd">James Chen — NovaCare CEO</div><div style="font-size:11px;color:#555">Last contact: Jun 20 · Partnership negotiation active</div></div><span style="font-size:10px;padding:2px 8px;border-radius:20px;background:#100e22;color:#534AB7;border:1px solid #1a1840">Strategic</span></div>
+      </div>
+    </div>
+
+    <div class="screen" id="s-meeting">
+      <div class="pg-eyebrow">Meeting Intelligence</div>
+      <div class="pg-title">Meeting Prep</div>
+      <div class="pg-sub">Auto-generated briefings — arrive prepared without doing the research yourself</div>
+      <div class="panel"><div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-clipboard-list"></i> Next: Board Q3 Review — Jul 10</div></div>
+        <div style="font-size:12px;color:#555;margin-bottom:14px">9:00 AM · HQ Boardroom · 8 attendees</div>
+        <div style="font-size:13px;font-weight:600;color:#ddd;margin-bottom:8px">Key Objectives</div>
+        <div style="font-size:12px;color:#aaa;padding:6px 0;border-bottom:1px solid #0f0f1a">• Review Q3 financial performance vs. targets</div>
+        <div style="font-size:12px;color:#aaa;padding:6px 0;border-bottom:1px solid #0f0f1a">• Update on Massachusetts General LOI status</div>
+        <div style="font-size:12px;color:#aaa;padding:6px 0">• Approve Q4 operational budget</div>
+        <div style="font-size:13px;font-weight:600;color:#ddd;margin:14px 0 8px">Required Documents</div>
+        <div style="font-size:12px;color:#aaa;padding:6px 0;border-bottom:1px solid #0f0f1a">• Q3 Board Presentation (James Liu — due Jul 8)</div>
+        <div style="font-size:12px;color:#aaa;padding:6px 0">• MGH LOI Summary + Timeline</div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- QUICK CAPTURE FLOAT BUTTON -->
+<button class="qc-float" onclick="openQC()" title="Quick capture (Q)">+</button>
+
+<!-- QUICK CAPTURE MODAL -->
+<div class="qc-modal" id="qc-modal" onclick="if(event.target===this)closeQC()">
+  <div class="qc-box">
+    <div class="qc-title">⚡ Quick Capture</div>
+    <div class="qc-sub">Log now, structure later — nothing gets lost in the meeting<br><span style="color:#534AB7;font-size:11px">Minimum structure under urgency: title + type. That's all.</span></div>
+    <div class="qc-types">
+      <div class="qct active" id="qct-c" onclick="setType('c')">💬 Commitment</div>
+      <div class="qct" id="qct-t" onclick="setType('t')">✅ Task</div>
+      <div class="qct" id="qct-a" onclick="setType('a')">📋 Approval</div>
+    </div>
+    <input type="text" id="qc-input" placeholder="What was promised or decided in the meeting..." onkeydown="if(event.key==='Enter')submitQC();if(event.key==='Escape')closeQC()">
+    <input type="text" id="qc-owner" placeholder="Owner (optional — assign later)">
+    <div class="qc-row">
+      <button class="btn-primary" onclick="submitQC()" style="flex:1">Log it →</button>
+      <button class="btn-outline" onclick="closeQC()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+function nav(screen){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  var s=document.getElementById('s-'+screen);
+  if(s)s.classList.add('active');
+  var ni=document.querySelectorAll('.nav-item');
+  ni.forEach(function(n){if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes("'"+screen+"'"))n.classList.add('active');});
+}
+
+var _qcType='c';
+function openQC(){document.getElementById('qc-modal').classList.add('open');setTimeout(function(){document.getElementById('qc-input').focus();},80);}
+function closeQC(){document.getElementById('qc-modal').classList.remove('open');document.getElementById('qc-input').value='';document.getElementById('qc-owner').value='';setType('c');}
+function setType(t){_qcType=t;['c','t','a'].forEach(function(x){document.getElementById('qct-'+x).classList.toggle('active',x===t);});}
+function submitQC(){
+  var v=document.getElementById('qc-input').value.trim();
+  if(!v)return;
+  closeQC();
+  showToast('✓ Captured: '+v.substring(0,35)+(v.length>35?'...':''));
+}
+
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},3000);
+}
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='q'&&document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='TEXTAREA'){openQC();}
+  if(e.key==='Escape')closeQC();
+});
+</script>
+</body>
+</html>
