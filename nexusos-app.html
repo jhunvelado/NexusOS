@@ -3422,16 +3422,18 @@ function toggleQCTutorial() {
 
 /* Show tutorial on first-ever open */
 var _qcOpenCount = parseInt(localStorage.getItem('nexus_qc_opens') || '0');
-var _origOpenQuickCapture = typeof openQuickCapture === 'function' ? openQuickCapture : null;
-function openQuickCapture() {
-  if (_origOpenQuickCapture) _origOpenQuickCapture();
-  _qcOpenCount++;
-  localStorage.setItem('nexus_qc_opens', _qcOpenCount);
-  if (_qcOpenCount <= 2) {
-    var tutorial = document.getElementById('qc-tutorial');
-    if (tutorial) tutorial.classList.add('show');
-  }
-}
+(function() {
+  var _origOpenQuickCapture = window.openQuickCapture;
+  window.openQuickCapture = function() {
+    if (_origOpenQuickCapture) _origOpenQuickCapture();
+    _qcOpenCount++;
+    localStorage.setItem('nexus_qc_opens', _qcOpenCount);
+    if (_qcOpenCount <= 2) {
+      var tutorial = document.getElementById('qc-tutorial');
+      if (tutorial) tutorial.classList.add('show');
+    }
+  };
+})();
 
 /* ── 6. PATCH loadApprovals TO ADD JUSTIFICATION + CONSEQUENCE + AI REC ── */
 var _origLoadApprovals53 = typeof loadApprovals === 'function' ? loadApprovals : null;
