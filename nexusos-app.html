@@ -3553,23 +3553,25 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Also hook into nav so 3Q reloads when going back to dashboard
-var _origNav53 = typeof nav === 'function' ? nav : null;
-function nav(screen, feat) {
-  if (_origNav53) _origNav53(screen, feat);
-  if (screen === 'dashboard') {
-    setTimeout(function() {
-      loadThreeQuestions();
-      loadRedistributionTrend();
-      addImpactBadgesToFocus();
-    }, 300);
-  }
-  if (screen === 'commitments') {
-    setTimeout(function() { window.loadCommitments && window.loadCommitments(); }, 400);
-  }
-  if (screen === 'approvals') {
-    setTimeout(function() { window.loadApprovals && window.loadApprovals(); }, 400);
-  }
-}
+(function() {
+  var _origNav53 = window.nav;
+  window.nav = function(screen, feat) {
+    if (_origNav53) _origNav53.call(this, screen);
+    if (screen === 'dashboard') {
+      setTimeout(function() {
+        loadThreeQuestions();
+        loadRedistributionTrend();
+        addImpactBadgesToFocus();
+      }, 300);
+    }
+    if (screen === 'commitments') {
+      setTimeout(function() { window.loadCommitments && window.loadCommitments(); }, 400);
+    }
+    if (screen === 'approvals') {
+      setTimeout(function() { window.loadApprovals && window.loadApprovals(); }, 400);
+    }
+  };
+})();
 </script>
 </body>
 </html>
