@@ -212,6 +212,35 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 #renewal-banner{background:#160808;border-bottom:1px solid #2a1010;color:#E24B4A}
 
 /* v4.2 additions */
+/* v5.0 Executive Focus */
+.exec-focus-card{background:linear-gradient(135deg,#0d0d1f 0%,#13102a 100%);border:1px solid #534AB7;border-radius:12px;padding:18px 20px;margin-bottom:16px;position:relative;overflow:hidden}
+.exec-focus-card::before{content:'';position:absolute;top:0;right:0;width:120px;height:120px;background:radial-gradient(circle,rgba(83,74,183,0.15) 0%,transparent 70%);pointer-events:none}
+.exec-focus-label{font-size:10px;font-weight:700;color:#534AB7;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.exec-focus-question{font-size:11px;color:#555;margin-bottom:12px}
+.exec-focus-item{font-size:16px;font-weight:600;color:#f0f0f0;margin-bottom:8px;line-height:1.4}
+.exec-focus-meta{font-size:11px;color:#666;margin-bottom:14px}
+.exec-focus-clear{font-size:13px;color:#1D9E75;font-weight:500}
+/* Risk badges */
+.risk-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;margin-left:4px}
+.risk-at{background:#1f0808;color:#E24B4A;border:1px solid #351010}
+.risk-rel{background:#1a1000;color:#f0b429;border:1px solid #2d1c00}
+.risk-exec{background:#0a0a1f;color:#534AB7;border:1px solid #1a1840}
+/* AI Briefing */
+.ai-insight-card{background:#0d0d1f;border:1px solid #252535;border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.ai-insight-card .ai-tag{font-size:10px;font-weight:700;color:#534AB7;letter-spacing:1px;margin-bottom:6px}
+.ai-insight-card p{font-size:13px;color:#aaa;line-height:1.6;margin:0}
+.ai-rec-card{background:#0d1f12;border:1px solid #1D9E75;border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.ai-rec-card .ai-tag{font-size:10px;font-weight:700;color:#1D9E75;letter-spacing:1px;margin-bottom:6px}
+/* Travel risk */
+.travel-risk-bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.travel-risk-pill{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:600}
+.risk-low{background:#0d2d1f;color:#1D9E75;border:1px solid #1D9E75}
+.risk-med{background:#1a1000;color:#f0b429;border:1px solid #f0b429}
+.risk-high{background:#1f0808;color:#E24B4A;border:1px solid #E24B4A}
+.weather-widget{background:#0a0a12;border-radius:8px;padding:10px 12px;margin-top:10px;display:flex;align-items:center;gap:12px}
+.weather-temp{font-size:22px;font-weight:700;color:#f0f0f0}
+.weather-desc{font-size:11px;color:#666}
+
 .success-banner{background:#0d2d1f;border:1px solid #1D9E75;color:#1D9E75;padding:10px 14px;border-radius:8px;font-size:12px;margin-bottom:12px;display:none}
 .mfa-status-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600}
 .mfa-status-badge.enabled{background:#0d2d1f;color:#1D9E75;border:1px solid #1D9E75}
@@ -376,7 +405,7 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
       <div class="nav-item" id="n-docs" onclick="nav('docs')"><i class="ti ti-folder-open"></i> Documents</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer">NexusOS v4.2<br><span>© Jhun Rey Velado 2026</span><br><a href="https://jhunvelado.github.io/NexusOS/NexusOS_LICENSE.html" target="_blank" style="font-size:10px;color:#534AB7;text-decoration:none">⚖️ Ownership &amp; License</a></div>
+    <div class="sidebar-footer">NexusOS v5.0<br><span>© Jhun Rey Velado 2026</span><br><a href="https://jhunvelado.github.io/NexusOS/NexusOS_LICENSE.html" target="_blank" style="font-size:10px;color:#534AB7;text-decoration:none">⚖️ Ownership &amp; License</a></div>
   </div>
   <!-- CONTENT -->
   <div class="content">
@@ -385,7 +414,16 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
       <div class="pg-eyebrow">Command centre</div>
       <div class="pg-title">Good morning, <span id="dash-name">...</span>.</div>
       <div class="pg-sub" id="dash-date">Loading...</div>
-      <div class="stat-row">
+      
+      <!-- v5.0 EXECUTIVE FOCUS -->
+      <div class="exec-focus-card" id="exec-focus-card">
+        <div class="exec-focus-label">⚡ Executive Focus</div>
+        <div class="exec-focus-question">What deserves your attention right now?</div>
+        <div id="exec-focus-item" class="exec-focus-item">Analysing your workspace...</div>
+        <div id="exec-focus-meta" class="exec-focus-meta"></div>
+        <div id="exec-focus-action"></div>
+      </div>
+<div class="stat-row">
         <div class="stat"><div class="stat-lbl">Total tasks</div><div class="stat-val c-white" id="stat-total">—</div></div>
         <div class="stat"><div class="stat-lbl">Pending</div><div class="stat-val c-amber" id="stat-pending">—</div></div>
         <div class="stat"><div class="stat-lbl">Completed</div><div class="stat-val c-green" id="stat-done">—</div></div>
@@ -395,7 +433,18 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
         <div class="panel"><div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-star"></i> Today's priorities</div><span style="font-size:11px;color:#534AB7;cursor:pointer" onclick="nav('tasks')">View all</span></div><div id="dash-tasks"><div class="loading-indicator">Loading...</div></div></div>
         <div class="panel"><div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-circle-check"></i> Pending approvals</div><span style="font-size:11px;color:#534AB7;cursor:pointer" onclick="nav('approvals')">View all</span></div><div id="dash-approvals"><div class="loading-indicator">Loading...</div></div></div>
       </div>
-      <div class="panel"><div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-calendar"></i> Today's meetings</div></div><div id="dash-meetings"><div class="empty-state"><i class="ti ti-calendar-off"></i>No meetings today</div></div></div>
+      
+      <!-- v5.0 DECISION SUPPORT -->
+      <div class="panel" id="decision-support-panel" style="margin-bottom:12px">
+        <div class="panel-hdr">
+          <div class="panel-ttl"><i class="ti ti-brain"></i> Decision Support <span style="font-size:10px;color:#534AB7;margin-left:6px;font-weight:400">AI-powered</span></div>
+          <span id="decision-support-refresh" onclick="loadDecisionSupport()" style="font-size:11px;color:#534AB7;cursor:pointer">Refresh</span>
+        </div>
+        <div id="decision-support-body">
+          <div class="loading-indicator">Loading recommendations...</div>
+        </div>
+      </div>
+<div class="panel"><div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-calendar"></i> Today's meetings</div></div><div id="dash-meetings"><div class="empty-state"><i class="ti ti-calendar-off"></i>No meetings today</div></div></div>
     </div>
     <!-- TASKS -->
     <div class="screen" id="s-tasks">
@@ -422,6 +471,12 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
       <button class="btn-primary" onclick="openTripModal()" style="margin-bottom:16px"><i class="ti ti-plus"></i> New trip</button>
       <div id="trips-list"><div class="loading-indicator">Loading trips...</div></div>
       <div id="trip-detail" style="display:none"></div>
+      <div id="travel-weather-panel" style="display:none;margin-top:16px">
+        <div class="panel">
+          <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-cloud"></i> Travel Risk Intelligence</div></div>
+          <div id="travel-weather-body"></div>
+        </div>
+      </div>
     </div>
     <!-- MEETING PREP -->
     <div class="screen" id="s-meeting">
@@ -453,7 +508,22 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
     </div>
     <!-- AI BRIEFING -->
     <div class="screen" id="s-briefing">
-      <div class="pg-eyebrow">AI Daily Briefing</div><div class="pg-title" id="brief-date">Loading...</div><div class="pg-sub">Personalised executive intelligence · NexusOS AI</div>
+      <div class="pg-eyebrow">AI Daily Briefing</div><div class="pg-title" id="brief-date">Loading...</div><div class="pg-sub">Personalised executive intelligence · Powered by Claude AI</div>
+      <div id="ai-briefing-loading" style="text-align:center;padding:40px;display:none">
+        <div style="font-size:24px;margin-bottom:12px">🧠</div>
+        <div style="font-size:13px;color:#534AB7;font-weight:500">Claude is analysing your workspace...</div>
+        <div style="font-size:11px;color:#555;margin-top:6px">Reviewing tasks, commitments, approvals, and relationships</div>
+      </div>
+      <div id="ai-briefing-setup" style="text-align:center;padding:30px;display:none">
+        <div style="font-size:24px;margin-bottom:12px">🔑</div>
+        <div style="font-size:14px;color:#ddd;font-weight:500;margin-bottom:8px">Set up Claude AI</div>
+        <div style="font-size:12px;color:#666;margin-bottom:16px;max-width:340px;margin-left:auto;margin-right:auto">Add your Claude API key to enable real AI briefings, recommendations, and executive intelligence.</div>
+        <div style="max-width:340px;margin:0 auto">
+          <input type="password" id="claude-api-key-input" placeholder="sk-ant-api03-..." style="margin-bottom:10px">
+          <button class="btn-primary" onclick="saveClaudeKey()" style="width:100%">Save API Key</button>
+          <div style="font-size:10px;color:#333;margin-top:8px">Key stored locally in your browser · Never sent to our servers</div>
+        </div>
+      </div>
       <div class="summary-box"><div class="greet" id="brief-greet">Good morning.</div><p id="brief-body">Generating your briefing...</p></div>
       <div class="two-col">
         <div class="panel"><div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-alert-circle"></i> Critical actions</div></div><div id="brief-actions"><div class="loading-indicator">Loading...</div></div></div>
@@ -463,7 +533,16 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
     <!-- INTELLIGENCE -->
     <div class="screen" id="s-intel">
       <div class="pg-eyebrow">Intelligence centre</div><div class="pg-title">Live risk monitor</div><div class="pg-sub">Real-time view of decisions, risks, and follow-ups</div>
-      <div class="stat-row">
+      
+      <!-- v5.0 EXECUTIVE FOCUS -->
+      <div class="exec-focus-card" id="exec-focus-card">
+        <div class="exec-focus-label">⚡ Executive Focus</div>
+        <div class="exec-focus-question">What deserves your attention right now?</div>
+        <div id="exec-focus-item" class="exec-focus-item">Analysing your workspace...</div>
+        <div id="exec-focus-meta" class="exec-focus-meta"></div>
+        <div id="exec-focus-action"></div>
+      </div>
+<div class="stat-row">
         <div class="stat"><div class="stat-lbl">Overdue tasks</div><div class="stat-val c-red" id="intel-overdue">—</div></div>
         <div class="stat"><div class="stat-lbl">Pending approvals</div><div class="stat-val c-amber" id="intel-approvals">—</div></div>
         <div class="stat"><div class="stat-lbl">Open tasks</div><div class="stat-val c-white" id="intel-open">—</div></div>
@@ -479,7 +558,16 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
     <div class="screen" id="s-pe">
       <div class="pg-eyebrow">PE investor dashboard</div><div class="pg-title">Acquisition Pipeline</div><div class="pg-sub">Deal intelligence · Confidential</div>
       <div class="warn-banner"><i class="ti ti-alert-triangle"></i> Active deal is 10 days without response — Key Contact 1 follow-up required today</div>
-      <div class="stat-row">
+      
+      <!-- v5.0 EXECUTIVE FOCUS -->
+      <div class="exec-focus-card" id="exec-focus-card">
+        <div class="exec-focus-label">⚡ Executive Focus</div>
+        <div class="exec-focus-question">What deserves your attention right now?</div>
+        <div id="exec-focus-item" class="exec-focus-item">Analysing your workspace...</div>
+        <div id="exec-focus-meta" class="exec-focus-meta"></div>
+        <div id="exec-focus-action"></div>
+      </div>
+<div class="stat-row">
         <div class="stat"><div class="stat-lbl">Pipeline value</div><div class="stat-val c-white" style="font-size:18px;padding-top:4px">—</div></div>
         <div class="stat"><div class="stat-lbl">Avg deal size</div><div class="stat-val c-amber" style="font-size:18px;padding-top:4px">—</div></div>
         <div class="stat"><div class="stat-lbl">Active LOIs</div><div class="stat-val c-white" style="font-size:18px;padding-top:4px">—</div></div>
@@ -1899,6 +1987,378 @@ window.initApp=async function(user){
     try{await auditLog('login','session',null,{email:user.email});}catch(e){}
     setTimeout(checkShowOnboarding,800);
     setTimeout(loadMfaStatus,1000);
+  }
+};
+
+</script>
+<script>
+
+// ══════════════════════════════════════════════════
+// v5.0 — EXECUTIVE FOCUS CARD
+// ══════════════════════════════════════════════════
+async function loadExecutiveFocus(){
+  try{
+    if(!currentWorkspaceId)return;
+    var today=new Date();today.setHours(0,0,0,0);
+    var[{data:tasks},{data:approvals},{data:commitments}]=await Promise.all([
+      sb.from('tasks').select('*').eq('workspace_id',currentWorkspaceId).neq('status','completed'),
+      sb.from('approvals').select('*').eq('workspace_id',currentWorkspaceId).eq('status','pending'),
+      sb.from('commitments').select('*').eq('workspace_id',currentWorkspaceId).neq('stage','closed')
+    ]);
+    tasks=tasks||[];approvals=approvals||[];commitments=commitments||[];
+
+    // Score items by urgency
+    var candidates=[];
+
+    // Overdue critical commitments — highest urgency
+    commitments.filter(function(c){
+      return c.due_date&&new Date(c.due_date)<today&&c.priority==='critical';
+    }).forEach(function(c){
+      candidates.push({score:100,type:'commitment',icon:'🔴',label:'Critical commitment overdue',title:c.title,
+        meta:'Due: '+c.due_date+' · Stage: '+c.stage,action:"nav('commitments')",actionLabel:'View Commitment Tracker'});
+    });
+
+    // Pending approvals
+    if(approvals.length>0){
+      candidates.push({score:85,type:'approval',icon:'⏳',label:'Decision required',
+        title:approvals.length+' approval request'+(approvals.length>1?'s':'')+' awaiting your decision',
+        meta:approvals.map(function(a){return a.title;}).slice(0,2).join(', ')+(approvals.length>2?' +more':''),
+        action:"nav('approvals')",actionLabel:'Review Approvals'});
+    }
+
+    // Overdue high commitments
+    commitments.filter(function(c){
+      return c.due_date&&new Date(c.due_date)<today&&c.priority==='high';
+    }).forEach(function(c){
+      candidates.push({score:80,type:'commitment',icon:'🟡',label:'High-priority commitment overdue',title:c.title,
+        meta:'Due: '+c.due_date,action:"nav('commitments')",actionLabel:'View Commitment Tracker'});
+    });
+
+    // Overdue high tasks
+    tasks.filter(function(t){return t.priority==='high'&&t.due_date&&new Date(t.due_date)<today;})
+    .slice(0,1).forEach(function(t){
+      candidates.push({score:70,type:'task',icon:'📋',label:'High-priority task overdue',title:t.name||t.title,
+        meta:'Due: '+t.due_date,action:"nav('tasks')",actionLabel:'View Tasks'});
+    });
+
+    // Upcoming commitments due today
+    commitments.filter(function(c){
+      if(!c.due_date)return false;
+      var d=new Date(c.due_date);d.setHours(0,0,0,0);
+      return d.getTime()===today.getTime();
+    }).slice(0,1).forEach(function(c){
+      candidates.push({score:65,type:'commitment',icon:'📌',label:'Commitment due today',title:c.title,
+        meta:'Stage: '+c.stage,action:"nav('commitments')",actionLabel:'View Commitments'});
+    });
+
+    var focusEl=document.getElementById('exec-focus-item');
+    var metaEl=document.getElementById('exec-focus-meta');
+    var actionEl=document.getElementById('exec-focus-action');
+
+    if(candidates.length===0){
+      focusEl.innerHTML='<span class="exec-focus-clear">✓ All clear — no critical items need your attention right now.</span>';
+      metaEl.textContent='';actionEl.innerHTML='';
+      return;
+    }
+
+    // Sort by score, take top
+    candidates.sort(function(a,b){return b.score-a.score;});
+    var top=candidates[0];
+    focusEl.innerHTML=top.icon+' '+top.title;
+    metaEl.textContent=top.label+(top.meta?' · '+top.meta:'');
+    actionEl.innerHTML='<button class="btn-primary" onclick="'+top.action+'" style="padding:7px 16px;font-size:12px">'+top.actionLabel+' →</button>';
+    if(candidates.length>1){
+      actionEl.innerHTML+='<span style="font-size:11px;color:#555;margin-left:12px">+'+(candidates.length-1)+' more item'+(candidates.length>2?'s':'')+' need attention</span>';
+    }
+  }catch(e){console.log('exec focus error',e);}
+}
+
+// ══════════════════════════════════════════════════
+// v5.0 — DECISION SUPPORT PANEL
+// ══════════════════════════════════════════════════
+async function loadDecisionSupport(){
+  var body=document.getElementById('decision-support-body');
+  if(!body||!currentWorkspaceId)return;
+  body.innerHTML='<div class="loading-indicator">Connecting the dots...</div>';
+  try{
+    var today=new Date();
+    var[{data:tasks},{data:approvals},{data:commitments},{data:contacts}]=await Promise.all([
+      sb.from('tasks').select('*').eq('workspace_id',currentWorkspaceId).neq('status','completed').eq('priority','high'),
+      sb.from('approvals').select('*').eq('workspace_id',currentWorkspaceId).eq('status','pending'),
+      sb.from('commitments').select('*').eq('workspace_id',currentWorkspaceId).neq('stage','closed'),
+      sb.from('contacts').select('*').eq('workspace_id',currentWorkspaceId)
+    ]);
+    tasks=tasks||[];approvals=approvals||[];commitments=commitments||[];contacts=contacts||[];
+
+    var recs=[];
+
+    // Overdue + no owner commitments
+    var orphaned=commitments.filter(function(c){return !c.owner&&c.stage!=='signal';});
+    if(orphaned.length>0)recs.push({type:'risk',icon:'⚠️',text:orphaned.length+' commitment'+(orphaned.length>1?'s have':' has')+' no owner assigned — execution risk.',action:"nav('commitments')",cta:'Assign Owners'});
+
+    // Pending approvals blocking work
+    if(approvals.length>0)recs.push({type:'action',icon:'✅',text:approvals.length+' approval'+(approvals.length>1?'s are':' is')+' pending — decisions may be blocking your team.',action:"nav('approvals')",cta:'Decide Now'});
+
+    // Overdue commitments
+    var overdue=commitments.filter(function(c){return c.due_date&&new Date(c.due_date)<today;});
+    if(overdue.length>0)recs.push({type:'risk',icon:'🔴',text:overdue.length+' commitment'+(overdue.length>1?'s are':' is')+' past due. These represent broken promises — close or extend them.',action:"nav('commitments')",cta:'Review Commitments'});
+
+    // Cold contacts
+    var cold=contacts.filter(function(c){return c.warmth==='Cold — needs warming';});
+    if(cold.length>0)recs.push({type:'rel',icon:'❄️',text:cold.length+' relationship'+(cold.length>1?'s need':' needs')+' warming. Re-engage before the connection goes cold.',action:"nav('relationships')",cta:'View Relationships'});
+
+    // High priority tasks with no due date
+    var undated=tasks.filter(function(t){return !t.due_date;});
+    if(undated.length>0)recs.push({type:'action',icon:'📅',text:undated.length+' high-priority task'+(undated.length>1?'s have':' has')+' no due date — add deadlines to create urgency.',action:"nav('tasks')",cta:'Add Due Dates'});
+
+    if(recs.length===0){
+      body.innerHTML='<div style="text-align:center;padding:20px;color:#555;font-size:13px">✓ No critical recommendations right now. Your workspace looks healthy.</div>';
+      return;
+    }
+
+    body.innerHTML=recs.map(function(r){
+      var cls=r.type==='risk'?'ai-rec-card':r.type==='rel'?'ai-insight-card':' ai-insight-card';
+      return '<div class="'+cls+'" style="'+(r.type==='risk'?'background:#1f0808;border-color:#E24B4A':r.type==='rel'?'background:#1a1000;border-color:#f0b429':'')+'"><div class="ai-tag">'+(r.type==='risk'?'⚠ RISK':r.type==='rel'?'🤝 RELATIONSHIP':'💡 RECOMMENDATION')+'</div><p>'+r.icon+' '+r.text+'</p><button class="btn-outline" onclick="'+r.action+'" style="margin-top:10px;padding:5px 12px;font-size:11px">'+r.cta+' →</button></div>';
+    }).join('');
+  }catch(e){body.innerHTML='<div style="color:#E24B4A;font-size:12px;padding:10px">Error loading recommendations</div>';}
+}
+
+// ══════════════════════════════════════════════════
+// v5.0 — COMMITMENT RISK BADGES
+// ══════════════════════════════════════════════════
+function getCommitmentRiskBadges(c,today){
+  var badges='';
+  // At Risk: overdue
+  if(c.stage!=='closed'&&c.due_date&&new Date(c.due_date)<today){
+    badges+='<span class="risk-badge risk-at">⚠ At Risk</span>';
+  }
+  // Relationship Risk: no owner on active commitment
+  if((c.stage==='action'||c.stage==='verification')&&!c.owner){
+    badges+='<span class="risk-badge risk-rel">🤝 Relationship Risk</span>';
+  }
+  // Execution Risk: no verification criteria
+  if(c.stage==='verification'&&!c.verification_text){
+    badges+='<span class="risk-badge risk-exec">🎯 Execution Risk</span>';
+  }
+  return badges;
+}
+
+// Patch: override loadCommitments to inject risk badges
+var _origLoadCommitments=window.loadCommitments;
+window.loadCommitments=async function(){
+  if(typeof _origLoadCommitments==='function')await _origLoadCommitments();
+  // Post-process: inject risk badges after each commitment title
+  var today=new Date();today.setHours(0,0,0,0);
+  try{
+    var{data:commitments}=await sb.from('commitments').select('*')
+      .eq('workspace_id',currentWorkspaceId).neq('stage','closed');
+    if(!commitments)return;
+    commitments.forEach(function(c){
+      // Find commitment panel and inject risk badges
+      var badges=getCommitmentRiskBadges(c,today);
+      if(!badges)return;
+      var list=document.getElementById('commitments-list');
+      if(!list)return;
+      var panels=list.querySelectorAll('.panel');
+      panels.forEach(function(panel){
+        var titleEl=panel.querySelector('[style*="font-size:14px"]');
+        if(titleEl&&titleEl.textContent.trim()===c.title){
+          // Add badges after the existing badge row
+          var badgeRow=panel.querySelector('[style*="display:flex;gap:5px"]');
+          if(badgeRow){
+            badgeRow.insertAdjacentHTML('beforeend',badges);
+          }
+        }
+      });
+    });
+  }catch(e){}
+};
+
+// ══════════════════════════════════════════════════
+// v5.0 — CLAUDE AI INTEGRATION
+// ══════════════════════════════════════════════════
+function saveClaudeKey(){
+  var key=document.getElementById('claude-api-key-input').value.trim();
+  if(!key||!key.startsWith('sk-ant')){
+    alert('Please enter a valid Claude API key (starts with sk-ant-)');return;
+  }
+  try{localStorage.setItem('nexus_claude_key',key);}catch(e){}
+  document.getElementById('ai-briefing-setup').style.display='none';
+  loadBriefing();
+}
+
+function getClaudeKey(){
+  try{return localStorage.getItem('nexus_claude_key');}catch(e){return null;}
+}
+
+// Override loadBriefing to use Claude when key available
+var _origLoadBriefing=window.loadBriefing;
+window.loadBriefing=async function(){
+  var key=getClaudeKey();
+  if(!key){
+    // Show setup prompt
+    document.getElementById('ai-briefing-setup').style.display='block';
+    if(typeof _origLoadBriefing==='function')await _origLoadBriefing();
+    return;
+  }
+  document.getElementById('ai-briefing-setup').style.display='none';
+  document.getElementById('ai-briefing-loading').style.display='block';
+  try{
+    // Gather workspace data
+    var today=new Date();
+    var[{data:tasks},{data:approvals},{data:commitments},{data:contacts},{data:trips}]=await Promise.all([
+      sb.from('tasks').select('*').eq('workspace_id',currentWorkspaceId).neq('status','completed'),
+      sb.from('approvals').select('*').eq('workspace_id',currentWorkspaceId).eq('status','pending'),
+      sb.from('commitments').select('*').eq('workspace_id',currentWorkspaceId).neq('stage','closed'),
+      sb.from('contacts').select('*').eq('workspace_id',currentWorkspaceId),
+      sb.from('trips').select('*').eq('workspace_id',currentWorkspaceId).gte('departure_date',today.toISOString().split('T')[0]).limit(3)
+    ]);
+    var overdueTasks=(tasks||[]).filter(function(t){return t.due_date&&new Date(t.due_date)<today;});
+    var overdueCommitments=(commitments||[]).filter(function(c){return c.due_date&&new Date(c.due_date)<today;});
+    var prompt='You are an executive intelligence AI for NexusOS. Provide a concise morning briefing for a CEO/Executive team. Be direct, actionable, and specific. Format with clear sections. Data:
+'+
+      '- Open tasks: '+(tasks||[]).length+' ('+overdueTasks.length+' overdue)
+'+
+      '- Pending approvals: '+(approvals||[]).length+'
+'+
+      '- Active commitments: '+(commitments||[]).length+' ('+overdueCommitments.length+' overdue)
+'+
+      '- Key contacts: '+(contacts||[]).length+'
+'+
+      '- Upcoming trips: '+(trips||[]).map(function(t){return t.name+' on '+t.departure_date;}).join(', ')+'
+
+'+
+      'Provide: 1) Executive Summary (2 sentences), 2) Top 3 Actions for today, 3) Risk Alert if any. Keep total under 200 words.';
+
+    var response=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':key,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-haiku-4-5-20251001',
+        max_tokens:400,
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+
+    if(!response.ok){
+      var err=await response.json();
+      throw new Error(err.error?.message||'API error '+response.status);
+    }
+    var result=await response.json();
+    var aiText=result.content[0].text;
+    document.getElementById('ai-briefing-loading').style.display='none';
+
+    // Render AI response
+    document.getElementById('brief-body').innerHTML=
+      '<div class="ai-insight-card"><div class="ai-tag">🧠 CLAUDE AI BRIEFING</div><p style="white-space:pre-wrap;color:#aaa;font-size:13px;line-height:1.7">'+aiText+'</p></div>';
+
+    // Update date
+    var dateEl=document.getElementById('brief-date');
+    if(dateEl)dateEl.textContent=today.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+
+    try{auditLog('ai_briefing','briefing',null,{model:'claude-haiku'});}catch(e){}
+  }catch(e){
+    document.getElementById('ai-briefing-loading').style.display='none';
+    if(e.message&&e.message.includes('401')){
+      localStorage.removeItem('nexus_claude_key');
+      document.getElementById('ai-briefing-setup').style.display='block';
+      document.getElementById('claude-api-key-input').value='';
+      alert('Invalid API key — please re-enter your Claude key.');
+    }else{
+      document.getElementById('brief-body').innerHTML=
+        '<div style="color:#E24B4A;font-size:12px;padding:12px;background:#1f0808;border-radius:8px">AI Error: '+e.message+'<br><br><button class="btn-outline" onclick="localStorage.removeItem('nexus_claude_key');loadBriefing()" style="margin-top:8px;font-size:11px">Reset API Key</button></div>';
+      if(typeof _origLoadBriefing==='function')await _origLoadBriefing();
+    }
+  }
+};
+
+// ══════════════════════════════════════════════════
+// v5.0 — TRAVEL RISK INDICATORS (wttr.in — no API key needed)
+// ══════════════════════════════════════════════════
+async function fetchTravelWeather(city){
+  try{
+    var resp=await fetch('https://wttr.in/'+encodeURIComponent(city)+'?format=j1');
+    if(!resp.ok)return null;
+    var data=await resp.json();
+    var cur=data.current_condition[0];
+    var tempC=parseInt(cur.temp_C);
+    var desc=cur.weatherDesc[0].value;
+    var windKm=parseInt(cur.windspeedKmph);
+    var risks=[];
+    if(tempC>35)risks.push({level:'high',label:'Extreme heat'});
+    if(tempC<5)risks.push({level:'med',label:'Cold conditions'});
+    if(windKm>60)risks.push({level:'high',label:'Strong winds'});
+    if(desc.toLowerCase().includes('rain')||desc.toLowerCase().includes('storm'))risks.push({level:'med',label:'Rain/Storm'});
+    if(desc.toLowerCase().includes('thunder'))risks.push({level:'high',label:'Thunderstorm'});
+    return{temp:tempC,desc:desc,wind:windKm,risks:risks};
+  }catch(e){return null;}
+}
+
+async function loadTravelRisk(trips){
+  var panel=document.getElementById('travel-weather-panel');
+  var body=document.getElementById('travel-weather-body');
+  if(!panel||!body||!trips||trips.length===0){if(panel)panel.style.display='none';return;}
+  var upcoming=trips.filter(function(t){
+    return t.departure_date&&new Date(t.departure_date)>=new Date();
+  }).slice(0,2);
+  if(upcoming.length===0){panel.style.display='none';return;}
+  panel.style.display='block';
+  body.innerHTML='<div class="loading-indicator">Checking travel conditions...</div>';
+  var html='';
+  for(var i=0;i<upcoming.length;i++){
+    var t=upcoming[i];
+    var dest=t.destination||t.name;
+    var weather=dest?await fetchTravelWeather(dest):null;
+    html+='<div style="margin-bottom:14px"><div style="font-size:13px;font-weight:500;color:#ddd;margin-bottom:4px">✈ '+t.name+'</div>';
+    html+='<div style="font-size:11px;color:#555;margin-bottom:6px">'+t.departure_date+(t.destination?' → '+t.destination:'')+'</div>';
+    if(weather){
+      html+='<div class="weather-widget"><div style="font-size:28px">'+(weather.desc.toLowerCase().includes('sun')||weather.desc.toLowerCase().includes('clear')?'☀️':weather.desc.toLowerCase().includes('rain')?'🌧️':weather.desc.toLowerCase().includes('cloud')?'☁️':weather.desc.toLowerCase().includes('storm')?'⛈️':'🌤️')+'</div><div><div class="weather-temp">'+weather.temp+'°C</div><div class="weather-desc">'+weather.desc+' · Wind: '+weather.wind+' km/h</div></div></div>';
+      if(weather.risks.length>0){
+        html+='<div class="travel-risk-bar">'+weather.risks.map(function(r){return '<span class="travel-risk-pill risk-'+r.level+'">⚠ '+r.label+'</span>';}).join('')+'</div>';
+      }else{
+        html+='<div class="travel-risk-bar"><span class="travel-risk-pill risk-low">✓ Good conditions</span></div>';
+      }
+    }else{
+      html+='<div style="font-size:11px;color:#555">Weather data unavailable for this destination</div>';
+    }
+    html+='</div>';
+  }
+  body.innerHTML=html||'<div style="font-size:12px;color:#555">No upcoming trips</div>';
+}
+
+// Patch loadTrips to also load travel risk
+var _origLoadTrips=window.loadTrips;
+window.loadTrips=async function(){
+  if(typeof _origLoadTrips==='function')await _origLoadTrips();
+  try{
+    var{data:trips}=await sb.from('trips').select('*')
+      .eq('workspace_id',currentWorkspaceId).order('departure_date');
+    await loadTravelRisk(trips||[]);
+  }catch(e){}
+};
+
+// ══════════════════════════════════════════════════
+// v5.0 — PATCH loadDashboard to include new panels
+// ══════════════════════════════════════════════════
+var _origLoadDashboard=window.loadDashboard;
+window.loadDashboard=async function(){
+  if(typeof _origLoadDashboard==='function')await _origLoadDashboard();
+  setTimeout(loadExecutiveFocus,500);
+  setTimeout(loadDecisionSupport,800);
+};
+
+// Also hook into nav to trigger exec focus on dashboard nav
+var _origNav=window.nav;
+window.nav=function(screen){
+  if(typeof _origNav==='function')_origNav(screen);
+  if(screen==='dashboard'){
+    setTimeout(loadExecutiveFocus,600);
+    setTimeout(loadDecisionSupport,900);
   }
 };
 
