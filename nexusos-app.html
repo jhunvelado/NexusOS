@@ -213,6 +213,35 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 
 /* v4.2 additions */
 /* v5.0 Executive Focus */
+/* v5.1 Quick Capture */
+.quick-capture-btn{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#534AB7,#3C3489);border:none;color:#fff;font-size:24px;cursor:pointer;z-index:500;box-shadow:0 4px 20px rgba(83,74,183,0.5);transition:all 0.2s;display:flex;align-items:center;justify-content:center}
+.quick-capture-btn:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(83,74,183,0.7)}
+.quick-capture-modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:600;display:none;align-items:center;justify-content:center;padding:20px}
+.quick-capture-modal.open{display:flex}
+.qc-box{background:#0f0f1a;border:1px solid #534AB7;border-radius:14px;padding:28px;width:100%;max-width:480px}
+.qc-title{font-size:16px;font-weight:600;color:#f0f0f0;margin-bottom:6px}
+.qc-sub{font-size:12px;color:#555;margin-bottom:20px}
+.qc-type-row{display:flex;gap:8px;margin-bottom:16px}
+.qc-type{padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid #1e1e2e;background:#0a0a12;color:#666;cursor:pointer;transition:all 0.15s}
+.qc-type.active{background:#534AB722;border-color:#534AB7;color:#534AB7}
+.qc-actions{display:flex;gap:8px;margin-top:16px}
+/* Approval aging */
+.age-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;margin-left:6px}
+.age-warn{background:#1a1000;color:#f0b429;border:1px solid #2d1c00}
+.age-danger{background:#1f0808;color:#E24B4A;border:1px solid #351010}
+/* Conflict alert */
+.conflict-alert{background:#1f0808;border:1px solid #E24B4A44;border-radius:8px;padding:12px 14px;margin-bottom:12px;font-size:12px;color:#E24B4A;display:none}
+.conflict-alert.visible{display:block}
+/* Ownership warning */
+.owner-warning{background:#1a1000;border:1px solid #f0b42944;border-radius:6px;padding:8px 12px;font-size:11px;color:#f0b429;margin-top:6px;display:none}
+/* Redistribution widget */
+.redist-widget{background:#0d0d1f;border:1px solid #1e1e2e;border-radius:10px;padding:16px;margin-bottom:12px}
+.redist-title{font-size:11px;font-weight:600;color:#666;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.redist-bar-wrap{background:#0a0a12;border-radius:4px;height:6px;margin-bottom:6px;overflow:hidden}
+.redist-bar{height:100%;border-radius:4px;transition:width 0.5s}
+.redist-labels{display:flex;justify-content:space-between;font-size:10px;color:#444}
+.redist-status{font-size:11px;font-weight:600;margin-top:8px}
+
 .exec-focus-card{background:linear-gradient(135deg,#0d0d1f 0%,#13102a 100%);border:1px solid #534AB7;border-radius:12px;padding:18px 20px;margin-bottom:16px;position:relative;overflow:hidden}
 .exec-focus-card::before{content:'';position:absolute;top:0;right:0;width:120px;height:120px;background:radial-gradient(circle,rgba(83,74,183,0.15) 0%,transparent 70%);pointer-events:none}
 .exec-focus-label{font-size:10px;font-weight:700;color:#534AB7;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
@@ -405,7 +434,7 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
       <div class="nav-item" id="n-docs" onclick="nav('docs')"><i class="ti ti-folder-open"></i> Documents</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer">NexusOS v5.0<br><span>© Jhun Rey Velado 2026</span><br><a href="https://jhunvelado.github.io/NexusOS/NexusOS_LICENSE.html" target="_blank" style="font-size:10px;color:#534AB7;text-decoration:none">⚖️ Ownership &amp; License</a></div>
+    <div class="sidebar-footer">NexusOS v5.1<br><span>© Jhun Rey Velado 2026</span><br><a href="https://jhunvelado.github.io/NexusOS/NexusOS_LICENSE.html" target="_blank" style="font-size:10px;color:#534AB7;text-decoration:none">⚖️ Ownership &amp; License</a></div>
   </div>
   <!-- CONTENT -->
   <div class="content">
@@ -415,6 +444,13 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
       <div class="pg-title">Good morning, <span id="dash-name">...</span>.</div>
       <div class="pg-sub" id="dash-date">Loading...</div>
       
+            <!-- v5.1 REDISTRIBUTION INDICATOR -->
+      <div class="redist-widget" id="redist-widget">
+        <div class="redist-title"><i class="ti ti-arrows-exchange"></i> Workspace Health — Load Balance</div>
+        <div class="redist-bar-wrap"><div class="redist-bar" id="redist-bar" style="width:0%;background:#1D9E75"></div></div>
+        <div class="redist-labels"><span>EA activity</span><span>CEO actions</span></div>
+        <div class="redist-status" id="redist-status">Calculating...</div>
+      </div>
       <!-- v5.0 EXECUTIVE FOCUS -->
       <div class="exec-focus-card" id="exec-focus-card">
         <div class="exec-focus-label">⚡ Executive Focus</div>
@@ -534,6 +570,13 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
     <div class="screen" id="s-intel">
       <div class="pg-eyebrow">Intelligence centre</div><div class="pg-title">Live risk monitor</div><div class="pg-sub">Real-time view of decisions, risks, and follow-ups</div>
       
+            <!-- v5.1 REDISTRIBUTION INDICATOR -->
+      <div class="redist-widget" id="redist-widget">
+        <div class="redist-title"><i class="ti ti-arrows-exchange"></i> Workspace Health — Load Balance</div>
+        <div class="redist-bar-wrap"><div class="redist-bar" id="redist-bar" style="width:0%;background:#1D9E75"></div></div>
+        <div class="redist-labels"><span>EA activity</span><span>CEO actions</span></div>
+        <div class="redist-status" id="redist-status">Calculating...</div>
+      </div>
       <!-- v5.0 EXECUTIVE FOCUS -->
       <div class="exec-focus-card" id="exec-focus-card">
         <div class="exec-focus-label">⚡ Executive Focus</div>
@@ -559,6 +602,13 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
       <div class="pg-eyebrow">PE investor dashboard</div><div class="pg-title">Acquisition Pipeline</div><div class="pg-sub">Deal intelligence · Confidential</div>
       <div class="warn-banner"><i class="ti ti-alert-triangle"></i> Active deal is 10 days without response — Key Contact 1 follow-up required today</div>
       
+            <!-- v5.1 REDISTRIBUTION INDICATOR -->
+      <div class="redist-widget" id="redist-widget">
+        <div class="redist-title"><i class="ti ti-arrows-exchange"></i> Workspace Health — Load Balance</div>
+        <div class="redist-bar-wrap"><div class="redist-bar" id="redist-bar" style="width:0%;background:#1D9E75"></div></div>
+        <div class="redist-labels"><span>EA activity</span><span>CEO actions</span></div>
+        <div class="redist-status" id="redist-status">Calculating...</div>
+      </div>
       <!-- v5.0 EXECUTIVE FOCUS -->
       <div class="exec-focus-card" id="exec-focus-card">
         <div class="exec-focus-label">⚡ Executive Focus</div>
@@ -621,7 +671,7 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
         <select id="ct-filter" onchange="loadCommitments()" style="width:auto;margin-bottom:0;padding:8px 12px;font-size:12px"><option value="all">All stages</option><option value="signal">Signal</option><option value="decision">Decision</option><option value="owner">Owner assigned</option><option value="action">In action</option><option value="verification">Verification</option><option value="closed">Closed</option></select>
         <select id="ct-priority-filter" onchange="loadCommitments()" style="width:auto;margin-bottom:0;padding:8px 12px;font-size:12px"><option value="all">All priority</option><option value="critical">Critical</option><option value="high">High</option><option value="medium">Medium</option></select>
       </div>
-      <div id="commitments-list"><div class="loading-indicator">Loading commitments...</div></div>
+      <div class="conflict-alert" id="conflict-alert"><i class="ti ti-alert-triangle"></i> <strong>Conflict detected:</strong> <span id="conflict-detail"></span> — resolve ownership before advancing.</div><div id="commitments-list"><div class="loading-indicator">Loading commitments...</div></div>
     </div>
     <!-- PHASE 6: CALENDAR -->
     <div class="screen" id="s-calendar">
@@ -1170,7 +1220,7 @@ const PLAN_FEATURES={
 const PLAN_LABELS={travel:'Professional',pe:'Professional',relationships:'Professional',meeting:'Professional',intel:'Professional',commitments:'Professional',calendar:'Enterprise',inbox:'Enterprise',members:'Enterprise',branding:'Enterprise'};
 function _origGetEffectivePlan_unused(){if(!currentSubscription)return'starter';const{plan,status,trial_ends_at,current_period_end}=currentSubscription;if(status==='trialing')return(trial_ends_at&&new Date(trial_ends_at)<new Date())?'starter':(plan||'professional');if(status==='active'){if(current_period_end&&new Date(current_period_end)<new Date())return'starter';return plan||'starter';}return'starter';}
 function hasFeature(f){if(currentUser&&currentUser.email==='jhun07.velado@gmail.com')return true;return PLAN_FEATURES[getEffectivePlan()]?.has(f)||false;}
-function applyPlanGating(){if(currentUser&&currentUser.email==='jhun07.velado@gmail.com'){['travel','pe','relationships','meeting','intel','commitments','calendar','inbox','members'].forEach(f=>{const el=document.getElementById('n-'+f);if(!el)return;el.classList.remove('locked');el.querySelector('.nav-lock')?.remove();});document.getElementById('brand-panel').style.display='block';document.getElementById('ws-switcher-wrap').style.display='block';const pn=document.getElementById('current-plan-name');if(pn){pn.textContent='Enterprise — Founder Access';pn.style.color='#534AB7';}const pb=document.getElementById('plan-status-badge');if(pb){pb.textContent='Founder';pb.style.color='#534AB7';}updatePricingScreen();return;}const gated=['travel','pe','relationships','meeting','intel','commitments','calendar','inbox','members'];gated.forEach(f=>{const el=document.getElementById('n-'+f);if(!el)return;if(hasFeature(f)){el.classList.remove('locked');el.querySelector('.nav-lock')?.remove();}else{if(!el.classList.contains('locked')){el.classList.add('locked');const lock=document.createElement('i');lock.className='ti ti-lock nav-lock';el.appendChild(lock);}}});document.getElementById('brand-panel').style.display=hasFeature('branding')?'block':'none';document.getElementById('ws-switcher-wrap').style.display=hasFeature('members')?'block':'none';const sub=currentSubscription;if(sub&&sub.status==='trialing'&&sub.trial_ends_at){const days=Math.ceil((new Date(sub.trial_ends_at)-new Date())/864e5);if(days>0){document.getElementById('trial-days').textContent=days;document.getElementById('trial-banner').style.display='flex';}else{document.getElementById('trial-banner').style.display='none';document.getElementById('renewal-banner').style.display='flex';}}else if(getEffectivePlan()==='starter'&&sub&&sub.status!=='active'){document.getElementById('renewal-banner').style.display='flex';}updatePricingScreen();}
+function applyPlanGating(){if(currentUser&&currentUser.email==='jhun07.velado@gmail.com'){['travel','pe','relationships','meeting','intel','commitments','calendar','inbox','members'].forEach(f=>{const el=document.getElementById('n-'+f);if(el){el.classList.remove('locked');el.querySelector('.nav-lock')?.remove();}});document.getElementById('brand-panel').style.display='block';document.getElementById('ws-switcher-wrap').style.display='block';updatePricingScreen();return;}const gated=['travel','pe','relationships','meeting','intel','commitments','calendar','inbox','members'];gated.forEach(f=>{const el=document.getElementById('n-'+f);if(!el)return;if(hasFeature(f)){el.classList.remove('locked');el.querySelector('.nav-lock')?.remove();}else{if(!el.classList.contains('locked')){el.classList.add('locked');const lock=document.createElement('i');lock.className='ti ti-lock nav-lock';el.appendChild(lock);}}});document.getElementById('brand-panel').style.display=hasFeature('branding')?'block':'none';document.getElementById('ws-switcher-wrap').style.display=hasFeature('members')?'block':'none';const sub=currentSubscription;if(sub&&sub.status==='trialing'&&sub.trial_ends_at){const days=Math.ceil((new Date(sub.trial_ends_at)-new Date())/864e5);if(days>0){document.getElementById('trial-days').textContent=days;document.getElementById('trial-banner').style.display='flex';}else{document.getElementById('trial-banner').style.display='none';document.getElementById('renewal-banner').style.display='flex';}}else if(getEffectivePlan()==='starter'&&sub&&sub.status!=='active'){document.getElementById('renewal-banner').style.display='flex';}updatePricingScreen();}
 function showUpgradeModal(feature){
   const enterpriseFeats=new Set(['calendar','inbox','members','branding']);
   const professionalFeats=new Set(['travel','pe','relationships','meeting','intel','commitments']);
@@ -2361,6 +2411,247 @@ window.nav=function(screen){
     setTimeout(loadExecutiveFocus,600);
     setTimeout(loadDecisionSupport,900);
   }
+};
+
+</script>
+
+<!-- v5.1 QUICK CAPTURE -->
+<button class="quick-capture-btn" onclick="openQuickCapture()" title="Quick capture (Q)">+</button>
+<div class="quick-capture-modal" id="quick-capture-modal" onclick="if(event.target===this)closeQuickCapture()">
+  <div class="qc-box">
+    <div class="qc-title">⚡ Quick Capture</div>
+    <div class="qc-sub">Log now, add details later — nothing gets lost in the meeting</div>
+    <div class="qc-type-row">
+      <div class="qc-type active" id="qct-commitment" onclick="setQCType('commitment')">💬 Commitment</div>
+      <div class="qc-type" id="qct-task" onclick="setQCType('task')">✅ Task</div>
+      <div class="qc-type" id="qct-approval" onclick="setQCType('approval')">📋 Approval</div>
+    </div>
+    <input type="text" id="qc-input" placeholder="What was promised or decided..." style="margin-bottom:8px" onkeydown="if(event.key==='Enter')submitQuickCapture();if(event.key==='Escape')closeQuickCapture()">
+    <input type="text" id="qc-owner" placeholder="Owner (optional — add later)" style="margin-bottom:0">
+    <div class="qc-actions">
+      <button class="btn-primary" onclick="submitQuickCapture()" style="flex:1;padding:10px">Log it →</button>
+      <button class="btn-outline" onclick="closeQuickCapture()" style="padding:10px 16px">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════
+// v5.1 — QUICK CAPTURE
+// ══════════════════════════════════════════════════
+var _qcType='commitment';
+
+function openQuickCapture(){
+  document.getElementById('quick-capture-modal').classList.add('open');
+  setTimeout(function(){document.getElementById('qc-input').focus();},100);
+}
+function closeQuickCapture(){
+  document.getElementById('quick-capture-modal').classList.remove('open');
+  document.getElementById('qc-input').value='';
+  document.getElementById('qc-owner').value='';
+  setQCType('commitment');
+}
+function setQCType(t){
+  _qcType=t;
+  ['commitment','task','approval'].forEach(function(x){
+    document.getElementById('qct-'+x).classList.toggle('active',x===t);
+  });
+}
+async function submitQuickCapture(){
+  var title=document.getElementById('qc-input').value.trim();
+  if(!title){document.getElementById('qc-input').focus();return;}
+  var owner=document.getElementById('qc-owner').value.trim()||null;
+  var btn=document.querySelector('.qc-actions .btn-primary');
+  btn.textContent='Saving...';btn.disabled=true;
+  try{
+    if(_qcType==='commitment'){
+      await sb.from('commitments').insert({workspace_id:currentWorkspaceId,title:title,stage:'signal',priority:'medium',owner:owner});
+    }else if(_qcType==='task'){
+      await sb.from('tasks').insert({workspace_id:currentWorkspaceId,name:title,status:'pending',priority:'medium',assigned_to:owner});
+    }else{
+      await sb.from('approvals').insert({workspace_id:currentWorkspaceId,title:title,status:'pending',requested_by:owner});
+    }
+    try{auditLog('quick_capture',_qcType,null,{title:title});}catch(e){}
+    closeQuickCapture();
+    // Refresh the relevant screen if visible
+    if(_qcType==='commitment'&&typeof loadCommitments==='function')loadCommitments();
+    if(_qcType==='task'&&typeof loadTasks==='function')loadTasks();
+    if(_qcType==='approval'&&typeof loadApprovals==='function')loadApprovals();
+    // Show toast
+    showV51Toast('✓ '+title.substring(0,40)+(title.length>40?'...':'')+' logged');
+  }catch(e){
+    btn.textContent='Error — retry';btn.disabled=false;
+  }
+}
+// Keyboard shortcut: Q to open quick capture
+document.addEventListener('keydown',function(e){
+  if(e.key==='q'&&!e.ctrlKey&&!e.metaKey&&document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='TEXTAREA'){
+    openQuickCapture();
+  }
+});
+
+// ══════════════════════════════════════════════════
+// v5.1 — TOAST NOTIFICATION
+// ══════════════════════════════════════════════════
+function showV51Toast(msg){
+  var t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:90px;right:28px;background:#0f0f1a;border:1px solid #1D9E75;color:#1D9E75;padding:10px 16px;border-radius:8px;font-size:12px;font-weight:500;z-index:700;animation:fadeIn 0.2s ease';
+  t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(function(){t.remove();},3000);
+}
+
+// ══════════════════════════════════════════════════
+// v5.1 — APPROVAL AGING
+// ══════════════════════════════════════════════════
+function injectApprovalAging(){
+  try{
+    var list=document.getElementById('approvals-list');
+    if(!list)return;
+    var panels=list.querySelectorAll('.panel,[class*="approval"]');
+    // Simpler: look for elements with created_at data or use DOM order
+    // We patch loadApprovals instead
+  }catch(e){}
+}
+
+var _origLoadApprovals=window.loadApprovals;
+window.loadApprovals=async function(){
+  if(typeof _origLoadApprovals==='function')await _origLoadApprovals();
+  try{
+    var{data:approvals}=await sb.from('approvals').select('*')
+      .eq('workspace_id',currentWorkspaceId).eq('status','pending').order('created_at');
+    if(!approvals)return;
+    var now=new Date();
+    approvals.forEach(function(a){
+      var days=Math.floor((now-new Date(a.created_at))/864e5);
+      if(days<2)return;
+      var badge=document.createElement('span');
+      badge.className='age-badge '+(days>=5?'age-danger':'age-warn');
+      badge.innerHTML=(days>=5?'⚠ ':'⏳ ')+days+'d waiting';
+      // Find the approval card by title text
+      var list=document.getElementById('approvals-list');
+      if(!list)return;
+      list.querySelectorAll('*').forEach(function(el){
+        if(el.children.length===0&&el.textContent.trim()===a.title){
+          if(!el.parentNode.querySelector('.age-badge')){
+            el.parentNode.appendChild(badge.cloneNode(true));
+          }
+        }
+      });
+    });
+  }catch(e){}
+};
+
+// ══════════════════════════════════════════════════
+// v5.1 — COMMITMENT CONFLICT DETECTION
+// ══════════════════════════════════════════════════
+var _origLoadCommitmentsV51=window.loadCommitments;
+window.loadCommitments=async function(){
+  if(typeof _origLoadCommitmentsV51==='function')await _origLoadCommitmentsV51();
+  try{
+    var{data:commitments}=await sb.from('commitments').select('*')
+      .eq('workspace_id',currentWorkspaceId).neq('stage','closed');
+    if(!commitments||commitments.length<2)return;
+    // Detect duplicate titles (case-insensitive)
+    var seen={};var conflicts=[];
+    commitments.forEach(function(c){
+      var key=c.title.toLowerCase().trim();
+      if(seen[key]){
+        var other=seen[key];
+        if(c.owner!==other.owner){
+          conflicts.push('"'+c.title+'" has conflicting owners: '+(c.owner||'unassigned')+' vs '+(other.owner||'unassigned'));
+        }
+      }else{seen[key]=c;}
+    });
+    var alertEl=document.getElementById('conflict-alert');
+    var detailEl=document.getElementById('conflict-detail');
+    if(alertEl&&detailEl){
+      if(conflicts.length>0){
+        detailEl.textContent=conflicts[0]+(conflicts.length>1?' (+'+（conflicts.length-1)+' more)':'');
+        alertEl.classList.add('visible');
+      }else{
+        alertEl.classList.remove('visible');
+      }
+    }
+  }catch(e){}
+};
+
+// ══════════════════════════════════════════════════
+// v5.1 — OWNERSHIP ENFORCEMENT
+// Stage advancement blocked without owner
+// ══════════════════════════════════════════════════
+var _origUpdateCommitmentStage=window.updateCommitmentStage;
+window.updateCommitmentStage=async function(id,newStage,currentOwner){
+  // Block advancement to action/verification without owner
+  if((newStage==='action'||newStage==='verification')&&!currentOwner){
+    var ownerInput=prompt('⚠ Ownership required
+
+Who is responsible for this commitment?
+
+Assign an owner to advance to "'+newStage+'":');
+    if(!ownerInput||!ownerInput.trim()){
+      showV51Toast('⚠ Advancement blocked — assign an owner first');
+      return;
+    }
+    // Save owner first
+    await sb.from('commitments').update({owner:ownerInput.trim()}).eq('id',id);
+    currentOwner=ownerInput.trim();
+  }
+  if(typeof _origUpdateCommitmentStage==='function'){
+    await _origUpdateCommitmentStage(id,newStage,currentOwner);
+  }
+};
+
+// ══════════════════════════════════════════════════
+// v5.1 — REDISTRIBUTION INDICATOR
+// Measures EA adds vs CEO actions this week
+// ══════════════════════════════════════════════════
+async function loadRedistributionIndicator(){
+  var widget=document.getElementById('redist-widget');
+  var bar=document.getElementById('redist-bar');
+  var status=document.getElementById('redist-status');
+  if(!widget||!currentWorkspaceId)return;
+  try{
+    var weekAgo=new Date(Date.now()-7*864e5).toISOString();
+    // Items added this week (EA activity proxy)
+    var[{data:newTasks},{data:newApprovals},{data:newCommitments}]=await Promise.all([
+      sb.from('tasks').select('id').eq('workspace_id',currentWorkspaceId).gte('created_at',weekAgo),
+      sb.from('approvals').select('id').eq('workspace_id',currentWorkspaceId).gte('created_at',weekAgo),
+      sb.from('commitments').select('id').eq('workspace_id',currentWorkspaceId).gte('created_at',weekAgo)
+    ]);
+    // Items actioned this week (CEO action proxy — approvals decided + commitments advanced)
+    var[{data:decidedApprovals},{data:advancedCommitments}]=await Promise.all([
+      sb.from('approvals').select('id').eq('workspace_id',currentWorkspaceId).in('status',['approved','rejected']).gte('updated_at',weekAgo),
+      sb.from('commitments').select('id').eq('workspace_id',currentWorkspaceId).in('stage',['action','verification','closed']).gte('updated_at',weekAgo)
+    ]);
+    var added=(newTasks||[]).length+(newApprovals||[]).length+(newCommitments||[]).length;
+    var actioned=(decidedApprovals||[]).length+(advancedCommitments||[]).length;
+    if(added===0){widget.style.display='none';return;}
+    var ratio=Math.min(100,Math.round((actioned/Math.max(added,1))*100));
+    var color=ratio>=60?'#1D9E75':ratio>=30?'#f0b429':'#E24B4A';
+    var label=ratio>=60?'✓ Healthy — load is reducing, not redistributing':
+              ratio>=30?'⚠ Moderate — CEO action rate may lag EA input':
+              '⚠ Risk — high input, low action. Load may be redistributing.';
+    bar.style.width=ratio+'%';
+    bar.style.background=color;
+    status.textContent=label;
+    status.style.color=color;
+    widget.title=added+' items added · '+actioned+' actioned this week';
+  }catch(e){widget.style.display='none';}
+}
+
+// ══════════════════════════════════════════════════
+// v5.1 — HOOK INTO DASHBOARD LOAD
+// ══════════════════════════════════════════════════
+var _origLoadDashboardV51=window.loadDashboard;
+window.loadDashboard=async function(){
+  if(typeof _origLoadDashboardV51==='function')await _origLoadDashboardV51();
+  setTimeout(loadRedistributionIndicator,1000);
+};
+var _origNavV51=window.nav;
+window.nav=function(screen){
+  if(typeof _origNavV51==='function')_origNavV51(screen);
+  if(screen==='dashboard')setTimeout(loadRedistributionIndicator,1200);
 };
 
 </script>
