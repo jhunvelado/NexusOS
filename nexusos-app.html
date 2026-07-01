@@ -751,7 +751,7 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
       <div class="nav-item" id="n-docs" onclick="nav('docs')"><i class="ti ti-folder-open"></i> Documents</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer">NexusOS v5.1<br><span>© Jhun Rey Velado 2026</span><br><a href="https://jhunvelado.github.io/NexusOS/NexusOS_LICENSE.html" target="_blank" style="font-size:10px;color:#534AB7;text-decoration:none">⚖️ Ownership &amp; License</a></div>
+    <div class="sidebar-footer">NexusOS v5.4<br><span>© Jhun Rey Velado 2026</span><br><a href="https://jhunvelado.github.io/NexusOS/NexusOS_LICENSE.html" target="_blank" style="font-size:10px;color:#534AB7;text-decoration:none">⚖️ Ownership &amp; License</a></div>
   </div>
   <!-- CONTENT -->
   <div class="content">
@@ -1069,7 +1069,7 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
     </div>
     <!-- PRICING -->
     <div class="screen" id="s-pricing">
-      <div class="pg-eyebrow">Plans &amp; Billing</div><div class="pg-title">Upgrade NexusOS</div><div class="pg-sub">Simple pricing · Cancel anytime · 🇵🇭 PayMongo · 🌍 PayPal</div>
+      <div class="pg-eyebrow">Plans &amp; Billing</div><div class="pg-title">Upgrade NexusOS</div><div class="pg-sub">Simple pricing · Cancel anytime · Secured by PayMongo</div>
       <div id="current-plan-banner" style="background:#13131f;border:1px solid #1e1e2e;border-radius:10px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between">
         <div>
           <div style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:3px">Current plan</div>
@@ -1993,21 +1993,44 @@ function showPaymentModal(plan){
   if(existing)existing.remove();
   var price=PLAN_PRICES[plan]||'';
   var planLabel=plan.charAt(0).toUpperCase()+plan.slice(1);
-  var modal=document.createElement('div');
-  modal.id='payment-method-modal';
-  modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px';
-  modal.innerHTML='<div style="background:#0f0f1a;border:1px solid #2a2a3d;border-radius:14px;padding:28px;width:100%;max-width:400px">'+
-    '<div style="font-size:16px;font-weight:600;color:#f0f0f0;margin-bottom:4px">Choose payment method</div>'+
-    '<div style="font-size:12px;color:#555;margin-bottom:20px">NexusOS '+planLabel+' — '+price+'/month</div>'+
-    '<button onclick="window.open(PAYMONGO_LINKS[''+plan+''],'_blank');document.getElementById('payment-method-modal').remove()" style="width:100%;padding:14px;background:#1a4a2e;border:1px solid #1D9E75;border-radius:10px;color:#1D9E75;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:10px;text-align:left">'+
-      '<span style="font-size:18px;margin-right:10px">🇵🇭</span> Pay via GCash / Maya / QR Ph<br><span style="font-size:11px;font-weight:400;color:#555;margin-left:28px">PayMongo · Philippine payments</span>'+
-    '</button>'+
-    '<button onclick="window.open(PAYPAL_LINKS[''+plan+''],'_blank');document.getElementById('payment-method-modal').remove()" style="width:100%;padding:14px;background:#0a1a2e;border:1px solid #003087;border-radius:10px;color:#009cde;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:16px;text-align:left">'+
-      '<span style="font-size:18px;margin-right:10px">🌍</span> Pay via PayPal / Credit Card<br><span style="font-size:11px;font-weight:400;color:#555;margin-left:28px">PayPal · International · Visa / Mastercard</span>'+
-    '</button>'+
-    '<button onclick="document.getElementById('payment-method-modal').remove()" style="width:100%;padding:10px;background:none;border:1px solid #2a2a3d;border-radius:8px;color:#555;font-size:12px;cursor:pointer">Cancel</button>'+
-  '</div>';
-  document.body.appendChild(modal);
+
+  var overlay=document.createElement('div');
+  overlay.id='payment-method-modal';
+  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px';
+
+  var box=document.createElement('div');
+  box.style.cssText='background:#0f0f1a;border:1px solid #2a2a3d;border-radius:14px;padding:28px;width:100%;max-width:400px';
+
+  var title=document.createElement('div');
+  title.style.cssText='font-size:16px;font-weight:600;color:#f0f0f0;margin-bottom:4px';
+  title.textContent='Choose payment method';
+
+  var subtitle=document.createElement('div');
+  subtitle.style.cssText='font-size:12px;color:#555;margin-bottom:20px';
+  subtitle.textContent='NexusOS '+planLabel+' — '+price+'/month';
+
+  var btnPH=document.createElement('button');
+  btnPH.style.cssText='width:100%;padding:14px;background:#1a4a2e;border:1px solid #1D9E75;border-radius:10px;color:#1D9E75;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:10px;text-align:left';
+  btnPH.innerHTML='🇵🇭 Pay via GCash / Maya / QR Ph<br><span style="font-size:11px;font-weight:400;color:#888;margin-left:4px">PayMongo · Philippine payments</span>';
+  btnPH.addEventListener('click',function(){window.open(PAYMONGO_LINKS[plan],'_blank');overlay.remove();});
+
+  var btnPP=document.createElement('button');
+  btnPP.style.cssText='width:100%;padding:14px;background:#0a1a2e;border:1px solid #003087;border-radius:10px;color:#009cde;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:16px;text-align:left';
+  btnPP.innerHTML='🌍 Pay via PayPal / Credit Card<br><span style="font-size:11px;font-weight:400;color:#888;margin-left:4px">PayPal · International · Visa / Mastercard</span>';
+  btnPP.addEventListener('click',function(){window.open(PAYPAL_LINKS[plan],'_blank');overlay.remove();});
+
+  var btnCancel=document.createElement('button');
+  btnCancel.style.cssText='width:100%;padding:10px;background:none;border:1px solid #2a2a3d;border-radius:8px;color:#555;font-size:12px;cursor:pointer';
+  btnCancel.textContent='Cancel';
+  btnCancel.addEventListener('click',function(){overlay.remove();});
+
+  box.appendChild(title);
+  box.appendChild(subtitle);
+  box.appendChild(btnPH);
+  box.appendChild(btnPP);
+  box.appendChild(btnCancel);
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
   try{auditLog('payment_initiated','plan',plan,{plan});}catch(e){}
 }
 
