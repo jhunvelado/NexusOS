@@ -1970,16 +1970,44 @@ window.addEventListener('DOMContentLoaded',async()=>{
 <script>
 
 // ══════════════════════════════════════════════════
-// PAYMONGO LINKS
+// PAYMENT LINKS
 // ══════════════════════════════════════════════════
 var PAYMONGO_LINKS={
   starter:'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/mESnbjy',
   professional:'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/lNLSlBI',
   enterprise:'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/3BIk6zz'
 };
+var PAYPAL_LINKS={
+  starter:'https://www.paypal.com/ncp/payment/P5GDF8WA4GNEU',
+  professional:'https://www.paypal.com/ncp/payment/SNCZUA5S3CY4S',
+  enterprise:'https://www.paypal.com/ncp/payment/2CJJZMWTTMC4U'
+};
+var PLAN_PRICES={starter:'$49',professional:'$149',enterprise:'$399'};
+
 function payWithPayMongo(plan){
-  var url=PAYMONGO_LINKS[plan];
-  if(url)window.open(url,'_blank');
+  showPaymentModal(plan);
+}
+
+function showPaymentModal(plan){
+  var existing=document.getElementById('payment-method-modal');
+  if(existing)existing.remove();
+  var price=PLAN_PRICES[plan]||'';
+  var planLabel=plan.charAt(0).toUpperCase()+plan.slice(1);
+  var modal=document.createElement('div');
+  modal.id='payment-method-modal';
+  modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px';
+  modal.innerHTML='<div style="background:#0f0f1a;border:1px solid #2a2a3d;border-radius:14px;padding:28px;width:100%;max-width:400px">'+
+    '<div style="font-size:16px;font-weight:600;color:#f0f0f0;margin-bottom:4px">Choose payment method</div>'+
+    '<div style="font-size:12px;color:#555;margin-bottom:20px">NexusOS '+planLabel+' — '+price+'/month</div>'+
+    '<button onclick="window.open(PAYMONGO_LINKS[''+plan+''],'_blank');document.getElementById('payment-method-modal').remove()" style="width:100%;padding:14px;background:#1a4a2e;border:1px solid #1D9E75;border-radius:10px;color:#1D9E75;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:10px;text-align:left">'+
+      '<span style="font-size:18px;margin-right:10px">🇵🇭</span> Pay via GCash / Maya / QR Ph<br><span style="font-size:11px;font-weight:400;color:#555;margin-left:28px">PayMongo · Philippine payments</span>'+
+    '</button>'+
+    '<button onclick="window.open(PAYPAL_LINKS[''+plan+''],'_blank');document.getElementById('payment-method-modal').remove()" style="width:100%;padding:14px;background:#0a1a2e;border:1px solid #003087;border-radius:10px;color:#009cde;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:16px;text-align:left">'+
+      '<span style="font-size:18px;margin-right:10px">🌍</span> Pay via PayPal / Credit Card<br><span style="font-size:11px;font-weight:400;color:#555;margin-left:28px">PayPal · International · Visa / Mastercard</span>'+
+    '</button>'+
+    '<button onclick="document.getElementById('payment-method-modal').remove()" style="width:100%;padding:10px;background:none;border:1px solid #2a2a3d;border-radius:8px;color:#555;font-size:12px;cursor:pointer">Cancel</button>'+
+  '</div>';
+  document.body.appendChild(modal);
   try{auditLog('payment_initiated','plan',plan,{plan});}catch(e){}
 }
 
