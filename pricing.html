@@ -1,207 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pricing — NexusOS Executive OS</title>
 <meta name="description" content="NexusOS pricing: Starter $49/mo, Professional $149/mo, Enterprise $399/mo. 14-day free trial. No credit card required.">
-<!-- iubenda Cookie Solution -->
 <script type="text/javascript" src="https://embeds.iubenda.com/widgets/29d5eb65-129a-4cbe-a6ea-fa7073c95799.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0d0d14;color:#c0c0d0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:15px;line-height:1.75}
-a{color:#534AB7;text-decoration:none}
-a:hover{text-decoration:underline}
+a{color:#534AB7;text-decoration:none}a:hover{text-decoration:underline}
 .topbar{background:#0f0f1a;border-bottom:1px solid #1e1e2e;padding:14px 32px;display:flex;align-items:center;justify-content:space-between}
-.logo{color:#f0b429;font-weight:700;font-size:18px}
-.logo span{color:#f0f0f0;font-weight:400;font-size:13px;margin-left:8px}
+.logo{color:#f0b429;font-weight:700;font-size:18px}.logo span{color:#f0f0f0;font-weight:400;font-size:13px;margin-left:8px}
 .nav a{font-size:13px;color:#666;margin-left:20px}
-.nav a:hover{color:#f0f0f0}
-.hero{text-align:center;padding:64px 24px 40px}
-.hero h1{font-size:38px;font-weight:700;color:#f0f0f0;margin-bottom:14px}
-.hero p{font-size:16px;color:#666;max-width:520px;margin:0 auto 24px}
-.badge{display:inline-block;background:#0f0f1a;border:1px solid #f0b42940;color:#f0b429;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;margin-bottom:20px}
-.plans{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;padding:0 24px 64px;max-width:1100px;margin:0 auto}
-.plan{background:#0f0f1a;border:1px solid #1e1e2e;border-radius:16px;padding:32px 28px;width:300px;position:relative;transition:border-color .2s}
+.hero{text-align:center;padding:56px 24px 36px}
+.hero h1{font-size:36px;font-weight:700;color:#f0f0f0;margin-bottom:10px}
+.hero p{font-size:16px;color:#666;max-width:480px;margin:0 auto}
+.badge{display:inline-block;background:#0f0f1a;border:1px solid #f0b42940;color:#f0b429;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;margin-bottom:18px}
+.plans{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;padding:0 24px 56px;max-width:1060px;margin:0 auto}
+.plan{background:#0f0f1a;border:1px solid #1e1e2e;border-radius:16px;padding:32px 26px;width:296px;position:relative}
 .plan:hover{border-color:#534AB7}
-.plan.featured{border-color:#534AB7;background:linear-gradient(145deg,#0f0f1a 60%,#1a1840 100%)}
-.plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#534AB7;color:#fff;font-size:11px;font-weight:600;padding:3px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:.06em}
-.plan-name{font-size:14px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.plan.featured{border-color:#534AB7;background:linear-gradient(145deg,#0f0f1a 60%,#1a1840)}
+.plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#534AB7;color:#fff;font-size:11px;font-weight:600;padding:3px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.plan-name{font-size:13px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:7px}
 .plan-price{font-size:42px;font-weight:700;color:#f0f0f0;margin-bottom:2px}
-.plan-price span{font-size:16px;font-weight:400;color:#555}
-.plan-seats{font-size:12px;color:#555;margin-bottom:24px}
-.plan-cta{display:block;width:100%;padding:12px;text-align:center;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;transition:background .2s}
-.plan-cta.primary{background:#534AB7;color:#fff}
-.plan-cta.primary:hover{background:#6058d0;text-decoration:none}
-.plan-cta.secondary{background:#1a1a2e;color:#888;border:1px solid #1e1e2e}
-.plan-cta.secondary:hover{background:#1e1e38;color:#bbb;text-decoration:none}
-.divider{border:none;border-top:1px solid #1e1e2e;margin:20px 0}
-.feature{display:flex;align-items:flex-start;gap:10px;margin-bottom:9px;font-size:13px;color:#999}
-.check{color:#22c55e;font-size:14px;flex-shrink:0;margin-top:2px}
-.cross{color:#333;font-size:14px;flex-shrink:0;margin-top:2px}
-.compare{max-width:900px;margin:0 auto;padding:0 24px 64px}
-.compare h2{font-size:22px;font-weight:600;color:#f0f0f0;text-align:center;margin-bottom:32px}
+.plan-price span{font-size:15px;font-weight:400;color:#555}
+.plan-seats{font-size:12px;color:#555;margin-bottom:22px}
+.plan-cta{display:block;width:100%;padding:12px;text-align:center;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none}
+.plan-cta.primary{background:#534AB7;color:#fff}.plan-cta.primary:hover{background:#6058d0;text-decoration:none}
+.plan-cta.secondary{background:#1a1a2e;color:#888;border:1px solid #1e1e2e}.plan-cta.secondary:hover{color:#bbb;text-decoration:none}
+hr{border:none;border-top:1px solid #1e1e2e;margin:18px 0}
+.feat{display:flex;gap:9px;margin-bottom:8px;font-size:13px;color:#999}
+.ck{color:#22c55e;font-size:13px;flex-shrink:0}.cx{color:#333;font-size:13px;flex-shrink:0}
+.compare{max-width:860px;margin:0 auto;padding:0 24px 56px}
+.compare h2{font-size:22px;font-weight:600;color:#f0f0f0;text-align:center;margin-bottom:28px}
 table{width:100%;border-collapse:collapse;font-size:13px}
-th{background:#0f0f1a;color:#f0f0f0;padding:12px 16px;text-align:left;font-weight:600;border:1px solid #1e1e2e}
-th:first-child{width:40%}
-td{padding:11px 16px;border:1px solid #1e1e2e;color:#888}
-td.yes{color:#22c55e;text-align:center}
-td.no{color:#333;text-align:center}
-td.center{text-align:center;color:#f0f0f0}
+th{background:#0f0f1a;color:#f0f0f0;padding:11px 14px;text-align:left;font-weight:600;border:1px solid #1e1e2e}
+th:first-child{width:38%}td{padding:10px 14px;border:1px solid #1e1e2e;color:#888}
+td.yes{color:#22c55e;text-align:center}td.no{color:#333;text-align:center}td.c{text-align:center;color:#f0f0f0}
 tr:nth-child(even) td{background:#0a0a12}
-.faq{max-width:720px;margin:0 auto;padding:0 24px 80px}
-.faq h2{font-size:22px;font-weight:600;color:#f0f0f0;text-align:center;margin-bottom:32px}
-.faq-item{margin-bottom:20px;border-bottom:1px solid #1e1e2e;padding-bottom:20px}
-.faq-q{font-size:15px;font-weight:600;color:#f0f0f0;margin-bottom:8px}
+.faq{max-width:700px;margin:0 auto;padding:0 24px 72px}
+.faq h2{font-size:22px;font-weight:600;color:#f0f0f0;text-align:center;margin-bottom:28px}
+.faq-item{margin-bottom:18px;border-bottom:1px solid #1e1e2e;padding-bottom:18px}
+.faq-q{font-size:15px;font-weight:600;color:#f0f0f0;margin-bottom:7px}
 .faq-a{font-size:14px;color:#888}
 .footer{text-align:center;font-size:12px;color:#333;padding:24px;border-top:1px solid #1a1a2e}
 </style>
 </head>
 <body>
-<div class="topbar">
-  <div class="logo">⚡ NexusOS <span>Executive Operating System</span></div>
-  <div class="nav">
-    <a href="/">Home</a>
-    <a href="https://getnexusos.app">Sign In</a>
-    <a href="/terms.html">Terms</a>
-    <a href="/privacy.html">Privacy</a>
-  </div>
-</div>
-
-<div class="hero">
-  <div class="badge">⚡ v5.4 · 14-day free trial</div>
-  <h1>Simple, transparent pricing</h1>
-  <p>One OS to run your entire executive team. No per-seat surprises. Start free, upgrade when you're ready.</p>
-</div>
-
+<div class="topbar"><div class="logo">⚡ NexusOS <span>Executive Operating System</span></div><div class="nav"><a href="/">Home</a><a href="nexusos-app.html">Sign In</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a></div></div>
+<div class="hero"><div class="badge">⚡ v5.5 · Google Calendar Sync · 14-day free trial</div><h1>Simple, transparent pricing</h1><p>One OS for your entire executive team. No per-seat surprises.</p></div>
 <div class="plans">
-  <!-- Starter -->
-  <div class="plan">
-    <div class="plan-name">Starter</div>
-    <div class="plan-price">$49<span>/mo</span></div>
-    <div class="plan-seats">Up to 5 team members</div>
-    <a class="plan-cta secondary" href="https://getnexusos.app">Start free trial →</a>
-    <hr class="divider">
-    <div class="feature"><span class="check">✓</span><span>Executive dashboard</span></div>
-    <div class="feature"><span class="check">✓</span><span>Task & priority management</span></div>
-    <div class="feature"><span class="check">✓</span><span>Approval workflows</span></div>
-    <div class="feature"><span class="check">✓</span><span>Decision log</span></div>
-    <div class="feature"><span class="check">✓</span><span>Basic AI assistant</span></div>
-    <div class="feature"><span class="check">✓</span><span>Calendar view</span></div>
-    <div class="feature"><span class="cross">—</span><span style="color:#444">Advanced analytics</span></div>
-    <div class="feature"><span class="cross">—</span><span style="color:#444">Custom branding</span></div>
-    <div class="feature"><span class="cross">—</span><span style="color:#444">Priority support</span></div>
-  </div>
-
-  <!-- Professional -->
-  <div class="plan featured">
-    <div class="plan-badge">Most popular</div>
-    <div class="plan-name">Professional</div>
-    <div class="plan-price">$149<span>/mo</span></div>
-    <div class="plan-seats">Up to 25 team members</div>
-    <a class="plan-cta primary" href="https://getnexusos.app">Start free trial →</a>
-    <hr class="divider">
-    <div class="feature"><span class="check">✓</span><span>Everything in Starter</span></div>
-    <div class="feature"><span class="check">✓</span><span>Advanced analytics & reports</span></div>
-    <div class="feature"><span class="check">✓</span><span>Full AI assistant suite</span></div>
-    <div class="feature"><span class="check">✓</span><span>Multi-team workspaces</span></div>
-    <div class="feature"><span class="check">✓</span><span>Custom approval chains</span></div>
-    <div class="feature"><span class="check">✓</span><span>Executive briefings</span></div>
-    <div class="feature"><span class="check">✓</span><span>Google Calendar sync</span></div>
-    <div class="feature"><span class="check">✓</span><span>Email support (24h response)</span></div>
-    <div class="feature"><span class="cross">—</span><span style="color:#444">Custom branding</span></div>
-  </div>
-
-  <!-- Enterprise -->
-  <div class="plan">
-    <div class="plan-name">Enterprise</div>
-    <div class="plan-price">$399<span>/mo</span></div>
-    <div class="plan-seats">Unlimited team members</div>
-    <a class="plan-cta secondary" href="https://getnexusos.app">Start free trial →</a>
-    <hr class="divider">
-    <div class="feature"><span class="check">✓</span><span>Everything in Professional</span></div>
-    <div class="feature"><span class="check">✓</span><span>Unlimited workspaces</span></div>
-    <div class="feature"><span class="check">✓</span><span>Custom branding & white-label</span></div>
-    <div class="feature"><span class="check">✓</span><span>Dedicated account manager</span></div>
-    <div class="feature"><span class="check">✓</span><span>Priority 4h support response</span></div>
-    <div class="feature"><span class="check">✓</span><span>Custom integrations</span></div>
-    <div class="feature"><span class="check">✓</span><span>SLA guarantees on request</span></div>
-    <div class="feature"><span class="check">✓</span><span>Onboarding & training session</span></div>
-  </div>
+  <div class="plan"><div class="plan-name">Starter</div><div class="plan-price">$49<span>/mo</span></div><div class="plan-seats">Up to 5 team members</div><a class="plan-cta secondary" href="nexusos-app.html">Start free trial →</a><hr><div class="feat"><span class="ck">✓</span><span>Executive dashboard</span></div><div class="feat"><span class="ck">✓</span><span>Task & priority management</span></div><div class="feat"><span class="ck">✓</span><span>Approval workflows</span></div><div class="feat"><span class="ck">✓</span><span>Decision log</span></div><div class="feat"><span class="ck">✓</span><span>Basic AI assistant</span></div><div class="feat"><span class="ck">✓</span><span>Calendar view</span></div><div class="feat"><span class="cx">—</span><span style="color:#444">Google Calendar sync</span></div><div class="feat"><span class="cx">—</span><span style="color:#444">Advanced analytics</span></div><div class="feat"><span class="cx">—</span><span style="color:#444">Priority support</span></div></div>
+  <div class="plan featured"><div class="plan-badge">Most popular</div><div class="plan-name">Professional</div><div class="plan-price">$149<span>/mo</span></div><div class="plan-seats">Up to 25 team members</div><a class="plan-cta primary" href="nexusos-app.html">Start free trial →</a><hr><div class="feat"><span class="ck">✓</span><span>Everything in Starter</span></div><div class="feat"><span class="ck">✓</span><span>Google Calendar sync</span></div><div class="feat"><span class="ck">✓</span><span>Advanced analytics & reports</span></div><div class="feat"><span class="ck">✓</span><span>Full AI assistant suite</span></div><div class="feat"><span class="ck">✓</span><span>Weekly Pulse rituals</span></div><div class="feat"><span class="ck">✓</span><span>Custom KPI dashboard</span></div><div class="feat"><span class="ck">✓</span><span>Executive briefings</span></div><div class="feat"><span class="ck">✓</span><span>Email support (24h)</span></div><div class="feat"><span class="cx">—</span><span style="color:#444">Custom branding</span></div></div>
+  <div class="plan"><div class="plan-name">Enterprise</div><div class="plan-price">$399<span>/mo</span></div><div class="plan-seats">Unlimited team members</div><a class="plan-cta secondary" href="nexusos-app.html">Start free trial →</a><hr><div class="feat"><span class="ck">✓</span><span>Everything in Professional</span></div><div class="feat"><span class="ck">✓</span><span>Unlimited workspaces</span></div><div class="feat"><span class="ck">✓</span><span>Custom branding & white-label</span></div><div class="feat"><span class="ck">✓</span><span>Dedicated account manager</span></div><div class="feat"><span class="ck">✓</span><span>Priority 4h support</span></div><div class="feat"><span class="ck">✓</span><span>Custom integrations</span></div><div class="feat"><span class="ck">✓</span><span>SLA guarantees</span></div><div class="feat"><span class="ck">✓</span><span>Onboarding & training session</span></div></div>
 </div>
-
-<div class="compare">
-  <h2>Feature comparison</h2>
-  <table>
-    <tr>
-      <th>Feature</th>
-      <th style="text-align:center">Starter</th>
-      <th style="text-align:center">Professional</th>
-      <th style="text-align:center">Enterprise</th>
-    </tr>
-    <tr><td>Team members</td><td class="center">5</td><td class="center">25</td><td class="center">Unlimited</td></tr>
-    <tr><td>Executive dashboard</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-    <tr><td>Task management</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-    <tr><td>Approval workflows</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-    <tr><td>Decision log</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-    <tr><td>AI assistant</td><td class="center">Basic</td><td class="center">Full suite</td><td class="center">Full suite</td></tr>
-    <tr><td>Analytics & reports</td><td class="no">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-    <tr><td>Google Calendar sync</td><td class="no">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-    <tr><td>Executive briefings</td><td class="no">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-    <tr><td>Custom approval chains</td><td class="no">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-    <tr><td>Custom branding</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
-    <tr><td>Dedicated account manager</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
-    <tr><td>Priority support (4h)</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
-    <tr><td>SLA guarantees</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
-    <tr><td>Payment methods</td><td class="center" colspan="3">Credit card, GCash, Maya, QR Ph, Bank transfer</td></tr>
-  </table>
+<div class="compare"><h2>Feature comparison</h2>
+<table><tr><th>Feature</th><th style="text-align:center">Starter</th><th style="text-align:center">Professional</th><th style="text-align:center">Enterprise</th></tr>
+<tr><td>Team members</td><td class="c">5</td><td class="c">25</td><td class="c">Unlimited</td></tr>
+<tr><td>Executive dashboard</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+<tr><td>Task management</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+<tr><td>Approval workflows</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+<tr><td>Decision log</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+<tr><td>Google Calendar sync</td><td class="no">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+<tr><td>AI assistant</td><td class="c">Basic</td><td class="c">Full suite</td><td class="c">Full suite</td></tr>
+<tr><td>Analytics & reports</td><td class="no">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+<tr><td>Custom KPI dashboard</td><td class="no">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+<tr><td>Weekly Pulse rituals</td><td class="no">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+<tr><td>Custom branding</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
+<tr><td>Priority support (4h)</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
+<tr><td>Payment methods</td><td class="c" colspan="3">Credit card, GCash, Maya, QR Ph</td></tr>
+</table></div>
+<div class="faq"><h2>FAQ</h2>
+<div class="faq-item"><div class="faq-q">Do I need a credit card to trial?</div><div class="faq-a">No. 14-day trial starts immediately, no card required. You only enter payment details when you subscribe.</div></div>
+<div class="faq-item"><div class="faq-q">What happens when trial ends?</div><div class="faq-a">You'll be prompted to choose a plan. If you don't subscribe, account goes read-only and data is retained 30 days.</div></div>
+<div class="faq-item"><div class="faq-q">What currency are prices in?</div><div class="faq-a">USD. International payments via Paddle (handles local currency + VAT/GST automatically). Philippines in PHP via PayMongo.</div></div>
+<div class="faq-item"><div class="faq-q">Is there a refund policy?</div><div class="faq-a">Yes — 7-day refund on your first payment. Renewals non-refundable. See our <a href="/refund.html">Refund Policy</a>.</div></div>
+<div class="faq-item"><div class="faq-q">Is Google Calendar integration free?</div><div class="faq-a">Google Calendar sync is available on Professional and Enterprise plans. It uses OAuth — no passwords shared, read-only access, revoke anytime.</div></div>
+<div class="faq-item"><div class="faq-q">Is NexusOS GDPR compliant?</div><div class="faq-a">Yes. iubenda cookie consent, Supabase secure storage, and Paddle (EU-certified) for payments. See our <a href="/privacy.html">Privacy Policy</a>.</div></div>
 </div>
-
-<div class="faq">
-  <h2>Frequently asked questions</h2>
-
-  <div class="faq-item">
-    <div class="faq-q">Do I need a credit card to start the trial?</div>
-    <div class="faq-a">No. Your 14-day trial starts immediately with no credit card required. You only enter payment details when you choose to subscribe.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">What happens when my trial ends?</div>
-    <div class="faq-a">After 14 days, you'll be prompted to choose a plan. If you don't subscribe, your account switches to read-only mode and your data is retained for 30 days before deletion.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">Can I change plans later?</div>
-    <div class="faq-a">Yes. You can upgrade or downgrade at any time from Settings → Subscription. Upgrades take effect immediately; downgrades take effect at the next renewal date.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">What currency are prices in?</div>
-    <div class="faq-a">All prices are in USD. International customers pay via Paddle which handles local currency conversion and taxes (EU VAT, GST, etc.) automatically. Philippine customers can pay in PHP via PayMongo.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">What payment methods do you accept?</div>
-    <div class="faq-a">International: Visa, Mastercard, PayPal (via Paddle). Philippines: GCash, Maya, QR Ph, credit/debit cards (via PayMongo).</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">Is there a refund policy?</div>
-    <div class="faq-a">Yes — we offer a 7-day refund on your first payment if you're not satisfied. Renewal charges are non-refundable, but you can cancel anytime before renewal. See our <a href="/refund.html">Refund Policy</a> for full details.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">Is NexusOS GDPR compliant?</div>
-    <div class="faq-a">Yes. We use iubenda for cookie consent and privacy compliance, Supabase for secure data storage, and Paddle (EU-certified) for international payments. See our <a href="/privacy.html">Privacy Policy</a> for full details.</div>
-  </div>
-</div>
-
-<div class="footer">
-  © 2026 Jhun Rey Velado · NexusOS ·
-  <a href="/terms.html">Terms of Service</a> ·
-  <a href="/privacy.html">Privacy Policy</a> ·
-  <a href="/refund.html">Refund Policy</a> ·
-  <a href="https://www.iubenda.com/privacy-policy/4591300/cookie-policy" target="_blank">Cookie Policy</a>
-</div>
-</body>
-</html>
+<div class="footer">© 2026 Jhun Rey Velado · NexusOS · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a> · <a href="/refund.html">Refund Policy</a> · <a href="https://www.iubenda.com/privacy-policy/4591300/cookie-policy" target="_blank">Cookie Policy</a></div>
+</body></html>

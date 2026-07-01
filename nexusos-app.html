@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script type="text/javascript" src="https://embeds.iubenda.com/widgets/29d5eb65-129a-4cbe-a6ea-fa7073c95799.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>NexusOS — Executive Operating System</title>
@@ -214,7 +213,7 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 
 /* v4.2 additions */
 /* v5.0 Executive Focus */
-/* v5.4 Quick Capture */
+/* v5.5 Quick Capture */
 .quick-capture-btn{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#534AB7,#3C3489);border:none;color:#fff;font-size:24px;cursor:pointer;z-index:800;box-shadow:0 4px 20px rgba(83,74,183,0.5);transition:all 0.2s;display:flex;align-items:center;justify-content:center}
 @media(max-width:768px){.quick-capture-btn{bottom:72px;}}
 .quick-capture-btn:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(83,74,183,0.7)}
@@ -606,6 +605,37 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 .delegation-progress{height:3px;background:#1e1e2e;border-radius:20px;margin-top:10px}
 .delegation-progress-bar{height:100%;border-radius:20px;background:#534AB7}
 
+
+/* ══ v5.5 GOOGLE CALENDAR ══ */
+.gcal-connect-box{background:#0f0f1a;border:1px dashed #2a2a3d;border-radius:12px;padding:20px;text-align:center;margin-bottom:20px}
+.gcal-connect-box.connected{border-style:solid;border-color:#1D9E7544;background:#081a10}
+.gcal-connect-icon{font-size:28px;margin-bottom:8px}
+.gcal-connect-title{font-size:14px;font-weight:600;color:#f0f0f0;margin-bottom:4px}
+.gcal-connect-sub{font-size:12px;color:#555;margin-bottom:14px}
+.gcal-connected-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.gcal-status{display:flex;align-items:center;gap:6px;font-size:12px;color:#1D9E75;font-weight:500}
+.gcal-status-dot{width:7px;height:7px;border-radius:50%;background:#1D9E75}
+.btn-gcal{background:#4285f4;color:#fff;border:none;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:background .2s}
+.btn-gcal:hover{background:#3367d6}
+.btn-gcal-disconnect{background:#1a0808;color:#E24B4A;border:1px solid #E24B4A44;padding:6px 14px;border-radius:8px;font-size:11px;cursor:pointer;transition:background .2s}
+.btn-gcal-disconnect:hover{background:#2a0a0a}
+.gcal-event{background:#0d0d14;border:1px solid #1e1e2e;border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start;cursor:default;transition:border-color .15s}
+.gcal-event:hover{border-color:#534AB744}
+.gcal-event-time-col{min-width:52px;text-align:center;padding-top:2px}
+.gcal-event-time{font-size:11px;font-weight:600;color:#f0b429;line-height:1.3}
+.gcal-event-date{font-size:10px;color:#444;margin-top:2px}
+.gcal-event-body{flex:1;min-width:0}
+.gcal-event-title{font-size:13px;font-weight:500;color:#f0f0f0;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gcal-event-meta{font-size:11px;color:#555}
+.gcal-event-location{font-size:11px;color:#378ADD;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gcal-day-label{font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.06em;margin:14px 0 6px}
+.gcal-day-label:first-child{margin-top:0}
+.gcal-loading{text-align:center;padding:20px;font-size:12px;color:#555}
+.gcal-empty{text-align:center;padding:20px;font-size:12px;color:#444}
+.gcal-range-tabs{display:flex;gap:6px;margin-bottom:14px}
+.gcal-tab{font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid #2a2a3d;background:#13131f;color:#555;cursor:pointer;transition:all .15s}
+.gcal-tab.active{border-color:#534AB7;color:#534AB7;background:#534AB722}
+
 </style>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#534AB7">
@@ -628,6 +658,10 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
   This enables: first 10 signups = 14-day Pro, next 10 = 7-day Enterprise.
 -->
 
+<!-- iubenda Cookie Solution -->
+<script type="text/javascript" src="https://embeds.iubenda.com/widgets/29d5eb65-129a-4cbe-a6ea-fa7073c95799.js"></script>
+<!-- Google Identity Services for Calendar OAuth -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>>
 </head>
 <body>
 
@@ -752,7 +786,7 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
       <div class="nav-item" id="n-docs" onclick="nav('docs')"><i class="ti ti-folder-open"></i> Documents</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer">NexusOS v5.4<br><span>© Jhun Rey Velado 2026</span><br><a href="https://jhunvelado.github.io/NexusOS/NexusOS_LICENSE.html" target="_blank" style="font-size:10px;color:#534AB7;text-decoration:none">⚖️ Ownership &amp; License</a></div>
+    <div class="sidebar-footer">NexusOS v5.5<br><span>© Jhun Rey Velado 2026</span><br><a href="https://jhunvelado.github.io/NexusOS/NexusOS_LICENSE.html" target="_blank" style="font-size:10px;color:#534AB7;text-decoration:none">⚖️ Ownership &amp; License</a></div>
   </div>
   <!-- CONTENT -->
   <div class="content">
@@ -852,6 +886,32 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
     <!-- MEETING PREP -->
     <div class="screen" id="s-meeting">
       <div class="pg-eyebrow">Operations</div><div class="pg-title">Meeting Prep</div><div class="pg-sub">Briefings, objectives, and prep checklists</div>
+      <div id="gcal-section" style="margin-bottom:20px">
+  <!-- Connect state -->
+  <div id="gcal-connect-box" class="gcal-connect-box" style="display:none">
+    <div class="gcal-connect-icon">📅</div>
+    <div class="gcal-connect-title">Connect Google Calendar</div>
+    <div class="gcal-connect-sub">See your real upcoming meetings pulled live from Google Calendar</div>
+    <button class="btn-gcal" onclick="connectGCal()">
+      <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#fff" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#fff" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#fff" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#fff" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Connect Google Calendar
+    </button>
+  </div>
+  <!-- Connected state -->
+  <div id="gcal-connected-box" class="gcal-connect-box connected" style="display:none">
+    <div class="gcal-connected-row">
+      <div class="gcal-status"><span class="gcal-status-dot"></span> Google Calendar connected</div>
+      <button class="btn-gcal-disconnect" onclick="disconnectGCal()">Disconnect</button>
+    </div>
+    <div class="gcal-range-tabs">
+      <button class="gcal-tab active" onclick="setGCalRange(1,this)">Today</button>
+      <button class="gcal-tab" onclick="setGCalRange(3,this)">3 days</button>
+      <button class="gcal-tab" onclick="setGCalRange(7,this)">This week</button>
+      <button class="gcal-tab" onclick="setGCalRange(14,this)">2 weeks</button>
+    </div>
+    <div id="gcal-events-list"><div class="gcal-loading">Loading your calendar...</div></div>
+  </div>
+</div>
       <button class="btn-primary" onclick="openMeetingModal()" style="margin-bottom:16px"><i class="ti ti-plus"></i> Add meeting</button>
       <div id="meetings-list"><div class="loading-indicator">Loading meetings...</div></div>
     </div>
@@ -4172,6 +4232,314 @@ window.loadDashboard = async function() {
 // ALTER TABLE weekly_pulse ENABLE ROW LEVEL SECURITY;
 // CREATE POLICY "workspace_isolation" ON weekly_pulse USING (workspace_id IN (SELECT workspace_id FROM profiles WHERE id = auth.uid()));
 
+</script>
+
+
+<script>
+/* ══════════════════════════════════════════════════
+   NexusOS v5.5 — Google Calendar OAuth Integration
+   Uses Google Identity Services (GIS) token model
+══════════════════════════════════════════════════ */
+
+const GCAL_CLIENT_ID  = '626206970912-ie8vji85vjecqbb0i0uva1271u8tgi1a.apps.googleusercontent.com';
+const GCAL_SCOPE      = 'https://www.googleapis.com/auth/calendar.readonly';
+const GCAL_TOKEN_KEY  = 'nexusos_gcal_token';
+const GCAL_EXPIRY_KEY = 'nexusos_gcal_expiry';
+
+var _gCalTokenClient  = null;
+var _gCalAccessToken  = null;
+var _gCalRangeDays    = 1;   // default: today only
+
+/* ── Init: restore token from localStorage on page load ── */
+(function restoreGCalToken() {
+  try {
+    var stored = localStorage.getItem(GCAL_TOKEN_KEY);
+    var expiry = localStorage.getItem(GCAL_EXPIRY_KEY);
+    if (stored && expiry && Date.now() < parseInt(expiry, 10) - 60000) {
+      _gCalAccessToken = stored;
+    }
+  } catch(e) {}
+})();
+
+/* ── Show/hide connect box based on auth state ── */
+function renderGCalUI() {
+  var connectBox   = document.getElementById('gcal-connect-box');
+  var connectedBox = document.getElementById('gcal-connected-box');
+  if (!connectBox || !connectedBox) return;
+  if (_gCalAccessToken) {
+    connectBox.style.display   = 'none';
+    connectedBox.style.display = 'block';
+    loadGCalEvents();
+  } else {
+    connectBox.style.display   = 'block';
+    connectedBox.style.display = 'none';
+  }
+}
+
+/* ── Connect: trigger GIS popup ── */
+function connectGCal() {
+  if (typeof google === 'undefined' || !google.accounts) {
+    showToast && showToast('Google auth library still loading — please wait a moment.');
+    setTimeout(connectGCal, 1500);
+    return;
+  }
+  if (!_gCalTokenClient) {
+    _gCalTokenClient = google.accounts.oauth2.initTokenClient({
+      client_id : GCAL_CLIENT_ID,
+      scope     : GCAL_SCOPE,
+      callback  : _handleGCalToken
+    });
+  }
+  // If we already have a valid token, just show events
+  var expiry = localStorage.getItem(GCAL_EXPIRY_KEY);
+  if (_gCalAccessToken && expiry && Date.now() < parseInt(expiry, 10) - 60000) {
+    renderGCalUI();
+    return;
+  }
+  _gCalTokenClient.requestAccessToken({ prompt: '' });
+}
+
+/* ── Token callback ── */
+function _handleGCalToken(resp) {
+  if (resp.error) {
+    console.error('GCal OAuth error:', resp);
+    showToast && showToast('Calendar connection failed: ' + (resp.error_description || resp.error));
+    return;
+  }
+  _gCalAccessToken = resp.access_token;
+  try {
+    var expiresIn = parseInt(resp.expires_in, 10) || 3600;
+    localStorage.setItem(GCAL_TOKEN_KEY,  resp.access_token);
+    localStorage.setItem(GCAL_EXPIRY_KEY, String(Date.now() + expiresIn * 1000));
+  } catch(e) {}
+  renderGCalUI();
+  showToast && showToast('Google Calendar connected ✓');
+}
+
+/* ── Disconnect ── */
+function disconnectGCal() {
+  if (typeof google !== 'undefined' && google.accounts && _gCalAccessToken) {
+    google.accounts.oauth2.revoke(_gCalAccessToken, function(){});
+  }
+  _gCalAccessToken = null;
+  _gCalTokenClient = null;
+  try {
+    localStorage.removeItem(GCAL_TOKEN_KEY);
+    localStorage.removeItem(GCAL_EXPIRY_KEY);
+  } catch(e) {}
+  renderGCalUI();
+  showToast && showToast('Google Calendar disconnected');
+}
+
+/* ── Range tab toggle ── */
+function setGCalRange(days, btn) {
+  _gCalRangeDays = days;
+  document.querySelectorAll('.gcal-tab').forEach(function(t){ t.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  loadGCalEvents();
+}
+
+/* ── Fetch events from Google Calendar API ── */
+async function loadGCalEvents() {
+  if (!_gCalAccessToken) return;
+  var el = document.getElementById('gcal-events-list');
+  if (el) el.innerHTML = '<div class="gcal-loading">Fetching your calendar...</div>';
+
+  try {
+    var now = new Date();
+    var end = new Date(now.getTime() + _gCalRangeDays * 24 * 60 * 60 * 1000);
+    // For "today" — end at midnight tonight, not 24h from now
+    if (_gCalRangeDays === 1) {
+      end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+    }
+
+    var url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events'
+      + '?orderBy=startTime&singleEvents=true'
+      + '&timeMin=' + encodeURIComponent(now.toISOString())
+      + '&timeMax=' + encodeURIComponent(end.toISOString())
+      + '&maxResults=30';
+
+    var resp = await fetch(url, {
+      headers: { 'Authorization': 'Bearer ' + _gCalAccessToken }
+    });
+
+    if (resp.status === 401) {
+      // Token expired — clear and prompt reconnect
+      _gCalAccessToken = null;
+      try { localStorage.removeItem(GCAL_TOKEN_KEY); localStorage.removeItem(GCAL_EXPIRY_KEY); } catch(e){}
+      renderGCalUI();
+      return;
+    }
+
+    if (!resp.ok) {
+      throw new Error('Calendar API error ' + resp.status);
+    }
+
+    var data  = await resp.json();
+    var items = data.items || [];
+    renderGCalEvents(items);
+    updateDashMeetings(items);
+
+  } catch(err) {
+    console.error('GCal fetch error:', err);
+    if (el) el.innerHTML = '<div class="gcal-empty"><i class="ti ti-alert-circle"></i> Could not load calendar: ' + err.message + '</div>';
+  }
+}
+
+/* ── Format helpers ── */
+function _gcalFormatTime(dtStr, isAllDay) {
+  if (isAllDay) return 'All day';
+  try {
+    var d = new Date(dtStr);
+    return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  } catch(e) { return ''; }
+}
+
+function _gcalFormatDate(dtStr, isAllDay) {
+  try {
+    var d = isAllDay ? new Date(dtStr + 'T00:00:00') : new Date(dtStr);
+    var today    = new Date();
+    var tomorrow = new Date(today.getTime() + 86400000);
+    if (d.toDateString() === today.toDateString())    return 'Today';
+    if (d.toDateString() === tomorrow.toDateString()) return 'Tomorrow';
+    return d.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+  } catch(e) { return ''; }
+}
+
+function _gcalDayKey(event) {
+  var dt = event.start.date || event.start.dateTime;
+  try {
+    var d = event.start.date ? new Date(dt + 'T00:00:00') : new Date(dt);
+    return d.toDateString();
+  } catch(e) { return dt; }
+}
+
+/* ── Render events in Meeting Prep screen ── */
+function renderGCalEvents(items) {
+  var el = document.getElementById('gcal-events-list');
+  if (!el) return;
+
+  if (items.length === 0) {
+    el.innerHTML = '<div class="gcal-empty"><i class="ti ti-calendar-off"></i> No events in this period</div>';
+    return;
+  }
+
+  // Group by day
+  var groups = {};
+  var order  = [];
+  items.forEach(function(ev) {
+    var key = _gcalDayKey(ev);
+    if (!groups[key]) { groups[key] = []; order.push(key); }
+    groups[key].push(ev);
+  });
+
+  var html = '';
+  order.forEach(function(dayKey) {
+    var dayEvs = groups[dayKey];
+    // Day label from first event
+    var firstEv = dayEvs[0];
+    var isAllDay = !!firstEv.start.date;
+    var dt = firstEv.start.date || firstEv.start.dateTime;
+    var dayLabel = _gcalFormatDate(dt, isAllDay);
+    html += '<div class="gcal-day-label">' + dayLabel + '</div>';
+
+    dayEvs.forEach(function(ev) {
+      var allDay  = !!ev.start.date;
+      var startDt = ev.start.date || ev.start.dateTime;
+      var timeStr = _gcalFormatTime(startDt, allDay);
+      var dateStr = allDay ? '' : _gcalFormatDate(startDt, false);
+      var loc     = ev.location ? '<div class="gcal-event-location"><i class="ti ti-map-pin"></i> ' + _escHtml(ev.location.substring(0, 60)) + (ev.location.length > 60 ? '…' : '') + '</div>' : '';
+      var guests  = ev.attendees ? (ev.attendees.length + ' guests') : '';
+      var desc    = ev.description ? '' : '';
+      html += '<div class="gcal-event">'
+        + '<div class="gcal-event-time-col"><div class="gcal-event-time">' + timeStr + '</div></div>'
+        + '<div class="gcal-event-body">'
+        + '<div class="gcal-event-title">' + _escHtml(ev.summary || '(No title)') + '</div>'
+        + (guests ? '<div class="gcal-event-meta"><i class="ti ti-users"></i> ' + guests + '</div>' : '')
+        + loc
+        + '</div></div>';
+    });
+  });
+
+  el.innerHTML = html;
+}
+
+/* ── Update dashboard "Today's meetings" panel ── */
+function updateDashMeetings(items) {
+  var el = document.getElementById('dash-meetings');
+  if (!el) return;
+  var today = new Date();
+  var todayEvs = items.filter(function(ev) {
+    var dt = ev.start.date || ev.start.dateTime;
+    var isAllDay = !!ev.start.date;
+    var d = isAllDay ? new Date(dt + 'T00:00:00') : new Date(dt);
+    return d.toDateString() === today.toDateString();
+  });
+
+  if (todayEvs.length === 0) {
+    el.innerHTML = '<div class="empty-state"><i class="ti ti-calendar-off"></i> No meetings today</div>';
+    return;
+  }
+
+  el.innerHTML = todayEvs.slice(0, 4).map(function(ev) {
+    var allDay  = !!ev.start.date;
+    var startDt = ev.start.date || ev.start.dateTime;
+    var timeStr = _gcalFormatTime(startDt, allDay);
+    return '<div class="meeting-row">'
+      + '<div class="meet-time">' + timeStr + '</div>'
+      + '<div class="meet-body"><p>' + _escHtml(ev.summary || '(No title)') + '</p>'
+      + (ev.location ? '<span>' + _escHtml(ev.location.substring(0, 40)) + '</span>' : '')
+      + '</div></div>';
+  }).join('');
+}
+
+/* ── Escape HTML helper ── */
+function _escHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+/* ── Hook into nav() — render GCal UI when meeting screen opens ── */
+(function patchNav() {
+  var _origNav = window.nav;
+  if (typeof _origNav === 'function') {
+    window.nav = function(screen) {
+      _origNav(screen);
+      if (screen === 'meeting') {
+        setTimeout(renderGCalUI, 50);
+      }
+    };
+  }
+})();
+
+/* ── Auto-render on page load if token already in localStorage ── */
+document.addEventListener('DOMContentLoaded', function() {
+  if (_gCalAccessToken) {
+    // Don't auto-fetch unless meeting screen is visible
+    var el = document.getElementById('gcal-connect-box');
+    if (el) renderGCalUI();
+  } else {
+    // Show connect box
+    setTimeout(function() {
+      var el = document.getElementById('gcal-connect-box');
+      if (el) el.style.display = 'block';
+    }, 200);
+  }
+});
+
+// ── showToast fallback (in case v54 toast is named differently) ──
+if (typeof showToast === 'undefined') {
+  window.showToast = function(msg) {
+    var t = document.createElement('div');
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e1e2e;color:#f0f0f0;padding:10px 20px;border-radius:8px;font-size:13px;z-index:9999;box-shadow:0 4px 20px #0008';
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(function(){ t.remove(); }, 3000);
+  };
+}
 </script>
 
 </body>
