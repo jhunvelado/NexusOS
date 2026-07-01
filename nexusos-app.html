@@ -213,7 +213,7 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 
 /* v4.2 additions */
 /* v5.0 Executive Focus */
-/* v5.5 Quick Capture */
+/* v5.6 Quick Capture */
 .quick-capture-btn{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#534AB7,#3C3489);border:none;color:#fff;font-size:24px;cursor:pointer;z-index:800;box-shadow:0 4px 20px rgba(83,74,183,0.5);transition:all 0.2s;display:flex;align-items:center;justify-content:center}
 @media(max-width:768px){.quick-capture-btn{bottom:72px;}}
 .quick-capture-btn:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(83,74,183,0.7)}
@@ -662,6 +662,11 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 <script type="text/javascript" src="https://embeds.iubenda.com/widgets/29d5eb65-129a-4cbe-a6ea-fa7073c95799.js"></script>
 <!-- Google Identity Services for Calendar OAuth -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>>
+<!-- Paddle.js Billing -->
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script>
+Paddle.Initialize({ token: 'live_14643affb5b50d5c73e8ba723fb' });
+</script>
 </head>
 <body>
 
@@ -786,7 +791,7 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
       <div class="nav-item" id="n-docs" onclick="nav('docs')"><i class="ti ti-folder-open"></i> Documents</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer">NexusOS v5.5<br><span>© Jhun Rey Velado 2026</span><br><a href="https://jhunvelado.github.io/NexusOS/NexusOS_LICENSE.html" target="_blank" style="font-size:10px;color:#534AB7;text-decoration:none">⚖️ Ownership &amp; License</a></div>
+    <div class="sidebar-footer">NexusOS v5.6<br><span>© Jhun Rey Velado 2026</span><br><a href="https://jhunvelado.github.io/NexusOS/NexusOS_LICENSE.html" target="_blank" style="font-size:10px;color:#534AB7;text-decoration:none">⚖️ Ownership &amp; License</a></div>
   </div>
   <!-- CONTENT -->
   <div class="content">
@@ -4540,6 +4545,136 @@ if (typeof showToast === 'undefined') {
     setTimeout(function(){ t.remove(); }, 3000);
   };
 }
+</script>
+
+
+<script>
+/* ══════════════════════════════════════════════════
+   NexusOS v5.6 — Paddle.js Checkout Integration
+   Overrides showPaymentModal with Paddle overlay
+══════════════════════════════════════════════════ */
+
+var _PADDLE_PRICES = {
+  'starter':'pri_01kwewpkwctenvd4d2ehdjhqc5',
+  'professional':'pri_01kwewkaabjs2nx0xx4nd825gv',
+  'enterprise':'pri_01kwewf9nrsk2vw5v59bgaj0zm'
+};
+
+var _PM_LINKS = {
+  'starter':'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/mESnbjy',
+  'professional':'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/lNLSlBI',
+  'enterprise':'https://pm.link/org-42KohzkcijHssmD7MeEXPct9/3BIk6zz'
+};
+
+/* ── Helper: close payment modal ── */
+window._closePayModal = function() {
+  var m = document.getElementById('payment-method-modal');
+  if (m) m.remove();
+};
+
+/* ── Override: show payment method selection modal ── */
+window.showPaymentModal = function(plan) {
+  window._closePayModal();
+
+  var _prices   = { starter:'$49', professional:'$149', enterprise:'$399' };
+  var price     = _prices[plan] || '';
+  var planLabel = plan.charAt(0).toUpperCase() + plan.slice(1);
+  var pmLink    = _PM_LINKS[plan] || '#';
+
+  var overlay = document.createElement('div');
+  overlay.id  = 'payment-method-modal';
+  overlay.style.cssText = 'position:fixed;inset:0;background:#000000cc;z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px';
+
+  var inner = document.createElement('div');
+  inner.style.cssText = 'background:#0f0f1a;border:1px solid #1e1e2e;border-radius:16px;padding:28px;max-width:400px;width:100%;position:relative';
+
+  var closeBtn = document.createElement('button');
+  closeBtn.innerHTML = '&#x2715;';
+  closeBtn.style.cssText = 'position:absolute;top:12px;right:14px;background:none;border:none;color:#555;font-size:20px;cursor:pointer;line-height:1';
+  closeBtn.onclick = window._closePayModal;
+
+  var header = document.createElement('div');
+  header.innerHTML =
+    '<div style="font-size:11px;color:#534AB7;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Subscribe</div>' +
+    '<div style="font-size:20px;font-weight:700;color:#f0f0f0;margin-bottom:3px">NexusOS ' + planLabel + '</div>' +
+    '<div style="font-size:28px;font-weight:700;color:#f0b429;margin-bottom:6px">' + price + '<span style="font-size:13px;color:#555;font-weight:400">/month</span></div>' +
+    '<div style="font-size:11px;color:#1D9E75;margin-bottom:20px">&#10003; 14-day free trial included &middot; Cancel anytime</div>' +
+    '<div style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">Choose payment method</div>';
+
+  // Paddle button
+  var paddleBtn = document.createElement('button');
+  paddleBtn.style.cssText = 'width:100%;background:#1a1033;border:1px solid #534AB7;border-radius:10px;padding:14px 16px;margin-bottom:10px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px';
+  paddleBtn.innerHTML = '<span style="font-size:22px">&#x1F4B3;</span><div><div style="font-size:13px;font-weight:600;color:#f0f0f0">Card &middot; PayPal &middot; Apple Pay &middot; Google Pay</div><div style="font-size:11px;color:#666">International &middot; Secure checkout by Paddle</div></div>';
+  paddleBtn.onclick = function() { window.openPaddleCheckout(plan); };
+
+  // PayMongo link
+  var pmBtn = document.createElement('a');
+  pmBtn.href   = pmLink;
+  pmBtn.target = '_blank';
+  pmBtn.style.cssText = 'width:100%;background:#081a10;border:1px solid rgba(29,158,117,.27);border-radius:10px;padding:14px 16px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;text-decoration:none';
+  pmBtn.innerHTML = '<span style="font-size:22px">&#x1F4F1;</span><div><div style="font-size:13px;font-weight:600;color:#f0f0f0">GCash &middot; Maya &middot; QR Ph</div><div style="font-size:11px;color:#666">Philippines only &middot; Powered by PayMongo</div></div>';
+  pmBtn.onclick = window._closePayModal;
+
+  var footer = document.createElement('div');
+  footer.style.cssText = 'font-size:10px;color:#2a2a3d;text-align:center;margin-top:16px';
+  footer.textContent = '&#x1F512; Payments are encrypted and secure';
+
+  inner.appendChild(closeBtn);
+  inner.appendChild(header);
+  inner.appendChild(paddleBtn);
+  inner.appendChild(pmBtn);
+  inner.appendChild(footer);
+  overlay.appendChild(inner);
+
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) overlay.remove();
+  });
+
+  document.body.appendChild(overlay);
+};
+
+/* ── Override: payWithPayMongo routes to new modal ── */
+window.payWithPayMongo = function(plan) {
+  window.showPaymentModal(plan);
+};
+
+/* ── Open Paddle overlay checkout ── */
+window.openPaddleCheckout = function(plan) {
+  var priceId = _PADDLE_PRICES[plan];
+  if (!priceId) {
+    console.error('No Paddle price ID for plan:', plan);
+    return;
+  }
+
+  // Close method selection modal
+  var modal = document.getElementById('payment-method-modal');
+  if (modal) modal.remove();
+
+  if (typeof Paddle === 'undefined') {
+    alert('Payment system is loading. Please try again in a moment.');
+    return;
+  }
+
+  // Build checkout options
+  var opts = {
+    items: [{ priceId: priceId, quantity: 1 }],
+    customData: { plan: plan }
+  };
+
+  // Pre-fill email if user is logged in
+  try {
+    var email = (typeof currentUser !== 'undefined' && currentUser && currentUser.email)
+      ? currentUser.email
+      : ((typeof currentProfile !== 'undefined' && currentProfile && currentProfile.email)
+          ? currentProfile.email : '');
+    if (email) opts.customer = { email: email };
+    if (typeof currentWorkspaceId !== 'undefined' && currentWorkspaceId) {
+      opts.customData.workspace_id = currentWorkspaceId;
+    }
+  } catch(e) {}
+
+  Paddle.Checkout.open(opts);
+};
 </script>
 
 </body>
