@@ -4617,7 +4617,7 @@ window.showPaymentModal = function(plan) {
 
   var footer = document.createElement('div');
   footer.style.cssText = 'font-size:10px;color:#2a2a3d;text-align:center;margin-top:16px';
-  footer.textContent = '&#x1F512; Payments are encrypted and secure';
+  footer.innerHTML = '🔒 Payments are encrypted and secure';
 
   inner.appendChild(closeBtn);
   inner.appendChild(header);
