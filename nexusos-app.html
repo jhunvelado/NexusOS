@@ -213,7 +213,7 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 
 /* v4.2 additions */
 /* v5.0 Executive Focus */
-/* v5.3 Quick Capture */
+/* v5.4 Quick Capture */
 .quick-capture-btn{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#534AB7,#3C3489);border:none;color:#fff;font-size:24px;cursor:pointer;z-index:800;box-shadow:0 4px 20px rgba(83,74,183,0.5);transition:all 0.2s;display:flex;align-items:center;justify-content:center}
 @media(max-width:768px){.quick-capture-btn{bottom:72px;}}
 .quick-capture-btn:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(83,74,183,0.7)}
@@ -555,6 +555,56 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
   align-items: center; justify-content: center; flex-shrink: 0;
 }
 
+
+/* ══ v5.4 DECISION LOG ══ */
+.dl-row{background:#0d0d14;border:1px solid #1e1e2e;border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.dl-title{font-size:14px;font-weight:500;color:#f0f0f0;margin-bottom:6px}
+.dl-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.dl-tag{font-size:10px;padding:2px 10px;border-radius:20px;font-weight:600}
+.dl-tag.pending{background:#181408;color:#f0b429;border:1px solid #f0b42944}
+.dl-tag.decided{background:#081a10;color:#1D9E75;border:1px solid #1D9E7544}
+.dl-tag.reversed{background:#1a0808;color:#E24B4A;border:1px solid #E24B4A44}
+.dl-section{font-size:11px;color:#555;margin-bottom:3px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.dl-text{font-size:12px;color:#888;margin-bottom:8px}
+.dl-outcome{background:#0a1520;border:1px solid #1e3a5f;border-radius:6px;padding:8px 10px;margin-top:6px}
+.dl-outcome .dl-section{color:#378ADD}
+
+/* ══ v5.4 WEEKLY PULSE ══ */
+.pulse-day{background:#0d0d14;border:1px solid #1e1e2e;border-radius:10px;padding:16px;margin-bottom:12px}
+.pulse-day-hdr{font-size:12px;font-weight:700;color:#f0b429;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
+.pulse-priority-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.pulse-num{width:22px;height:22px;border-radius:50%;background:#534AB722;border:1px solid #534AB7;color:#534AB7;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pulse-input{flex:1;background:#13131f;border:1px solid #2a2a3d;border-radius:6px;padding:7px 10px;font-size:12px;color:#f0f0f0}
+.pulse-rating{display:flex;gap:6px;margin-top:8px}
+.pulse-star{width:32px;height:32px;border-radius:6px;background:#13131f;border:1px solid #2a2a3d;color:#555;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.pulse-star.active{background:#181408;border-color:#f0b429;color:#f0b429}
+.pulse-history{background:#0a0a12;border-radius:8px;padding:12px;margin-bottom:8px}
+.pulse-history-week{font-size:11px;color:#888;margin-bottom:4px}
+.pulse-history-stars{color:#f0b429;font-size:12px;margin-bottom:4px}
+
+/* ══ v5.4 CUSTOM KPI ══ */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:16px}
+.kpi-card{background:#0d0d14;border:1px solid #1e1e2e;border-radius:10px;padding:14px;position:relative}
+.kpi-label{font-size:10px;color:#555;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.kpi-value{font-size:24px;font-weight:700;color:#f0f0f0;margin-bottom:4px}
+.kpi-trend{font-size:11px}
+.kpi-trend.up{color:#1D9E75}
+.kpi-trend.down{color:#E24B4A}
+.kpi-trend.flat{color:#888}
+.kpi-edit-btn{position:absolute;top:8px;right:8px;background:none;border:none;color:#333;font-size:12px;cursor:pointer;padding:2px}
+.kpi-edit-btn:hover{color:#f0b429}
+.sector-preset-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.sector-btn{font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid #2a2a3d;background:#13131f;color:#666;cursor:pointer;transition:all .15s}
+.sector-btn:hover,.sector-btn.active{border-color:#534AB7;color:#534AB7;background:#534AB722}
+
+/* ══ v5.4 DELEGATION VIEW ══ */
+.delegation-card{background:#0d0d14;border:1px solid #1e1e2e;border-radius:10px;padding:14px;margin-bottom:10px}
+.delegation-owner{font-size:11px;color:#378ADD;font-weight:600;margin-bottom:4px}
+.delegation-checkin{font-size:11px;color:#555}
+.delegation-checkin.overdue{color:#E24B4A}
+.delegation-progress{height:3px;background:#1e1e2e;border-radius:20px;margin-top:10px}
+.delegation-progress-bar{height:100%;border-radius:20px;background:#534AB7}
+
 </style>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#534AB7">
@@ -669,6 +719,8 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
       <div class="nav-lbl">Command</div>
       <div class="nav-item active" id="n-dashboard" onclick="nav('dashboard')"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
       <div class="nav-item" id="n-briefing" onclick="nav('briefing')"><i class="ti ti-bolt"></i> AI Briefing</div>
+      <div class="nav-item" id="n-decisions" onclick="nav('decisions')"><i class="ti ti-scale"></i> Decision Log</div>
+      <div class="nav-item" id="n-pulse" onclick="nav('pulse')"><i class="ti ti-heartbeat"></i> Weekly Pulse</div>
       <div class="nav-item" id="n-intel" onclick="nav('intel')"><i class="ti ti-radar"></i> Intelligence</div>
       <div class="nav-item" id="n-notifications" onclick="nav('notifications')"><i class="ti ti-bell"></i> Notifications<span class="nav-badge" id="notif-count" style="display:none">0</span></div>
     </div>
@@ -731,7 +783,24 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
         <div class="stat"><div class="stat-lbl">High priority</div><div class="stat-val c-red" id="stat-high">—</div></div>
       </div>
       <div class="two-col" style="margin-bottom:12px">
-        <div class="panel"><div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-star"></i> Today's priorities</div><span style="font-size:11px;color:#534AB7;cursor:pointer" onclick="nav('tasks')">View all</span></div><div id="dash-tasks"><div class="loading-indicator">Loading...</div></div></div>
+        <div class="panel"><div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-star"></i> Today's priorities</div><span style="font-size:11px;color:#534AB7;cursor:pointer" onclick="nav('tasks')">View all</span></div>
+<div style="margin-bottom:16px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+    <div style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.5px">Key Metrics</div>
+    <button class="btn-outline btn-sm" onclick="openKpiModal()" style="font-size:11px">⚙ Configure</button>
+  </div>
+  <div class="sector-preset-row">
+    <button class="sector-btn" onclick="applyKpiPreset('saas')">SaaS</button>
+    <button class="sector-btn" onclick="applyKpiPreset('healthcare')">Healthcare</button>
+    <button class="sector-btn" onclick="applyKpiPreset('services')">Services</button>
+    <button class="sector-btn" onclick="applyKpiPreset('ecommerce')">E-commerce</button>
+    <button class="sector-btn" onclick="applyKpiPreset('pe')">PE / Portfolio</button>
+  </div>
+  <div class="kpi-grid" id="kpi-grid">
+    <div class="empty-state" style="grid-column:1/-1">Configure your KPIs using ⚙ above or pick a sector preset</div>
+  </div>
+</div>
+<div id="dash-tasks"><div class="loading-indicator">Loading...</div></div></div>
         <div class="panel"><div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-circle-check"></i> Pending approvals</div><span style="font-size:11px;color:#534AB7;cursor:pointer" onclick="nav('approvals')">View all</span></div><div id="dash-approvals"><div class="loading-indicator">Loading...</div></div></div>
       </div>
       
@@ -3576,5 +3645,483 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 })();
 </script>
+
+<div class="screen" id="s-decisions">
+  <div class="screen-hdr">
+    <div class="screen-title"><i class="ti ti-scale"></i> Decision Log</div>
+    <button class="btn-primary" onclick="openDecisionModal()"><i class="ti ti-plus"></i> Log decision</button>
+  </div>
+  <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+    <select id="dl-filter" class="auth-input" style="width:auto;padding:6px 10px;font-size:12px" onchange="loadDecisions()">
+      <option value="all">All decisions</option>
+      <option value="pending">Pending</option>
+      <option value="decided">Decided</option>
+      <option value="reversed">Reversed</option>
+    </select>
+  </div>
+  <div id="decisions-list"><div class="empty-state"><i class="ti ti-scale"></i> No decisions logged yet</div></div>
+</div>
+
+<!-- DECISION MODAL -->
+<div class="modal-overlay" id="decision-modal">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-title" id="decision-modal-title">Log decision</div>
+    <input type="hidden" id="decision-id">
+    <div class="field-lbl">Decision title *</div>
+    <input type="text" id="decision-title" class="auth-input" placeholder="What was decided or needs to be decided?" style="margin-bottom:10px">
+    <div class="field-lbl">Context</div>
+    <textarea id="decision-context" class="auth-input" rows="2" placeholder="What situation prompted this decision?" style="margin-bottom:10px"></textarea>
+    <div class="field-lbl">Rationale</div>
+    <textarea id="decision-rationale" class="auth-input" rows="2" placeholder="Why was this the right call?" style="margin-bottom:10px"></textarea>
+    <div class="field-lbl">Outcome / Result</div>
+    <textarea id="decision-outcome" class="auth-input" rows="2" placeholder="What happened as a result? (fill in later)" style="margin-bottom:10px"></textarea>
+    <div class="two-col">
+      <div>
+        <div class="field-lbl">Status</div>
+        <select id="decision-status" class="auth-input">
+          <option value="pending">Pending</option>
+          <option value="decided">Decided</option>
+          <option value="reversed">Reversed</option>
+        </select>
+      </div>
+      <div>
+        <div class="field-lbl">Category</div>
+        <select id="decision-category" class="auth-input">
+          <option value="strategic">Strategic</option>
+          <option value="financial">Financial</option>
+          <option value="operational">Operational</option>
+          <option value="people">People</option>
+          <option value="product">Product</option>
+        </select>
+      </div>
+    </div>
+    <div class="btn-row" style="margin-top:16px">
+      <button class="btn-outline" onclick="closeModal('decision-modal')">Cancel</button>
+      <button class="btn-primary" onclick="saveDecision()">Save decision</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="s-pulse">
+  <div class="screen-hdr">
+    <div class="screen-title"><i class="ti ti-heartbeat"></i> Weekly Pulse</div>
+    <div style="display:flex;gap:8px">
+      <button class="btn-outline" onclick="showPulseView('plan')">📋 Plan</button>
+      <button class="btn-outline" onclick="showPulseView('review')">✅ Review</button>
+      <button class="btn-outline" onclick="showPulseView('history')">📊 History</button>
+    </div>
+  </div>
+
+  <!-- MONDAY PLAN -->
+  <div id="pulse-plan-view">
+    <div class="pulse-day">
+      <div class="pulse-day-hdr">📅 Monday Morning — Weekly Plan</div>
+      <div style="font-size:11px;color:#555;margin-bottom:14px">Set your 3 outcomes. Everything else is secondary.</div>
+      <div class="field-lbl">Top 3 priorities this week</div>
+      <div class="pulse-priority-row"><div class="pulse-num">1</div><input class="pulse-input" id="pulse-p1" placeholder="Priority 1 — the most important outcome this week"></div>
+      <div class="pulse-priority-row"><div class="pulse-num">2</div><input class="pulse-input" id="pulse-p2" placeholder="Priority 2"></div>
+      <div class="pulse-priority-row"><div class="pulse-num">3</div><input class="pulse-input" id="pulse-p3" placeholder="Priority 3"></div>
+      <div class="field-lbl" style="margin-top:14px">Key focus area this week</div>
+      <input class="pulse-input" id="pulse-focus" placeholder="e.g. Close Series A, hire VP Sales, resolve client issue" style="width:100%;margin-bottom:0">
+    </div>
+    <button class="btn-primary" style="width:100%;padding:12px" onclick="savePulsePlan()">Save weekly plan →</button>
+  </div>
+
+  <!-- FRIDAY REVIEW -->
+  <div id="pulse-review-view" style="display:none">
+    <div class="pulse-day">
+      <div class="pulse-day-hdr">✅ Friday — Weekly Review</div>
+      <div style="font-size:11px;color:#555;margin-bottom:14px">Honest reflection. 15 minutes. Same time every week.</div>
+      <div class="field-lbl">3 wins this week</div>
+      <div class="pulse-priority-row"><div class="pulse-num" style="background:#0a1a0a;border-color:#1D9E75;color:#1D9E75">1</div><input class="pulse-input" id="pulse-w1" placeholder="Win 1"></div>
+      <div class="pulse-priority-row"><div class="pulse-num" style="background:#0a1a0a;border-color:#1D9E75;color:#1D9E75">2</div><input class="pulse-input" id="pulse-w2" placeholder="Win 2"></div>
+      <div class="pulse-priority-row"><div class="pulse-num" style="background:#0a1a0a;border-color:#1D9E75;color:#1D9E75">3</div><input class="pulse-input" id="pulse-w3" placeholder="Win 3"></div>
+      <div class="field-lbl" style="margin-top:14px">1 blocker this week</div>
+      <input class="pulse-input" id="pulse-blocker" placeholder="What slowed you down or didn't get done?" style="width:100%;margin-bottom:14px">
+      <div class="field-lbl">1 thing to change next week</div>
+      <input class="pulse-input" id="pulse-change" placeholder="What will you do differently?" style="width:100%;margin-bottom:14px">
+      <div class="field-lbl">Rate this week</div>
+      <div class="pulse-rating" id="pulse-rating-stars">
+        <div class="pulse-star" onclick="setPulseRating(1)">1</div>
+        <div class="pulse-star" onclick="setPulseRating(2)">2</div>
+        <div class="pulse-star" onclick="setPulseRating(3)">3</div>
+        <div class="pulse-star" onclick="setPulseRating(4)">4</div>
+        <div class="pulse-star" onclick="setPulseRating(5)">5</div>
+      </div>
+      <input type="hidden" id="pulse-rating-val" value="0">
+    </div>
+    <button class="btn-primary" style="width:100%;padding:12px" onclick="savePulseReview()">Save weekly review →</button>
+  </div>
+
+  <!-- HISTORY -->
+  <div id="pulse-history-view" style="display:none">
+    <div style="font-size:12px;color:#555;margin-bottom:14px">Last 12 weeks — spot the patterns.</div>
+    <div id="pulse-history-list"><div class="empty-state"><i class="ti ti-heartbeat"></i>No weekly reviews yet</div></div>
+  </div>
+</div>
+
+<!-- KPI MODAL -->
+<div class="modal-overlay" id="kpi-modal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-title">Configure Key Metrics</div>
+    <div style="font-size:12px;color:#555;margin-bottom:14px">Add up to 7 metrics. Update values manually or connect your data source.</div>
+    <div id="kpi-editor-list"></div>
+    <button class="btn-outline" style="width:100%;margin-bottom:12px" onclick="addKpiField()">+ Add metric</button>
+    <div class="btn-row">
+      <button class="btn-outline" onclick="closeModal('kpi-modal')">Cancel</button>
+      <button class="btn-primary" onclick="saveKpis()">Save metrics</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   NexusOS v5.4 — Decision Log + Weekly Pulse + Custom KPIs
+   ══════════════════════════════════════════════════════════ */
+
+/* ── DECISION LOG ── */
+async function loadDecisions() {
+  if (!currentWorkspaceId) return;
+  var filter = document.getElementById('dl-filter')?.value || 'all';
+  var q = sb.from('decisions').select('*').eq('workspace_id', currentWorkspaceId).order('created_at', {ascending: false});
+  if (filter !== 'all') q = q.eq('status', filter);
+  var { data } = await q;
+  var items = data || [];
+  var el = document.getElementById('decisions-list');
+  if (!el) return;
+  if (!items.length) {
+    el.innerHTML = '<div class="empty-state"><i class="ti ti-scale"></i> No decisions logged yet</div>';
+    return;
+  }
+  el.innerHTML = items.map(function(d) {
+    var tagClass = d.status === 'decided' ? 'decided' : d.status === 'reversed' ? 'reversed' : 'pending';
+    return '<div class="dl-row">' +
+      '<div class="dl-title">' + (d.title || '') + '</div>' +
+      '<div class="dl-meta">' +
+        '<span class="dl-tag ' + tagClass + '">' + (d.status || 'pending') + '</span>' +
+        '<span class="dl-tag" style="background:#13131f;color:#666;border:1px solid #2a2a3d">' + (d.category || 'strategic') + '</span>' +
+        '<span style="font-size:10px;color:#444">' + new Date(d.created_at).toLocaleDateString() + '</span>' +
+      '</div>' +
+      (d.context ? '<div class="dl-section">Context</div><div class="dl-text">' + d.context + '</div>' : '') +
+      (d.rationale ? '<div class="dl-section">Rationale</div><div class="dl-text">' + d.rationale + '</div>' : '') +
+      (d.outcome ? '<div class="dl-outcome"><div class="dl-section">Outcome</div><div class="dl-text" style="color:#aaa;margin-bottom:0">' + d.outcome + '</div></div>' : '') +
+      '<div class="task-actions" style="margin-top:10px">' +
+        '<button class="btn-outline btn-sm" data-id="' + d.id + '" onclick="editDecision(this.dataset.id)">Edit</button>' +
+        '<button class="btn-danger btn-sm" data-id="' + d.id + '" onclick="deleteDecision(this.dataset.id)">Delete</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function openDecisionModal() {
+  ['decision-id','decision-title','decision-context','decision-rationale','decision-outcome'].forEach(function(id) {
+    var el = document.getElementById(id); if (el) el.value = '';
+  });
+  document.getElementById('decision-status').value = 'pending';
+  document.getElementById('decision-category').value = 'strategic';
+  document.getElementById('decision-modal-title').textContent = 'Log decision';
+  document.getElementById('decision-modal').classList.add('active');
+}
+
+async function editDecision(id) {
+  var { data: d } = await sb.from('decisions').select('*').eq('id', id).single();
+  if (!d) return;
+  document.getElementById('decision-id').value = d.id;
+  document.getElementById('decision-title').value = d.title || '';
+  document.getElementById('decision-context').value = d.context || '';
+  document.getElementById('decision-rationale').value = d.rationale || '';
+  document.getElementById('decision-outcome').value = d.outcome || '';
+  document.getElementById('decision-status').value = d.status || 'pending';
+  document.getElementById('decision-category').value = d.category || 'strategic';
+  document.getElementById('decision-modal-title').textContent = 'Edit decision';
+  document.getElementById('decision-modal').classList.add('active');
+}
+
+async function saveDecision() {
+  var id = document.getElementById('decision-id').value;
+  var title = document.getElementById('decision-title').value.trim();
+  if (!title) { alert('Decision title required'); return; }
+  var payload = {
+    title: title,
+    context: document.getElementById('decision-context').value.trim(),
+    rationale: document.getElementById('decision-rationale').value.trim(),
+    outcome: document.getElementById('decision-outcome').value.trim(),
+    status: document.getElementById('decision-status').value,
+    category: document.getElementById('decision-category').value,
+    workspace_id: currentWorkspaceId,
+    created_by: currentUser.id
+  };
+  if (id) await sb.from('decisions').update(payload).eq('id', id);
+  else await sb.from('decisions').insert(payload);
+  closeModal('decision-modal');
+  loadDecisions();
+}
+
+async function deleteDecision(id) {
+  if (!confirm('Delete this decision?')) return;
+  await sb.from('decisions').delete().eq('id', id);
+  loadDecisions();
+}
+
+/* ── WEEKLY PULSE ── */
+var _pulseRating = 0;
+
+function showPulseView(view) {
+  ['plan','review','history'].forEach(function(v) {
+    var el = document.getElementById('pulse-' + v + '-view');
+    if (el) el.style.display = v === view ? 'block' : 'none';
+  });
+  if (view === 'history') loadPulseHistory();
+}
+
+function setPulseRating(n) {
+  _pulseRating = n;
+  document.getElementById('pulse-rating-val').value = n;
+  document.querySelectorAll('.pulse-star').forEach(function(s, i) {
+    s.classList.toggle('active', i < n);
+  });
+}
+
+async function savePulsePlan() {
+  if (!currentWorkspaceId) return;
+  var p1 = document.getElementById('pulse-p1').value.trim();
+  if (!p1) { alert('At least one priority required'); return; }
+  await sb.from('weekly_pulse').insert({
+    workspace_id: currentWorkspaceId,
+    created_by: currentUser.id,
+    type: 'plan',
+    week_date: new Date().toISOString().split('T')[0],
+    priority_1: p1,
+    priority_2: document.getElementById('pulse-p2').value.trim(),
+    priority_3: document.getElementById('pulse-p3').value.trim(),
+    focus_area: document.getElementById('pulse-focus').value.trim()
+  });
+  showV51Toast('Weekly plan saved ✓');
+  ['pulse-p1','pulse-p2','pulse-p3','pulse-focus'].forEach(function(id) {
+    document.getElementById(id).value = '';
+  });
+}
+
+async function savePulseReview() {
+  if (!currentWorkspaceId) return;
+  var w1 = document.getElementById('pulse-w1').value.trim();
+  if (!w1) { alert('Add at least one win'); return; }
+  await sb.from('weekly_pulse').insert({
+    workspace_id: currentWorkspaceId,
+    created_by: currentUser.id,
+    type: 'review',
+    week_date: new Date().toISOString().split('T')[0],
+    win_1: w1,
+    win_2: document.getElementById('pulse-w2').value.trim(),
+    win_3: document.getElementById('pulse-w3').value.trim(),
+    blocker: document.getElementById('pulse-blocker').value.trim(),
+    change_next: document.getElementById('pulse-change').value.trim(),
+    rating: _pulseRating
+  });
+  showV51Toast('Weekly review saved ✓');
+  ['pulse-w1','pulse-w2','pulse-w3','pulse-blocker','pulse-change'].forEach(function(id) {
+    document.getElementById(id).value = '';
+  });
+  setPulseRating(0);
+  showPulseView('history');
+}
+
+async function loadPulseHistory() {
+  if (!currentWorkspaceId) return;
+  var { data } = await sb.from('weekly_pulse')
+    .select('*').eq('workspace_id', currentWorkspaceId)
+    .eq('type', 'review').order('week_date', {ascending: false}).limit(12);
+  var items = data || [];
+  var el = document.getElementById('pulse-history-list');
+  if (!el) return;
+  if (!items.length) {
+    el.innerHTML = '<div class="empty-state"><i class="ti ti-heartbeat"></i>No weekly reviews yet</div>';
+    return;
+  }
+  el.innerHTML = items.map(function(r) {
+    var stars = '★'.repeat(r.rating || 0) + '☆'.repeat(5 - (r.rating || 0));
+    return '<div class="pulse-history">' +
+      '<div class="pulse-history-week">Week of ' + r.week_date + '</div>' +
+      '<div class="pulse-history-stars">' + stars + ' (' + (r.rating || 0) + '/5)</div>' +
+      (r.win_1 ? '<div style="font-size:11px;color:#1D9E75">✓ ' + r.win_1 + '</div>' : '') +
+      (r.win_2 ? '<div style="font-size:11px;color:#1D9E75">✓ ' + r.win_2 + '</div>' : '') +
+      (r.win_3 ? '<div style="font-size:11px;color:#1D9E75">✓ ' + r.win_3 + '</div>' : '') +
+      (r.blocker ? '<div style="font-size:11px;color:#E24B4A;margin-top:4px">⚠ ' + r.blocker + '</div>' : '') +
+      (r.change_next ? '<div style="font-size:11px;color:#f0b429;margin-top:4px">→ ' + r.change_next + '</div>' : '') +
+    '</div>';
+  }).join('');
+}
+
+/* ── CUSTOM KPIs ── */
+var KPI_PRESETS = {
+  saas: [
+    {label:'MRR', value:'$0', trend:'flat'},
+    {label:'Churn Rate', value:'0%', trend:'flat'},
+    {label:'CAC', value:'$0', trend:'flat'},
+    {label:'LTV', value:'$0', trend:'flat'},
+    {label:'Active Users', value:'0', trend:'flat'}
+  ],
+  healthcare: [
+    {label:'Patient Volume', value:'0', trend:'flat'},
+    {label:'Avg Wait Time', value:'0 min', trend:'flat'},
+    {label:'Staff Utilisation', value:'0%', trend:'flat'},
+    {label:'Revenue/Patient', value:'$0', trend:'flat'},
+    {label:'Compliance Score', value:'0%', trend:'flat'}
+  ],
+  services: [
+    {label:'Utilisation Rate', value:'0%', trend:'flat'},
+    {label:'Pipeline Value', value:'$0', trend:'flat'},
+    {label:'Client Satisfaction', value:'0/10', trend:'flat'},
+    {label:'Proposals Sent', value:'0', trend:'flat'},
+    {label:'Revenue MTD', value:'$0', trend:'flat'}
+  ],
+  ecommerce: [
+    {label:'Conversion Rate', value:'0%', trend:'flat'},
+    {label:'Avg Order Value', value:'$0', trend:'flat'},
+    {label:'Inventory Turn', value:'0x', trend:'flat'},
+    {label:'Return Rate', value:'0%', trend:'flat'},
+    {label:'Revenue MTD', value:'$0', trend:'flat'}
+  ],
+  pe: [
+    {label:'Portfolio IRR', value:'0%', trend:'flat'},
+    {label:'MOIC', value:'0x', trend:'flat'},
+    {label:'Active Deals', value:'0', trend:'flat'},
+    {label:'AUM', value:'$0M', trend:'flat'},
+    {label:'Board Mtgs Due', value:'0', trend:'flat'}
+  ]
+};
+
+function applyKpiPreset(sector) {
+  document.querySelectorAll('.sector-btn').forEach(function(b) { b.classList.remove('active'); });
+  var btn = document.querySelector('.sector-btn[onclick*="' + sector + '"]');
+  if (btn) btn.classList.add('active');
+  var kpis = KPI_PRESETS[sector] || [];
+  localStorage.setItem('nexus_kpis', JSON.stringify(kpis));
+  renderKpiGrid(kpis);
+}
+
+function renderKpiGrid(kpis) {
+  var grid = document.getElementById('kpi-grid');
+  if (!grid) return;
+  if (!kpis || !kpis.length) {
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1">Configure your KPIs using ⚙ above or pick a sector preset</div>';
+    return;
+  }
+  grid.innerHTML = kpis.map(function(k, i) {
+    var trendIcon = k.trend === 'up' ? '↑' : k.trend === 'down' ? '↓' : '→';
+    var trendClass = k.trend || 'flat';
+    return '<div class="kpi-card">' +
+      '<button class="kpi-edit-btn" data-idx="' + i + '" onclick="editKpi(' + i + ')" title="Edit">✎</button>' +
+      '<div class="kpi-label">' + (k.label || 'Metric') + '</div>' +
+      '<div class="kpi-value">' + (k.value || '—') + '</div>' +
+      '<div class="kpi-trend ' + trendClass + '">' + trendIcon + ' ' + trendClass + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function openKpiModal() {
+  var kpis = JSON.parse(localStorage.getItem('nexus_kpis') || '[]');
+  renderKpiEditor(kpis);
+  document.getElementById('kpi-modal').classList.add('active');
+}
+
+function renderKpiEditor(kpis) {
+  var list = document.getElementById('kpi-editor-list');
+  if (!list) return;
+  list.innerHTML = kpis.map(function(k, i) {
+    return '<div style="display:flex;gap:6px;margin-bottom:8px;align-items:center">' +
+      '<input class="pulse-input" data-kpi-label="' + i + '" value="' + (k.label || '') + '" placeholder="Metric name" style="flex:2">' +
+      '<input class="pulse-input" data-kpi-value="' + i + '" value="' + (k.value || '') + '" placeholder="Value" style="flex:1">' +
+      '<select class="pulse-input" data-kpi-trend="' + i + '" style="flex:1">' +
+        '<option value="flat"' + (k.trend === 'flat' ? ' selected' : '') + '>→ flat</option>' +
+        '<option value="up"' + (k.trend === 'up' ? ' selected' : '') + '>↑ up</option>' +
+        '<option value="down"' + (k.trend === 'down' ? ' selected' : '') + '>↓ down</option>' +
+      '</select>' +
+      '<button class="btn-danger btn-sm" data-rm="' + i + '" onclick="removeKpiField(' + i + ')">×</button>' +
+    '</div>';
+  }).join('');
+}
+
+function addKpiField() {
+  var kpis = getKpiEditorValues();
+  if (kpis.length >= 7) { alert('Maximum 7 KPIs'); return; }
+  kpis.push({label: '', value: '', trend: 'flat'});
+  renderKpiEditor(kpis);
+}
+
+function removeKpiField(idx) {
+  var kpis = getKpiEditorValues();
+  kpis.splice(idx, 1);
+  renderKpiEditor(kpis);
+}
+
+function getKpiEditorValues() {
+  var kpis = [];
+  var labels = document.querySelectorAll('[data-kpi-label]');
+  labels.forEach(function(el, i) {
+    kpis.push({
+      label: el.value,
+      value: document.querySelector('[data-kpi-value="' + i + '"]')?.value || '',
+      trend: document.querySelector('[data-kpi-trend="' + i + '"]')?.value || 'flat'
+    });
+  });
+  return kpis;
+}
+
+function saveKpis() {
+  var kpis = getKpiEditorValues().filter(function(k) { return k.label; });
+  localStorage.setItem('nexus_kpis', JSON.stringify(kpis));
+  renderKpiGrid(kpis);
+  closeModal('kpi-modal');
+}
+
+function editKpi(idx) {
+  openKpiModal();
+}
+
+// Load saved KPIs on dashboard load
+var _origLoadDashboardV54 = window.loadDashboard;
+window.loadDashboard = async function() {
+  if (_origLoadDashboardV54) await _origLoadDashboardV54();
+  var saved = localStorage.getItem('nexus_kpis');
+  if (saved) {
+    try { renderKpiGrid(JSON.parse(saved)); } catch(e) {}
+  }
+};
+
+/* ── SUPABASE MIGRATION REMINDER ── */
+// Run in Supabase SQL Editor:
+// CREATE TABLE IF NOT EXISTS decisions (
+//   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+//   workspace_id UUID REFERENCES workspaces(id) ON DELETE CASCADE,
+//   created_by UUID REFERENCES auth.users(id),
+//   title TEXT NOT NULL,
+//   context TEXT,
+//   rationale TEXT,
+//   outcome TEXT,
+//   status TEXT DEFAULT 'pending',
+//   category TEXT DEFAULT 'strategic',
+//   created_at TIMESTAMPTZ DEFAULT NOW()
+// );
+// ALTER TABLE decisions ENABLE ROW LEVEL SECURITY;
+// CREATE POLICY "workspace_isolation" ON decisions USING (workspace_id IN (SELECT workspace_id FROM profiles WHERE id = auth.uid()));
+//
+// CREATE TABLE IF NOT EXISTS weekly_pulse (
+//   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+//   workspace_id UUID REFERENCES workspaces(id) ON DELETE CASCADE,
+//   created_by UUID REFERENCES auth.users(id),
+//   type TEXT NOT NULL,
+//   week_date DATE,
+//   priority_1 TEXT, priority_2 TEXT, priority_3 TEXT, focus_area TEXT,
+//   win_1 TEXT, win_2 TEXT, win_3 TEXT,
+//   blocker TEXT, change_next TEXT, rating INT,
+//   created_at TIMESTAMPTZ DEFAULT NOW()
+// );
+// ALTER TABLE weekly_pulse ENABLE ROW LEVEL SECURITY;
+// CREATE POLICY "workspace_isolation" ON weekly_pulse USING (workspace_id IN (SELECT workspace_id FROM profiles WHERE id = auth.uid()));
+
+</script>
+
 </body>
 </html>
