@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — NexusOS Executive Operating System</title>
+<meta name="description" content="Simple, transparent pricing for NexusOS. Starter $49/mo, Professional $149/mo, Enterprise $399/mo. 14-day free trial on all plans.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d0d14;color:#c0c0d0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:15px;line-height:1.75}
+a{color:#534AB7;text-decoration:none}
+.topbar{background:#0f0f1a;border-bottom:1px solid #1e1e2e;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.logo{color:#f0b429;font-weight:700;font-size:18px;display:flex;align-items:center;gap:8px}
+.logo-sub{color:#555;font-size:12px;font-weight:400}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{font-size:13px;color:#888}
+.nav-links a:hover{color:#f0f0f0}
+.cta-btn{background:#534AB7;color:#EEEDFE;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:500}
+.cta-btn:hover{background:#6058d0}
+.hero{text-align:center;padding:64px 24px 48px;max-width:680px;margin:0 auto}
+.eyebrow{font-size:12px;color:#534AB7;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.hero h1{font-size:36px;font-weight:600;color:#f0f0f0;line-height:1.2;margin-bottom:14px}
+.hero p{font-size:16px;color:#666;margin-bottom:8px}
+.trial-badge{display:inline-flex;align-items:center;gap:6px;background:#0f1a0f;border:1px solid #1D9E7544;color:#1D9E75;padding:6px 16px;border-radius:20px;font-size:13px;margin-top:16px}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;max-width:980px;margin:0 auto;padding:0 24px 64px}
+.plan{background:#0f0f1a;border:1px solid #1e1e2e;border-radius:14px;padding:28px 24px;position:relative}
+.plan.featured{border-color:#534AB7;background:#0d0c1a}
+.popular-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#534AB7;color:#EEEDFE;font-size:11px;font-weight:600;padding:4px 16px;border-radius:20px;white-space:nowrap}
+.plan-name{font-size:12px;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.plan-price{font-size:42px;font-weight:700;color:#f0f0f0;line-height:1;margin-bottom:4px}
+.plan-price span{font-size:16px;color:#555;font-weight:400}
+.plan-desc{font-size:13px;color:#555;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #1e1e2e}
+.plan-features{list-style:none;margin-bottom:24px}
+.plan-features li{font-size:13px;color:#888;padding:5px 0;display:flex;align-items:center;gap:8px}
+.plan-features li::before{content:"✓";color:#1D9E75;font-weight:700;flex-shrink:0}
+.plan-btn{display:block;width:100%;padding:12px;text-align:center;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none}
+.plan-btn.outline{border:1px solid #2a2a3d;color:#f0f0f0;background:transparent}
+.plan-btn.outline:hover{border-color:#534AB7;color:#EEEDFE;background:#0d0c1a}
+.plan-btn.primary{background:#534AB7;color:#EEEDFE;border:none}
+.plan-btn.primary:hover{background:#6058d0}
+.plan-btn.gold{background:#f0b429;color:#1a1400;border:none}
+.plan-btn.gold:hover{background:#f5c84a}
+.faq{max-width:680px;margin:0 auto;padding:0 24px 80px}
+.faq h2{font-size:22px;font-weight:600;color:#f0f0f0;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #1e1e2e;padding:16px 0}
+.faq-q{font-size:14px;font-weight:500;color:#f0f0f0;margin-bottom:6px}
+.faq-a{font-size:13px;color:#666;line-height:1.65}
+.compare{max-width:860px;margin:0 auto;padding:0 24px 64px}
+.compare h2{font-size:22px;font-weight:600;color:#f0f0f0;text-align:center;margin-bottom:24px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#0f0f1a;color:#888;padding:12px 16px;text-align:left;border-bottom:1px solid #1e1e2e;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+th.plan-col{text-align:center;color:#f0f0f0}
+td{padding:11px 16px;border-bottom:1px solid #0f0f18;color:#888}
+td.feat{color:#c0c0d0}
+td.center{text-align:center}
+.check{color:#1D9E75;font-weight:700}
+.cross{color:#333}
+.footer-bar{text-align:center;padding:32px 24px;border-top:1px solid #1a1a2e;font-size:12px;color:#333}
+.footer-bar a{color:#534AB7;margin:0 8px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">⚡ NexusOS <span class="logo-sub">Executive Operating System</span></div>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/nexusos-app.html" class="cta-btn">Start free trial</a>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="eyebrow">Pricing</div>
+  <h1>Simple pricing for executive teams</h1>
+  <p>One platform where the CEO and their EA run everything.</p>
+  <p>Cancel anytime · No setup fees · Secured by Paddle</p>
+  <div class="trial-badge">✓ 14-day free trial on all plans — no credit card required</div>
+</div>
+
+<div class="plans">
+
+  <div class="plan">
+    <div class="plan-name">Starter</div>
+    <div class="plan-price">$49<span>/month</span></div>
+    <div class="plan-desc">For one CEO and EA getting started with executive operations.</div>
+    <ul class="plan-features">
+      <li>AI Executive Briefing</li>
+      <li>Task management + priorities</li>
+      <li>Approval centre</li>
+      <li>Executive chat</li>
+      <li>Notes hub</li>
+      <li>Documents storage</li>
+      <li>Onboarding guide</li>
+    </ul>
+    <a href="/nexusos-app.html" class="plan-btn outline">Get started free</a>
+  </div>
+
+  <div class="plan featured">
+    <div class="popular-badge">Most popular</div>
+    <div class="plan-name">Professional</div>
+    <div class="plan-price">$149<span>/month</span></div>
+    <div class="plan-desc">Full NexusOS for serious executive operators.</div>
+    <ul class="plan-features">
+      <li>Everything in Starter</li>
+      <li>Travel Hub + itinerary builder</li>
+      <li>PE / Investor Dashboard</li>
+      <li>Relationship Intelligence</li>
+      <li>Meeting Prep AI</li>
+      <li>Intelligence Centre</li>
+      <li>Commitment Tracker</li>
+      <li>Decision Log</li>
+      <li>Weekly Pulse ritual</li>
+      <li>Custom KPI dashboard</li>
+    </ul>
+    <a href="/nexusos-app.html" class="plan-btn primary">Get started free</a>
+  </div>
+
+  <div class="plan">
+    <div class="plan-name">Enterprise</div>
+    <div class="plan-price">$399<span>/month</span></div>
+    <div class="plan-desc">For PE-backed companies, healthcare groups, and multi-team executives.</div>
+    <ul class="plan-features">
+      <li>Everything in Professional</li>
+      <li>Calendar sync</li>
+      <li>Gmail + Outlook inbox</li>
+      <li>Custom branding</li>
+      <li>Up to 5 workspaces</li>
+      <li>Team members</li>
+      <li>Advanced audit logging</li>
+      <li>Priority support</li>
+    </ul>
+    <a href="/nexusos-app.html" class="plan-btn gold">Get started free</a>
+  </div>
+
+</div>
+
+<div class="compare">
+  <h2>Feature comparison</h2>
+  <table>
+    <tr>
+      <th>Feature</th>
+      <th class="plan-col">Starter</th>
+      <th class="plan-col">Professional</th>
+      <th class="plan-col">Enterprise</th>
+    </tr>
+    <tr><td class="feat">AI Executive Briefing</td><td class="center check">✓</td><td class="center check">✓</td><td class="center check">✓</td></tr>
+    <tr><td class="feat">Task management</td><td class="center check">✓</td><td class="center check">✓</td><td class="center check">✓</td></tr>
+    <tr><td class="feat">Approvals centre</td><td class="center check">✓</td><td class="center check">✓</td><td class="center check">✓</td></tr>
+    <tr><td class="feat">Executive chat</td><td class="center check">✓</td><td class="center check">✓</td><td class="center check">✓</td></tr>
+    <tr><td class="feat">Notes hub</td><td class="center check">✓</td><td class="center check">✓</td><td class="center check">✓</td></tr>
+    <tr><td class="feat">Document storage</td><td class="center check">✓</td><td class="center check">✓</td><td class="center check">✓</td></tr>
+    <tr><td class="feat">Travel Hub</td><td class="center cross">—</td><td class="center check">✓</td><td class="center check">✓</td></tr>
+    <tr><td class="feat">PE / Investor Dashboard</td><td class="center cross">—</td><td class="center check">✓</td><td class="center check">✓</td></tr>
+    <tr><td class="feat">Relationship Intelligence</td><td class="center cross">—</td><td class="center check">✓</td><td class="center check">✓</td></tr>
+    <tr><td class="feat">Meeting Prep AI</td><td class="center cross">—</td><td class="center check">✓</td><td class="center check">✓</td></tr>
+    <tr><td class="feat">Commitment Tracker</td><td class="center cross">—</td><td class="center check">✓</td><td class="center check">✓</td></tr>
+    <tr><td class="feat">Decision Log</td><td class="center cross">—</td><td class="center check">✓</td><td class="center check">✓</td></tr>
+    <tr><td class="feat">Weekly Pulse ritual</td><td class="center cross">—</td><td class="center check">✓</td><td class="center check">✓</td></tr>
+    <tr><td class="feat">Custom KPI dashboard</td><td class="center cross">—</td><td class="center check">✓</td><td class="center check">✓</td></tr>
+    <tr><td class="feat">Calendar sync</td><td class="center cross">—</td><td class="center cross">—</td><td class="center check">✓</td></tr>
+    <tr><td class="feat">Gmail + Outlook inbox</td><td class="center cross">—</td><td class="center cross">—</td><td class="center check">✓</td></tr>
+    <tr><td class="feat">Custom branding</td><td class="center cross">—</td><td class="center cross">—</td><td class="center check">✓</td></tr>
+    <tr><td class="feat">Multiple workspaces (up to 5)</td><td class="center cross">—</td><td class="center cross">—</td><td class="center check">✓</td></tr>
+    <tr><td class="feat">Team members</td><td class="center cross">—</td><td class="center cross">—</td><td class="center check">✓</td></tr>
+  </table>
+</div>
+
+<div class="faq">
+  <h2>Common questions</h2>
+  <div class="faq-item">
+    <div class="faq-q">Do I need a credit card for the free trial?</div>
+    <div class="faq-a">No. Your 14-day free trial starts the moment you create an account. No credit card required until you choose to upgrade.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Can I cancel anytime?</div>
+    <div class="faq-a">Yes. Cancel anytime from your account settings. Your access continues until the end of the current billing period. No penalties, no questions.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">What payment methods do you accept?</div>
+    <div class="faq-a">International payments are processed by Paddle and accept all major credit and debit cards (Visa, Mastercard, Amex) and PayPal. Philippine customers can also pay via GCash, Maya, and QR Ph through PayMongo.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">What is your refund policy?</div>
+    <div class="faq-a">We offer a 7-day refund on your first subscription charge if you're not satisfied. Renewals are non-refundable. See our full <a href="/refund.html">Refund Policy</a> for details.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Is my data secure?</div>
+    <div class="faq-a">Yes. NexusOS uses Supabase with Row-Level Security, ensuring your workspace data is completely isolated. All data is encrypted in transit. 2FA is available on all accounts.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Who is NexusOS for?</div>
+    <div class="faq-a">NexusOS is built for the CEO + EA team unit — where the executive and their assistant operate from the same platform. It's ideal for SMB founders, C-suite leaders, private equity executives, and healthcare executives who need one system to manage all their operations.</div>
+  </div>
+</div>
+
+<div class="footer-bar">
+  © 2026 Jhun Rey Velado · NexusOS · All rights reserved ·
+  <a href="/terms.html">Terms</a>
+  <a href="/privacy.html">Privacy</a>
+  <a href="/refund.html">Refunds</a>
+  <a href="mailto:jhun07.velado@gmail.com">Contact</a>
+</div>
+
+</body>
+</html>
