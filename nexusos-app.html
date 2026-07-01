@@ -1982,8 +1982,6 @@ var PAYPAL_LINKS={
   professional:'https://www.paypal.com/ncp/payment/SNCZUA5S3CY4S',
   enterprise:'https://www.paypal.com/ncp/payment/2CJJZMWTTMC4U'
 };
-var PLAN_PRICES={starter:'$49',professional:'$149',enterprise:'$399'};
-
 function payWithPayMongo(plan){
   showPaymentModal(plan);
 }
@@ -1991,7 +1989,8 @@ function payWithPayMongo(plan){
 function showPaymentModal(plan){
   var existing=document.getElementById('payment-method-modal');
   if(existing)existing.remove();
-  var price=PLAN_PRICES[plan]||'';
+  var _prices={starter:'$49',professional:'$149',enterprise:'$399'};
+  var price=_prices[plan]||'';
   var planLabel=plan.charAt(0).toUpperCase()+plan.slice(1);
 
   var overlay=document.createElement('div');
