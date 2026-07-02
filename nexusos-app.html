@@ -280,12 +280,16 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 [onclick], label, select, input, textarea {
   pointer-events: auto !important;
 }
+/* Topbar always on top — higher than modals/QC/privacy (20001) */
+.topbar { z-index: 20001 !important; position: relative; }
 /* Auth screen must never block clicks once hidden */
 #auth-screen[style*="display: none"],
 #auth-screen[style*="display:none"] {
   pointer-events: none !important;
   z-index: -1 !important;
 }
+/* Sidebar footer — push up so privacy bar never overlaps */
+.sidebar-footer { padding-bottom: 52px !important; }
 
 /* ── EXECUTIVE FOCUS BANNER ───────────────────────────── */
 .exec-focus-banner {
@@ -544,7 +548,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 <div id="auth-screen" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#0d0d14;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
   <div style="background:#13131f;border:1px solid #2a2a3d;border-radius:14px;padding:36px 32px;width:100%;max-width:400px">
     <div style="color:#f0b429;font-weight:700;font-size:20px;margin-bottom:4px">⚡ NexusOS</div>
-    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v3.0 · Executive Edition</div>
+    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v5.8 · Executive Edition</div>
 
     <!-- TAB SWITCHER -->
     <div id="auth-tabs" style="display:flex;gap:4px;background:#0d0d14;padding:4px;border-radius:8px;margin-bottom:20px">
@@ -658,7 +662,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="nav-item" id="n-pricing" onclick="nav('pricing')"><i class="ti ti-credit-card"></i> Pricing & Plans</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer">NexusOS v3.0<br><span>© Jhun Rey Velado 2026</span></div>
+    <div class="sidebar-footer">NexusOS v5.8<br><span>© Jhun Rey Velado 2026</span></div>
   </div>
 
   <!-- CONTENT -->
@@ -3777,15 +3781,32 @@ function loadGcalApis(callback) {
 function connectGcal(){
   var btn=document.getElementById('gcal-connect-btn');
   if(btn){ btn.textContent='Connecting…'; btn.disabled=true; }
+  // Safety reset — if popup is closed or blocked, restore button after 15s
+  var gcalConnectTimer = setTimeout(function(){
+    if(btn && btn.textContent==='Connecting…'){
+      btn.textContent='Connect'; btn.disabled=false;
+      console.warn('GCal: OAuth timed out — popup may have been blocked');
+    }
+  }, 15000);
   loadGcalApis(function(){
     if(!gcalTokenClient){
+      clearTimeout(gcalConnectTimer);
       if(btn){ btn.textContent='Connect'; btn.disabled=false; }
       return;
     }
     try{
       var prev = localStorage.getItem('nexusos_gcal_connected')==='1';
+      // Override the token client callback to also clear our timer
+      var origCallback = gcalTokenClient.callback;
+      gcalTokenClient.callback = function(resp){
+        clearTimeout(gcalConnectTimer);
+        if(origCallback) origCallback(resp);
+        else if(resp.error){ if(btn){btn.textContent='Connect';btn.disabled=false;} }
+        else { /* success handled by fetchGcalEvents */ }
+      };
       gcalTokenClient.requestAccessToken({ prompt: prev ? '' : 'consent' });
     }catch(e){
+      clearTimeout(gcalConnectTimer);
       console.warn('GCal connect err', e);
       if(btn){ btn.textContent='Connect'; btn.disabled=false; }
     }
@@ -3851,10 +3872,10 @@ function updateGcalBar(connected){
 }
 
 // ── PADDLE PAYMENTS ───────────────────────────────────────
-// NOTE: Replace 'live_14643affb5b50d5c73e8ba723fb' with your live_ token
+// NOTE: Replace 'PADDLE_CLIENT_TOKEN_HERE' with your live_ token
 // from Paddle Dashboard → Developer Tools → Authentication → Client-side tokens
 (function(){
-  var PADDLE_TOKEN = 'live_14643affb5b50d5c73e8ba723fb';
+  var PADDLE_TOKEN = 'PADDLE_CLIENT_TOKEN_HERE';
   var s=document.createElement('script');
   s.src='https://cdn.paddle.com/paddle/v2/paddle.js';
   s.async=true;
