@@ -616,10 +616,10 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="nav-item" id="n-notes" onclick="nav('notes')"><i class="ti ti-notes"></i> Notes Hub</div>
       <div class="nav-item" id="n-commitments" onclick="nav('commitments')"><i class="ti ti-git-merge"></i> Commitment Tracker</div>
     </div>
-    </div>
     <div class="nav-section">
       <div class="nav-lbl">Enterprise</div>
       <div class="nav-item" id="n-calendar" onclick="nav('calendar')"><i class="ti ti-calendar"></i> Calendar</div>
+    </div>
     <div class="nav-section">
       <div class="nav-lbl">Account</div>
       <div class="nav-item" id="n-clients" onclick="nav('clients')"><i class="ti ti-users-group"></i> My Clients</div>
@@ -3245,6 +3245,9 @@ document.addEventListener('keydown',e=>{
 // last one wins → _mc_origNav captured itself → infinite recursion.
 // FIX: reimplement nav from scratch + integrate all hooks.
 window.nav = function(screen) {
+  // Scroll content area to top on every nav change
+  var contentArea = document.querySelector('.content');
+  if(contentArea) contentArea.scrollTop = 0;
   // Core nav logic (replicate original)
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
