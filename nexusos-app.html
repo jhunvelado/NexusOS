@@ -274,52 +274,236 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 .mc-btn.primary:hover{background:#4840a0}
 
 
-/* ── QUICK CAPTURE BUTTON ─────────────────────────────────────── */
-#quick-capture-btn{
-  position:fixed;bottom:24px;right:24px;
-  width:52px;height:52px;border-radius:50%;
-  background:#f0b429;border:none;
-  color:#1a1400;cursor:pointer;
-  z-index:10000;
-  box-shadow:0 4px 20px rgba(240,180,41,0.45);
-  display:flex;align-items:center;justify-content:center;
-  transition:transform 0.2s cubic-bezier(.34,1.56,.64,1),box-shadow 0.2s;
-  pointer-events:all !important;
+/* ── CLICK FIX — pointer-events nuclear reset ─────────── */
+.nav-item, .sidebar, .topbar, .topbar button,
+button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
+[onclick], label, select, input, textarea {
+  pointer-events: auto !important;
 }
-#quick-capture-btn:hover{
-  box-shadow:0 6px 28px rgba(240,180,41,0.65);
+/* Auth screen must never block clicks once hidden */
+#auth-screen[style*="display: none"],
+#auth-screen[style*="display:none"] {
+  pointer-events: none !important;
+  z-index: -1 !important;
 }
-#quick-capture-btn.open{ transform:rotate(45deg); }
-#quick-capture-btn.open:hover{ transform:rotate(45deg) scale(1.08); }
-#quick-capture-btn:not(.open):hover{ transform:scale(1.08); }
-#quick-capture-btn i{ font-size:22px;line-height:1; }
 
-#quick-capture-menu{
-  display:none;
-  position:fixed;bottom:86px;right:24px;
-  z-index:10000;
-  flex-direction:column;gap:7px;
-  align-items:flex-end;
+/* ── EXECUTIVE FOCUS BANNER ───────────────────────────── */
+.exec-focus-banner {
+  background: linear-gradient(135deg, #0e0e20 0%, #1a1538 100%);
+  border: 1px solid #2a2555;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 18px;
+  position: relative;
+  overflow: hidden;
 }
-#quick-capture-menu.open{ display:flex; }
-.qc-item{
-  background:#13131f;border:1px solid #2a2a3d;
-  color:#f0f0f0;border-radius:9px;
-  padding:9px 16px;font-size:13px;font-weight:500;
-  cursor:pointer;white-space:nowrap;
-  display:flex;align-items:center;gap:9px;
-  transition:background 0.12s,border-color 0.12s;
-  font-family:inherit;
-  pointer-events:all !important;
-  box-shadow:0 2px 12px rgba(0,0,0,0.35);
-  animation:qcFadeIn 0.15s ease;
+.exec-focus-banner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #534AB7, #f0b429, #1D9E75);
 }
-.qc-item:hover{ background:#1e1e2e;border-color:#3a3a5a; }
-.qc-item i{ color:#f0b429;font-size:15px; }
-@keyframes qcFadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-/* hide when auth screen visible */
-.auth-screen.active ~ * #quick-capture-btn,
-.auth-screen.active ~ * #quick-capture-menu{ display:none !important; }
+.exec-focus-eyebrow {
+  font-size: 10px;
+  color: #f0b429;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.exec-focus-eyebrow i { margin-right: 4px; }
+.exec-focus-sub {
+  font-size: 11px;
+  color: #555;
+  margin-bottom: 10px;
+}
+.exec-focus-status {
+  font-size: 13px;
+  color: #f0f0f0;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.exec-focus-status i { margin-right: 6px; }
+.exec-focus-tags { display: flex; gap: 7px; flex-wrap: wrap; }
+.focus-tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid currentColor;
+}
+.focus-tag.strategic { color: #534AB7; background: #0e0c22; }
+.focus-tag.financial { color: #f0b429; background: #1a1000; }
+.focus-tag.relationship { color: #E24B4A; background: #1a0808; }
+.focus-tag.clear { color: #1D9E75; background: #081510; }
+.focus-tag.operational { color: #378ADD; background: #081018; }
+
+/* ── KPI METRICS PANEL ────────────────────────────────── */
+.kpi-panel { margin-bottom: 18px; }
+.kpi-sector-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.kpi-sector-tab {
+  font-size: 11px; font-weight: 500;
+  padding: 5px 12px; border-radius: 20px;
+  border: 1px solid #2a2a3d; color: #777;
+  cursor: pointer; background: transparent;
+  transition: all 0.15s; font-family: inherit;
+  pointer-events: auto !important;
+}
+.kpi-sector-tab.active,
+.kpi-sector-tab:hover { border-color: #534AB7; color: #f0f0f0; background: #1a1830; }
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap: 10px; }
+.kpi-card {
+  background: #0a0a12; border: 1px solid #1e1e2e;
+  border-radius: 8px; padding: 12px 14px;
+}
+.kpi-card-lbl { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; }
+.kpi-card-val { font-size: 22px; font-weight: 600; color: #f0f0f0; }
+.kpi-card-sub { font-size: 10px; color: #555; margin-top: 4px; }
+.kpi-card.amber .kpi-card-val { color: #f0b429; }
+.kpi-card.green .kpi-card-val { color: #1D9E75; }
+.kpi-card.red .kpi-card-val { color: #E24B4A; }
+.kpi-card.blue .kpi-card-val { color: #378ADD; }
+.kpi-empty { font-size: 12px; color: #444; padding: 16px 0; }
+.kpi-configure-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.kpi-configure-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: #555; font-weight: 600; }
+.kpi-configure-btn {
+  font-size: 11px; color: #534AB7; background: none; border: 1px solid #2a2a3d;
+  border-radius: 6px; padding: 4px 10px; cursor: pointer; font-family: inherit;
+  pointer-events: auto !important;
+}
+
+/* ── DECISION LOG ─────────────────────────────────────── */
+.decision-card {
+  background: #0a0a12; border: 1px solid #1e1e2e;
+  border-radius: 10px; padding: 14px 16px;
+  margin-bottom: 10px; cursor: default;
+}
+.decision-card:hover { border-color: #2a2a3d; }
+.decision-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.decision-title { font-size: 14px; font-weight: 600; color: #f0f0f0; }
+.decision-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.decision-trigger { font-size: 12px; color: #555; line-height: 1.5; }
+.decision-body { font-size: 12px; color: #aaa; margin-top: 4px; line-height: 1.5; border-left: 2px solid #2a2a3d; padding-left: 10px; margin-bottom: 6px; }
+.decision-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+.decision-owner { font-size: 11px; color: #555; }
+.decision-date { font-size: 11px; color: #333; }
+.tag-impact-critical { background: #1f0808; color: #E24B4A; border: 1px solid #351010; }
+.tag-impact-high     { background: #1a1000; color: #f0b429; border: 1px solid #2a1e00; }
+.tag-impact-medium   { background: #100e22; color: #534AB7; border: 1px solid #1a1830; }
+.tag-resolved { background: #081510; color: #1D9E75; border: 1px solid #0f2518; }
+.tag-open     { background: #0a0a12; color: #777; border: 1px solid #2a2a3d; }
+
+/* ── WEEKLY PULSE ─────────────────────────────────────── */
+.pulse-week-card {
+  background: #0a0a12; border: 1px solid #1e1e2e;
+  border-radius: 12px; padding: 20px; margin-bottom: 18px;
+}
+.pulse-week-label { font-size: 11px; color: #534AB7; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.pulse-week-range { font-size: 14px; font-weight: 600; color: #f0f0f0; margin-bottom: 16px; }
+.pulse-section-lbl { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 6px; margin-top: 14px; }
+.pulse-section-lbl:first-of-type { margin-top: 0; }
+.pulse-textarea {
+  width: 100%; background: #0d0d1a; border: 1px solid #1e1e2e;
+  border-radius: 8px; color: #f0f0f0; padding: 10px 12px;
+  font-size: 13px; font-family: inherit; resize: vertical; min-height: 80px;
+  margin-bottom: 4px;
+}
+.pulse-textarea:focus { outline: none; border-color: #534AB7; }
+.pulse-history-item {
+  background: #0a0a12; border: 1px solid #1a1a2e;
+  border-radius: 10px; padding: 14px 16px; margin-bottom: 8px;
+}
+.pulse-history-week { font-size: 12px; font-weight: 600; color: #534AB7; margin-bottom: 8px; }
+.pulse-history-row { margin-bottom: 4px; }
+.pulse-history-lbl { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+.pulse-history-val { font-size: 12px; color: #aaa; margin-top: 2px; white-space: pre-wrap; }
+
+/* ── CALENDAR ─────────────────────────────────────────── */
+.cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.cal-month-label { font-size: 16px; font-weight: 600; color: #f0f0f0; }
+.cal-nav-btn {
+  background: #13131f; border: 1px solid #2a2a3d; color: #f0f0f0;
+  border-radius: 7px; padding: 6px 12px; cursor: pointer; font-size: 16px;
+  font-family: inherit; pointer-events: auto !important;
+}
+.cal-nav-btn:hover { background: #1e1e2e; }
+.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; }
+.cal-day-header { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 0.08em; text-align: center; padding: 6px 0; font-weight: 600; }
+.cal-day {
+  background: #0a0a12; border: 1px solid #1a1a2e;
+  border-radius: 6px; min-height: 80px; padding: 6px;
+  cursor: pointer; transition: border-color 0.1s;
+  pointer-events: auto !important;
+}
+.cal-day:hover { border-color: #2a2a3d; }
+.cal-day.today { border-color: #534AB7; background: #0e0c22; }
+.cal-day.other-month { opacity: 0.35; }
+.cal-day-num { font-size: 11px; font-weight: 600; color: #555; margin-bottom: 4px; }
+.cal-day.today .cal-day-num { color: #534AB7; }
+.cal-event {
+  font-size: 10px; padding: 2px 5px; border-radius: 3px;
+  margin-bottom: 2px; white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; cursor: pointer;
+}
+.cal-event.meeting { background: #1a1830; color: #7F77DD; }
+.cal-event.task    { background: #1a1000; color: #f0b429; }
+.cal-event.commitment { background: #081510; color: #1D9E75; }
+
+/* ── QUICK CAPTURE BUTTON ─────────────────────────────── */
+#quick-capture-btn {
+  position: fixed; bottom: 24px; right: 24px;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: #f0b429; border: none;
+  color: #1a1400; cursor: pointer;
+  z-index: 10000;
+  box-shadow: 0 4px 20px rgba(240,180,41,0.45);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s;
+  pointer-events: all !important;
+}
+#quick-capture-btn:hover { box-shadow: 0 6px 28px rgba(240,180,41,0.65); }
+#quick-capture-btn.open { transform: rotate(45deg); }
+#quick-capture-btn.open:hover { transform: rotate(45deg) scale(1.08); }
+#quick-capture-btn:not(.open):hover { transform: scale(1.08); }
+#quick-capture-btn i { font-size: 22px; line-height: 1; }
+#quick-capture-menu {
+  display: none; position: fixed; bottom: 86px; right: 24px;
+  z-index: 10000; flex-direction: column; gap: 7px; align-items: flex-end;
+}
+#quick-capture-menu.open { display: flex; }
+.qc-item {
+  background: #13131f; border: 1px solid #2a2a3d;
+  color: #f0f0f0; border-radius: 9px;
+  padding: 9px 16px; font-size: 13px; font-weight: 500;
+  cursor: pointer; white-space: nowrap;
+  display: flex; align-items: center; gap: 9px;
+  transition: background 0.12s, border-color 0.12s;
+  font-family: inherit;
+  pointer-events: all !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+  animation: qcFadeIn 0.15s ease;
+}
+.qc-item:hover { background: #1e1e2e; border-color: #3a3a5a; }
+.qc-item i { color: #f0b429; font-size: 15px; }
+@keyframes qcFadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+
+/* KPI Modal */
+.kpi-modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75); z-index: 15000;
+  align-items: center; justify-content: center;
+}
+.kpi-modal-overlay.open { display: flex; }
+.kpi-modal-box {
+  background: #13131f; border: 1px solid #2a2a3d;
+  border-radius: 14px; padding: 28px 28px 24px; width: 100%; max-width: 480px;
+  max-height: 85vh; overflow-y: auto;
+}
+.kpi-modal-title { font-size: 16px; font-weight: 600; color: #f0f0f0; margin-bottom: 18px; }
+.kpi-field-row { margin-bottom: 14px; }
+.kpi-field-row label { font-size: 11px; color: #555; text-transform: uppercase; letter-spacing: 0.07em; display: block; margin-bottom: 5px; font-weight: 500; }
+.kpi-field-row input { width: 100%; background: #0a0a12; border: 1px solid #252535; color: #f0f0f0; border-radius: 8px; padding: 9px 12px; font-size: 13px; font-family: inherit; }
 </style>
 </head>
 <body>
@@ -412,6 +596,8 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
       <div class="nav-lbl">Command</div>
       <div class="nav-item active" id="n-dashboard" onclick="nav('dashboard')"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
       <div class="nav-item" id="n-briefing" onclick="nav('briefing')"><i class="ti ti-bolt"></i> AI Briefing</div>
+      <div class="nav-item" id="n-decisions" onclick="nav('decisions')"><i class="ti ti-book-2"></i> Decision Log</div>
+      <div class="nav-item" id="n-weekly" onclick="nav('weekly')"><i class="ti ti-pulse"></i> Weekly Pulse</div>
       <div class="nav-item" id="n-intel" onclick="nav('intel')"><i class="ti ti-radar"></i> Intelligence</div>
       <div class="nav-item" id="n-notifications" onclick="nav('notifications')"><i class="ti ti-bell"></i> Notifications<span class="nav-badge" id="notif-count" style="display:none">0</span></div>
     </div>
@@ -430,6 +616,10 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
       <div class="nav-item" id="n-notes" onclick="nav('notes')"><i class="ti ti-notes"></i> Notes Hub</div>
       <div class="nav-item" id="n-commitments" onclick="nav('commitments')"><i class="ti ti-git-merge"></i> Commitment Tracker</div>
     </div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-lbl">Enterprise</div>
+      <div class="nav-item" id="n-calendar" onclick="nav('calendar')"><i class="ti ti-calendar"></i> Calendar</div>
     <div class="nav-section">
       <div class="nav-lbl">Account</div>
       <div class="nav-item" id="n-clients" onclick="nav('clients')"><i class="ti ti-users-group"></i> My Clients</div>
@@ -447,6 +637,30 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
       <div class="pg-eyebrow">Command centre</div>
       <div class="pg-title">Good morning, <span id="dash-name">...</span>.</div>
       <div class="pg-sub" id="dash-date">Loading...</div>
+      <!-- EXECUTIVE FOCUS -->
+      <div class="exec-focus-banner" id="exec-focus-banner">
+        <div class="exec-focus-eyebrow"><i class="ti ti-bolt"></i> Executive Focus</div>
+        <div class="exec-focus-sub">What deserves your attention right now?</div>
+        <div class="exec-focus-status" id="exec-focus-status"><i class="ti ti-check"></i> Loading...</div>
+        <div class="exec-focus-tags" id="exec-focus-tags"></div>
+      </div>
+
+      <!-- KPI METRICS -->
+      <div class="panel kpi-panel">
+        <div class="kpi-configure-row">
+          <span class="kpi-configure-lbl">Key Metrics</span>
+          <button class="kpi-configure-btn" onclick="openKpiModal()"><i class="ti ti-settings-2"></i> Configure</button>
+        </div>
+        <div class="kpi-sector-tabs">
+          <button class="kpi-sector-tab" data-sector="saas" onclick="setKpiSector('saas')">SaaS</button>
+          <button class="kpi-sector-tab" data-sector="healthcare" onclick="setKpiSector('healthcare')">Healthcare</button>
+          <button class="kpi-sector-tab" data-sector="services" onclick="setKpiSector('services')">Services</button>
+          <button class="kpi-sector-tab" data-sector="ecommerce" onclick="setKpiSector('ecommerce')">E-commerce</button>
+          <button class="kpi-sector-tab" data-sector="pe" onclick="setKpiSector('pe')">PE / Portfolio</button>
+        </div>
+        <div id="kpi-grid" class="kpi-grid"></div>
+      </div>
+
       <div class="stat-row">
         <div class="stat"><div class="stat-lbl">Total tasks</div><div class="stat-val c-white" id="stat-total">—</div></div>
         <div class="stat"><div class="stat-lbl">Pending</div><div class="stat-val c-amber" id="stat-pending">—</div></div>
@@ -1021,7 +1235,155 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
   </div>
 </div>
 
+
+    <!-- DECISION LOG -->
+    <div class="screen" id="s-decisions">
+      <div class="pg-eyebrow">Command</div>
+      <div class="pg-title">Decision Log</div>
+      <div class="pg-sub">Every major decision, captured and tracked to outcome</div>
+      <div style="display:flex;gap:10px;margin-bottom:16px;align-items:center;flex-wrap:wrap">
+        <button class="btn-primary" onclick="openDecisionModal()"><i class="ti ti-plus"></i> Log Decision</button>
+        <select id="decision-filter-status" onchange="renderDecisions()" style="width:auto;margin-bottom:0;padding:8px 12px;font-size:12px">
+          <option value="all">All status</option>
+          <option value="open">Open</option>
+          <option value="resolved">Resolved</option>
+        </select>
+        <select id="decision-filter-impact" onchange="renderDecisions()" style="width:auto;margin-bottom:0;padding:8px 12px;font-size:12px">
+          <option value="all">All impact</option>
+          <option value="critical">Critical</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+        </select>
+      </div>
+      <div id="decisions-list"></div>
+    </div>
+
+    <!-- WEEKLY PULSE -->
+    <div class="screen" id="s-weekly">
+      <div class="pg-eyebrow">Command</div>
+      <div class="pg-title">Weekly Pulse</div>
+      <div class="pg-sub">Your weekly rhythm — wins, blockers, and what's next</div>
+      <div class="pulse-week-card" id="pulse-current-card">
+        <div class="pulse-week-label">Current Week</div>
+        <div class="pulse-week-range" id="pulse-week-range">—</div>
+        <div class="pulse-section-lbl"><i class="ti ti-trophy" style="color:#1D9E75"></i> This week's wins</div>
+        <textarea class="pulse-textarea" id="pulse-wins" placeholder="What got done? What moved forward?"></textarea>
+        <div class="pulse-section-lbl"><i class="ti ti-alert-triangle" style="color:#E24B4A"></i> Blockers & risks</div>
+        <textarea class="pulse-textarea" id="pulse-blockers" placeholder="What's stuck? What needs clearing?"></textarea>
+        <div class="pulse-section-lbl"><i class="ti ti-arrow-right" style="color:#534AB7"></i> Next week's priorities</div>
+        <textarea class="pulse-textarea" id="pulse-next" placeholder="What must happen next week?"></textarea>
+        <div style="margin-top:16px;display:flex;gap:10px">
+          <button class="btn-primary" onclick="savePulse()"><i class="ti ti-device-floppy"></i> Save pulse</button>
+        </div>
+      </div>
+      <div id="pulse-history"></div>
+    </div>
+
+    <!-- CALENDAR -->
+    <div class="screen" id="s-calendar">
+      <div class="pg-eyebrow">Enterprise</div>
+      <div class="pg-title">Calendar</div>
+      <div class="pg-sub">Meetings, tasks, and commitments — all in one view</div>
+      <div class="panel">
+        <div class="cal-header">
+          <button class="cal-nav-btn" onclick="calPrevMonth()">&#8249;</button>
+          <div class="cal-month-label" id="cal-month-label">—</div>
+          <button class="cal-nav-btn" onclick="calNextMonth()">&#8250;</button>
+        </div>
+        <div class="cal-grid" id="cal-grid">
+          <div class="cal-day-header">Sun</div>
+          <div class="cal-day-header">Mon</div>
+          <div class="cal-day-header">Tue</div>
+          <div class="cal-day-header">Wed</div>
+          <div class="cal-day-header">Thu</div>
+          <div class="cal-day-header">Fri</div>
+          <div class="cal-day-header">Sat</div>
+        </div>
+        <div id="cal-day-grid"></div>
+      </div>
+      <div id="cal-day-detail" style="display:none">
+        <div class="panel" style="margin-top:12px">
+          <div class="panel-hdr">
+            <div class="panel-ttl" id="cal-detail-title">—</div>
+            <span style="font-size:11px;color:#534AB7;cursor:pointer" onclick="closeCalDetail()">Close</span>
+          </div>
+          <div id="cal-detail-body"></div>
+        </div>
+      </div>
+    </div>
+
 <!-- MODALS -->
+<!-- QUICK CAPTURE -->
+<button id="quick-capture-btn" onclick="toggleQCMenu(event)" title="Quick capture">
+  <i class="ti ti-plus"></i>
+</button>
+<div id="quick-capture-menu">
+  <button class="qc-item" onclick="qcNav('decisions', openDecisionModal)"><i class="ti ti-book-2"></i> Log Decision</button>
+  <button class="qc-item" onclick="qcNav('tasks', openTaskModal)"><i class="ti ti-list-check"></i> New Task</button>
+  <button class="qc-item" onclick="qcNav('notes', openNoteModal)"><i class="ti ti-notes"></i> New Note</button>
+  <button class="qc-item" onclick="qcNav('commitments', openCommitmentModal)"><i class="ti ti-git-merge"></i> New Commitment</button>
+</div>
+
+<!-- DECISION MODAL -->
+<div class="mc-modal-overlay" id="decision-modal">
+  <div class="mc-modal-box">
+    <div class="mc-modal-title" id="decision-modal-title">Log a Decision</div>
+    <input type="hidden" id="decision-edit-id">
+    <label>Decision title *</label>
+    <input type="text" id="dec-title" placeholder="What was decided?" style="width:100%;margin-bottom:12px">
+    <label>Trigger / What happened</label>
+    <textarea id="dec-trigger" placeholder="What prompted this decision?" style="width:100%;background:#0a0a12;border:1px solid #252535;color:#f0f0f0;border-radius:8px;padding:9px 12px;font-size:13px;font-family:inherit;margin-bottom:12px;min-height:60px;resize:vertical"></textarea>
+    <label>Decision made</label>
+    <textarea id="dec-decision" placeholder="Exactly what was decided..." style="width:100%;background:#0a0a12;border:1px solid #252535;color:#f0f0f0;border-radius:8px;padding:9px 12px;font-size:13px;font-family:inherit;margin-bottom:12px;min-height:60px;resize:vertical"></textarea>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <div>
+        <label>Owner</label>
+        <input type="text" id="dec-owner" placeholder="CEO / EA / Team lead" style="width:100%">
+      </div>
+      <div>
+        <label>Date</label>
+        <input type="date" id="dec-date" style="width:100%">
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <div>
+        <label>Impact</label>
+        <select id="dec-impact" style="width:100%;margin-bottom:0">
+          <option value="critical">Critical</option>
+          <option value="high" selected>High</option>
+          <option value="medium">Medium</option>
+        </select>
+      </div>
+      <div>
+        <label>Status</label>
+        <select id="dec-status" style="width:100%;margin-bottom:0">
+          <option value="open" selected>Open</option>
+          <option value="resolved">Resolved</option>
+        </select>
+      </div>
+    </div>
+    <label>Notes</label>
+    <textarea id="dec-notes" placeholder="Additional context, follow-ups..." style="width:100%;background:#0a0a12;border:1px solid #252535;color:#f0f0f0;border-radius:8px;padding:9px 12px;font-size:13px;font-family:inherit;margin-bottom:16px;min-height:60px;resize:vertical"></textarea>
+    <div class="mc-btns">
+      <button class="mc-btn cancel" onclick="closeDecisionModal()">Cancel</button>
+      <button class="mc-btn primary" onclick="saveDecision()">Save Decision</button>
+    </div>
+  </div>
+</div>
+
+<!-- KPI CONFIGURE MODAL -->
+<div class="kpi-modal-overlay" id="kpi-modal">
+  <div class="kpi-modal-box">
+    <div class="kpi-modal-title">Configure KPI Metrics</div>
+    <div id="kpi-fields-container"></div>
+    <div class="mc-btns" style="margin-top:8px">
+      <button class="mc-btn cancel" onclick="closeKpiModal()">Cancel</button>
+      <button class="mc-btn primary" onclick="saveKpiValues()">Save Metrics</button>
+    </div>
+  </div>
+</div>
+
+
 <!-- Task Modal -->
 <div class="modal-overlay" id="task-modal">
   <div class="modal">
@@ -2872,63 +3234,454 @@ document.addEventListener('keydown',e=>{
 });
 
 
-// ── QUICK CAPTURE ─────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════
+// NexusOS v58 — Decision Log | Weekly Pulse | Calendar |
+//               Executive Focus | KPI Metrics | Quick Capture
+// ══════════════════════════════════════════════════════════
+
+// ── NAV FIX — replace broken v57 nav wrapper ─────────────
+// ROOT CAUSE: v57 injected `function nav(screen)` as a bare
+// declaration in global scope. JS hoists BOTH nav declarations,
+// last one wins → _mc_origNav captured itself → infinite recursion.
+// FIX: reimplement nav from scratch + integrate all hooks.
+window.nav = function(screen) {
+  // Core nav logic (replicate original)
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  var s = document.getElementById('s-'+screen);
+  if(!s){ console.warn('NexusOS: no screen #s-'+screen); return; }
+  s.classList.add('active');
+  var ni = document.getElementById('n-'+screen);
+  if(ni) ni.classList.add('active');
+  // Screen loaders
+  var loaders = {
+    tasks:loadTasks, approvals:loadApprovals, travel:loadTrips,
+    meeting:loadMeetings, chat:loadChat, notifications:loadNotifications,
+    briefing:loadBriefing, intel:loadIntel, notes:loadNotes,
+    settings:loadSettings, relationships:loadRelationships,
+    pricing:function(){}, commitments:loadCommitments
+  };
+  if(loaders[screen]) loaders[screen]();
+  // v57 Multi-client hook
+  if(screen==='clients'){ try{ mcLoadScreen(); }catch(e){} }
+  // v58 hooks
+  if(screen==='decisions') setTimeout(renderDecisions,0);
+  if(screen==='weekly')    setTimeout(renderWeeklyPulse,0);
+  if(screen==='calendar')  setTimeout(renderCalendar,0);
+  if(screen==='dashboard') setTimeout(function(){ loadExecFocus(); renderKpiGrid(); },200);
+};
+
+// ── AUTH SCREEN CLICK FIX ────────────────────────────────
 (function(){
-  function qcBtn(){ return document.getElementById('quick-capture-btn'); }
-  function qcMenu(){ return document.getElementById('quick-capture-menu'); }
-
-  window.toggleQCMenu = function(e){
-    if(e) e.stopPropagation();
-    const open = qcMenu().classList.toggle('open');
-    if(open) qcBtn().classList.add('open');
-    else      qcBtn().classList.remove('open');
+  var _prev = window.initApp;
+  window.initApp = async function(user){
+    if(_prev) await _prev(user);
+    var a = document.getElementById('auth-screen');
+    if(a){ a.style.display='none'; a.style.pointerEvents='none'; a.style.zIndex='-1'; }
   };
-
-  window.closeQCMenu = function(){
-    const m=qcMenu(); const b=qcBtn();
-    if(m) m.classList.remove('open');
-    if(b) b.classList.remove('open');
-  };
-
-  window.qcNav = function(screen, openFn){
-    closeQCMenu();
-    // If auth screen is active, do nothing
-    const auth=document.getElementById('auth-screen');
-    if(auth && (auth.style.display!=='none' && getComputedStyle(auth).display!=='none')) return;
-    nav(screen);
-    setTimeout(function(){ try{ openFn(); }catch(e){} }, 120);
-  };
-
-  // Close menu when clicking outside
-  document.addEventListener('click', function(e){
-    const m=qcMenu(); const b=qcBtn();
-    if(!m||!b) return;
-    if(!b.contains(e.target) && !m.contains(e.target)) closeQCMenu();
-  });
-
-  // Hide button while on auth screen
-  function syncQCVisibility(){
-    const auth=document.getElementById('auth-screen');
-    const btn=qcBtn();
-    if(!auth||!btn) return;
-    const authVisible = auth.style.display!=='none' && getComputedStyle(auth).display!=='none';
-    btn.style.display = authVisible ? 'none' : 'flex';
-  }
-  // Poll visibility every 400ms (cheap, catches login/logout transitions)
-  setInterval(syncQCVisibility, 400);
-  window.addEventListener('load', syncQCVisibility);
 })();
 
-</script>
+// ── QUICK CAPTURE ────────────────────────────────────────
+function qcBtn(){ return document.getElementById('quick-capture-btn'); }
+function qcMenu(){ return document.getElementById('quick-capture-menu'); }
+function toggleQCMenu(e){
+  if(e) e.stopPropagation();
+  const open = qcMenu().classList.toggle('open');
+  if(open) qcBtn().classList.add('open'); else qcBtn().classList.remove('open');
+}
+function closeQCMenu(){
+  const m=qcMenu(), b=qcBtn();
+  if(m) m.classList.remove('open');
+  if(b) b.classList.remove('open');
+}
+function qcNav(screen, openFn){
+  closeQCMenu();
+  var auth=document.getElementById('auth-screen');
+  if(auth && getComputedStyle(auth).display!=='none') return;
+  window.nav(screen);
+  setTimeout(function(){ try{ openFn(); }catch(err){} }, 130);
+}
+document.addEventListener('click', function(e){
+  const m=qcMenu(), b=qcBtn();
+  if(!m||!b) return;
+  if(!b.contains(e.target)&&!m.contains(e.target)) closeQCMenu();
+});
+// Hide QC when auth screen is visible
+function syncQCVisibility(){
+  const auth=document.getElementById('auth-screen');
+  const btn=qcBtn();
+  if(!auth||!btn) return;
+  const authOn = auth.style.display!=='none' && getComputedStyle(auth).display!=='none';
+  btn.style.display = authOn ? 'none' : 'flex';
+}
+setInterval(syncQCVisibility, 400);
+window.addEventListener('load', syncQCVisibility);
 
-<!-- QUICK CAPTURE -->
-<button id="quick-capture-btn" onclick="toggleQCMenu(event)" title="Quick capture">
-  <i class="ti ti-plus"></i>
-</button>
-<div id="quick-capture-menu">
-  <button class="qc-item" onclick="qcNav('tasks',openTaskModal)"><i class="ti ti-list-check"></i> New Task</button>
-  <button class="qc-item" onclick="qcNav('notes',openNoteModal)"><i class="ti ti-notes"></i> New Note</button>
-  <button class="qc-item" onclick="qcNav('commitments',openCommitmentModal)"><i class="ti ti-git-merge"></i> New Commitment</button>
-</div>
+// ── EXECUTIVE FOCUS ───────────────────────────────────────
+async function loadExecFocus(){
+  const status = document.getElementById('exec-focus-status');
+  const tags   = document.getElementById('exec-focus-tags');
+  if(!status||!tags||!window.sb||!window.currentUser) return;
+  try {
+    const [tasksRes, approvalsRes] = await Promise.all([
+      sb.from('tasks').select('id,name,status,priority,due_date').neq('status','completed'),
+      sb.from('approvals').select('id').eq('status','pending')
+    ]);
+    const tasks = tasksRes.data||[];
+    const appr  = approvalsRes.data||[];
+    const today = new Date(); today.setHours(0,0,0,0);
+    const overdue = tasks.filter(t=>{ if(!t.due_date) return false; const d=new Date(t.due_date); d.setHours(0,0,0,0); return d<today; });
+    const highP   = tasks.filter(t=>t.priority==='high');
+    const focusItems = [];
+    if(overdue.length){
+      status.innerHTML='<i class="ti ti-alert-triangle" style="color:#E24B4A"></i> ' + overdue.length + ' overdue task' + (overdue.length>1?'s':'') + ' need immediate attention';
+      focusItems.push('<span class="focus-tag operational">⊘ ' + overdue.length + ' Overdue</span>');
+    } else if(appr.length){
+      status.innerHTML='<i class="ti ti-circle-check" style="color:#f0b429"></i> ' + appr.length + ' approval' + (appr.length>1?'s':'') + ' awaiting your decision';
+    } else if(highP.length){
+      status.innerHTML='<i class="ti ti-star" style="color:#534AB7"></i> ' + highP.length + ' high-priority task' + (highP.length>1?'s':'') + ' in progress';
+    } else {
+      status.innerHTML='<i class="ti ti-check" style="color:#1D9E75"></i> All clear — no critical items need your attention right now.';
+      focusItems.push('<span class="focus-tag clear">✓ All systems clear</span>');
+    }
+    if(appr.length) focusItems.push('<span class="focus-tag financial">$ ' + appr.length + ' pending approval' + (appr.length>1?'s':'') + '</span>');
+    if(highP.length) focusItems.push('<span class="focus-tag strategic">⊙ ' + highP.length + ' high priority</span>');
+    tags.innerHTML = focusItems.join('');
+  } catch(err){ status.innerHTML='<i class="ti ti-check"></i> Loading...'; }
+}
+
+// Hook into loadDashboard
+const _origLoadDashboard = window.loadDashboard || (typeof loadDashboard!=='undefined' ? loadDashboard : null);
+window.loadDashboard = async function(){
+  if(_origLoadDashboard) await _origLoadDashboard();
+  loadExecFocus();
+  renderKpiGrid();
+};
+
+// ── KPI METRICS ───────────────────────────────────────────
+const KPI_PRESETS = {
+  saas: [
+    {label:'MRR',key:'kpi_mrr',suffix:'',color:'green',sub:'Monthly recurring revenue'},
+    {label:'ARR',key:'kpi_arr',suffix:'',color:'green',sub:'Annual recurring revenue'},
+    {label:'Churn Rate',key:'kpi_churn',suffix:'%',color:'red',sub:'Monthly churn'},
+    {label:'CAC',key:'kpi_cac',suffix:'',color:'amber',sub:'Customer acq. cost'},
+    {label:'LTV',key:'kpi_ltv',suffix:'',color:'blue',sub:'Lifetime value'},
+    {label:'Active Users',key:'kpi_users',suffix:'',color:'',sub:'Current active'}
+  ],
+  healthcare: [
+    {label:'Census',key:'kpi_census',suffix:'',color:'blue',sub:'Current occupancy'},
+    {label:'Revenue',key:'kpi_rev',suffix:'',color:'green',sub:'Monthly revenue'},
+    {label:'Readmissions',key:'kpi_readm',suffix:'%',color:'red',sub:'30-day rate'},
+    {label:'HCAHPS',key:'kpi_hcahps',suffix:'',color:'green',sub:'Patient satisfaction'},
+    {label:'Open Roles',key:'kpi_openroles',suffix:'',color:'amber',sub:'Unfilled positions'},
+    {label:'AR Days',key:'kpi_ardays',suffix:'d',color:'amber',sub:'Days in AR'}
+  ],
+  services: [
+    {label:'Revenue',key:'kpi_rev',suffix:'',color:'green',sub:'Monthly revenue'},
+    {label:'Utilization',key:'kpi_util',suffix:'%',color:'blue',sub:'Billable hours'},
+    {label:'Pipeline',key:'kpi_pipeline',suffix:'',color:'amber',sub:'Total pipeline value'},
+    {label:'NPS',key:'kpi_nps',suffix:'',color:'green',sub:'Net promoter score'},
+    {label:'Active Clients',key:'kpi_clients',suffix:'',color:'',sub:'Current engagements'},
+    {label:'EBITDA',key:'kpi_ebitda',suffix:'%',color:'green',sub:'EBITDA margin'}
+  ],
+  ecommerce: [
+    {label:'GMV',key:'kpi_gmv',suffix:'',color:'green',sub:'Gross merch. value'},
+    {label:'AOV',key:'kpi_aov',suffix:'',color:'blue',sub:'Average order value'},
+    {label:'Conv. Rate',key:'kpi_conv',suffix:'%',color:'amber',sub:'Site conversion'},
+    {label:'ROAS',key:'kpi_roas',suffix:'x',color:'green',sub:'Return on ad spend'},
+    {label:'CAC',key:'kpi_cac',suffix:'',color:'red',sub:'Cost per acquisition'},
+    {label:'Inventory',key:'kpi_inventory',suffix:'d',color:'amber',sub:'Days of stock'}
+  ],
+  pe: [
+    {label:'Portfolio Cos.',key:'kpi_portco',suffix:'',color:'blue',sub:'Active investments'},
+    {label:'Pipeline',key:'kpi_pipeline',suffix:'',color:'amber',sub:'Total deal pipeline'},
+    {label:'Active LOIs',key:'kpi_lois',suffix:'',color:'green',sub:'Letters of intent'},
+    {label:'AUM',key:'kpi_aum',suffix:'',color:'green',sub:'Assets under mgmt.'},
+    {label:'MOIC',key:'kpi_moic',suffix:'x',color:'green',sub:'Multiple on invested capital'},
+    {label:'IRR',key:'kpi_irr',suffix:'%',color:'amber',sub:'Internal rate of return'}
+  ]
+};
+
+function getKpiSector(){ return localStorage.getItem('nexusos_kpi_sector')||'saas'; }
+function setKpiSector(sector){
+  localStorage.setItem('nexusos_kpi_sector', sector);
+  document.querySelectorAll('.kpi-sector-tab').forEach(t=>{
+    t.classList.toggle('active', t.dataset.sector===sector);
+  });
+  renderKpiGrid();
+}
+function renderKpiGrid(){
+  const sector = getKpiSector();
+  const kpis   = KPI_PRESETS[sector]||[];
+  document.querySelectorAll('.kpi-sector-tab').forEach(t=>{
+    t.classList.toggle('active', t.dataset.sector===sector);
+  });
+  const grid = document.getElementById('kpi-grid');
+  if(!grid) return;
+  grid.innerHTML = kpis.map(k=>{
+    const val = localStorage.getItem(k.key)||'—';
+    return `<div class="kpi-card ${k.color}">
+      <div class="kpi-card-lbl">${k.label}</div>
+      <div class="kpi-card-val">${val}${val!=='—'?(k.suffix||''):''}</div>
+      <div class="kpi-card-sub">${k.sub}</div>
+    </div>`;
+  }).join('');
+}
+function openKpiModal(){
+  const sector = getKpiSector();
+  const kpis   = KPI_PRESETS[sector]||[];
+  const container = document.getElementById('kpi-fields-container');
+  if(!container) return;
+  container.innerHTML = '<p style="font-size:12px;color:#555;margin-bottom:16px">Enter your current numbers for <strong style="color:#f0f0f0">'+sector.toUpperCase()+'</strong> metrics:</p>' +
+    kpis.map(k=>`<div class="kpi-field-row"><label>${k.label} <span style="font-weight:400;color:#444">(${k.sub})</span></label><input type="text" id="kpi-input-${k.key}" value="${localStorage.getItem(k.key)||''}" placeholder="Enter value"></div>`).join('');
+  document.getElementById('kpi-modal').classList.add('open');
+}
+function closeKpiModal(){ document.getElementById('kpi-modal').classList.remove('open'); }
+function saveKpiValues(){
+  const sector = getKpiSector();
+  (KPI_PRESETS[sector]||[]).forEach(k=>{
+    const el = document.getElementById('kpi-input-'+k.key);
+    if(el) localStorage.setItem(k.key, el.value.trim());
+  });
+  closeKpiModal();
+  renderKpiGrid();
+}
+document.getElementById('kpi-modal').addEventListener('click', function(e){ if(e.target===this) closeKpiModal(); });
+
+// ── DECISION LOG ──────────────────────────────────────────
+const DEC_KEY = 'nexusos_decisions';
+function getDecisions(){ try{ return JSON.parse(localStorage.getItem(DEC_KEY)||'[]'); }catch(e){ return []; } }
+function saveDecisions(arr){ localStorage.setItem(DEC_KEY, JSON.stringify(arr)); }
+
+function openDecisionModal(dec){
+  document.getElementById('decision-modal-title').textContent = dec ? 'Edit Decision' : 'Log a Decision';
+  document.getElementById('decision-edit-id').value = dec ? dec.id : '';
+  document.getElementById('dec-title').value   = dec ? dec.title    : '';
+  document.getElementById('dec-trigger').value = dec ? dec.trigger  : '';
+  document.getElementById('dec-decision').value= dec ? dec.decision : '';
+  document.getElementById('dec-owner').value   = dec ? dec.owner    : '';
+  document.getElementById('dec-date').value    = dec ? dec.date     : new Date().toISOString().split('T')[0];
+  document.getElementById('dec-impact').value  = dec ? dec.impact   : 'high';
+  document.getElementById('dec-status').value  = dec ? dec.status   : 'open';
+  document.getElementById('dec-notes').value   = dec ? dec.notes    : '';
+  document.getElementById('decision-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('dec-title').focus(), 80);
+}
+function closeDecisionModal(){ document.getElementById('decision-modal').classList.remove('open'); }
+function saveDecision(){
+  const title = document.getElementById('dec-title').value.trim();
+  if(!title){ document.getElementById('dec-title').focus(); return; }
+  const editId = document.getElementById('decision-edit-id').value;
+  const item = {
+    id: editId || ('d_'+Date.now()),
+    title,
+    trigger:   document.getElementById('dec-trigger').value.trim(),
+    decision:  document.getElementById('dec-decision').value.trim(),
+    owner:     document.getElementById('dec-owner').value.trim(),
+    date:      document.getElementById('dec-date').value,
+    impact:    document.getElementById('dec-impact').value,
+    status:    document.getElementById('dec-status').value,
+    notes:     document.getElementById('dec-notes').value.trim(),
+    createdAt: editId ? undefined : new Date().toISOString()
+  };
+  let all = getDecisions();
+  if(editId){ const idx=all.findIndex(d=>d.id===editId); if(idx!==-1) all[idx]={...all[idx],...item}; }
+  else { item.createdAt = new Date().toISOString(); all.unshift(item); }
+  saveDecisions(all);
+  closeDecisionModal();
+  renderDecisions();
+}
+function deleteDecision(id){
+  if(!confirm('Delete this decision?')) return;
+  saveDecisions(getDecisions().filter(d=>d.id!==id));
+  renderDecisions();
+}
+function renderDecisions(){
+  const list = document.getElementById('decisions-list');
+  if(!list) return;
+  const filterStatus = document.getElementById('decision-filter-status')?.value||'all';
+  const filterImpact = document.getElementById('decision-filter-impact')?.value||'all';
+  let decs = getDecisions();
+  if(filterStatus!=='all') decs=decs.filter(d=>d.status===filterStatus);
+  if(filterImpact!=='all') decs=decs.filter(d=>d.impact===filterImpact);
+  if(!decs.length){
+    list.innerHTML='<div class="empty-state"><i class="ti ti-book-2"></i>No decisions logged yet.<br><span style="font-size:11px">Click "Log Decision" to start building your decision record.</span></div>';
+    return;
+  }
+  list.innerHTML = decs.map(d=>{
+    const dateStr = d.date ? new Date(d.date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '—';
+    return `<div class="decision-card">
+      <div class="decision-card-header">
+        <div class="decision-title">${d.title}</div>
+        <div style="display:flex;gap:6px;flex-shrink:0">
+          <button class="btn-outline" style="padding:4px 9px;font-size:11px" onclick="openDecisionModal(${JSON.stringify(d).replace(/"/g,'&quot;')})"><i class="ti ti-pencil"></i></button>
+          <button class="btn-outline" style="padding:4px 9px;font-size:11px;color:#E24B4A" onclick="deleteDecision('${d.id}')"><i class="ti ti-trash"></i></button>
+        </div>
+      </div>
+      <div class="decision-meta">
+        <span class="tag tag-impact-${d.impact}" style="padding:3px 9px;border-radius:12px;font-size:10px;font-weight:600">${d.impact.toUpperCase()}</span>
+        <span class="tag tag-${d.status}" style="padding:3px 9px;border-radius:12px;font-size:10px;font-weight:600">${d.status==='resolved'?'RESOLVED':'OPEN'}</span>
+      </div>
+      ${d.trigger?`<div class="decision-trigger"><b style="color:#555">Trigger:</b> ${d.trigger}</div>`:''}
+      ${d.decision?`<div class="decision-body">${d.decision}</div>`:''}
+      ${d.notes?`<div class="decision-trigger" style="margin-top:4px;font-style:italic;color:#444">${d.notes}</div>`:''}
+      <div class="decision-footer">
+        <span class="decision-owner">${d.owner?'<i class="ti ti-user"></i> '+d.owner:''}</span>
+        <span class="decision-date">${dateStr}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+document.getElementById('decision-modal').addEventListener('click', function(e){ if(e.target===this) closeDecisionModal(); });
+
+// ── WEEKLY PULSE ──────────────────────────────────────────
+const PULSE_KEY = 'nexusos_weekly_pulse';
+function getPulses(){ try{ return JSON.parse(localStorage.getItem(PULSE_KEY)||'[]'); }catch(e){ return []; } }
+function savePulses(arr){ localStorage.setItem(PULSE_KEY, JSON.stringify(arr)); }
+function getWeekBounds(d){
+  const dt = d ? new Date(d) : new Date();
+  const day = dt.getDay();
+  const mon = new Date(dt); mon.setDate(dt.getDate()-day+1);
+  const sun = new Date(mon); sun.setDate(mon.getDate()+6);
+  const fmt = x => x.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  return { start: mon.toISOString().split('T')[0], end: sun.toISOString().split('T')[0], label: fmt(mon)+' – '+fmt(sun) };
+}
+function renderWeeklyPulse(){
+  const week = getWeekBounds();
+  const rangeEl = document.getElementById('pulse-week-range');
+  if(rangeEl) rangeEl.textContent = week.label;
+  // Load current week saved values
+  const pulses = getPulses();
+  const current = pulses.find(p=>p.weekStart===week.start);
+  document.getElementById('pulse-wins').value     = current?.wins||'';
+  document.getElementById('pulse-blockers').value  = current?.blockers||'';
+  document.getElementById('pulse-next').value      = current?.priorities||'';
+  // Render history (past weeks)
+  const hist = document.getElementById('pulse-history');
+  if(!hist) return;
+  const past = pulses.filter(p=>p.weekStart!==week.start).slice(0,8);
+  if(!past.length){ hist.innerHTML='<div style="font-size:12px;color:#333;margin-top:8px">No previous pulses yet.</div>'; return; }
+  hist.innerHTML = past.map(p=>`<div class="pulse-history-item">
+    <div class="pulse-history-week"><i class="ti ti-calendar"></i> ${p.label||p.weekStart}</div>
+    ${p.wins?`<div class="pulse-history-row"><div class="pulse-history-lbl">Wins</div><div class="pulse-history-val">${p.wins}</div></div>`:''}
+    ${p.blockers?`<div class="pulse-history-row"><div class="pulse-history-lbl">Blockers</div><div class="pulse-history-val">${p.blockers}</div></div>`:''}
+    ${p.priorities?`<div class="pulse-history-row"><div class="pulse-history-lbl">Next week</div><div class="pulse-history-val">${p.priorities}</div></div>`:''}
+  </div>`).join('');
+}
+function savePulse(){
+  const week    = getWeekBounds();
+  const wins    = document.getElementById('pulse-wins').value.trim();
+  const blockers= document.getElementById('pulse-blockers').value.trim();
+  const priorities=document.getElementById('pulse-next').value.trim();
+  let pulses    = getPulses();
+  const idx     = pulses.findIndex(p=>p.weekStart===week.start);
+  const entry   = {weekStart:week.start, weekEnd:week.end, label:week.label, wins, blockers, priorities, savedAt:new Date().toISOString()};
+  if(idx!==-1) pulses[idx]=entry; else pulses.unshift(entry);
+  savePulses(pulses);
+  // Flash feedback
+  const btn = event.target;
+  btn.textContent='✓ Saved';
+  setTimeout(()=>btn.innerHTML='<i class="ti ti-device-floppy"></i> Save pulse', 1500);
+}
+
+// ── CALENDAR ──────────────────────────────────────────────
+let calYear = new Date().getFullYear();
+let calMonth = new Date().getMonth();
+let calEvents = {};  // {YYYY-MM-DD: [{type, title}]}
+
+async function loadCalendarEvents(){
+  if(!window.sb||!window.currentUser) return;
+  calEvents = {};
+  try{
+    const [meetRes, taskRes] = await Promise.all([
+      sb.from('meetings').select('meeting_date,title').not('meeting_date','is',null),
+      sb.from('tasks').select('due_date,name').not('due_date','is',null).neq('status','completed')
+    ]);
+    (meetRes.data||[]).forEach(m=>{ const d=m.meeting_date; if(!calEvents[d]) calEvents[d]=[]; calEvents[d].push({type:'meeting',title:m.title}); });
+    (taskRes.data||[]).forEach(t=>{ const d=t.due_date; if(!calEvents[d]) calEvents[d]=[]; calEvents[d].push({type:'task',title:t.name}); });
+  }catch(e){}
+  renderCalendarGrid();
+}
+async function renderCalendar(){
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('cal-month-label').textContent = months[calMonth]+' '+calYear;
+  await loadCalendarEvents();
+}
+function renderCalendarGrid(){
+  const grid = document.getElementById('cal-day-grid');
+  if(!grid) return;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const firstDay = new Date(calYear, calMonth, 1);
+  const lastDay  = new Date(calYear, calMonth+1, 0);
+  const startDow = firstDay.getDay();
+  let html = '';
+  // Prev month padding
+  for(let i=0;i<startDow;i++){
+    const d = new Date(calYear, calMonth, -startDow+1+i);
+    html += `<div class="cal-day other-month"><div class="cal-day-num">${d.getDate()}</div></div>`;
+  }
+  // Current month
+  for(let day=1;day<=lastDay.getDate();day++){
+    const dt  = new Date(calYear, calMonth, day);
+    const key = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    const isToday = dt.getTime()===today.getTime();
+    const evts = calEvents[key]||[];
+    const evtHtml = evts.slice(0,3).map(e=>`<div class="cal-event ${e.type}" title="${e.title}">${e.title}</div>`).join('');
+    const more = evts.length>3 ? `<div style="font-size:9px;color:#555">+${evts.length-3} more</div>` : '';
+    html += `<div class="cal-day${isToday?' today':''}" onclick="showCalDay('${key}',${day})"><div class="cal-day-num">${day}</div>${evtHtml}${more}</div>`;
+  }
+  // Next month padding
+  const remaining = 7 - ((startDow + lastDay.getDate()) % 7);
+  if(remaining<7) for(let i=1;i<=remaining;i++) html+=`<div class="cal-day other-month"><div class="cal-day-num">${i}</div></div>`;
+
+  grid.innerHTML = html;
+}
+function calPrevMonth(){
+  if(calMonth===0){ calMonth=11; calYear--; } else calMonth--;
+  renderCalendar();
+}
+function calNextMonth(){
+  if(calMonth===11){ calMonth=0; calYear++; } else calMonth++;
+  renderCalendar();
+}
+function showCalDay(key, day){
+  const evts = calEvents[key]||[];
+  const detail = document.getElementById('cal-day-detail');
+  const title  = document.getElementById('cal-detail-title');
+  const body   = document.getElementById('cal-detail-body');
+  if(!detail||!title||!body) return;
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  title.textContent = months[calMonth]+' '+day+', '+calYear;
+  if(!evts.length){
+    body.innerHTML='<div style="font-size:12px;color:#444;padding:12px 0">Nothing scheduled — clear day.</div>';
+  } else {
+    body.innerHTML = evts.map(e=>`<div style="padding:8px 0;border-bottom:1px solid #141420;display:flex;gap:10px;align-items:center">
+      <span class="cal-event ${e.type}" style="flex-shrink:0">${e.type==='meeting'?'📅':'✓'}</span>
+      <span style="font-size:13px;color:#f0f0f0">${e.title}</span>
+    </div>`).join('');
+  }
+  detail.style.display='block';
+  detail.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function closeCalDetail(){
+  const d=document.getElementById('cal-day-detail');
+  if(d) d.style.display='none';
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', function(e){
+  if(e.key==='Escape') { closeDecisionModal(); closeKpiModal(); closeQCMenu(); }
+  if(e.key==='Enter' && document.getElementById('decision-modal').classList.contains('open')) saveDecision();
+});
+
+// Init on load
+window.addEventListener('load', function(){
+  renderKpiGrid();
+  syncQCVisibility();
+  // Load exec focus after short delay (wait for initApp)
+  setTimeout(loadExecFocus, 1500);
+});
+
+</script>
 </body>
 </html>
