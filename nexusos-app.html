@@ -446,9 +446,10 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
   margin-bottom: 2px; white-space: nowrap; overflow: hidden;
   text-overflow: ellipsis; cursor: pointer;
 }
-.cal-event.meeting { background: #1a1830; color: #7F77DD; }
-.cal-event.task    { background: #1a1000; color: #f0b429; }
+.cal-event.meeting    { background: #1a1830; color: #7F77DD; }
+.cal-event.task       { background: #1a1000; color: #f0b429; }
 .cal-event.commitment { background: #081510; color: #1D9E75; }
+.cal-event.gcal       { background: #0c1c10; color: #34A853; }
 
 /* ── QUICK CAPTURE BUTTON ─────────────────────────────── */
 #quick-capture-btn {
@@ -504,6 +505,35 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 .kpi-field-row { margin-bottom: 14px; }
 .kpi-field-row label { font-size: 11px; color: #555; text-transform: uppercase; letter-spacing: 0.07em; display: block; margin-bottom: 5px; font-weight: 500; }
 .kpi-field-row input { width: 100%; background: #0a0a12; border: 1px solid #252535; color: #f0f0f0; border-radius: 8px; padding: 9px 12px; font-size: 13px; font-family: inherit; }
+
+/* ── PRIVACY NOTICE BAR ───────────────────────────────── */
+#privacy-notice-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: #fff; border-top: 1px solid #e0e0e0;
+  padding: 10px 24px;
+  display: flex; align-items: center;
+  z-index: 9500;
+  pointer-events: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 13px; color: #333;
+}
+#privacy-notice-bar .pnb-inner {
+  display: flex; align-items: center; gap: 14px;
+  flex-wrap: wrap; pointer-events: auto;
+}
+.pnb-btn {
+  background: none; border: none; cursor: pointer;
+  font-family: inherit; pointer-events: auto; line-height: 1; padding: 0;
+}
+.pnb-notice {
+  color: #1565C0; font-size: 13px; font-weight: 500;
+  text-decoration: underline; text-underline-offset: 2px;
+}
+.pnb-sep { color: #ccc; font-size: 13px; user-select: none; }
+.pnb-choices { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #333; }
+.pnb-check { color: #1D9E75; font-size: 16px; line-height: 1; }
+.pnb-close { color: #999; font-size: 19px; padding: 0 4px; line-height: 1; }
+.pnb-close:hover { color: #555; }
 </style>
 </head>
 <body>
@@ -876,7 +906,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
     <div class="screen" id="s-pricing">
       <div class="pg-eyebrow">Plans & Billing</div>
       <div class="pg-title">Upgrade NexusOS</div>
-      <div class="pg-sub">Simple pricing · Cancel anytime · Secured by PayMongo</div>
+      <div class="pg-sub">Simple pricing · Cancel anytime · Secured by Paddle</div>
 
       <!-- Current plan banner -->
       <div id="current-plan-banner" style="background:#13131f;border:1px solid #1e1e2e;border-radius:10px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between">
@@ -902,7 +932,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
           <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#aaa;padding:5px 0"><i class="ti ti-check" style="color:#1D9E75;font-size:14px"></i> Executive chat</div>
           <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#aaa;padding:5px 0"><i class="ti ti-check" style="color:#1D9E75;font-size:14px"></i> Notes hub</div>
           <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#aaa;padding:5px 0"><i class="ti ti-check" style="color:#1D9E75;font-size:14px"></i> 1 CEO + 1 EA workspace</div>
-          <a href="https://pm.link/org-42KohzkcijHssmD7MeEXPct9/Obx7Nwm" target="_blank" style="display:block;text-align:center;margin-top:20px;padding:11px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;background:transparent;color:#888;border:1px solid #2a2a3d;transition:all 0.15s" onmouseover="this.style.borderColor='#534AB7';this.style.color='#7F77DD'" onmouseout="this.style.borderColor='#2a2a3d';this.style.color='#888'">Get Starter</a>
+          <button onclick="openPaddleCheckout('pri_01kwewpkwctenvd4d2ehdjhqc5')" style="display:block;width:100%;text-align:center;margin-top:20px;padding:11px;border-radius:8px;font-size:13px;font-weight:600;background:transparent;color:#888;border:1px solid #2a2a3d;transition:all 0.15s;cursor:pointer;font-family:inherit" onmouseover="this.style.borderColor='#534AB7';this.style.color='#7F77DD'" onmouseout="this.style.borderColor='#2a2a3d';this.style.color='#888'">Get Starter</button>
         </div>
 
         <!-- PROFESSIONAL -->
@@ -918,7 +948,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
           <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#aaa;padding:5px 0"><i class="ti ti-check" style="color:#1D9E75;font-size:14px"></i> Meeting Prep AI</div>
           <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#aaa;padding:5px 0"><i class="ti ti-check" style="color:#1D9E75;font-size:14px"></i> Intelligence Centre</div>
           <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#aaa;padding:5px 0"><i class="ti ti-check" style="color:#1D9E75;font-size:14px"></i> Real-time notifications</div>
-          <a href="https://pm.link/org-42KohzkcijHssmD7MeEXPct9/RhLYfWY" target="_blank" style="display:block;text-align:center;margin-top:20px;padding:11px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;background:#534AB7;color:#EEEDFE" onmouseover="this.style.background='#3C3489'" onmouseout="this.style.background='#534AB7'">Get Professional</a>
+          <button onclick="openPaddleCheckout('pri_01kwewkaabjs2nx0xx4nd825gv')" style="display:block;width:100%;text-align:center;margin-top:20px;padding:11px;border-radius:8px;font-size:13px;font-weight:600;background:#534AB7;color:#EEEDFE;border:none;cursor:pointer;font-family:inherit" onmouseover="this.style.background='#3C3489'" onmouseout="this.style.background='#534AB7'">Get Professional</button>
         </div>
 
         <!-- ENTERPRISE -->
@@ -933,7 +963,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
           <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#aaa;padding:5px 0"><i class="ti ti-check" style="color:#1D9E75;font-size:14px"></i> Custom branding</div>
           <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#aaa;padding:5px 0"><i class="ti ti-check" style="color:#1D9E75;font-size:14px"></i> White-glove onboarding</div>
           <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#aaa;padding:5px 0"><i class="ti ti-check" style="color:#1D9E75;font-size:14px"></i> Priority support</div>
-          <a href="https://pm.link/org-42KohzkcijHssmD7MeEXPct9/Q8gM3IF" target="_blank" style="display:block;text-align:center;margin-top:20px;padding:11px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;background:#f0b429;color:#1a1400" onmouseover="this.style.background='#d9a320'" onmouseout="this.style.background='#f0b429'">Get Enterprise</a>
+          <button onclick="openPaddleCheckout('pri_01kwewf9nrsk2vw5v59bgaj0zm')" style="display:block;width:100%;text-align:center;margin-top:20px;padding:11px;border-radius:8px;font-size:13px;font-weight:600;background:#f0b429;color:#1a1400;border:none;cursor:pointer;font-family:inherit" onmouseover="this.style.background='#d9a320'" onmouseout="this.style.background='#f0b429'">Get Enterprise</button>
         </div>
       </div>
 
@@ -947,7 +977,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
           </div>
           <div>
             <div style="font-size:12px;font-weight:500;color:#ddd;margin-bottom:4px">Is my payment secure?</div>
-            <div style="font-size:12px;color:#666;line-height:1.6">All payments are processed by Stripe — the same payment infrastructure used by Amazon, Google, and Shopify.</div>
+            <div style="font-size:12px;color:#666;line-height:1.6">All payments are processed by Paddle — a Merchant of Record that handles global tax, billing, and compliance.</div>
           </div>
           <div>
             <div style="font-size:12px;font-weight:500;color:#ddd;margin-bottom:4px">Can I switch plans?</div>
@@ -959,7 +989,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
           </div>
         </div>
         <div style="margin-top:16px;padding-top:14px;border-top:1px solid #1e1e2e;text-align:center;font-size:12px;color:#555">
-          Questions? Contact <a href="mailto:jhun07.velado@gmail.com" style="color:#534AB7;text-decoration:none">jhun07.velado@gmail.com</a> · Payments secured by <span style="color:#1D9E75;font-weight:500">PayMongo</span>
+          Questions? Contact <a href="mailto:jhun07.velado@gmail.com" style="color:#534AB7;text-decoration:none">jhun07.velado@gmail.com</a> · Payments secured by <span style="color:#1D9E75;font-weight:500">Paddle</span>
         </div>
       </div>
     </div>
@@ -1283,7 +1313,15 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
     <div class="screen" id="s-calendar">
       <div class="pg-eyebrow">Enterprise</div>
       <div class="pg-title">Calendar</div>
-      <div class="pg-sub">Meetings, tasks, and commitments — all in one view</div>
+      <div class="pg-sub">Your schedule — meetings, tasks, and Google Calendar events</div>
+
+      <!-- Google Calendar connect bar -->
+      <div id="gcal-bar" style="display:flex;align-items:center;gap:12px;margin-bottom:16px;padding:12px 16px;background:#0a0a12;border:1px solid #1e1e2e;border-radius:10px">
+        <i class="ti ti-brand-google" style="color:#DB4437;font-size:17px;flex-shrink:0"></i>
+        <span style="font-size:13px;color:#aaa" id="gcal-status">Google Calendar not connected</span>
+        <button id="gcal-connect-btn" onclick="connectGcal()" style="margin-left:auto;background:transparent;border:1px solid #534AB7;color:#7F77DD;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;pointer-events:auto;transition:all 0.15s;white-space:nowrap" onmouseover="this.style.background='#1a1830'" onmouseout="this.style.background='transparent'">Connect</button>
+      </div>
+
       <div class="panel">
         <div class="cal-header">
           <button class="cal-nav-btn" onclick="calPrevMonth()">&#8249;</button>
@@ -3235,20 +3273,15 @@ document.addEventListener('keydown',e=>{
 
 
 // ══════════════════════════════════════════════════════════
-// NexusOS v58 — Decision Log | Weekly Pulse | Calendar |
-//               Executive Focus | KPI Metrics | Quick Capture
+// NexusOS v58 — Decision Log | Weekly Pulse | Calendar (+ GCal) |
+//               Executive Focus | KPI Metrics | Quick Capture |
+//               Paddle Payments | Privacy Notice Bar
 // ══════════════════════════════════════════════════════════
 
 // ── NAV FIX — replace broken v57 nav wrapper ─────────────
-// ROOT CAUSE: v57 injected `function nav(screen)` as a bare
-// declaration in global scope. JS hoists BOTH nav declarations,
-// last one wins → _mc_origNav captured itself → infinite recursion.
-// FIX: reimplement nav from scratch + integrate all hooks.
 window.nav = function(screen) {
-  // Scroll content area to top on every nav change
   var contentArea = document.querySelector('.content');
   if(contentArea) contentArea.scrollTop = 0;
-  // Core nav logic (replicate original)
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   var s = document.getElementById('s-'+screen);
@@ -3256,7 +3289,6 @@ window.nav = function(screen) {
   s.classList.add('active');
   var ni = document.getElementById('n-'+screen);
   if(ni) ni.classList.add('active');
-  // Screen loaders
   var loaders = {
     tasks:loadTasks, approvals:loadApprovals, travel:loadTrips,
     meeting:loadMeetings, chat:loadChat, notifications:loadNotifications,
@@ -3265,9 +3297,7 @@ window.nav = function(screen) {
     pricing:function(){}, commitments:loadCommitments
   };
   if(loaders[screen]) loaders[screen]();
-  // v57 Multi-client hook
   if(screen==='clients'){ try{ mcLoadScreen(); }catch(e){} }
-  // v58 hooks
   if(screen==='decisions') setTimeout(renderDecisions,0);
   if(screen==='weekly')    setTimeout(renderWeeklyPulse,0);
   if(screen==='calendar')  setTimeout(renderCalendar,0);
@@ -3309,7 +3339,6 @@ document.addEventListener('click', function(e){
   if(!m||!b) return;
   if(!b.contains(e.target)&&!m.contains(e.target)) closeQCMenu();
 });
-// Hide QC when auth screen is visible
 function syncQCVisibility(){
   const auth=document.getElementById('auth-screen');
   const btn=qcBtn();
@@ -3353,7 +3382,6 @@ async function loadExecFocus(){
   } catch(err){ status.innerHTML='<i class="ti ti-check"></i> Loading...'; }
 }
 
-// Hook into loadDashboard
 const _origLoadDashboard = window.loadDashboard || (typeof loadDashboard!=='undefined' ? loadDashboard : null);
 window.loadDashboard = async function(){
   if(_origLoadDashboard) await _origLoadDashboard();
@@ -3553,13 +3581,11 @@ function renderWeeklyPulse(){
   const week = getWeekBounds();
   const rangeEl = document.getElementById('pulse-week-range');
   if(rangeEl) rangeEl.textContent = week.label;
-  // Load current week saved values
   const pulses = getPulses();
   const current = pulses.find(p=>p.weekStart===week.start);
-  document.getElementById('pulse-wins').value     = current?.wins||'';
+  document.getElementById('pulse-wins').value      = current?.wins||'';
   document.getElementById('pulse-blockers').value  = current?.blockers||'';
   document.getElementById('pulse-next').value      = current?.priorities||'';
-  // Render history (past weeks)
   const hist = document.getElementById('pulse-history');
   if(!hist) return;
   const past = pulses.filter(p=>p.weekStart!==week.start).slice(0,8);
@@ -3572,23 +3598,22 @@ function renderWeeklyPulse(){
   </div>`).join('');
 }
 function savePulse(){
-  const week    = getWeekBounds();
-  const wins    = document.getElementById('pulse-wins').value.trim();
-  const blockers= document.getElementById('pulse-blockers').value.trim();
-  const priorities=document.getElementById('pulse-next').value.trim();
-  let pulses    = getPulses();
-  const idx     = pulses.findIndex(p=>p.weekStart===week.start);
-  const entry   = {weekStart:week.start, weekEnd:week.end, label:week.label, wins, blockers, priorities, savedAt:new Date().toISOString()};
+  const week     = getWeekBounds();
+  const wins     = document.getElementById('pulse-wins').value.trim();
+  const blockers = document.getElementById('pulse-blockers').value.trim();
+  const priorities = document.getElementById('pulse-next').value.trim();
+  let pulses     = getPulses();
+  const idx      = pulses.findIndex(p=>p.weekStart===week.start);
+  const entry    = {weekStart:week.start, weekEnd:week.end, label:week.label, wins, blockers, priorities, savedAt:new Date().toISOString()};
   if(idx!==-1) pulses[idx]=entry; else pulses.unshift(entry);
   savePulses(pulses);
-  // Flash feedback
   const btn = event.target;
   btn.textContent='✓ Saved';
   setTimeout(()=>btn.innerHTML='<i class="ti ti-device-floppy"></i> Save pulse', 1500);
 }
 
 // ── CALENDAR ──────────────────────────────────────────────
-let calYear = new Date().getFullYear();
+let calYear  = new Date().getFullYear();
 let calMonth = new Date().getMonth();
 let calEvents = {};  // {YYYY-MM-DD: [{type, title}]}
 
@@ -3603,13 +3628,24 @@ async function loadCalendarEvents(){
     (meetRes.data||[]).forEach(m=>{ const d=m.meeting_date; if(!calEvents[d]) calEvents[d]=[]; calEvents[d].push({type:'meeting',title:m.title}); });
     (taskRes.data||[]).forEach(t=>{ const d=t.due_date; if(!calEvents[d]) calEvents[d]=[]; calEvents[d].push({type:'task',title:t.name}); });
   }catch(e){}
-  renderCalendarGrid();
 }
+
 async function renderCalendar(){
-  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
   document.getElementById('cal-month-label').textContent = months[calMonth]+' '+calYear;
+  // Restore GCal bar state
+  var gcalWasConn = localStorage.getItem('nexusos_gcal_connected') === '1';
+  if(gcalWasConn) updateGcalBar(true);
   await loadCalendarEvents();
+  renderCalendarGrid();
+  // If GCal token is active, merge those events too
+  if(gcalWasConn && gcalGapiReady) {
+    var hasTok = false;
+    try { hasTok = !!(gapi && gapi.client && gapi.client.getToken()); } catch(ex) {}
+    if(hasTok) { await fetchGcalEvents(); renderCalendarGrid(); }
+  }
 }
+
 function renderCalendarGrid(){
   const grid = document.getElementById('cal-day-grid');
   if(!grid) return;
@@ -3618,12 +3654,10 @@ function renderCalendarGrid(){
   const lastDay  = new Date(calYear, calMonth+1, 0);
   const startDow = firstDay.getDay();
   let html = '';
-  // Prev month padding
   for(let i=0;i<startDow;i++){
     const d = new Date(calYear, calMonth, -startDow+1+i);
     html += `<div class="cal-day other-month"><div class="cal-day-num">${d.getDate()}</div></div>`;
   }
-  // Current month
   for(let day=1;day<=lastDay.getDate();day++){
     const dt  = new Date(calYear, calMonth, day);
     const key = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
@@ -3633,10 +3667,8 @@ function renderCalendarGrid(){
     const more = evts.length>3 ? `<div style="font-size:9px;color:#555">+${evts.length-3} more</div>` : '';
     html += `<div class="cal-day${isToday?' today':''}" onclick="showCalDay('${key}',${day})"><div class="cal-day-num">${day}</div>${evtHtml}${more}</div>`;
   }
-  // Next month padding
   const remaining = 7 - ((startDow + lastDay.getDate()) % 7);
   if(remaining<7) for(let i=1;i<=remaining;i++) html+=`<div class="cal-day other-month"><div class="cal-day-num">${i}</div></div>`;
-
   grid.innerHTML = html;
 }
 function calPrevMonth(){
@@ -3659,7 +3691,7 @@ function showCalDay(key, day){
     body.innerHTML='<div style="font-size:12px;color:#444;padding:12px 0">Nothing scheduled — clear day.</div>';
   } else {
     body.innerHTML = evts.map(e=>`<div style="padding:8px 0;border-bottom:1px solid #141420;display:flex;gap:10px;align-items:center">
-      <span class="cal-event ${e.type}" style="flex-shrink:0">${e.type==='meeting'?'📅':'✓'}</span>
+      <span class="cal-event ${e.type}" style="flex-shrink:0">${e.type==='meeting'?'📅':e.type==='gcal'?'🗓️':'✓'}</span>
       <span style="font-size:13px;color:#f0f0f0">${e.title}</span>
     </div>`).join('');
   }
@@ -3671,9 +3703,187 @@ function closeCalDetail(){
   if(d) d.style.display='none';
 }
 
-// Keyboard shortcuts
+// ── GOOGLE CALENDAR ───────────────────────────────────────
+var GCAL_CLIENT_ID = '626206970912-ie8vji85vjecqbb0i0uva1271u8tgi1a.apps.googleusercontent.com';
+var GCAL_SCOPES    = 'https://www.googleapis.com/auth/calendar.readonly';
+var gcalGapiReady  = false, gcalGisReady = false;
+var gcalTokenClient = null, gcalApisLoading = false;
+var gcalPendingCbs  = [];
+
+function loadGcalApis(callback) {
+  if(gcalGapiReady && gcalGisReady){ if(callback) setTimeout(callback,0); return; }
+  if(callback) gcalPendingCbs.push(callback);
+  if(gcalApisLoading) return;
+  gcalApisLoading = true;
+  var gapiOk=false, gisOk=false;
+  function checkBoth(){
+    if(!gapiOk||!gisOk) return;
+    gcalGapiReady = gcalGisReady = true;
+    gcalPendingCbs.splice(0).forEach(function(cb){ try{cb();}catch(e){} });
+  }
+  var s1=document.createElement('script');
+  s1.src='https://apis.google.com/js/api.js';
+  s1.onload=function(){
+    gapi.load('client', function(){ gapiOk=true; checkBoth(); });
+  };
+  document.head.appendChild(s1);
+  var s2=document.createElement('script');
+  s2.src='https://accounts.google.com/gsi/client';
+  s2.onload=function(){
+    gcalTokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: GCAL_CLIENT_ID, scope: GCAL_SCOPES,
+      callback: function(resp){
+        if(resp.error){
+          console.warn('GCal auth:', resp.error);
+          var btn=document.getElementById('gcal-connect-btn');
+          if(btn){ btn.textContent='Connect'; btn.disabled=false; }
+          return;
+        }
+        localStorage.setItem('nexusos_gcal_connected','1');
+        updateGcalBar(true);
+        fetchGcalEvents().then(function(){ renderCalendarGrid(); });
+      }
+    });
+    gisOk=true; checkBoth();
+  };
+  document.head.appendChild(s2);
+}
+
+function connectGcal(){
+  var btn=document.getElementById('gcal-connect-btn');
+  if(btn){ btn.textContent='Connecting…'; btn.disabled=true; }
+  loadGcalApis(function(){
+    if(!gcalTokenClient){
+      if(btn){ btn.textContent='Connect'; btn.disabled=false; }
+      return;
+    }
+    try{
+      var prev = localStorage.getItem('nexusos_gcal_connected')==='1';
+      gcalTokenClient.requestAccessToken({ prompt: prev ? '' : 'consent' });
+    }catch(e){
+      console.warn('GCal connect err', e);
+      if(btn){ btn.textContent='Connect'; btn.disabled=false; }
+    }
+  });
+}
+
+function disconnectGcal(){
+  try{
+    var tok=gapi.client.getToken();
+    if(tok && window.google) google.accounts.oauth2.revoke(tok.access_token);
+    gapi.client.setToken(null);
+  }catch(e){}
+  localStorage.removeItem('nexusos_gcal_connected');
+  updateGcalBar(false);
+  Object.keys(calEvents).forEach(function(k){
+    calEvents[k]=(calEvents[k]||[]).filter(function(e){ return e.type!=='gcal'; });
+  });
+  renderCalendarGrid();
+}
+
+async function fetchGcalEvents(){
+  if(!gcalGapiReady) return;
+  var tok=null;
+  try{ tok=gapi.client.getToken(); }catch(e){}
+  if(!tok||!tok.access_token) return;
+  try{
+    var firstDay=new Date(calYear,calMonth,1).toISOString();
+    var lastDay=new Date(calYear,calMonth+1,0,23,59,59).toISOString();
+    var resp=await gapi.client.request({
+      path:'https://www.googleapis.com/calendar/v3/calendars/primary/events',
+      method:'GET',
+      params:{
+        timeMin:firstDay, timeMax:lastDay,
+        showDeleted:false, singleEvents:true, maxResults:250, orderBy:'startTime'
+      }
+    });
+    var items=(resp.result&&resp.result.items)||[];
+    // Clear previous gcal events
+    Object.keys(calEvents).forEach(function(k){
+      calEvents[k]=(calEvents[k]||[]).filter(function(e){ return e.type!=='gcal'; });
+    });
+    items.forEach(function(ev){
+      var start=(ev.start&&(ev.start.date||ev.start.dateTime))||'';
+      if(!start) return;
+      var dk=start.substring(0,10);
+      if(!calEvents[dk]) calEvents[dk]=[];
+      calEvents[dk].push({ type:'gcal', title:ev.summary||'Untitled' });
+    });
+  }catch(e){ console.warn('GCal events fetch err', e); }
+}
+
+function updateGcalBar(connected){
+  var status=document.getElementById('gcal-status');
+  var btn=document.getElementById('gcal-connect-btn');
+  if(status) status.textContent = connected ? '✓ Google Calendar connected' : 'Google Calendar not connected';
+  if(btn){
+    btn.textContent    = connected ? 'Disconnect' : 'Connect';
+    btn.onclick        = connected ? disconnectGcal : connectGcal;
+    btn.style.color    = connected ? '#E24B4A' : '#7F77DD';
+    btn.style.borderColor = connected ? '#E24B4A' : '#534AB7';
+    btn.disabled       = false;
+  }
+}
+
+// ── PADDLE PAYMENTS ───────────────────────────────────────
+// NOTE: Replace 'PADDLE_CLIENT_TOKEN_HERE' with your live_ token
+// from Paddle Dashboard → Developer Tools → Authentication → Client-side tokens
+(function(){
+  var PADDLE_TOKEN = 'PADDLE_CLIENT_TOKEN_HERE';
+  var s=document.createElement('script');
+  s.src='https://cdn.paddle.com/paddle/v2/paddle.js';
+  s.async=true;
+  s.onload=function(){
+    try{ Paddle.Setup({ token: PADDLE_TOKEN }); console.log('NexusOS: Paddle ready'); }
+    catch(e){ console.warn('Paddle setup err', e); }
+  };
+  document.head.appendChild(s);
+})();
+
+window.openPaddleCheckout = function(priceId){
+  if(!window.Paddle){
+    alert('Payment system is still loading. Please wait a moment and try again.');
+    return;
+  }
+  var email = (window.currentUser && window.currentUser.email) ? window.currentUser.email : '';
+  try{
+    Paddle.Checkout.open({
+      items: [{ priceId: priceId, quantity: 1 }],
+      settings: { displayMode: 'overlay', theme: 'dark', allowLogout: false },
+      customer: email ? { email: email } : undefined
+    });
+  }catch(e){
+    console.error('Paddle checkout err', e);
+    alert('Unable to open checkout. Please refresh and try again, or contact jhun07.velado@gmail.com');
+  }
+};
+
+// ── PRIVACY NOTICE BAR ────────────────────────────────────
+function dismissPrivacyBar(){
+  localStorage.setItem('nexusos_privacy_dismissed','1');
+  var bar=document.getElementById('privacy-notice-bar');
+  if(bar) bar.style.display='none';
+}
+function openPrivacyNotice(){
+  window.open('https://www.iubenda.com/notice-at-collection/4591300','_blank','noopener,noreferrer');
+}
+(function(){
+  function applyPrivacyBarState(){
+    if(localStorage.getItem('nexusos_privacy_dismissed')==='1'){
+      var bar=document.getElementById('privacy-notice-bar');
+      if(bar) bar.style.display='none';
+    }
+  }
+  if(document.readyState==='loading') window.addEventListener('load', applyPrivacyBarState);
+  else applyPrivacyBarState();
+})();
+
+// ── KEYBOARD SHORTCUTS ────────────────────────────────────
 document.addEventListener('keydown', function(e){
-  if(e.key==='Escape') { closeDecisionModal(); closeKpiModal(); closeQCMenu(); }
+  if(e.key==='Escape'){
+    closeDecisionModal(); closeKpiModal(); closeQCMenu();
+    closeCalDetail();
+  }
   if(e.key==='Enter' && document.getElementById('decision-modal').classList.contains('open')) saveDecision();
 });
 
@@ -3681,10 +3891,29 @@ document.addEventListener('keydown', function(e){
 window.addEventListener('load', function(){
   renderKpiGrid();
   syncQCVisibility();
-  // Load exec focus after short delay (wait for initApp)
   setTimeout(loadExecFocus, 1500);
 });
 
 </script>
+
+<!-- PRIVACY NOTICE BAR -->
+<div id="privacy-notice-bar">
+  <div class="pnb-inner">
+    <button class="pnb-btn pnb-notice" onclick="openPrivacyNotice()">Notice at collection</button>
+    <span class="pnb-sep">|</span>
+    <span class="pnb-choices">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14" width="22" height="14" aria-hidden="true" style="flex-shrink:0">
+        <rect width="11" height="14" fill="#3B82F6"/>
+        <rect x="11" width="11" height="14" fill="#ffffff"/>
+        <rect x="11" width="11" height="14" fill="none" stroke="#e5e7eb" stroke-width="0.5"/>
+        <polyline points="3,7.5 5,10 8,5" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="14,7.5 16,10 19,5" fill="none" stroke="#9CA3AF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Your Privacy Choices
+      <span class="pnb-check">&#10003;</span>
+    </span>
+    <button class="pnb-btn pnb-close" onclick="dismissPrivacyBar()" title="Dismiss">&#x2715;</button>
+  </div>
+</div>
 </body>
 </html>
