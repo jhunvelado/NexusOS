@@ -588,6 +588,119 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
   .report-metric-val,.report-table td,.report-metric-val.green,.report-metric-val.purple,.report-metric-val.amber { color:#000 !important; }
   .pg-eyebrow,.pg-title,.pg-sub { color:#000 !important; }
 }
+
+/* ── MOBILE RESPONSIVE ───────────────────────────────── */
+#mobile-menu-btn {
+  display:none;
+  background:none; border:none; color:#f0f0f0;
+  font-size:22px; cursor:pointer; padding:4px 8px;
+  margin-right:6px; pointer-events:auto; line-height:1;
+  flex-shrink:0;
+}
+#sidebar-overlay {
+  display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,0.65); z-index:19000;
+}
+#sidebar-overlay.open { display:block; }
+
+@media (max-width:768px) {
+  #mobile-menu-btn { display:flex; align-items:center; }
+
+  /* Sidebar slides in as overlay */
+  .sidebar {
+    position:fixed !important;
+    top:0; left:0; bottom:0;
+    z-index:19500 !important;
+    width:240px !important;
+    transform:translateX(-100%);
+    transition:transform 0.25s cubic-bezier(.4,0,.2,1);
+    padding-top:52px !important;
+  }
+  .sidebar.mobile-open { transform:translateX(0) !important; }
+
+  /* Content fills full width */
+  .content { margin-left:0 !important; padding:12px 14px !important; }
+
+  /* Topbar compact */
+  .topbar { padding:8px 12px !important; }
+  .logo-sub { display:none !important; }
+  #client-switcher { display:none !important; }
+
+  /* Hide role pill text on very small screens */
+  .role-pill span { font-size:10px !important; }
+
+  /* Screens */
+  .screen { padding:14px 0 !important; }
+  .pg-title { font-size:22px !important; }
+  .pg-sub { font-size:12px !important; }
+
+  /* Panels */
+  .panel { padding:14px 12px !important; }
+
+  /* Stat row — 2 columns */
+  .stat-row { grid-template-columns:1fr 1fr !important; gap:8px !important; }
+
+  /* KPI grid — 2 columns */
+  .kpi-grid { grid-template-columns:1fr 1fr !important; }
+
+  /* KPI sector tabs — horizontal scroll */
+  .kpi-sector-tabs { flex-wrap:nowrap !important; overflow-x:auto !important; padding-bottom:4px !important; -webkit-overflow-scrolling:touch; }
+
+  /* Executive focus */
+  .exec-focus-banner { padding:12px 14px !important; }
+  .exec-focus-tags { gap:5px !important; }
+
+  /* Timer */
+  .timer-display { font-size:38px !important; padding:16px 0 10px !important; }
+  .timer-client-row { flex-direction:column !important; }
+  .timer-client-row > div { max-width:100% !important; min-width:100% !important; width:100% !important; }
+
+  /* Timer summary */
+  .timer-summary-grid { grid-template-columns:1fr 1fr !important; }
+
+  /* Report filter bar */
+  .report-filter-bar { flex-direction:column !important; align-items:stretch !important; }
+  .report-filter-bar select,
+  .report-filter-bar button { width:100% !important; }
+
+  /* Report metrics — 2 columns */
+  .report-metric-grid { grid-template-columns:1fr 1fr !important; }
+
+  /* Tables — horizontal scroll */
+  #time-log-body, #report-time-body { overflow-x:auto !important; -webkit-overflow-scrolling:touch; }
+  .timer-log-table, .report-table { font-size:11px !important; min-width:520px; }
+
+  /* Calendar */
+  .cal-day { min-height:48px !important; padding:3px !important; }
+  .cal-event { font-size:9px !important; padding:1px 3px !important; }
+  .cal-day-header { font-size:9px !important; }
+
+  /* Modals */
+  .mc-modal-overlay { padding:10px !important; align-items:flex-start !important; padding-top:60px !important; }
+  .mc-modal-box { width:100% !important; max-width:100% !important; max-height:80vh !important; }
+  .kpi-modal-box { width:100% !important; max-width:100% !important; }
+
+  /* Decision cards */
+  .decision-card-header { flex-direction:column !important; gap:6px !important; }
+
+  /* Weekly pulse textareas */
+  .pulse-textarea { min-height:60px !important; }
+
+  /* Quick capture — keep accessible */
+  #quick-capture-btn { bottom:20px !important; right:16px !important; width:48px !important; height:48px !important; }
+  #quick-capture-menu { bottom:78px !important; right:16px !important; }
+
+  /* Privacy bar — hide on mobile (too cramped) */
+  #privacy-notice-bar { display:none !important; }
+}
+
+@media (max-width:420px) {
+  .stat-row { grid-template-columns:1fr 1fr !important; }
+  .pg-title { font-size:19px !important; }
+  .timer-display { font-size:32px !important; }
+  .topbar { padding:6px 10px !important; }
+  #top-name { display:none !important; }
+}
 </style>
 </head>
 <body>
@@ -653,6 +766,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 
 <!-- TOPBAR -->
 <div class="topbar">
+  <button id="mobile-menu-btn" onclick="toggleMobileSidebar()" aria-label="Menu" title="Menu">&#9776;</button>
   <div class="logo">⚡ NexusOS<span class="logo-sub">Executive Operating System</span></div>
   <div class="topbar-right">
       <div class="client-switcher" id="client-switcher" onclick="toggleClientDropdown(event)">
@@ -4597,6 +4711,31 @@ document.addEventListener('keydown', function(e){
   if(e.key==='Enter' && document.getElementById('decision-modal').classList.contains('open')) saveDecision();
 });
 
+// ── MOBILE SIDEBAR ────────────────────────────────────────
+function toggleMobileSidebar(){
+  var sidebar=document.querySelector('.sidebar');
+  var overlay=document.getElementById('sidebar-overlay');
+  if(!sidebar) return;
+  var isOpen=sidebar.classList.toggle('mobile-open');
+  if(overlay) isOpen ? overlay.classList.add('open') : overlay.classList.remove('open');
+}
+function closeMobileSidebar(){
+  var sidebar=document.querySelector('.sidebar');
+  var overlay=document.getElementById('sidebar-overlay');
+  if(sidebar) sidebar.classList.remove('mobile-open');
+  if(overlay) overlay.classList.remove('open');
+}
+// Auto-close sidebar when a nav item is tapped on mobile
+document.addEventListener('click', function(e){
+  if(window.innerWidth<=768 && e.target.closest('.nav-item')){
+    setTimeout(closeMobileSidebar, 180);
+  }
+});
+// Close sidebar on Escape
+document.addEventListener('keydown', function(e){
+  if(e.key==='Escape') closeMobileSidebar();
+});
+
 // Init on load
 window.addEventListener('load', function(){
   renderKpiGrid();
@@ -4621,5 +4760,7 @@ window.addEventListener('load', function(){
     <button class="pnb-close" onclick="dismissPrivacyBar()" title="Dismiss">&#x2715;</button>
   </div>
 </div>
+
+<div id="sidebar-overlay" onclick="closeMobileSidebar()"></div>
 </body>
 </html>
