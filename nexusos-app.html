@@ -701,6 +701,54 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
   .topbar { padding:6px 10px !important; }
   #top-name { display:none !important; }
 }
+
+/* ── ONBOARDING TOUR ─────────────────────────────────── */
+#onboarding-overlay {
+  display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,0.82);
+  z-index:30000; align-items:center; justify-content:center;
+}
+#onboarding-overlay.active { display:flex; }
+#onboarding-card {
+  position:relative;
+  background:linear-gradient(135deg,#13131f 0%,#1a1830 100%);
+  border:1px solid #534AB7;
+  border-radius:18px; padding:32px 28px 24px;
+  width:360px; max-width:92vw;
+  z-index:30001;
+  box-shadow:0 0 0 4px rgba(83,74,183,0.12), 0 32px 64px rgba(0,0,0,0.6);
+  animation:obCardIn 0.3s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes obCardIn { from{opacity:0;transform:scale(0.92) translateY(12px)} to{opacity:1;transform:scale(1) translateY(0)} }
+.ob-step-dots { display:flex; gap:6px; margin-bottom:24px; }
+.ob-dot { height:5px; border-radius:3px; background:#2a2a3d; transition:all 0.25s; width:20px; }
+.ob-dot.active { background:#534AB7; width:32px; }
+.ob-dot.done { background:#1D9E75; }
+.ob-icon { font-size:36px; margin-bottom:14px; display:block; }
+.ob-eyebrow { font-size:10px; color:#534AB7; text-transform:uppercase; letter-spacing:0.12em; font-weight:700; margin-bottom:6px; }
+.ob-title { font-size:20px; font-weight:700; color:#f0f0f0; margin-bottom:10px; line-height:1.3; }
+.ob-desc { font-size:13px; color:#888; line-height:1.7; margin-bottom:26px; }
+.ob-actions { display:flex; align-items:center; justify-content:space-between; }
+.ob-skip { font-size:12px; color:#333; cursor:pointer; background:none; border:none; font-family:inherit; transition:color 0.15s; padding:0; }
+.ob-skip:hover { color:#666; }
+.ob-next {
+  background:#534AB7; color:#fff; border:none;
+  border-radius:9px; padding:11px 22px;
+  font-size:13px; font-weight:600; cursor:pointer;
+  font-family:inherit; transition:background 0.15s;
+  pointer-events:auto;
+}
+.ob-next:hover { background:#3C3489; }
+.ob-next.finale { background:#f0b429; color:#1a1400; }
+.ob-next.finale:hover { background:#d9a320; }
+.ob-progress { font-size:11px; color:#333; margin-top:16px; text-align:center; }
+/* Nav highlight pulse */
+.ob-nav-highlight {
+  box-shadow:0 0 0 2px #534AB7, 0 0 18px rgba(83,74,183,0.55) !important;
+  border-radius:8px !important;
+  background:#1a1830 !important;
+  transition:all 0.3s !important;
+}
 </style>
 </head>
 <body>
@@ -3702,6 +3750,8 @@ window.loadDashboard = async function(){
   if(_origLoadDashboard) await _origLoadDashboard();
   loadExecFocus();
   renderKpiGrid();
+  // Show onboarding tour on first login
+  setTimeout(startOnboarding, 900);
 };
 
 // ── KPI METRICS ───────────────────────────────────────────
@@ -4711,6 +4761,109 @@ document.addEventListener('keydown', function(e){
   if(e.key==='Enter' && document.getElementById('decision-modal').classList.contains('open')) saveDecision();
 });
 
+// ── ONBOARDING TOUR ───────────────────────────────────────
+var OB_STEPS = [
+  {
+    navId: 'n-dashboard',
+    icon: '⚡',
+    eyebrow: 'Welcome to NexusOS',
+    title: 'Your Command Centre',
+    desc: 'Everything at a glance — tasks, approvals, KPIs, and today\'s meetings. This is where every great day begins.'
+  },
+  {
+    navId: 'n-briefing',
+    icon: '🤖',
+    eyebrow: 'AI-Powered',
+    title: 'AI Briefing',
+    desc: 'Claude AI reads your tasks, meetings, and priorities then writes you a personalized morning briefing. Add your Anthropic key in Settings to activate.'
+  },
+  {
+    navId: 'n-decisions',
+    icon: '📋',
+    eyebrow: 'Command',
+    title: 'Decision Log',
+    desc: 'Every major decision captured with full context — what was decided, why, and what happened. Never lose institutional memory again.'
+  },
+  {
+    navId: 'n-time-tracker',
+    icon: '⏱',
+    eyebrow: 'Fractional EA',
+    title: 'Time Tracker',
+    desc: 'Track billable hours per client. Start a timer, log activities, and see exactly how much you\'ve earned this week across all your clients.'
+  },
+  {
+    navId: 'n-client-reports',
+    icon: '📊',
+    eyebrow: 'Fractional EA',
+    title: 'Client Reports',
+    desc: 'Generate professional monthly reports per client — total hours, earnings, tasks completed, and decisions logged. Send it. Get paid.'
+  },
+  {
+    navId: null,
+    icon: '🚀',
+    eyebrow: 'All set!',
+    title: "Let\'s build something great.",
+    desc: 'NexusOS is your AI-powered Executive Operating System. Whether you\'re supporting one CEO or five clients — this is your command centre.'
+  }
+];
+var _obStep = 0;
+
+function startOnboarding(){
+  if(localStorage.getItem('nexusos_onboarding_done')==='1') return;
+  _obStep = 0;
+  var overlay = document.getElementById('onboarding-overlay');
+  if(overlay) overlay.classList.add('active');
+  _renderObStep();
+}
+
+function _renderObStep(){
+  var step = OB_STEPS[_obStep];
+  var isLast = _obStep === OB_STEPS.length - 1;
+  // Remove previous highlights
+  document.querySelectorAll('.ob-nav-highlight').forEach(function(el){ el.classList.remove('ob-nav-highlight'); });
+  // Highlight nav item
+  if(step.navId){
+    var navEl = document.getElementById(step.navId);
+    if(navEl) navEl.classList.add('ob-nav-highlight');
+  }
+  // Build progress dots
+  var dots = OB_STEPS.map(function(_, i){
+    var cls = 'ob-dot' + (i===_obStep?' active':(i<_obStep?' done':''));
+    return '<div class="'+cls+'"></div>';
+  }).join('');
+  // Render card
+  var card = document.getElementById('onboarding-card');
+  if(!card) return;
+  card.innerHTML =
+    '<div class="ob-step-dots">'+dots+'</div>'+
+    '<span class="ob-eyebrow">'+step.eyebrow+'</span>'+
+    '<div class="ob-icon">'+step.icon+'</div>'+
+    '<div class="ob-title">'+step.title+'</div>'+
+    '<div class="ob-desc">'+step.desc+'</div>'+
+    '<div class="ob-actions">'+
+      (!isLast ? '<button class="ob-skip" onclick="skipOnboarding()">Skip tour</button>' : '<div></div>')+
+      '<button class="ob-next'+(isLast?' finale':'')+'" onclick="obNext()">'+
+        (isLast ? "✓ Let\'s go!" : 'Next →')+
+      '</button>'+
+    '</div>'+
+    '<div class="ob-progress">'+(_obStep+1)+' of '+OB_STEPS.length+'</div>';
+}
+
+function obNext(){
+  if(_obStep >= OB_STEPS.length - 1){ finishOnboarding(); return; }
+  _obStep++;
+  _renderObStep();
+}
+
+function skipOnboarding(){ finishOnboarding(); }
+
+function finishOnboarding(){
+  localStorage.setItem('nexusos_onboarding_done','1');
+  document.querySelectorAll('.ob-nav-highlight').forEach(function(el){ el.classList.remove('ob-nav-highlight'); });
+  var overlay = document.getElementById('onboarding-overlay');
+  if(overlay){ overlay.classList.remove('active'); }
+}
+
 // ── MOBILE SIDEBAR ────────────────────────────────────────
 function toggleMobileSidebar(){
   var sidebar=document.querySelector('.sidebar');
@@ -4762,5 +4915,10 @@ window.addEventListener('load', function(){
 </div>
 
 <div id="sidebar-overlay" onclick="closeMobileSidebar()"></div>
+
+<!-- ONBOARDING TOUR -->
+<div id="onboarding-overlay">
+  <div id="onboarding-card"></div>
+</div>
 </body>
 </html>
