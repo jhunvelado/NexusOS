@@ -273,6 +273,53 @@ textarea{min-height:80px;resize:vertical;line-height:1.5}
 .mc-btn.primary{background:#534AB7;color:#fff}
 .mc-btn.primary:hover{background:#4840a0}
 
+
+/* ── QUICK CAPTURE BUTTON ─────────────────────────────────────── */
+#quick-capture-btn{
+  position:fixed;bottom:24px;right:24px;
+  width:52px;height:52px;border-radius:50%;
+  background:#f0b429;border:none;
+  color:#1a1400;cursor:pointer;
+  z-index:10000;
+  box-shadow:0 4px 20px rgba(240,180,41,0.45);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform 0.2s cubic-bezier(.34,1.56,.64,1),box-shadow 0.2s;
+  pointer-events:all !important;
+}
+#quick-capture-btn:hover{
+  box-shadow:0 6px 28px rgba(240,180,41,0.65);
+}
+#quick-capture-btn.open{ transform:rotate(45deg); }
+#quick-capture-btn.open:hover{ transform:rotate(45deg) scale(1.08); }
+#quick-capture-btn:not(.open):hover{ transform:scale(1.08); }
+#quick-capture-btn i{ font-size:22px;line-height:1; }
+
+#quick-capture-menu{
+  display:none;
+  position:fixed;bottom:86px;right:24px;
+  z-index:10000;
+  flex-direction:column;gap:7px;
+  align-items:flex-end;
+}
+#quick-capture-menu.open{ display:flex; }
+.qc-item{
+  background:#13131f;border:1px solid #2a2a3d;
+  color:#f0f0f0;border-radius:9px;
+  padding:9px 16px;font-size:13px;font-weight:500;
+  cursor:pointer;white-space:nowrap;
+  display:flex;align-items:center;gap:9px;
+  transition:background 0.12s,border-color 0.12s;
+  font-family:inherit;
+  pointer-events:all !important;
+  box-shadow:0 2px 12px rgba(0,0,0,0.35);
+  animation:qcFadeIn 0.15s ease;
+}
+.qc-item:hover{ background:#1e1e2e;border-color:#3a3a5a; }
+.qc-item i{ color:#f0b429;font-size:15px; }
+@keyframes qcFadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+/* hide when auth screen visible */
+.auth-screen.active ~ * #quick-capture-btn,
+.auth-screen.active ~ * #quick-capture-menu{ display:none !important; }
 </style>
 </head>
 <body>
@@ -2824,6 +2871,64 @@ document.addEventListener('keydown',e=>{
   }
 });
 
+
+// ── QUICK CAPTURE ─────────────────────────────────────────────────────────
+(function(){
+  function qcBtn(){ return document.getElementById('quick-capture-btn'); }
+  function qcMenu(){ return document.getElementById('quick-capture-menu'); }
+
+  window.toggleQCMenu = function(e){
+    if(e) e.stopPropagation();
+    const open = qcMenu().classList.toggle('open');
+    if(open) qcBtn().classList.add('open');
+    else      qcBtn().classList.remove('open');
+  };
+
+  window.closeQCMenu = function(){
+    const m=qcMenu(); const b=qcBtn();
+    if(m) m.classList.remove('open');
+    if(b) b.classList.remove('open');
+  };
+
+  window.qcNav = function(screen, openFn){
+    closeQCMenu();
+    // If auth screen is active, do nothing
+    const auth=document.getElementById('auth-screen');
+    if(auth && (auth.style.display!=='none' && getComputedStyle(auth).display!=='none')) return;
+    nav(screen);
+    setTimeout(function(){ try{ openFn(); }catch(e){} }, 120);
+  };
+
+  // Close menu when clicking outside
+  document.addEventListener('click', function(e){
+    const m=qcMenu(); const b=qcBtn();
+    if(!m||!b) return;
+    if(!b.contains(e.target) && !m.contains(e.target)) closeQCMenu();
+  });
+
+  // Hide button while on auth screen
+  function syncQCVisibility(){
+    const auth=document.getElementById('auth-screen');
+    const btn=qcBtn();
+    if(!auth||!btn) return;
+    const authVisible = auth.style.display!=='none' && getComputedStyle(auth).display!=='none';
+    btn.style.display = authVisible ? 'none' : 'flex';
+  }
+  // Poll visibility every 400ms (cheap, catches login/logout transitions)
+  setInterval(syncQCVisibility, 400);
+  window.addEventListener('load', syncQCVisibility);
+})();
+
 </script>
+
+<!-- QUICK CAPTURE -->
+<button id="quick-capture-btn" onclick="toggleQCMenu(event)" title="Quick capture">
+  <i class="ti ti-plus"></i>
+</button>
+<div id="quick-capture-menu">
+  <button class="qc-item" onclick="qcNav('tasks',openTaskModal)"><i class="ti ti-list-check"></i> New Task</button>
+  <button class="qc-item" onclick="qcNav('notes',openNoteModal)"><i class="ti ti-notes"></i> New Note</button>
+  <button class="qc-item" onclick="qcNav('commitments',openCommitmentModal)"><i class="ti ti-git-merge"></i> New Commitment</button>
+</div>
 </body>
 </html>
