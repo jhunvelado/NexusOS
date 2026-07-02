@@ -3871,11 +3871,51 @@ function updateGcalBar(connected){
   }
 }
 
+// ── MULTI-CLIENT: ENTERPRISE-ONLY GATE ───────────────────
+// Override canUseMultiClient — Professional no longer gets multi-client
+window.canUseMultiClient = function(){
+  if(typeof isFounder === 'function' && isFounder()) return true;
+  if(localStorage.getItem('nexusos_founder') === '1') return true;
+  var plan = ((window.currentProfile && window.currentProfile.plan) || 'free').toLowerCase();
+  return plan === 'enterprise';
+};
+// Hook nav to intercept clients screen for non-Enterprise users
+(function(){
+  var _prevNav = window.nav;
+  window.nav = function(screen){
+    if(screen === 'clients' && !window.canUseMultiClient()){
+      // Show upgrade prompt inline instead of navigating
+      var plan = ((window.currentProfile && window.currentProfile.plan) || 'free').toLowerCase();
+      if(plan !== 'enterprise'){
+        alert('My Clients workspace is an Enterprise-only feature.\n\nUpgrade to Enterprise ($399/mo) to manage multiple client workspaces.');
+        return;
+      }
+    }
+    if(_prevNav) return _prevNav(screen);
+  };
+})();
+// Hide the My Clients nav item for non-Enterprise users after login
+(function(){
+  var _prevSetup = window.setupUI || null;
+  window.setupUI = function(){
+    if(_prevSetup) _prevSetup.apply(this, arguments);
+    var plan = ((window.currentProfile && window.currentProfile.plan) || 'free').toLowerCase();
+    var isEnt = plan === 'enterprise' || (typeof isFounder === 'function' && isFounder()) || localStorage.getItem('nexusos_founder') === '1';
+    var navClients = document.getElementById('n-clients');
+    if(navClients){
+      navClients.style.opacity = isEnt ? '1' : '0.35';
+      navClients.title = isEnt ? '' : 'Enterprise plan required';
+    }
+    var sw = document.getElementById('client-switcher');
+    if(sw) sw.style.display = isEnt ? '' : 'none';
+  };
+})();
+
 // ── PADDLE PAYMENTS ───────────────────────────────────────
-// NOTE: Replace 'live_781ff5afbfb2c8acd76a1707fd4' with your live_ token
+// NOTE: Replace 'PADDLE_CLIENT_TOKEN_HERE' with your live_ token
 // from Paddle Dashboard → Developer Tools → Authentication → Client-side tokens
 (function(){
-  var PADDLE_TOKEN = 'live_781ff5afbfb2c8acd76a1707fd4';
+  var PADDLE_TOKEN = 'PADDLE_CLIENT_TOKEN_HERE';
   var s=document.createElement('script');
   s.src='https://cdn.paddle.com/paddle/v2/paddle.js';
   s.async=true;
