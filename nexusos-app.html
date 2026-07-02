@@ -1248,52 +1248,6 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       </div>
     </div><!-- end s-clients -->
 
-  </div><!-- /content -->
-</div><!-- /layout -->
-
-
-<!-- Add Client Modal -->
-<div class="mc-modal-overlay" id="add-client-modal">
-  <div class="mc-modal-box">
-    <div class="mc-modal-title">Add New Client</div>
-    <div class="mc-field">
-      <label class="mc-lbl">Client Name (CEO / Executive)</label>
-      <input class="mc-input" id="nc-name" placeholder="e.g. John Smith">
-    </div>
-    <div class="mc-field">
-      <label class="mc-lbl">Company</label>
-      <input class="mc-input" id="nc-company" placeholder="e.g. Acme Corp">
-    </div>
-    <div class="mc-field">
-      <label class="mc-lbl">Role</label>
-      <input class="mc-input" id="nc-role" placeholder="e.g. Founder & CEO" value="Founder & CEO">
-    </div>
-    <div class="mc-field">
-      <label class="mc-lbl">Workspace Color</label>
-      <div class="mc-colors" id="nc-colors"></div>
-    </div>
-    <div class="mc-btns">
-      <button class="mc-btn cancel" onclick="closeAddClientModal()">Cancel</button>
-      <button class="mc-btn primary" onclick="saveNewClient()">Add Client</button>
-    </div>
-  </div>
-</div>
-
-<!-- Add Priority Modal -->
-<div class="mc-modal-overlay" id="add-priority-modal">
-  <div class="mc-modal-box">
-    <div class="mc-modal-title" id="priority-modal-title">Add Priority</div>
-    <div class="mc-field">
-      <label class="mc-lbl">Priority Item</label>
-      <input class="mc-input" id="priority-text-input" placeholder="Describe the priority...">
-    </div>
-    <div class="mc-btns">
-      <button class="mc-btn cancel" onclick="closePriorityModal()">Cancel</button>
-      <button class="mc-btn primary" onclick="savePriorityItem()">Add</button>
-    </div>
-  </div>
-</div>
-
 
     <!-- DECISION LOG -->
     <div class="screen" id="s-decisions">
@@ -1378,6 +1332,52 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
         </div>
       </div>
     </div>
+
+  </div><!-- /content -->
+</div><!-- /layout -->
+
+
+<!-- Add Client Modal -->
+<div class="mc-modal-overlay" id="add-client-modal">
+  <div class="mc-modal-box">
+    <div class="mc-modal-title">Add New Client</div>
+    <div class="mc-field">
+      <label class="mc-lbl">Client Name (CEO / Executive)</label>
+      <input class="mc-input" id="nc-name" placeholder="e.g. John Smith">
+    </div>
+    <div class="mc-field">
+      <label class="mc-lbl">Company</label>
+      <input class="mc-input" id="nc-company" placeholder="e.g. Acme Corp">
+    </div>
+    <div class="mc-field">
+      <label class="mc-lbl">Role</label>
+      <input class="mc-input" id="nc-role" placeholder="e.g. Founder & CEO" value="Founder & CEO">
+    </div>
+    <div class="mc-field">
+      <label class="mc-lbl">Workspace Color</label>
+      <div class="mc-colors" id="nc-colors"></div>
+    </div>
+    <div class="mc-btns">
+      <button class="mc-btn cancel" onclick="closeAddClientModal()">Cancel</button>
+      <button class="mc-btn primary" onclick="saveNewClient()">Add Client</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Priority Modal -->
+<div class="mc-modal-overlay" id="add-priority-modal">
+  <div class="mc-modal-box">
+    <div class="mc-modal-title" id="priority-modal-title">Add Priority</div>
+    <div class="mc-field">
+      <label class="mc-lbl">Priority Item</label>
+      <input class="mc-input" id="priority-text-input" placeholder="Describe the priority...">
+    </div>
+    <div class="mc-btns">
+      <button class="mc-btn cancel" onclick="closePriorityModal()">Cancel</button>
+      <button class="mc-btn primary" onclick="savePriorityItem()">Add</button>
+    </div>
+  </div>
+</div>
 
 <!-- MODALS -->
 <!-- QUICK CAPTURE -->
@@ -3893,11 +3893,16 @@ window.openPaddleCheckout = function(priceId){
   }
   var email = (window.currentUser && window.currentUser.email) ? window.currentUser.email : '';
   try{
-    Paddle.Checkout.open({
+    var checkoutOpts = {
       items: [{ priceId: priceId, quantity: 1 }],
-      settings: { displayMode: 'overlay', theme: 'dark', allowLogout: false },
-      customer: email ? { email: email } : undefined
-    });
+      settings: {
+        displayMode: 'overlay',
+        theme: 'dark',
+        successUrl: 'https://getnexusos.app/nexusos-app.html?payment=success'
+      }
+    };
+    if(email) checkoutOpts.customer = { email: email };
+    Paddle.Checkout.open(checkoutOpts);
   }catch(e){
     console.error('Paddle checkout err', e);
     alert('Unable to open checkout. Please refresh and try again, or contact jhun07.velado@gmail.com');
