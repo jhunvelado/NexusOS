@@ -506,34 +506,36 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 .kpi-field-row label { font-size: 11px; color: #555; text-transform: uppercase; letter-spacing: 0.07em; display: block; margin-bottom: 5px; font-weight: 500; }
 .kpi-field-row input { width: 100%; background: #0a0a12; border: 1px solid #252535; color: #f0f0f0; border-radius: 8px; padding: 9px 12px; font-size: 13px; font-family: inherit; }
 
-/* ── PRIVACY NOTICE BAR ───────────────────────────────── */
+/* ── PRIVACY NOTICE (compact icon badge) ─────────────── */
 #privacy-notice-bar {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  background: #fff; border-top: 1px solid #e0e0e0;
-  padding: 10px 24px;
-  display: flex; align-items: center;
-  z-index: 9500;
-  pointer-events: none;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-  font-size: 13px; color: #333;
+  position: fixed; bottom: 16px; left: 16px;
+  z-index: 9500; pointer-events: none;
 }
 #privacy-notice-bar .pnb-inner {
-  display: flex; align-items: center; gap: 14px;
-  flex-wrap: wrap; pointer-events: auto;
+  display: flex; align-items: center; gap: 5px;
+  pointer-events: auto;
 }
-.pnb-btn {
+.pnb-badge {
+  display: flex; align-items: center; gap: 5px;
+  background: #0d0d17; border: 1px solid #1e1e2e;
+  border-radius: 7px; padding: 5px 9px;
+  cursor: pointer; font-family: inherit;
+  opacity: 0.55; transition: opacity 0.15s, border-color 0.15s;
+  pointer-events: auto; text-decoration: none;
+}
+.pnb-badge:hover { opacity: 0.95; border-color: #2a2a3d; }
+.pnb-badge-label {
+  font-size: 10px; color: #666;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  letter-spacing: 0.02em; white-space: nowrap;
+}
+.pnb-close {
   background: none; border: none; cursor: pointer;
-  font-family: inherit; pointer-events: auto; line-height: 1; padding: 0;
+  color: #333; font-size: 13px; padding: 2px 3px;
+  pointer-events: auto; line-height: 1; opacity: 0.6;
+  transition: opacity 0.15s;
 }
-.pnb-notice {
-  color: #1565C0; font-size: 13px; font-weight: 500;
-  text-decoration: underline; text-underline-offset: 2px;
-}
-.pnb-sep { color: #ccc; font-size: 13px; user-select: none; }
-.pnb-choices { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #333; }
-.pnb-check { color: #1D9E75; font-size: 16px; line-height: 1; }
-.pnb-close { color: #999; font-size: 19px; padding: 0 4px; line-height: 1; }
-.pnb-close:hover { color: #555; }
+.pnb-close:hover { opacity: 1; color: #888; }
 </style>
 </head>
 <body>
@@ -805,6 +807,11 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="pg-eyebrow">AI Daily Briefing</div>
       <div class="pg-title" id="brief-date">Loading...</div>
       <div class="pg-sub">Personalised executive intelligence · NexusOS AI</div>
+      <div id="brief-ai-bar" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#0a0a12;border:1px solid #1e1e2e;border-radius:8px;margin-bottom:12px">
+        <i class="ti ti-sparkles" style="color:#534AB7;font-size:15px;flex-shrink:0"></i>
+        <span id="brief-ai-status" style="font-size:12px;color:#555;flex:1">Claude AI not connected — <a href="#" onclick="nav('settings')" style="color:#534AB7">add your API key in Settings</a></span>
+        <button id="brief-regen-btn" onclick="loadBriefing()" style="display:none;align-items:center;gap:5px;background:transparent;border:1px solid #534AB7;color:#7F77DD;border-radius:6px;padding:5px 12px;font-size:11px;font-weight:500;cursor:pointer;font-family:inherit;pointer-events:auto;transition:all 0.15s" onmouseover="this.style.background='#1a1830'" onmouseout="this.style.background='transparent'"><i class="ti ti-refresh" style="font-size:12px"></i> Regenerate</button>
+      </div>
       <div class="summary-box">
         <div class="greet" id="brief-greet">Good morning.</div>
         <p id="brief-body">Generating your briefing...</p>
@@ -1116,6 +1123,24 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
               <div>Member since: <span id="info-since" style="color:#aaa"></span></div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:12px">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-sparkles"></i> Claude AI Integration</div></div>
+        <div style="font-size:12px;color:#666;margin-bottom:14px;line-height:1.7">Enable AI-generated executive briefings. Your API key is stored only in this browser — never sent to NexusOS servers.</div>
+        <label>Anthropic API Key</label>
+        <div style="position:relative;margin-bottom:10px">
+          <input type="password" id="settings-claude-key" placeholder="sk-ant-api03-..." style="width:100%;padding-right:44px;margin-bottom:0">
+          <button onclick="toggleClaudeKeyVisibility()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:#555;cursor:pointer;font-size:15px;pointer-events:auto;line-height:1" title="Show/hide key"><i id="claude-key-eye-icon" class="ti ti-eye"></i></button>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <button class="btn-primary" onclick="saveClaudeKey()" style="padding:8px 16px;font-size:12px"><i class="ti ti-device-floppy"></i> Save key</button>
+          <button class="btn-outline" onclick="clearClaudeKey()" style="padding:8px 14px;font-size:12px">Clear</button>
+          <span id="claude-key-status" style="font-size:11px;margin-left:4px"></span>
+        </div>
+        <div style="margin-top:12px;padding:10px 12px;background:#0a0a12;border:1px solid #1e1e2e;border-radius:8px;font-size:11px;color:#555;line-height:1.9">
+          Get your key at <a href="https://console.anthropic.com/account/keys" target="_blank" rel="noopener" style="color:#534AB7;text-decoration:none">console.anthropic.com →</a><br>
+          Uses <strong style="color:#666">Claude Haiku</strong> (~$0.001 per briefing). Key never leaves your browser.
         </div>
       </div>
       <div class="panel" style="margin-top:12px;border:1px solid #2a1010">
@@ -3826,10 +3851,10 @@ function updateGcalBar(connected){
 }
 
 // ── PADDLE PAYMENTS ───────────────────────────────────────
-// NOTE: Replace 'live_14643affb5b50d5c73e8ba723fb' with your live_ token
+// NOTE: Replace 'PADDLE_CLIENT_TOKEN_HERE' with your live_ token
 // from Paddle Dashboard → Developer Tools → Authentication → Client-side tokens
 (function(){
-  var PADDLE_TOKEN = 'live_14643affb5b50d5c73e8ba723fb';
+  var PADDLE_TOKEN = 'PADDLE_CLIENT_TOKEN_HERE';
   var s=document.createElement('script');
   s.src='https://cdn.paddle.com/paddle/v2/paddle.js';
   s.async=true;
@@ -3857,6 +3882,181 @@ window.openPaddleCheckout = function(priceId){
     alert('Unable to open checkout. Please refresh and try again, or contact jhun07.velado@gmail.com');
   }
 };
+
+// ── CLAUDE AI BRIEFING ────────────────────────────────────
+window.loadBriefing = async function() {
+  var now = new Date();
+  var dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var dateEl = document.getElementById('brief-date');
+  if(dateEl) dateEl.textContent = dayNames[now.getDay()] + ', ' + monthNames[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+  var hour = now.getHours();
+  var greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  var firstName = (window.currentProfile && window.currentProfile.full_name) ? window.currentProfile.full_name.split(' ')[0] : 'there';
+  var greetEl = document.getElementById('brief-greet');
+  if(greetEl) greetEl.textContent = greeting + ', ' + firstName + '.';
+
+  var apiKey = localStorage.getItem('nexusos_claude_key');
+  var aiStatus = document.getElementById('brief-ai-status');
+  var regenBtn = document.getElementById('brief-regen-btn');
+  var bodyEl   = document.getElementById('brief-body');
+
+  // ── No API key: data-only briefing ─────────────────────
+  if(!apiKey) {
+    if(aiStatus) aiStatus.innerHTML = 'Claude AI not connected — <a href="#" onclick="nav(\'settings\')" style="color:#534AB7">add your API key in Settings</a>';
+    if(regenBtn) regenBtn.style.display = 'none';
+    if(!window.sb || !window.currentUser) return;
+    try {
+      var r = await Promise.all([
+        sb.from('tasks').select('*').neq('status','completed'),
+        sb.from('approvals').select('*').eq('status','pending'),
+        sb.from('trips').select('*').order('departure_date').limit(1)
+      ]);
+      var t=r[0].data||[], a=r[1].data||[], trips=r[2].data||[];
+      var overdue=t.filter(function(x){return x.due_date&&new Date(x.due_date)<now;});
+      var high=t.filter(function(x){return x.priority==='high';});
+      if(bodyEl) bodyEl.textContent = 'Today requires attention in ' + Math.min(4,a.length+overdue.length+high.length) + ' areas: ' + a.length + ' approval request' + (a.length!==1?'s':'') + ' awaiting decision, ' + overdue.length + ' overdue task' + (overdue.length!==1?'s':'') + ' needing action, and ' + high.length + ' high-priority item' + (high.length!==1?'s':'') + ' open.' + (trips[0] ? ' Next trip: ' + trips[0].name + ' on ' + trips[0].departure_date + '.' : '');
+      document.getElementById('brief-actions').innerHTML = [
+        a.length?'<div class="check-item"><input type="checkbox"> '+a.length+' approval request'+(a.length!==1?'s':'')+' awaiting decision</div>':'',
+        overdue.length?'<div class="check-item"><input type="checkbox"> '+overdue.length+' overdue task'+(overdue.length!==1?'s':'')+' needing action</div>':'',
+        high.length?'<div class="check-item"><input type="checkbox"> '+high.length+' high-priority task'+(high.length!==1?'s':'')+' open</div>':'',
+        '<div class="check-item"><input type="checkbox"> Review relationship follow-ups</div>'
+      ].join('') || '<div class="empty-state">All clear today</div>';
+      document.getElementById('brief-priorities').innerHTML = [
+        a.length?'<div class="check-item"><input type="checkbox"> Approve pending requests ('+a.length+')</div>':'',
+        high.length?'<div class="check-item"><input type="checkbox"> Action high-priority tasks</div>':'',
+        '<div class="check-item"><input type="checkbox"> Review PE Dashboard — LOI status</div>',
+        '<div class="check-item"><input type="checkbox"> Check relationship follow-ups</div>'
+      ].join('');
+    } catch(e) { console.warn('Briefing data error', e); }
+    return;
+  }
+
+  // ── Claude AI briefing ──────────────────────────────────
+  if(aiStatus) aiStatus.innerHTML = '✦ Claude AI <span style="color:#1D9E75">connected</span> — generating...';
+  if(regenBtn) regenBtn.style.display = 'none';
+  if(bodyEl) bodyEl.innerHTML = '<span style="color:#555;font-style:italic">Generating AI briefing...</span>';
+
+  try {
+    var today = now.toISOString().split('T')[0];
+    var res = await Promise.all([
+      sb.from('tasks').select('*').neq('status','completed'),
+      sb.from('approvals').select('*').eq('status','pending'),
+      sb.from('trips').select('*').order('departure_date').limit(3),
+      sb.from('meetings').select('*').gte('meeting_date', today).limit(5),
+      sb.from('commitments').select('name,due_date,status').eq('status','pending').limit(5)
+    ]);
+    var tasks=res[0].data||[], approvals=res[1].data||[], trips=res[2].data||[];
+    var meetings=res[3].data||[], commitments=res[4].data||[];
+    var overdue = tasks.filter(function(t){ return t.due_date && new Date(t.due_date+'T12:00:00') < now; });
+    var high    = tasks.filter(function(t){ return t.priority === 'high'; });
+    var todayM  = meetings.filter(function(m){ return m.meeting_date === today; });
+
+    var companyName = (window.currentProfile && window.currentProfile.company_name) || 'the company';
+    var role = (window.currentProfile && window.currentProfile.role) || 'CEO';
+
+    var dataCtx = [
+      'Open tasks: ' + tasks.length + ' total',
+      overdue.length > 0 ? 'OVERDUE (' + overdue.length + '): ' + overdue.slice(0,3).map(function(t){return t.name;}).join('; ') : 'No overdue tasks',
+      high.length > 0 ? 'High-priority (' + high.length + '): ' + high.slice(0,3).map(function(t){return t.name;}).join('; ') : '',
+      approvals.length > 0 ? 'Pending approvals (' + approvals.length + '): ' + approvals.slice(0,3).map(function(a){return a.title + ' $' + Number(a.amount||0).toLocaleString();}).join('; ') : 'No pending approvals',
+      todayM.length > 0 ? "Today's meetings: " + todayM.map(function(m){return m.title;}).join(', ') : 'No meetings today',
+      trips.length > 0 ? 'Upcoming trips: ' + trips.slice(0,2).map(function(t){return t.name + ' (' + t.departure_date + ')';}).join(', ') : '',
+      commitments.length > 0 ? 'Open commitments: ' + commitments.length : ''
+    ].filter(Boolean).join('\n');
+
+    var prompt = 'You are NexusOS AI. Write a sharp, direct executive briefing for ' + firstName + ' (' + role + ', ' + companyName + ') for ' + dayNames[now.getDay()] + ', ' + monthNames[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear() + '.\n\nLIVE DATA:\n' + dataCtx + '\n\nWrite exactly 2-3 sentences. Be specific — use actual task names, amounts, and counts. Lead with the most urgent item. Address ' + firstName + ' directly. No pleasantries or padding.';
+
+    var response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-allow-browser': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 350,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    if(!response.ok) {
+      var errData = await response.json().catch(function(){return {};});
+      throw new Error(errData.error ? errData.error.message : 'API error ' + response.status);
+    }
+
+    var respData = await response.json();
+    var aiText = (respData.content && respData.content[0] && respData.content[0].text) || 'Unable to generate briefing.';
+    if(bodyEl) bodyEl.textContent = aiText;
+    if(aiStatus) aiStatus.innerHTML = '✦ Claude AI <span style="color:#1D9E75">connected</span>';
+    if(regenBtn){ regenBtn.style.display = 'inline-flex'; }
+
+    document.getElementById('brief-actions').innerHTML = [
+      approvals.length ? '<div class="check-item"><input type="checkbox"> ' + approvals.length + ' approval' + (approvals.length!==1?'s':'') + ' awaiting decision</div>' : '',
+      overdue.length   ? '<div class="check-item"><input type="checkbox"> ' + overdue.length + ' overdue task' + (overdue.length!==1?'s':'') + ' needing action</div>' : '',
+      high.length      ? '<div class="check-item"><input type="checkbox"> ' + high.length + ' high-priority task' + (high.length!==1?'s':'') + ' open</div>' : '',
+      '<div class="check-item"><input type="checkbox"> Review relationship follow-ups</div>'
+    ].filter(Boolean).join('') || '<div class="empty-state"><i class="ti ti-check"></i>All clear today</div>';
+
+    document.getElementById('brief-priorities').innerHTML = [
+      approvals.length ? '<div class="check-item"><input type="checkbox"> Approve pending requests (' + approvals.length + ')</div>' : '',
+      high.length      ? '<div class="check-item"><input type="checkbox"> Action high-priority tasks</div>' : '',
+      commitments.length ? '<div class="check-item"><input type="checkbox"> Follow up on ' + commitments.length + ' open commitment' + (commitments.length!==1?'s':'') + '</div>' : '',
+      todayM.length    ? '<div class="check-item"><input type="checkbox"> Prep for ' + todayM.length + ' meeting' + (todayM.length!==1?'s':'') + ' today</div>' : '',
+      '<div class="check-item"><input type="checkbox"> Review PE Dashboard — LOI status</div>',
+      '<div class="check-item"><input type="checkbox"> Check relationship follow-ups</div>'
+    ].filter(Boolean).join('');
+
+  } catch(err) {
+    console.error('Claude briefing error:', err);
+    if(bodyEl) bodyEl.innerHTML = '<span style="color:#E24B4A">Error: ' + err.message + '</span> — <a href="#" onclick="nav(\'settings\')" style="color:#534AB7">check your API key in Settings</a>';
+    if(aiStatus) aiStatus.innerHTML = '<span style="color:#E24B4A">⚠ API key error</span> — <a href="#" onclick="nav(\'settings\')" style="color:#534AB7">check Settings</a>';
+    if(regenBtn) regenBtn.style.display = 'inline-flex';
+  }
+};
+
+// Augment loadSettings to populate Claude key field
+(function(){
+  var _prevSettings = window.loadSettings || (typeof loadSettings !== 'undefined' ? loadSettings : null);
+  window.loadSettings = async function(){
+    if(_prevSettings) await _prevSettings();
+    var claudeKey = localStorage.getItem('nexusos_claude_key');
+    var input = document.getElementById('settings-claude-key');
+    if(input) { if(claudeKey) input.value = claudeKey; }
+    var statusEl = document.getElementById('claude-key-status');
+    if(statusEl && claudeKey){ statusEl.textContent = '✓ Connected'; statusEl.style.color = '#1D9E75'; }
+  };
+})();
+
+// Claude key management
+function saveClaudeKey(){
+  var key = document.getElementById('settings-claude-key') ? document.getElementById('settings-claude-key').value.trim() : '';
+  if(!key){ showClaudeKeyStatus('Enter your API key', false); return; }
+  if(!key.startsWith('sk-ant-')){ showClaudeKeyStatus('Invalid — must start with sk-ant-', false); return; }
+  localStorage.setItem('nexusos_claude_key', key);
+  showClaudeKeyStatus('✓ API key saved — go to AI Briefing to test', true);
+}
+function clearClaudeKey(){
+  localStorage.removeItem('nexusos_claude_key');
+  var input = document.getElementById('settings-claude-key');
+  if(input) input.value = '';
+  showClaudeKeyStatus('API key cleared', false);
+}
+function showClaudeKeyStatus(msg, success){
+  var el = document.getElementById('claude-key-status');
+  if(!el) return;
+  el.textContent = msg;
+  el.style.color = success ? '#1D9E75' : '#E24B4A';
+}
+function toggleClaudeKeyVisibility(){
+  var input = document.getElementById('settings-claude-key');
+  if(!input) return;
+  input.type = input.type === 'password' ? 'text' : 'password';
+  var icon = document.getElementById('claude-key-eye-icon');
+  if(icon) icon.className = input.type === 'password' ? 'ti ti-eye' : 'ti ti-eye-off';
+}
 
 // ── PRIVACY NOTICE BAR ────────────────────────────────────
 function dismissPrivacyBar(){
@@ -3896,23 +4096,19 @@ window.addEventListener('load', function(){
 
 </script>
 
-<!-- PRIVACY NOTICE BAR -->
+<!-- PRIVACY NOTICE (compact dark badge) -->
 <div id="privacy-notice-bar">
   <div class="pnb-inner">
-    <button class="pnb-btn pnb-notice" onclick="openPrivacyNotice()">Notice at collection</button>
-    <span class="pnb-sep">|</span>
-    <span class="pnb-choices">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14" width="22" height="14" aria-hidden="true" style="flex-shrink:0">
-        <rect width="11" height="14" fill="#3B82F6"/>
-        <rect x="11" width="11" height="14" fill="#ffffff"/>
-        <rect x="11" width="11" height="14" fill="none" stroke="#e5e7eb" stroke-width="0.5"/>
+    <button class="pnb-badge" onclick="openPrivacyNotice()" title="Notice at collection | Your Privacy Choices">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14" width="20" height="13" aria-hidden="true" style="flex-shrink:0">
+        <rect width="11" height="14" fill="#3B82F6" rx="1.5"/>
+        <rect x="11" width="11" height="14" fill="#1e1e2e" rx="1.5"/>
         <polyline points="3,7.5 5,10 8,5" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        <polyline points="14,7.5 16,10 19,5" fill="none" stroke="#9CA3AF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="14,7.5 16,10 19,5" fill="none" stroke="#444" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      Your Privacy Choices
-      <span class="pnb-check">&#10003;</span>
-    </span>
-    <button class="pnb-btn pnb-close" onclick="dismissPrivacyBar()" title="Dismiss">&#x2715;</button>
+      <span class="pnb-badge-label">Privacy Choices</span>
+    </button>
+    <button class="pnb-close" onclick="dismissPrivacyBar()" title="Dismiss">&#x2715;</button>
   </div>
 </div>
 </body>
