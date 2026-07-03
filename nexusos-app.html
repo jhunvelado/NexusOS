@@ -753,6 +753,67 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
   .ceo-metric-grid { grid-template-columns:1fr 1fr !important; }
 }
 
+/* ── CEO COLLABORATION ───────────────────────────────── */
+.ceo-collab-panel { margin-top:14px; }
+.ceo-approval-bar { display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; }
+.ceo-approve-btn {
+  flex:1; min-width:120px; padding:12px 16px; border-radius:10px; border:none;
+  font-size:13px; font-weight:600; cursor:pointer; font-family:inherit;
+  display:flex; align-items:center; justify-content:center; gap:7px;
+  transition:all 0.15s; pointer-events:auto;
+}
+.ceo-approve-btn.approve { background:#0f2518; color:#1D9E75; border:1.5px solid #1D9E75; }
+.ceo-approve-btn.approve:hover { background:#1D9E75; color:#fff; }
+.ceo-approve-btn.flag { background:#1a0808; color:#E24B4A; border:1.5px solid #E24B4A; }
+.ceo-approve-btn.flag:hover { background:#E24B4A; color:#fff; }
+.ceo-approve-btn.active-approve { background:#1D9E75 !important; color:#fff !important; }
+.ceo-approve-btn.active-flag { background:#E24B4A !important; color:#fff !important; }
+.ceo-comment-box {
+  width:100%; background:#0a0a12; border:1px solid #252535; color:#f0f0f0;
+  border-radius:8px; padding:10px 12px; font-size:13px; font-family:inherit;
+  resize:vertical; min-height:80px; margin-bottom:10px;
+}
+.ceo-comment-box:focus { outline:none; border-color:#534AB7; }
+.ceo-comment-thread { margin-top:14px; }
+.ceo-comment-item {
+  background:#0a0a12; border:1px solid #1a1a2e; border-radius:8px;
+  padding:10px 14px; margin-bottom:8px;
+}
+.ceo-comment-meta { font-size:10px; color:#444; margin-bottom:4px; }
+.ceo-comment-text { font-size:13px; color:#ccc; line-height:1.6; }
+/* EA feedback panel on dashboard */
+.ea-feedback-card {
+  background:#0a0a12; border:1px solid #1e1e2e; border-radius:8px;
+  padding:12px 14px; margin-bottom:8px; cursor:default;
+}
+.ea-feedback-card.unread { border-left:3px solid #534AB7; }
+.ea-feedback-approved { border-left:3px solid #1D9E75 !important; }
+.ea-feedback-flagged  { border-left:3px solid #E24B4A !important; }
+.ea-feedback-client { font-size:11px; color:#7F77DD; font-weight:600; margin-bottom:2px; }
+.ea-feedback-text { font-size:12px; color:#aaa; line-height:1.5; }
+.ea-feedback-date { font-size:10px; color:#333; margin-top:4px; }
+.ea-feedback-status { font-size:10px; font-weight:700; padding:2px 7px; border-radius:6px; display:inline-block; margin-bottom:4px; }
+.ea-feedback-status.approved { background:#081510; color:#1D9E75; }
+.ea-feedback-status.flagged  { background:#1a0808; color:#E24B4A; }
+
+/* ── INTEGRATIONS SCREEN ────────────────────────────── */
+.integrations-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; margin-top:16px; }
+.integration-card {
+  background:#0a0a12; border:1px solid #1e1e2e; border-radius:12px; padding:18px;
+  transition:border-color 0.15s;
+}
+.integration-card:hover { border-color:#2a2a3d; }
+.integration-card-top { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+.integration-icon { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.integration-name { font-size:14px; font-weight:600; color:#f0f0f0; }
+.integration-category { font-size:10px; color:#555; text-transform:uppercase; letter-spacing:0.07em; }
+.integration-desc { font-size:12px; color:#666; line-height:1.6; margin-bottom:10px; }
+.integration-status { font-size:10px; font-weight:700; padding:3px 9px; border-radius:10px; display:inline-flex; align-items:center; gap:5px; }
+.integration-status.connected { background:#081510; color:#1D9E75; border:1px solid #0f2518; }
+.integration-status.available { background:#0e0c22; color:#7F77DD; border:1px solid #1a1830; }
+.integration-status.manual   { background:#1a1000; color:#f0b429; border:1px solid #2a1e00; }
+@media (max-width:768px) { .integrations-grid { grid-template-columns:1fr !important; } }
+
 /* ── FOUNDER SIGNUPS PANEL ──────────────────────────── */
 #founder-signups-panel { display:none; }
 .signups-panel-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
@@ -954,6 +1015,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="nav-item" id="n-calendar" onclick="nav('calendar')"><i class="ti ti-calendar"></i> Calendar</div>
       <div class="nav-item" id="n-time-tracker" onclick="nav('time-tracker')"><i class="ti ti-clock"></i> Time Tracker</div>
       <div class="nav-item" id="n-client-reports" onclick="nav('client-reports')"><i class="ti ti-chart-bar"></i> Client Reports</div>
+      <div class="nav-item" id="n-integrations" onclick="nav('integrations')"><i class="ti ti-plug"></i> Integrations</div>
     </div>
     <div class="nav-section">
       <div class="nav-lbl">Account</div>
@@ -994,6 +1056,22 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
           <button class="kpi-sector-tab" data-sector="pe" onclick="setKpiSector('pe')">PE / Portfolio</button>
         </div>
         <div id="kpi-grid" class="kpi-grid"></div>
+      </div>
+
+      <!-- EA ONLY: CEO FEEDBACK PANEL -->
+      <div id="ea-feedback-panel" style="display:none;margin-bottom:18px">
+        <div class="panel">
+          <div class="signups-panel-header">
+            <div class="panel-ttl" style="display:flex;align-items:center;gap:0">
+              <i class="ti ti-message-circle" style="color:#534AB7;margin-right:7px"></i> CEO Feedback
+              <span class="signups-badge" id="ea-feedback-badge" style="background:#100e22;color:#534AB7;border-color:#1a1830">—</span>
+            </div>
+            <span style="font-size:11px;color:#534AB7;cursor:pointer;display:flex;align-items:center;gap:4px" onclick="loadEAFeedbackPanel()">
+              <i class="ti ti-refresh"></i> Refresh
+            </span>
+          </div>
+          <div id="ea-feedback-list"><div style="font-size:12px;color:#444">Loading...</div></div>
+        </div>
       </div>
 
       <!-- FOUNDER ONLY: NEW SIGNUPS PANEL -->
@@ -1796,6 +1874,27 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
         <div class="panel-hdr"><div class="panel-ttl">Activity Summary</div></div>
         <div id="ceo-activity-body"></div>
       </div>
+
+      <!-- CEO COLLABORATION PANEL -->
+      <div class="panel ceo-collab-panel" style="margin-top:12px">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-message-circle" style="color:#534AB7"></i> Your Feedback</div></div>
+        <p style="font-size:12px;color:#555;margin-bottom:12px;line-height:1.6">Let your EA know how things are going. Approve the report or flag items for review.</p>
+        <div class="ceo-approval-bar">
+          <button class="ceo-approve-btn approve" id="ceo-btn-approve" onclick="setCEOApproval('approved')"><i class="ti ti-circle-check"></i> Approve Report</button>
+          <button class="ceo-approve-btn flag" id="ceo-btn-flag" onclick="setCEOApproval('flagged')"><i class="ti ti-flag"></i> Flag for Review</button>
+        </div>
+        <textarea class="ceo-comment-box" id="ceo-comment-input" placeholder="Leave a comment for your EA — questions, feedback, or anything you'd like to discuss..."></textarea>
+        <button class="btn-primary" onclick="submitCEOComment()" style="padding:9px 20px;font-size:12px"><i class="ti ti-send"></i> Send to EA</button>
+        <div class="ceo-comment-thread" id="ceo-comment-thread"></div>
+      </div>
+    </div>
+
+    <!-- INTEGRATIONS SCREEN -->
+    <div class="screen" id="s-integrations">
+      <div class="pg-eyebrow">Platform</div>
+      <div class="pg-title">Integrations</div>
+      <div class="pg-sub">Tools and services connected to your NexusOS workspace</div>
+      <div class="integrations-grid" id="integrations-grid"></div>
     </div>
 
   </div><!-- /content -->
@@ -3810,10 +3909,11 @@ window.nav = function(screen) {
   };
   if(loaders[screen]) loaders[screen]();
   if(screen==='clients'){ try{ mcLoadScreen(); }catch(e){} }
-  if(screen==='decisions') setTimeout(renderDecisions,0);
-  if(screen==='weekly')    setTimeout(renderWeeklyPulse,0);
-  if(screen==='calendar')  setTimeout(renderCalendar,0);
-  if(screen==='dashboard') setTimeout(function(){ loadExecFocus(); renderKpiGrid(); },200);
+  if(screen==='decisions')    setTimeout(renderDecisions,0);
+  if(screen==='weekly')       setTimeout(renderWeeklyPulse,0);
+  if(screen==='calendar')     setTimeout(renderCalendar,0);
+  if(screen==='integrations') setTimeout(renderIntegrationsScreen,0);
+  if(screen==='dashboard')    setTimeout(function(){ loadExecFocus(); renderKpiGrid(); loadEAFeedbackPanel(); },200);
 };
 
 // ── AUTH SCREEN CLICK FIX + CEO PORTAL ROUTING ───────────
@@ -3925,6 +4025,7 @@ window.loadDashboard = async function(){
   loadExecFocus();
   renderKpiGrid();
   loadSignupsPanel();
+  loadEAFeedbackPanel();
   // Show onboarding tour on first login
   setTimeout(startOnboarding, 900);
 };
@@ -5386,6 +5487,175 @@ async function loadCEOPortal(){
 document.addEventListener('keydown', function(e){
   if(e.key === 'Escape') closeInviteModal();
 });
+
+// ── CEO COLLABORATION (v5.10) ────────────────────────────
+var _ceoApprovalStatus = null;
+
+function setCEOApproval(status){
+  _ceoApprovalStatus = (_ceoApprovalStatus === status) ? null : status;
+  var approveBtn = document.getElementById('ceo-btn-approve');
+  var flagBtn    = document.getElementById('ceo-btn-flag');
+  if(approveBtn){ approveBtn.className = 'ceo-approve-btn approve' + (_ceoApprovalStatus==='approved'?' active-approve':''); }
+  if(flagBtn)   { flagBtn.className    = 'ceo-approve-btn flag'    + (_ceoApprovalStatus==='flagged' ?' active-flag':''); }
+}
+
+async function submitCEOComment(){
+  var input = document.getElementById('ceo-comment-input');
+  var text = input ? input.value.trim() : '';
+  if(!text && !_ceoApprovalStatus){ alert('Add a comment or select Approve / Flag before sending.'); return; }
+  if(!window.sb || !window.currentUser){ alert('Not connected.'); return; }
+  var profile = null;
+  try {
+    var r = await sb.from('profiles').select('linked_ea_id,linked_client_id,full_name').eq('id', window.currentUser.id).single();
+    profile = r.data;
+  } catch(e){}
+  if(!profile || !profile.linked_ea_id){ alert('Portal not configured. Contact your EA.'); return; }
+  var btn = document.querySelector('[onclick="submitCEOComment()"]');
+  if(btn){ btn.innerHTML = '<i class="ti ti-loader"></i> Sending...'; btn.disabled = true; }
+  try {
+    var { error } = await sb.from('portal_comments').insert({
+      ea_id:       profile.linked_ea_id,
+      client_id:   profile.linked_client_id,
+      ceo_user_id: window.currentUser.id,
+      ceo_name:    (window.currentProfile && window.currentProfile.full_name) || 'CEO',
+      comment:     text || null,
+      status_flag: _ceoApprovalStatus || 'comment',
+      is_read:     false
+    });
+    if(error) throw error;
+    if(input) input.value = '';
+    _ceoApprovalStatus = null;
+    setCEOApproval(null);
+    if(btn){ btn.innerHTML = '<i class="ti ti-check"></i> Sent!'; btn.disabled = false; }
+    setTimeout(function(){ if(btn) btn.innerHTML = '<i class="ti ti-send"></i> Send to EA'; }, 2000);
+    loadCEOCommentThread();
+  } catch(err){
+    if(btn){ btn.innerHTML = '<i class="ti ti-send"></i> Send to EA'; btn.disabled = false; }
+    alert('Error sending: ' + (err.message || err));
+  }
+}
+
+async function loadCEOCommentThread(){
+  if(!window.sb || !window.currentUser) return;
+  var thread = document.getElementById('ceo-comment-thread');
+  if(!thread) return;
+  var profile = null;
+  try {
+    var r = await sb.from('profiles').select('linked_ea_id,linked_client_id').eq('id', window.currentUser.id).single();
+    profile = r.data;
+  } catch(e){}
+  if(!profile) return;
+  try {
+    var { data } = await sb.from('portal_comments')
+      .select('*')
+      .eq('ea_id', profile.linked_ea_id)
+      .eq('client_id', profile.linked_client_id)
+      .order('created_at', {ascending: false})
+      .limit(10);
+    var items = data || [];
+    if(!items.length){ thread.innerHTML = '<div style="font-size:12px;color:#444;margin-top:10px">No previous feedback yet.</div>'; return; }
+    thread.innerHTML = '<div style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin:14px 0 8px">Previous Feedback</div>' +
+      items.map(function(c){
+        var flagLabel = c.status_flag === 'approved' ? '<span class="ea-feedback-status approved">✓ Approved</span>' :
+                        c.status_flag === 'flagged'  ? '<span class="ea-feedback-status flagged">⚑ Flagged</span>' : '';
+        var dateStr = c.created_at ? new Date(c.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+        return '<div class="ceo-comment-item">'+
+          (flagLabel ? '<div style="margin-bottom:6px">'+flagLabel+'</div>' : '')+
+          (c.comment ? '<div class="ceo-comment-text">'+c.comment+'</div>' : '')+
+          '<div class="ceo-comment-meta">'+dateStr+'</div>'+
+        '</div>';
+      }).join('');
+  } catch(err){ console.warn('CEO comment thread error:', err); }
+}
+
+// ── EA FEEDBACK PANEL (on dashboard) ─────────────────────
+async function loadEAFeedbackPanel(){
+  var panel = document.getElementById('ea-feedback-panel');
+  if(!panel) return;
+  if(!window.sb || !window.currentUser){ setTimeout(loadEAFeedbackPanel, 1500); return; }
+  // Only show for EA (not CEO, not needed for them)
+  var role = localStorage.getItem('nexusos_workspace_role');
+  if(role === 'ceo'){ panel.style.display = 'none'; return; }
+  panel.style.display = 'block';
+  var list  = document.getElementById('ea-feedback-list');
+  var badge = document.getElementById('ea-feedback-badge');
+  try {
+    var { data } = await sb.from('portal_comments')
+      .select('*')
+      .eq('ea_id', window.currentUser.id)
+      .order('created_at', {ascending: false})
+      .limit(10);
+    var items = data || [];
+    var unread = items.filter(function(c){ return !c.is_read; }).length;
+    if(badge) badge.textContent = unread > 0 ? unread + ' new' : items.length;
+    if(!items.length){
+      if(list) list.innerHTML = '<div style="font-size:12px;color:#444;padding:8px 0">No CEO feedback yet. Publish a report and invite your CEO to get started.</div>';
+      return;
+    }
+    if(list) list.innerHTML = items.map(function(c){
+      var borderClass = c.status_flag === 'approved' ? 'ea-feedback-approved' :
+                        c.status_flag === 'flagged'  ? 'ea-feedback-flagged'  : (c.is_read ? '' : 'unread');
+      var flagLabel = c.status_flag === 'approved' ? '<span class="ea-feedback-status approved">✓ Approved</span>' :
+                      c.status_flag === 'flagged'  ? '<span class="ea-feedback-status flagged">⚑ Flagged</span>' : '';
+      var dateStr = c.created_at ? new Date(c.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+      return '<div class="ea-feedback-card '+borderClass+'">'+
+        '<div class="ea-feedback-client">'+(c.ceo_name||'CEO')+' · '+c.client_id+'</div>'+
+        (flagLabel ? '<div>'+flagLabel+'</div>' : '')+
+        (c.comment ? '<div class="ea-feedback-text">'+c.comment+'</div>' : '')+
+        '<div class="ea-feedback-date">'+dateStr+'</div>'+
+      '</div>';
+    }).join('');
+    // Mark as read
+    var unreadIds = items.filter(function(c){ return !c.is_read; }).map(function(c){ return c.id; });
+    if(unreadIds.length){
+      sb.from('portal_comments').update({is_read: true}).in('id', unreadIds).then(function(){});
+    }
+  } catch(err){ console.warn('EA feedback panel error:', err); }
+}
+
+// ── INTEGRATIONS SCREEN ───────────────────────────────────
+var INTEGRATIONS_LIST = [
+  { name:'Supabase', category:'Database', icon:'🗄️', color:'#1D9E75', desc:'All your data — tasks, meetings, contacts, approvals, and profiles — stored securely in Supabase PostgreSQL.', status:'connected' },
+  { name:'Claude AI', category:'Artificial Intelligence', icon:'✦', color:'#534AB7', desc:'Powers your AI Briefing with personalized executive summaries. Add your Anthropic API key in Settings to activate.', status:'manual' },
+  { name:'Google Calendar', category:'Scheduling', icon:'📅', color:'#DB4437', desc:'Sync your Google Calendar events into the NexusOS calendar view. One-click OAuth connection.', status:'available' },
+  { name:'Paddle', category:'Payments', icon:'💳', color:'#f0b429', desc:'Handles global billing, subscriptions, and tax compliance for NexusOS plans — Starter, Professional, Enterprise.', status:'connected' },
+  { name:'Make.com', category:'Automation', icon:'⚡', color:'#6D4AFF', desc:'Automates trial signup notifications and paid plan welcome emails via webhook-to-Gmail workflows.', status:'connected' },
+  { name:'Gmail', category:'Email', icon:'✉️', color:'#EA4335', desc:'Receives automated notifications when new users sign up for free trials or paid plans.', status:'connected' },
+  { name:'GitHub Pages', category:'Hosting', icon:'🐙', color:'#f0f0f0', desc:'Hosts NexusOS at getnexusos.app — zero-cost global CDN deployment from the main branch.', status:'connected' },
+  { name:'PWA', category:'Mobile', icon:'📱', color:'#378ADD', desc:'Install NexusOS as a native-like app on iOS and Android via your browser\'s "Add to Home Screen" option.', status:'connected' }
+];
+
+function renderIntegrationsScreen(){
+  var grid = document.getElementById('integrations-grid');
+  if(!grid) return;
+  var gcalConn = localStorage.getItem('nexusos_gcal_connected') === '1';
+  var claudeConn = !!localStorage.getItem('nexusos_claude_key');
+  grid.innerHTML = INTEGRATIONS_LIST.map(function(intg){
+    var status = intg.status;
+    if(intg.name === 'Google Calendar' && gcalConn) status = 'connected';
+    if(intg.name === 'Claude AI' && claudeConn) status = 'connected';
+    var statusLabel = status === 'connected' ? '● Connected' : status === 'manual' ? '⚙ Manual setup' : '+ Available';
+    var statusClass = status;
+    return '<div class="integration-card">'+
+      '<div class="integration-card-top">'+
+        '<div class="integration-icon" style="background:'+intg.color+'22;border:1px solid '+intg.color+'44">'+intg.icon+'</div>'+
+        '<div><div class="integration-name">'+intg.name+'</div><div class="integration-category">'+intg.category+'</div></div>'+
+      '</div>'+
+      '<div class="integration-desc">'+intg.desc+'</div>'+
+      '<span class="integration-status '+statusClass+'">'+statusLabel+'</span>'+
+    '</div>';
+  }).join('');
+}
+
+// Nav hook for integrations
+(function(){
+  var _prevNavInt = window.nav;
+  window.nav = function(screen){
+    var res = _prevNavInt ? _prevNavInt(screen) : undefined;
+    if(screen === 'integrations') setTimeout(renderIntegrationsScreen, 60);
+    return res;
+  };
+})();
 
 </script>
 

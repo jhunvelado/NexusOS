@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Integrations · NexusOS</title>
+  <meta name="description" content="NexusOS connects with the tools executive assistants already use — Supabase, Google Calendar, Claude AI, Paddle, Make.com, and more." />
+  <link rel="icon" href="favicon.ico" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #08060f;
+      color: #e8e6f0;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      border-bottom: 1px solid #1a1830;
+      position: sticky;
+      top: 0;
+      background: rgba(8,6,15,.92);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    .nav-logo {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -.02em;
+      text-decoration: none;
+    }
+    .nav-logo span { color: #534AB7; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 13.5px;
+      transition: color .15s;
+    }
+    .nav-links a:hover { color: #e8e6f0; }
+    .nav-cta {
+      background: #534AB7;
+      color: #fff !important;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 13px !important;
+      transition: background .15s !important;
+    }
+    .nav-cta:hover { background: #6259cc !important; color: #fff !important; }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 80px 24px 48px;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: #534AB7;
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: #534AB7; }
+    .hero p {
+      font-size: 17px;
+      color: #aaa;
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* GRID */
+    .integrations-section {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: #555;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #1a1830;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    .card {
+      background: #0e0b1a;
+      border: 1px solid #1a1830;
+      border-radius: 14px;
+      padding: 24px;
+      transition: border-color .2s, transform .2s;
+      position: relative;
+    }
+    .card:hover { border-color: #534AB7; transform: translateY(-2px); }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .card-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #e8e6f0;
+    }
+    .card-category {
+      font-size: 11px;
+      color: #666;
+      margin-top: 2px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      font-weight: 600;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .badge.connected  { background: #0f2a1c; color: #22c55e; border: 1px solid #1a4a2c; }
+    .badge.available  { background: #1a1830; color: #534AB7; border: 1px solid #2a2550; }
+    .badge.manual     { background: #1e1800; color: #f0b429; border: 1px solid #3a3000; }
+    .badge.coming     { background: #1a1a1a; color: #666; border: 1px solid #2a2a2a; }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      padding: 40px 24px;
+      border-top: 1px solid #1a1830;
+      border-bottom: 1px solid #1a1830;
+      margin-bottom: 64px;
+    }
+    .stat { text-align: center; }
+    .stat-number { font-size: 32px; font-weight: 800; color: #534AB7; }
+    .stat-label  { font-size: 12px; color: #666; margin-top: 4px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+
+    /* CTA */
+    .cta-block {
+      text-align: center;
+      padding: 64px 24px;
+    }
+    .cta-block h2 { font-size: 28px; font-weight: 800; margin-bottom: 14px; letter-spacing: -.02em; }
+    .cta-block p  { font-size: 15px; color: #888; margin-bottom: 28px; }
+    .btn-primary {
+      display: inline-block;
+      background: #534AB7;
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: background .15s;
+    }
+    .btn-primary:hover { background: #6259cc; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid #1a1830;
+      font-size: 12px;
+      color: #444;
+    }
+    footer a { color: #534AB7; text-decoration: none; }
+
+    @media (max-width: 640px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .stats-bar { flex-direction: column; gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/">Nexus<span>OS</span></a>
+  <div class="nav-links">
+    <a href="/#features">Features</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/integrations.html">Integrations</a>
+    <a href="https://app.getnexusos.app" class="nav-cta">Get Started Free</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Platform</div>
+  <h1>Works with the tools<br>you <span>already use</span></h1>
+  <p>NexusOS connects your existing stack — calendar, email, AI, billing, and automation — into one executive operating system.</p>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-number">8</div><div class="stat-label">Integrations</div></div>
+  <div class="stat"><div class="stat-number">7</div><div class="stat-label">Live Now</div></div>
+  <div class="stat"><div class="stat-number">∞</div><div class="stat-label">Automations via Make</div></div>
+</div>
+
+<!-- INTEGRATIONS -->
+<div class="integrations-section">
+
+  <div class="section-label">Core Platform</div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon" style="background:#1D9E7522;border:1px solid #1D9E7544">🗄️</div>
+        <div>
+          <div class="card-name">Supabase</div>
+          <div class="card-category">Database &amp; Auth</div>
+        </div>
+      </div>
+      <p class="card-desc">All your data — tasks, meetings, contacts, approvals, and profiles — stored and secured in Supabase PostgreSQL with row-level security. Real-time sync across sessions.</p>
+      <span class="badge connected">● Connected</span>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon" style="background:#534AB722;border:1px solid #534AB744">✦</div>
+        <div>
+          <div class="card-name">Claude AI</div>
+          <div class="card-category">Artificial Intelligence</div>
+        </div>
+      </div>
+      <p class="card-desc">Powers the AI Briefing with personalized daily summaries for you and your clients. Bring your own Anthropic API key — no data sent to third parties without your key.</p>
+      <span class="badge manual">⚙ Manual setup</span>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon" style="background:#f0b42922;border:1px solid #f0b42944">💳</div>
+        <div>
+          <div class="card-name">Paddle</div>
+          <div class="card-category">Payments &amp; Billing</div>
+        </div>
+      </div>
+      <p class="card-desc">Handles global billing, subscriptions, and tax compliance for all NexusOS plans. Starter, Professional, and Enterprise — upgrade or downgrade at any time.</p>
+      <span class="badge connected">● Connected</span>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon" style="background:#0b0b0b;border:1px solid #444">🐙</div>
+        <div>
+          <div class="card-name">GitHub Pages</div>
+          <div class="card-category">Hosting &amp; CDN</div>
+        </div>
+      </div>
+      <p class="card-desc">NexusOS is deployed to getnexusos.app via GitHub Actions — zero-cost global CDN with automatic SSL, versioned releases, and instant rollbacks.</p>
+      <span class="badge connected">● Connected</span>
+    </div>
+
+  </div>
+
+  <div class="section-label">Productivity</div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon" style="background:#DB443722;border:1px solid #DB443744">📅</div>
+        <div>
+          <div class="card-name">Google Calendar</div>
+          <div class="card-category">Scheduling</div>
+        </div>
+      </div>
+      <p class="card-desc">Sync your Google Calendar events into the NexusOS calendar view. One-click OAuth — your events appear automatically, no manual entry needed.</p>
+      <span class="badge available">+ Available</span>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon" style="background:#EA433522;border:1px solid #EA433544">✉️</div>
+        <div>
+          <div class="card-name">Gmail</div>
+          <div class="card-category">Email</div>
+        </div>
+      </div>
+      <p class="card-desc">Receives automated notifications when new users sign up for free trials or paid plans — via Make.com webhook-to-Gmail workflows. No API key required.</p>
+      <span class="badge connected">● Connected</span>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon" style="background:#6D4AFF22;border:1px solid #6D4AFF44">⚡</div>
+        <div>
+          <div class="card-name">Make.com</div>
+          <div class="card-category">Automation</div>
+        </div>
+      </div>
+      <p class="card-desc">Automates trial signup notifications and paid plan welcome emails via webhook-to-Gmail workflows. Add unlimited scenarios to extend NexusOS with any tool.</p>
+      <span class="badge connected">● Connected</span>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon" style="background:#378ADD22;border:1px solid #378ADD44">📱</div>
+        <div>
+          <div class="card-name">PWA / Mobile</div>
+          <div class="card-category">Mobile App</div>
+        </div>
+      </div>
+      <p class="card-desc">Install NexusOS as a native-like app on iOS and Android via your browser's "Add to Home Screen." Works offline and feels like a real app — no App Store needed.</p>
+      <span class="badge connected">● Connected</span>
+    </div>
+
+  </div>
+
+  <div class="section-label">Coming Soon</div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon" style="background:#1a1a1a;border:1px solid #2a2a2a">📋</div>
+        <div>
+          <div class="card-name">Notion</div>
+          <div class="card-category">Knowledge Base</div>
+        </div>
+      </div>
+      <p class="card-desc">Pull Notion pages and databases into NexusOS notes and reports — keep your knowledge base and operating system in sync.</p>
+      <span class="badge coming">Coming Soon</span>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon" style="background:#1a1a1a;border:1px solid #2a2a2a">💬</div>
+        <div>
+          <div class="card-name">Slack</div>
+          <div class="card-category">Team Communication</div>
+        </div>
+      </div>
+      <p class="card-desc">Send CEO report summaries and approval notifications directly to Slack channels. Two-way sync for task approvals and feedback.</p>
+      <span class="badge coming">Coming Soon</span>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon" style="background:#1a1a1a;border:1px solid #2a2a2a">📊</div>
+        <div>
+          <div class="card-name">Stripe</div>
+          <div class="card-category">Payments</div>
+        </div>
+      </div>
+      <p class="card-desc">Alternative billing integration for teams who prefer Stripe. Includes usage-based billing and metered subscriptions.</p>
+      <span class="badge coming">Coming Soon</span>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- CTA -->
+<div class="cta-block">
+  <h2>Ready to run your clients smarter?</h2>
+  <p>Start free — no credit card required. Upgrade when you're ready.</p>
+  <a href="https://app.getnexusos.app" class="btn-primary">Start Free Trial →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>NexusOS v5.9 · © 2026 Jhun Rey Velado · <a href="/">Home</a> · <a href="/integrations.html">Integrations</a> · Built for Fractional EAs</p>
+</footer>
+
+</body>
+</html>
