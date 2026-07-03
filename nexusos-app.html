@@ -702,6 +702,57 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
   #top-name { display:none !important; }
 }
 
+/* ── CEO PORTAL ──────────────────────────────────────── */
+.ceo-welcome-banner {
+  background:linear-gradient(135deg,#071a14 0%,#0a1128 100%);
+  border:1px solid #1D9E75; border-radius:12px; padding:20px 24px;
+  margin-bottom:18px; position:relative; overflow:hidden;
+}
+.ceo-welcome-banner::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,#1D9E75,#534AB7);
+}
+.ceo-welcome-eyebrow { font-size:10px; color:#1D9E75; text-transform:uppercase; letter-spacing:0.12em; font-weight:700; margin-bottom:4px; }
+.ceo-welcome-name { font-size:22px; font-weight:700; color:#f0f0f0; margin-bottom:4px; }
+.ceo-welcome-sub { font-size:12px; color:#555; }
+.ceo-metric-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; margin-bottom:20px; }
+.ceo-metric-card { background:#0a0a12; border:1px solid #1e1e2e; border-radius:8px; padding:14px; }
+.ceo-metric-lbl { font-size:10px; color:#555; text-transform:uppercase; letter-spacing:.07em; margin-bottom:6px; }
+.ceo-metric-val { font-size:22px; font-weight:700; color:#f0f0f0; }
+.ceo-metric-val.green { color:#1D9E75; }
+.ceo-metric-val.purple { color:#7F77DD; }
+.ceo-metric-val.amber { color:#f0b429; }
+.portal-empty { text-align:center; padding:40px 20px; color:#444; font-size:13px; line-height:1.7; }
+.portal-empty i { font-size:32px; display:block; margin-bottom:10px; color:#333; }
+/* CEO top strip (shown instead of sidebar for CEO users) */
+#ceo-top-strip {
+  display:none; align-items:center; justify-content:space-between;
+  background:#0a0a12; border-bottom:1px solid #1e1e2e;
+  padding:8px 20px; font-size:12px; color:#555;
+}
+#ceo-top-strip.visible { display:flex; }
+.ceo-strip-badge { background:#081510; color:#1D9E75; border:1px solid #0f2518; border-radius:6px; padding:3px 10px; font-size:10px; font-weight:700; letter-spacing:0.08em; margin-right:8px; }
+/* Invite link modal */
+.invite-link-box {
+  background:#0a0a12; border:1px solid #252535; border-radius:8px;
+  padding:12px 14px; font-size:11px; color:#7F77DD; word-break:break-all;
+  margin:12px 0; font-family:monospace; line-height:1.6;
+  user-select:all; cursor:text;
+}
+.portal-publish-bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+/* Invite landing banner (shown on auth screen when ?join= param detected) */
+#invite-landing-banner {
+  display:none; margin:0 auto 18px; max-width:400px;
+  background:linear-gradient(135deg,#071a14,#0a1128); border:1px solid #1D9E75;
+  border-radius:12px; padding:18px 20px; text-align:center;
+}
+#invite-landing-banner .ilb-icon { font-size:28px; margin-bottom:8px; }
+#invite-landing-banner .ilb-title { font-size:15px; font-weight:700; color:#f0f0f0; margin-bottom:4px; }
+#invite-landing-banner .ilb-sub { font-size:12px; color:#666; line-height:1.6; }
+@media (max-width:768px) {
+  .ceo-metric-grid { grid-template-columns:1fr 1fr !important; }
+}
+
 /* ── FOUNDER SIGNUPS PANEL ──────────────────────────── */
 #founder-signups-panel { display:none; }
 .signups-panel-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
@@ -773,10 +824,27 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 <body>
 
 <!-- AUTH SCREEN -->
+
+<!-- CEO TOP STRIP (shown when CEO is logged in) -->
+<div id="ceo-top-strip">
+  <div style="display:flex;align-items:center;gap:8px">
+    <span class="ceo-strip-badge">CLIENT PORTAL</span>
+    <span id="ceo-strip-ea-name" style="color:#666">Managed by your Executive Assistant</span>
+  </div>
+  <button onclick="supabase.auth.signOut().then(function(){ localStorage.removeItem('nexusos_workspace_role'); window.location.reload(); })" style="background:none;border:1px solid #2a2a3d;color:#555;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer;font-family:inherit">Sign out</button>
+</div>
+
+<!-- INVITE LANDING BANNER (shown before login when ?join= param detected) -->
+<div id="invite-landing-banner">
+  <div class="ilb-icon">🔐</div>
+  <div class="ilb-title">You've been invited to <span id="invite-landing-client-name">your portal</span></div>
+  <div class="ilb-sub">by <strong id="invite-landing-ea-name" style="color:#f0f0f0">your Executive Assistant</strong><br>Sign in or create an account to access your Client Portal.</div>
+</div>
+
 <div id="auth-screen" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#0d0d14;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
   <div style="background:#13131f;border:1px solid #2a2a3d;border-radius:14px;padding:36px 32px;width:100%;max-width:400px">
     <div style="color:#f0b429;font-weight:700;font-size:20px;margin-bottom:4px">⚡ NexusOS</div>
-    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v5.8 · Executive Edition</div>
+    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v5.9 · Executive Edition</div>
 
     <!-- TAB SWITCHER -->
     <div id="auth-tabs" style="display:flex;gap:4px;background:#0d0d14;padding:4px;border-radius:8px;margin-bottom:20px">
@@ -893,7 +961,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="nav-item" id="n-pricing" onclick="nav('pricing')"><i class="ti ti-credit-card"></i> Pricing & Plans</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer">NexusOS v5.8<br><span>© Jhun Rey Velado 2026</span></div>
+    <div class="sidebar-footer">NexusOS v5.9<br><span>© Jhun Rey Velado 2026</span></div>
   </div>
 
   <!-- CONTENT -->
@@ -1682,6 +1750,8 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
           <option value="all">All time</option>
         </select>
         <button class="btn-outline" onclick="printClientReport()"><i class="ti ti-printer"></i> Print Report</button>
+        <button class="btn-outline" id="publish-report-btn" onclick="publishPortalReport()" style="border-color:#1D9E75;color:#1D9E75"><i class="ti ti-upload"></i> Publish to Portal</button>
+        <button class="btn-outline" onclick="openInviteModal()" style="border-color:#534AB7;color:#7F77DD"><i class="ti ti-link"></i> Invite CEO</button>
       </div>
 
       <!-- Metric cards -->
@@ -1697,6 +1767,34 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="panel" style="margin-top:12px" id="report-activity-panel">
         <div class="panel-hdr"><div class="panel-ttl">Activity Summary</div></div>
         <div id="report-activity-body"></div>
+      </div>
+    </div>
+
+    <!-- CEO CLIENT PORTAL -->
+    <div class="screen" id="s-ceo-portal">
+      <div class="ceo-welcome-banner">
+        <div class="ceo-welcome-eyebrow"><i class="ti ti-shield-check"></i> Client Portal</div>
+        <div class="ceo-welcome-name" id="ceo-welcome-name">Welcome</div>
+        <div class="ceo-welcome-sub" id="ceo-welcome-sub">Your executive assistant's monthly report</div>
+      </div>
+      <div class="ceo-metric-grid">
+        <div class="ceo-metric-card"><div class="ceo-metric-lbl">Hours This Month</div><div class="ceo-metric-val" id="ceo-hours">—</div></div>
+        <div class="ceo-metric-card"><div class="ceo-metric-lbl">Billable Hours</div><div class="ceo-metric-val purple" id="ceo-bill-hours">—</div></div>
+        <div class="ceo-metric-card"><div class="ceo-metric-lbl">Amount Billed</div><div class="ceo-metric-val green" id="ceo-earnings">—</div></div>
+        <div class="ceo-metric-card"><div class="ceo-metric-lbl">Tasks Done</div><div class="ceo-metric-val amber" id="ceo-tasks">—</div></div>
+        <div class="ceo-metric-card"><div class="ceo-metric-lbl">Meetings</div><div class="ceo-metric-val" id="ceo-meetings">—</div></div>
+        <div class="ceo-metric-card"><div class="ceo-metric-lbl">Decisions Logged</div><div class="ceo-metric-val" id="ceo-decisions">—</div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-hdr">
+          <div class="panel-ttl">Time Breakdown</div>
+          <span id="ceo-report-period" style="font-size:11px;color:#555"></span>
+        </div>
+        <div id="ceo-time-body"><div class="portal-empty"><i class="ti ti-file-report"></i>No report published yet.<br>Your EA will publish a monthly report for you to review here.</div></div>
+      </div>
+      <div class="panel" style="margin-top:12px">
+        <div class="panel-hdr"><div class="panel-ttl">Activity Summary</div></div>
+        <div id="ceo-activity-body"></div>
       </div>
     </div>
 
@@ -1801,6 +1899,24 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
     <div class="mc-btns">
       <button class="mc-btn cancel" onclick="closeDecisionModal()">Cancel</button>
       <button class="mc-btn primary" onclick="saveDecision()">Save Decision</button>
+    </div>
+  </div>
+</div>
+
+<!-- INVITE CEO MODAL -->
+<div class="mc-modal-overlay" id="invite-ceo-modal">
+  <div class="mc-modal-box" style="max-width:480px">
+    <div class="mc-modal-title">Invite CEO to Client Portal</div>
+    <p style="font-size:13px;color:#666;margin-bottom:4px;line-height:1.6">
+      Send this link to <strong id="invite-client-name" style="color:#f0f0f0"></strong>. When they sign in, they'll see their read-only portal — hours, earnings, tasks, and your published reports.
+    </p>
+    <div class="invite-link-box" id="invite-link-display">Generating link...</div>
+    <div style="display:flex;gap:8px;margin-top:4px">
+      <button class="btn-primary" id="copy-invite-btn" onclick="copyInviteLink()"><i class="ti ti-copy"></i> Copy Link</button>
+      <button class="mc-btn cancel" onclick="closeInviteModal()">Close</button>
+    </div>
+    <div style="margin-top:14px;padding:10px 12px;background:#0a0a12;border:1px solid #1e1e2e;border-radius:8px;font-size:11px;color:#555;line-height:1.8">
+      <i class="ti ti-info-circle" style="color:#534AB7"></i> Link expires in <strong style="color:#666">7 days</strong>. CEO signs up → sees read-only portal only. You stay in full control.
     </div>
   </div>
 </div>
@@ -3700,13 +3816,38 @@ window.nav = function(screen) {
   if(screen==='dashboard') setTimeout(function(){ loadExecFocus(); renderKpiGrid(); },200);
 };
 
-// ── AUTH SCREEN CLICK FIX ────────────────────────────────
+// ── AUTH SCREEN CLICK FIX + CEO PORTAL ROUTING ───────────
 (function(){
   var _prev = window.initApp;
   window.initApp = async function(user){
     if(_prev) await _prev(user);
     var a = document.getElementById('auth-screen');
     if(a){ a.style.display='none'; a.style.pointerEvents='none'; a.style.zIndex='-1'; }
+    // Complete CEO portal setup if invite was pending
+    await completeCEOPortalSetup();
+    // Route based on workspace role
+    var role = await checkWorkspaceRole();
+    if(role === 'ceo'){
+      // Hide EA interface
+      document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+      document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+      var sidebar = document.querySelector('.sidebar');
+      if(sidebar) sidebar.style.display = 'none';
+      var qcBtn = document.getElementById('quick-capture-btn');
+      if(qcBtn) qcBtn.style.display = 'none';
+      var privBar = document.getElementById('privacy-notice-bar');
+      if(privBar) privBar.style.display = 'none';
+      // Show CEO portal
+      var ceoScreen = document.getElementById('s-ceo-portal');
+      if(ceoScreen){ ceoScreen.classList.add('active'); }
+      // Show CEO top strip
+      var strip = document.getElementById('ceo-top-strip');
+      if(strip) strip.classList.add('visible');
+      // Adjust content margin
+      var content = document.querySelector('.content');
+      if(content) content.style.marginLeft = '0';
+      loadCEOPortal();
+    }
   };
 })();
 
@@ -4984,6 +5125,265 @@ window.addEventListener('load', function(){
   renderKpiGrid();
   syncQCVisibility();
   setTimeout(loadExecFocus, 1500);
+  detectCEOInvite();
+});
+
+// ── CEO PORTAL SYSTEM (v5.9) ─────────────────────────────
+
+// Check workspace role (cached in localStorage for speed)
+async function checkWorkspaceRole(){
+  var cached = localStorage.getItem('nexusos_workspace_role');
+  if(cached === 'ceo') return 'ceo';
+  // Founder always stays EA
+  if(window.currentUser && window.currentUser.email === 'jhun07.velado@gmail.com') return 'ea';
+  if(localStorage.getItem('nexusos_founder') === '1') return 'ea';
+  if(typeof isFounder === 'function' && isFounder()) return 'ea';
+  if(!window.sb || !window.currentUser) return 'ea';
+  try {
+    var res = await sb.from('profiles').select('workspace_role').eq('id', window.currentUser.id).single();
+    var role = (res.data && res.data.workspace_role) || 'ea';
+    if(role === 'ceo') localStorage.setItem('nexusos_workspace_role', 'ceo');
+    return role;
+  } catch(e){ return 'ea'; }
+}
+
+// Detect ?join= invite param on page load
+function detectCEOInvite(){
+  var params = new URLSearchParams(window.location.search);
+  var joinParam = params.get('join');
+  if(!joinParam) return;
+  try {
+    var data = JSON.parse(atob(joinParam));
+    if(!data.eaId || !data.clientId) return;
+    if(data.exp && Date.now() > data.exp){
+      console.warn('NexusOS: invite link expired');
+      return;
+    }
+    localStorage.setItem('nexusos_pending_invite', JSON.stringify(data));
+    // Show landing banner
+    var banner = document.getElementById('invite-landing-banner');
+    var clientNameEl = document.getElementById('invite-landing-client-name');
+    var eaNameEl = document.getElementById('invite-landing-ea-name');
+    if(clientNameEl) clientNameEl.textContent = data.clientName || 'your portal';
+    if(eaNameEl) eaNameEl.textContent = data.eaName || 'your Executive Assistant';
+    if(banner) banner.style.display = 'block';
+  } catch(e){ console.warn('NexusOS: invalid invite param'); }
+}
+
+// Complete CEO portal setup after login (if pending invite exists)
+async function completeCEOPortalSetup(){
+  var pending = null;
+  try { pending = JSON.parse(localStorage.getItem('nexusos_pending_invite') || 'null'); } catch(e){}
+  if(!pending || !pending.eaId || !pending.clientId) return;
+  if(!window.sb || !window.currentUser) return;
+  // Don't overwrite founder or existing EA accounts
+  if(window.currentUser.email === 'jhun07.velado@gmail.com') return;
+  if(localStorage.getItem('nexusos_founder') === '1') return;
+  try {
+    await sb.from('profiles').update({
+      workspace_role: 'ceo',
+      linked_ea_id: pending.eaId,
+      linked_client_id: pending.clientId
+    }).eq('id', window.currentUser.id);
+    localStorage.removeItem('nexusos_pending_invite');
+    localStorage.setItem('nexusos_workspace_role', 'ceo');
+    console.log('NexusOS: CEO portal setup complete for', pending.clientName);
+  } catch(err){ console.warn('NexusOS CEO setup error:', err); }
+}
+
+// Generate invite link for a client
+function generateCEOInviteLink(clientId, clientName){
+  if(!window.currentUser) return '';
+  var data = {
+    eaId: window.currentUser.id,
+    eaEmail: window.currentUser.email,
+    eaName: (window.currentProfile && window.currentProfile.full_name) || 'Your EA',
+    clientId: clientId,
+    clientName: clientName,
+    exp: Date.now() + (7 * 24 * 60 * 60 * 1000)
+  };
+  return window.location.origin + window.location.pathname + '?join=' + btoa(JSON.stringify(data));
+}
+
+function openInviteModal(){
+  var clientSel = document.getElementById('report-client-sel');
+  var clientId = clientSel ? clientSel.value : '';
+  var clientName = (clientSel && clientSel.selectedIndex > 0) ? clientSel.options[clientSel.selectedIndex].text : '';
+  if(!clientId){ alert('Select a client first, then click Invite CEO.'); return; }
+  var link = generateCEOInviteLink(clientId, clientName);
+  var nameEl = document.getElementById('invite-client-name');
+  var linkEl = document.getElementById('invite-link-display');
+  var copyBtn = document.getElementById('copy-invite-btn');
+  if(nameEl) nameEl.textContent = clientName;
+  if(linkEl) linkEl.textContent = link;
+  if(copyBtn) copyBtn.innerHTML = '<i class="ti ti-copy"></i> Copy Link';
+  var modal = document.getElementById('invite-ceo-modal');
+  if(modal) modal.classList.add('open');
+}
+
+function closeInviteModal(){
+  var modal = document.getElementById('invite-ceo-modal');
+  if(modal) modal.classList.remove('open');
+}
+
+function copyInviteLink(){
+  var linkEl = document.getElementById('invite-link-display');
+  if(!linkEl) return;
+  navigator.clipboard.writeText(linkEl.textContent).then(function(){
+    var btn = document.getElementById('copy-invite-btn');
+    if(btn){ btn.innerHTML = '✓ Copied!'; setTimeout(function(){ btn.innerHTML = '<i class="ti ti-copy"></i> Copy Link'; }, 2000); }
+  }).catch(function(){
+    // Fallback: select text
+    var range = document.createRange();
+    range.selectNodeContents(linkEl);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+  });
+}
+
+// Publish monthly report snapshot to Supabase for CEO to view
+async function publishPortalReport(){
+  var clientSel = document.getElementById('report-client-sel');
+  var clientId = clientSel ? clientSel.value : '';
+  var clientName = (clientSel && clientSel.selectedIndex > 0) ? clientSel.options[clientSel.selectedIndex].text : '';
+  if(!clientId){ alert('Select a client before publishing.'); return; }
+  if(!window.sb || !window.currentUser){ alert('Not connected.'); return; }
+  var btn = document.getElementById('publish-report-btn');
+  if(btn) btn.innerHTML = '<i class="ti ti-loader"></i> Publishing...';
+  var range = ((document.getElementById('report-range')||{}).value)||'month';
+  var dr = getDateRange(range);
+  var startStr = dr.start.toISOString().split('T')[0];
+  var endStr = dr.end.toISOString().split('T')[0];
+  var entries = getTimeEntries().filter(function(e){ return e.clientId===clientId && e.date>=startStr && e.date<=endStr; });
+  var totalSecs = entries.reduce(function(s,e){ return s+e.seconds; },0);
+  var billSecs = entries.filter(function(e){ return e.billable; }).reduce(function(s,e){ return s+e.seconds; },0);
+  var totalEarn = entries.reduce(function(s,e){ return s+(e.earnings||0); },0);
+  var tasksDone=0, meetingsCount=0, decisionsCount=0;
+  try {
+    var results = await Promise.all([
+      sb.from('tasks').select('id,status,completed_at').eq('status','completed'),
+      sb.from('meetings').select('id,meeting_date'),
+      sb.from('decisions').select('id,created_at')
+    ]);
+    tasksDone = (results[0].data||[]).filter(function(t){ return t.completed_at&&t.completed_at.split('T')[0]>=startStr&&t.completed_at.split('T')[0]<=endStr; }).length;
+    meetingsCount = (results[1].data||[]).filter(function(m){ return m.meeting_date&&m.meeting_date>=startStr&&m.meeting_date<=endStr; }).length;
+    decisionsCount = (results[2].data||[]).filter(function(d){ return d.created_at&&d.created_at.split('T')[0]>=startStr&&d.created_at.split('T')[0]<=endStr; }).length;
+  } catch(e){}
+  var now = new Date();
+  var monthYear = now.toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  var snapshot = {
+    client_id: clientId,
+    client_name: clientName,
+    ea_id: window.currentUser.id,
+    ea_name: (window.currentProfile && window.currentProfile.full_name) || 'Your EA',
+    month_year: monthYear,
+    published_at: now.toISOString(),
+    data_json: {
+      totalSecs: totalSecs, billSecs: billSecs, totalEarn: totalEarn,
+      sessions: entries.length, tasksDone: tasksDone,
+      meetingsCount: meetingsCount, decisionsCount: decisionsCount,
+      startStr: startStr, endStr: endStr,
+      entries: entries.map(function(e){ return {date:e.date,description:e.description,seconds:e.seconds,billable:e.billable,earnings:e.earnings||0}; })
+    }
+  };
+  try {
+    // Delete existing snapshot for same month then insert fresh
+    await sb.from('client_portal_snapshots').delete()
+      .eq('ea_id', window.currentUser.id)
+      .eq('client_id', clientId)
+      .eq('month_year', monthYear);
+    var { error } = await sb.from('client_portal_snapshots').insert(snapshot);
+    if(error) throw error;
+    if(btn) btn.innerHTML = '<i class="ti ti-check"></i> Published!';
+    setTimeout(function(){ if(btn) btn.innerHTML = '<i class="ti ti-upload"></i> Publish to Portal'; }, 2500);
+  } catch(err) {
+    if(btn) btn.innerHTML = '<i class="ti ti-upload"></i> Publish to Portal';
+    alert('Publish error: ' + (err.message || err));
+    console.error('publishPortalReport error:', err);
+  }
+}
+
+// Load CEO portal dashboard
+async function loadCEOPortal(){
+  if(!window.sb || !window.currentUser) return;
+  var profile = null;
+  try {
+    var res = await sb.from('profiles').select('linked_ea_id,linked_client_id,full_name').eq('id', window.currentUser.id).single();
+    profile = res.data;
+  } catch(e){}
+  // Update welcome name
+  var firstName = (window.currentProfile && window.currentProfile.full_name) ? window.currentProfile.full_name.split(' ')[0] : (profile && profile.full_name ? profile.full_name.split(' ')[0] : 'Welcome');
+  var nameEl = document.getElementById('ceo-welcome-name');
+  if(nameEl) nameEl.textContent = 'Welcome, ' + firstName;
+  if(!profile || !profile.linked_ea_id){
+    document.getElementById('ceo-time-body').innerHTML = '<div class="portal-empty"><i class="ti ti-alert-circle"></i>Portal not fully configured.<br><span style="font-size:12px">Contact your EA to resend the invite link.</span></div>';
+    return;
+  }
+  // Fetch EA name for the strip
+  try {
+    var eaRes = await sb.from('profiles').select('full_name').eq('id', profile.linked_ea_id).single();
+    var stripEl = document.getElementById('ceo-strip-ea-name');
+    if(stripEl && eaRes.data) stripEl.textContent = 'Managed by ' + (eaRes.data.full_name || 'your EA');
+  } catch(e){}
+  // Fetch latest published snapshot
+  try {
+    var snapRes = await sb.from('client_portal_snapshots')
+      .select('*')
+      .eq('client_id', profile.linked_client_id)
+      .eq('ea_id', profile.linked_ea_id)
+      .order('published_at', {ascending: false})
+      .limit(1);
+    var snaps = snapRes.data || [];
+    if(!snaps.length){
+      var subEl = document.getElementById('ceo-welcome-sub');
+      if(subEl) subEl.textContent = 'Your EA has not published a report yet — check back soon.';
+      document.getElementById('ceo-time-body').innerHTML = '<div class="portal-empty"><i class="ti ti-file-report"></i>No report published yet.<br>Your EA will publish a monthly report for you here.</div>';
+      return;
+    }
+    var snap = snaps[0];
+    var d = snap.data_json;
+    var subEl = document.getElementById('ceo-welcome-sub');
+    if(subEl) subEl.textContent = 'Report for ' + snap.month_year + ' · Published ' + new Date(snap.published_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    var pEl = document.getElementById('ceo-report-period');
+    if(pEl) pEl.textContent = snap.month_year;
+    // Fill metrics
+    var hf = function(s){ return (s/3600).toFixed(2)+' hrs'; };
+    var setText = function(id, val){ var el=document.getElementById(id); if(el) el.textContent=val; };
+    setText('ceo-hours', hf(d.totalSecs||0));
+    setText('ceo-bill-hours', hf(d.billSecs||0));
+    setText('ceo-earnings', '$'+(d.totalEarn||0).toFixed(2));
+    setText('ceo-tasks', d.tasksDone||0);
+    setText('ceo-meetings', d.meetingsCount||0);
+    setText('ceo-decisions', d.decisionsCount||0);
+    // Time breakdown table
+    var timeBody = document.getElementById('ceo-time-body');
+    var entries = d.entries || [];
+    if(timeBody){
+      if(!entries.length){
+        timeBody.innerHTML = '<div class="portal-empty">No time entries recorded this period.</div>';
+      } else {
+        var rows = entries.map(function(e){
+          return '<tr><td>'+e.date+'</td><td>'+e.description+'</td>'+
+            '<td style="color:#f0f0f0;font-weight:600">'+hf(e.seconds)+'</td>'+
+            '<td>'+(e.billable?'<span style="color:#1D9E75">●</span> Billable':'<span style="color:#444">○</span> Non-bill')+'</td>'+
+            '<td style="color:#1D9E75;font-weight:600">'+(e.earnings?'$'+Number(e.earnings).toFixed(2):'—')+'</td></tr>';
+        }).join('');
+        var totRow = '<tr><td colspan="2"><strong>Total</strong></td><td style="color:#f0f0f0;font-weight:700">'+hf(d.totalSecs||0)+'</td><td></td><td style="color:#1D9E75;font-weight:700">$'+(d.totalEarn||0).toFixed(2)+'</td></tr>';
+        timeBody.innerHTML = '<table class="report-table"><thead><tr><th>Date</th><th>Activity</th><th>Hours</th><th>Type</th><th>Amount</th></tr></thead><tbody>'+rows+'</tbody><tfoot>'+totRow+'</tfoot></table>';
+      }
+    }
+    // Activity summary
+    var actBody = document.getElementById('ceo-activity-body');
+    if(actBody) actBody.innerHTML = '<div style="display:flex;gap:32px;flex-wrap:wrap;padding:8px 0">'+
+      '<div><div style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:.07em;font-weight:600">Tasks Completed</div><div style="font-size:22px;font-weight:700;color:#f0b429;margin-top:6px">'+(d.tasksDone||0)+'</div></div>'+
+      '<div><div style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:.07em;font-weight:600">Meetings</div><div style="font-size:22px;font-weight:700;color:#7F77DD;margin-top:6px">'+(d.meetingsCount||0)+'</div></div>'+
+      '<div><div style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:.07em;font-weight:600">Decisions Logged</div><div style="font-size:22px;font-weight:700;color:#1D9E75;margin-top:6px">'+(d.decisionsCount||0)+'</div></div>'+
+      '</div>';
+  } catch(err){ console.warn('CEO portal load error:', err); }
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeInviteModal();
 });
 
 </script>
