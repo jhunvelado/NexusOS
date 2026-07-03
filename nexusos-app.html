@@ -1451,7 +1451,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
         <!-- STARTER -->
         <div style="background:#13131f;border:1px solid #1e1e2e;border-radius:14px;padding:26px;position:relative">
           <div style="font-size:12px;color:#888;font-weight:500;margin-bottom:6px">Starter</div>
-          <div style="font-size:38px;font-weight:700;color:#f0f0f0;margin-bottom:4px">$49<span style="font-size:15px;color:#666;font-weight:400">/month</span></div>
+          <div style="font-size:38px;font-weight:700;color:#f0f0f0;margin-bottom:4px">$39<span style="font-size:15px;color:#666;font-weight:400">/month</span></div>
           <div style="font-size:12px;color:#666;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid #1e1e2e">For one CEO and EA getting started with NexusOS.</div>
           <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#aaa;padding:5px 0"><i class="ti ti-check" style="color:#1D9E75;font-size:14px"></i> Dashboard + AI Briefing</div>
           <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#aaa;padding:5px 0"><i class="ti ti-check" style="color:#1D9E75;font-size:14px"></i> Task management</div>
@@ -1466,7 +1466,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
         <div style="background:#100e22;border:2px solid #534AB7;border-radius:14px;padding:26px;position:relative">
           <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#534AB7;color:#EEEDFE;font-size:11px;font-weight:600;padding:4px 16px;border-radius:20px;white-space:nowrap">Most popular</div>
           <div style="font-size:12px;color:#888;font-weight:500;margin-bottom:6px">Professional</div>
-          <div style="font-size:38px;font-weight:700;color:#f0f0f0;margin-bottom:4px">$149<span style="font-size:15px;color:#666;font-weight:400">/month</span></div>
+          <div style="font-size:38px;font-weight:700;color:#f0f0f0;margin-bottom:4px">$79<span style="font-size:15px;color:#666;font-weight:400">/month</span></div>
           <div style="font-size:12px;color:#666;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid #1e1e2e">Full NexusOS for serious executive operators.</div>
           <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#aaa;padding:5px 0"><i class="ti ti-check" style="color:#1D9E75;font-size:14px"></i> Everything in Starter</div>
           <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#aaa;padding:5px 0"><i class="ti ti-check" style="color:#1D9E75;font-size:14px"></i> Travel Hub + itineraries</div>
@@ -1481,7 +1481,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
         <!-- ENTERPRISE -->
         <div style="background:#13131f;border:1px solid #1e1e2e;border-radius:14px;padding:26px;position:relative">
           <div style="font-size:12px;color:#888;font-weight:500;margin-bottom:6px">Enterprise</div>
-          <div style="font-size:38px;font-weight:700;color:#f0f0f0;margin-bottom:4px">$399<span style="font-size:15px;color:#666;font-weight:400">/month</span></div>
+          <div style="font-size:38px;font-weight:700;color:#f0f0f0;margin-bottom:4px">$179<span style="font-size:15px;color:#666;font-weight:400">/month</span></div>
           <div style="font-size:12px;color:#666;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid #1e1e2e">For PE-backed companies and healthcare groups.</div>
           <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#aaa;padding:5px 0"><i class="ti ti-check" style="color:#1D9E75;font-size:14px"></i> Everything in Professional</div>
           <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#aaa;padding:5px 0"><i class="ti ti-check" style="color:#1D9E75;font-size:14px"></i> Up to 5 CEO workspaces</div>
@@ -4609,43 +4609,56 @@ function updateGcalBar(connected){
   }
 }
 
-// ── MULTI-CLIENT: ENTERPRISE-ONLY GATE ───────────────────
-// Override canUseMultiClient — Professional no longer gets multi-client
-window.canUseMultiClient = function(){
-  if(typeof isFounder === 'function' && isFounder()) return true;
-  if(localStorage.getItem('nexusos_founder') === '1') return true;
+// ── MULTI-CLIENT: PLAN GATING (v6.1) ─────────────────────
+// Starter:      1 client
+// Professional: up to 3 clients
+// Enterprise:   unlimited clients
+
+window.getClientLimit = function(){
+  if(typeof isFounder === 'function' && isFounder()) return Infinity;
+  if(localStorage.getItem('nexusos_founder') === '1') return Infinity;
   var plan = ((window.currentProfile && window.currentProfile.plan) || 'free').toLowerCase();
-  return plan === 'enterprise';
+  if(plan === 'enterprise')    return Infinity;
+  if(plan === 'professional')  return 3;
+  return 1; // starter + free
 };
-// Hook nav to intercept clients screen for non-Enterprise users
+
+window.canUseMultiClient = function(){
+  return window.getClientLimit() > 1;
+};
+
+// Hook nav to intercept clients screen and enforce limit
 (function(){
   var _prevNav = window.nav;
   window.nav = function(screen){
-    if(screen === 'clients' && !window.canUseMultiClient()){
-      // Show upgrade prompt inline instead of navigating
-      var plan = ((window.currentProfile && window.currentProfile.plan) || 'free').toLowerCase();
-      if(plan !== 'enterprise'){
-        alert('My Clients workspace is an Enterprise-only feature.\n\nUpgrade to Enterprise ($399/mo) to manage multiple client workspaces.');
+    if(screen === 'clients'){
+      var limit = window.getClientLimit();
+      if(limit <= 1){
+        showToast('Professional or Enterprise required',
+          'Upgrade to Professional ($79/mo) for up to 3 clients, or Enterprise ($179/mo) for unlimited.','warning', 6000);
         return;
       }
     }
     if(_prevNav) return _prevNav(screen);
   };
 })();
-// Hide the My Clients nav item for non-Enterprise users after login
+
+// Show My Clients nav dim/tooltip based on plan
 (function(){
   var _prevSetup = window.setupUI || null;
   window.setupUI = function(){
     if(_prevSetup) _prevSetup.apply(this, arguments);
-    var plan = ((window.currentProfile && window.currentProfile.plan) || 'free').toLowerCase();
-    var isEnt = plan === 'enterprise' || (typeof isFounder === 'function' && isFounder()) || localStorage.getItem('nexusos_founder') === '1';
+    var limit = window.getClientLimit();
+    var canMulti = limit > 1;
     var navClients = document.getElementById('n-clients');
     if(navClients){
-      navClients.style.opacity = isEnt ? '1' : '0.35';
-      navClients.title = isEnt ? '' : 'Enterprise plan required';
+      navClients.style.opacity = canMulti ? '1' : '0.35';
+      navClients.title = canMulti
+        ? (limit === Infinity ? '' : 'Up to '+limit+' clients on your plan')
+        : 'Upgrade to Professional or Enterprise to unlock multiple clients';
     }
     var sw = document.getElementById('client-switcher');
-    if(sw) sw.style.display = isEnt ? '' : 'none';
+    if(sw) sw.style.display = canMulti ? '' : 'none';
   };
 })();
 
