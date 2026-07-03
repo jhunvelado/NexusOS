@@ -702,6 +702,25 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
   #top-name { display:none !important; }
 }
 
+/* ── FOUNDER SIGNUPS PANEL ──────────────────────────── */
+#founder-signups-panel { display:none; }
+.signups-panel-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.signups-badge { font-size:10px; padding:2px 8px; border-radius:10px; background:#1a1000; color:#f0b429; border:1px solid #2a1e00; font-weight:600; margin-left:8px; }
+.signup-row { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid #0f0f1e; }
+.signup-row:last-child { border-bottom:none; }
+.signup-avatar { width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,#534AB7,#1D9E75); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; flex-shrink:0; }
+.signup-info { flex:1; min-width:0; }
+.signup-name { font-size:13px; font-weight:600; color:#f0f0f0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.signup-email { font-size:11px; color:#555; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.signup-meta { text-align:right; flex-shrink:0; }
+.signup-plan { font-size:10px; font-weight:600; padding:2px 7px; border-radius:8px; margin-bottom:2px; display:inline-block; }
+.signup-plan.free { background:#0a0a12; color:#555; border:1px solid #1e1e2e; }
+.signup-plan.trialing { background:#1a1000; color:#f0b429; border:1px solid #2a1e00; }
+.signup-plan.starter { background:#0e0c22; color:#7F77DD; border:1px solid #1a1830; }
+.signup-plan.professional { background:#100e22; color:#534AB7; border:1px solid #1a1830; }
+.signup-plan.enterprise { background:#081510; color:#1D9E75; border:1px solid #0f2518; }
+.signup-date { font-size:10px; color:#444; margin-top:2px; }
+
 /* ── ONBOARDING TOUR ─────────────────────────────────── */
 #onboarding-overlay {
   display:none; position:fixed; inset:0;
@@ -907,6 +926,20 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
           <button class="kpi-sector-tab" data-sector="pe" onclick="setKpiSector('pe')">PE / Portfolio</button>
         </div>
         <div id="kpi-grid" class="kpi-grid"></div>
+      </div>
+
+      <!-- FOUNDER ONLY: NEW SIGNUPS PANEL -->
+      <div id="founder-signups-panel" class="panel" style="margin-bottom:18px">
+        <div class="signups-panel-header">
+          <div class="panel-ttl" style="display:flex;align-items:center;gap:0">
+            <i class="ti ti-users" style="color:#f0b429;margin-right:7px"></i> New Signups
+            <span class="signups-badge" id="signups-badge">—</span>
+          </div>
+          <span style="font-size:11px;color:#534AB7;cursor:pointer;display:flex;align-items:center;gap:4px" onclick="loadSignupsPanel()">
+            <i class="ti ti-refresh"></i> Refresh
+          </span>
+        </div>
+        <div id="signups-list"><div style="font-size:12px;color:#444">Loading...</div></div>
       </div>
 
       <div class="stat-row">
@@ -3750,6 +3783,7 @@ window.loadDashboard = async function(){
   if(_origLoadDashboard) await _origLoadDashboard();
   loadExecFocus();
   renderKpiGrid();
+  loadSignupsPanel();
   // Show onboarding tour on first login
   setTimeout(startOnboarding, 900);
 };
@@ -4862,6 +4896,62 @@ function finishOnboarding(){
   document.querySelectorAll('.ob-nav-highlight').forEach(function(el){ el.classList.remove('ob-nav-highlight'); });
   var overlay = document.getElementById('onboarding-overlay');
   if(overlay){ overlay.classList.remove('active'); }
+}
+
+// ── FOUNDER SIGNUPS PANEL ────────────────────────────────
+function isCurrentUserFounder(){
+  if(localStorage.getItem('nexusos_founder')==='1') return true;
+  if(window.currentUser && window.currentUser.email==='jhun07.velado@gmail.com') return true;
+  if(typeof isFounder==='function' && isFounder()) return true;
+  return false;
+}
+
+async function loadSignupsPanel(){
+  var panel=document.getElementById('founder-signups-panel');
+  if(!panel) return;
+  if(!isCurrentUserFounder()){ panel.style.display='none'; return; }
+  panel.style.display='block';
+  var list=document.getElementById('signups-list');
+  var badge=document.getElementById('signups-badge');
+  if(!window.sb){
+    if(list) list.innerHTML='<div style="font-size:12px;color:#444">Not connected to database</div>';
+    return;
+  }
+  if(list) list.innerHTML='<div style="font-size:12px;color:#444;padding:6px 0">Loading signups...</div>';
+  try{
+    var res=await sb.from('profiles')
+      .select('id,full_name,email,plan,created_at')
+      .order('created_at',{ascending:false})
+      .limit(15);
+    var rows=res.data||[];
+    if(badge) badge.textContent=rows.length;
+    if(!rows.length){
+      if(list) list.innerHTML='<div style="font-size:12px;color:#444;padding:8px 0">No signups yet — share NexusOS!</div>';
+      return;
+    }
+    if(list) list.innerHTML=rows.map(function(u){
+      var name=u.full_name||u.email||'Anonymous';
+      var initial=name.charAt(0).toUpperCase();
+      var plan=(u.plan||'free').toLowerCase();
+      var planLabel=plan.charAt(0).toUpperCase()+plan.slice(1);
+      var dateStr=u.created_at?new Date(u.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'—';
+      var email=u.email||'—';
+      return '<div class="signup-row">'+
+        '<div class="signup-avatar">'+initial+'</div>'+
+        '<div class="signup-info">'+
+          '<div class="signup-name">'+name+'</div>'+
+          '<div class="signup-email">'+email+'</div>'+
+        '</div>'+
+        '<div class="signup-meta">'+
+          '<div class="signup-plan '+plan+'">'+planLabel+'</div>'+
+          '<div class="signup-date">'+dateStr+'</div>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }catch(err){
+    if(list) list.innerHTML='<div style="font-size:12px;color:#E24B4A">Error loading signups</div>';
+    console.warn('Signups panel error:',err);
+  }
 }
 
 // ── MOBILE SIDEBAR ────────────────────────────────────────
