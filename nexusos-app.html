@@ -5054,8 +5054,9 @@ async function loadSignupsPanel(){
   panel.style.display='block';
   var list=document.getElementById('signups-list');
   var badge=document.getElementById('signups-badge');
-  if(!window.sb){
-    if(list) list.innerHTML='<div style="font-size:12px;color:#444">Not connected to database</div>';
+  if(!window.sb || !window.currentUser){
+    // Supabase not ready yet — retry after delay
+    setTimeout(loadSignupsPanel, 1500);
     return;
   }
   if(list) list.innerHTML='<div style="font-size:12px;color:#444;padding:6px 0">Loading signups...</div>';
