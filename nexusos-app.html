@@ -796,6 +796,75 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 .ea-feedback-status.approved { background:#081510; color:#1D9E75; }
 .ea-feedback-status.flagged  { background:#1a0808; color:#E24B4A; }
 
+/* ── CEO PORTAL TABS (v6.7) ─────────────────────────── */
+.ceo-tab-nav {
+  display:flex; gap:4px; flex-wrap:wrap; margin-bottom:18px;
+  border-bottom:1px solid #1a1a2e; padding-bottom:0;
+}
+.ceo-tab {
+  display:flex; align-items:center; gap:6px;
+  padding:9px 14px; font-size:12px; font-weight:500; color:#555;
+  background:transparent; border:none; border-bottom:2px solid transparent;
+  cursor:pointer; font-family:inherit; transition:all 0.12s;
+  margin-bottom:-1px; border-radius:0; white-space:nowrap;
+}
+.ceo-tab:hover { color:#bbb; }
+.ceo-tab.active { color:#f0b429; border-bottom-color:#f0b429; }
+.ceo-tb {
+  background:#f0b429; color:#000; border-radius:10px;
+  padding:1px 6px; font-size:10px; font-weight:700; line-height:1.4;
+}
+.ceo-panel { display:none; }
+.ceo-panel.active { display:block; }
+/* CEO task cards */
+.ceo-task-card {
+  background:#0a0a12; border:1px solid #1e1e2e; border-radius:8px;
+  padding:12px 14px; margin-bottom:8px; transition:border-color 0.12s;
+}
+.ceo-task-card:hover { border-color:#2a2a3d; }
+.ceo-status-pill {
+  font-size:10px; font-weight:600; padding:2px 8px; border-radius:10px;
+  flex-shrink:0; text-transform:uppercase; letter-spacing:.04em;
+}
+.ceo-status-pill.todo   { background:#111; color:#555; border:1px solid #222; }
+.ceo-status-pill.inprog { background:#0e1a30; color:#7F77DD; border:1px solid #1a2545; }
+/* CEO approval cards */
+.ceo-appr-card {
+  background:#0a0a12; border:1px solid #1e1e2e; border-radius:8px;
+  padding:14px 16px; margin-bottom:10px;
+}
+/* CEO trip cards */
+.ceo-trip-card {
+  background:#0a0a12; border:1px solid #1e1e2e; border-radius:8px;
+  padding:14px 16px; margin-bottom:10px; border-left:3px solid #f0b429;
+}
+/* CEO decision cards */
+.ceo-dec-card {
+  background:#0a0a12; border:1px solid #1e1e2e; border-radius:8px;
+  padding:12px 14px; margin-bottom:8px;
+}
+/* CEO chat thread */
+.ceo-chat-thread {
+  height:340px; overflow-y:auto; padding:14px;
+  background:#05050f; border:1px solid #1a1a2e; border-radius:10px;
+  margin-bottom:12px; scroll-behavior:smooth;
+}
+.ceo-chat-input-row { display:flex; gap:8px; align-items:flex-end; }
+.ceo-chat-textarea {
+  flex:1; background:#0a0a12; border:1px solid #252535; color:#f0f0f0;
+  border-radius:8px; padding:10px 12px; font-size:13px; font-family:inherit;
+  resize:none; height:44px; min-height:44px; max-height:120px;
+}
+.ceo-chat-textarea:focus { outline:none; border-color:#534AB7; }
+.ceo-chat-send { padding:10px 16px; border-radius:8px; }
+/* EA reply input in CEO feedback panel */
+.ea-reply-row { display:flex; gap:8px; margin-top:10px; }
+.ea-reply-input {
+  flex:1; background:#0a0a12; border:1px solid #252535; color:#f0f0f0;
+  border-radius:8px; padding:8px 10px; font-size:12px; font-family:inherit;
+}
+.ea-reply-input:focus { outline:none; border-color:#534AB7; }
+
 /* ── INTEGRATIONS SCREEN ────────────────────────────── */
 .integrations-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; margin-top:16px; }
 .integration-card {
@@ -947,6 +1016,51 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 </style>
 </head>
 <body>
+<!-- NexusOS 3D Golden N — shared gradient definitions -->
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Diagonal main face: amber-bright top-left → deep shadow bottom-right -->
+    <linearGradient id="n-dg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#FFD840"/>
+      <stop offset="30%"  stop-color="#D49000"/>
+      <stop offset="68%"  stop-color="#9A6A00"/>
+      <stop offset="100%" stop-color="#6A4600"/>
+    </linearGradient>
+    <!-- Left bar front face: near-white-gold left → deep shadow right -->
+    <linearGradient id="n-lb" x1="0" y1="0" x2="1" y2="0.25">
+      <stop offset="0%"   stop-color="#FFF4B4"/>
+      <stop offset="14%"  stop-color="#F8C030"/>
+      <stop offset="56%"  stop-color="#D09A00"/>
+      <stop offset="100%" stop-color="#8A5A00"/>
+    </linearGradient>
+    <!-- Right bar front face: deep shadow left → near-white-gold right -->
+    <linearGradient id="n-rb" x1="0" y1="0.25" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#7A5200"/>
+      <stop offset="44%"  stop-color="#D09A00"/>
+      <stop offset="86%"  stop-color="#F8C030"/>
+      <stop offset="100%" stop-color="#FFF4B4"/>
+    </linearGradient>
+    <!-- Top cap (upward-facing surface — catches most light, near-white) -->
+    <linearGradient id="n-tc" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#FFFDE8"/>
+      <stop offset="40%"  stop-color="#FFE060"/>
+      <stop offset="100%" stop-color="#C89000"/>
+    </linearGradient>
+    <!-- Specular outer-edge highlight: near-white top, bright gold bottom -->
+    <linearGradient id="n-sp" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#FFFCE8"/>
+      <stop offset="22%"  stop-color="#FFE878"/>
+      <stop offset="75%"  stop-color="#E0A820"/>
+      <stop offset="100%" stop-color="#C08000"/>
+    </linearGradient>
+    <!-- Deep shadow: inner fold + bottom cap -->
+    <linearGradient id="n-sd" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#3C2600"/>
+      <stop offset="100%" stop-color="#140C00"/>
+    </linearGradient>
+  </defs>
+</svg>
+
 
 <!-- AUTH SCREEN -->
 
@@ -968,8 +1082,8 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 
 <div id="auth-screen" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#0d0d14;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
   <div style="background:#13131f;border:1px solid #2a2a3d;border-radius:14px;padding:36px 32px;width:100%;max-width:400px">
-    <div style="color:#f0b429;font-weight:700;font-size:20px;margin-bottom:4px">⚡ NexusOS</div>
-    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v6.5 · Executive Edition</div>
+    <div style="text-align:center;margin-bottom:8px"><svg viewBox="0 0 100 100" width="80" height="80" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 12px;filter:drop-shadow(0 4px 20px rgba(200,136,0,0.7))"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg><div style="font-weight:700;font-size:30px;letter-spacing:-0.5px;line-height:1"><span style="color:#ffffff">Nexus</span><span style="color:#f0b429">OS</span></div></div>
+    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v6.7 · Executive Edition</div>
 
     <!-- TAB SWITCHER -->
     <div id="auth-tabs" style="display:flex;gap:4px;background:#0d0d14;padding:4px;border-radius:8px;margin-bottom:20px">
@@ -1027,7 +1141,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 <!-- TOPBAR -->
 <div class="topbar">
   <button id="mobile-menu-btn" onclick="toggleMobileSidebar()" aria-label="Menu" title="Menu">&#9776;</button>
-  <div class="logo">⚡ NexusOS<span class="logo-sub">Executive Operating System</span></div>
+  <div class="logo" style="display:flex;align-items:center;gap:8px;min-width:0"><svg viewBox="0 0 100 100" width="24" height="24" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="flex-shrink:0;display:block"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg><span style="display:flex;flex-direction:column;min-width:0"><span style="font-weight:700;font-size:15px;color:#f0b429;line-height:1">NexusOS</span><span class="logo-sub" style="color:#555;font-size:10px;font-weight:400">Executive Operating System</span></span></div>
   <div class="topbar-right">
       <div class="client-switcher" id="client-switcher" onclick="toggleClientDropdown(event)">
         <div class="client-switcher-dot" id="cs-dot"></div>
@@ -1087,7 +1201,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="nav-item" id="n-pricing" onclick="nav('pricing')"><i class="ti ti-credit-card"></i> Pricing & Plans</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer">NexusOS v6.5<br><span>© Jhun Rey Velado 2026</span></div>
+    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v6.7<br><span>© Jhun Rey Velado 2026</span></div>
   </div>
 
   <!-- CONTENT -->
@@ -1983,45 +2097,140 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       </div>
     </div>
 
-    <!-- CEO CLIENT PORTAL -->
+    <!-- CEO CLIENT PORTAL (v6.7 — tabbed) -->
     <div class="screen" id="s-ceo-portal">
+      <!-- Welcome banner -->
       <div class="ceo-welcome-banner">
         <div class="ceo-welcome-eyebrow"><i class="ti ti-shield-check"></i> Client Portal</div>
         <div class="ceo-welcome-name" id="ceo-welcome-name">Welcome</div>
         <div class="ceo-welcome-sub" id="ceo-welcome-sub">Your executive assistant's monthly report</div>
       </div>
-      <div class="ceo-metric-grid">
-        <div class="ceo-metric-card"><div class="ceo-metric-lbl">Hours This Month</div><div class="ceo-metric-val" id="ceo-hours">—</div></div>
-        <div class="ceo-metric-card"><div class="ceo-metric-lbl">Billable Hours</div><div class="ceo-metric-val purple" id="ceo-bill-hours">—</div></div>
-        <div class="ceo-metric-card"><div class="ceo-metric-lbl">Amount Billed</div><div class="ceo-metric-val green" id="ceo-earnings">—</div></div>
-        <div class="ceo-metric-card"><div class="ceo-metric-lbl">Tasks Done</div><div class="ceo-metric-val amber" id="ceo-tasks">—</div></div>
-        <div class="ceo-metric-card"><div class="ceo-metric-lbl">Meetings</div><div class="ceo-metric-val" id="ceo-meetings">—</div></div>
-        <div class="ceo-metric-card"><div class="ceo-metric-lbl">Decisions Logged</div><div class="ceo-metric-val" id="ceo-decisions">—</div></div>
-      </div>
-      <div class="panel">
-        <div class="panel-hdr">
-          <div class="panel-ttl">Time Breakdown</div>
-          <span id="ceo-report-period" style="font-size:11px;color:#555"></span>
-        </div>
-        <div id="ceo-time-body"><div class="portal-empty"><i class="ti ti-file-report"></i>No report published yet.<br>Your EA will publish a monthly report for you to review here.</div></div>
-      </div>
-      <div class="panel" style="margin-top:12px">
-        <div class="panel-hdr"><div class="panel-ttl">Activity Summary</div></div>
-        <div id="ceo-activity-body"></div>
+
+      <!-- Tab navigation -->
+      <div class="ceo-tab-nav">
+        <button class="ceo-tab active" id="ctab-overview" onclick="ceoTab('overview')"><i class="ti ti-layout-dashboard"></i> Overview</button>
+        <button class="ceo-tab" id="ctab-tasks" onclick="ceoTab('tasks')"><i class="ti ti-list-check"></i> Tasks<span class="ceo-tb" id="ceo-tasks-badge" style="display:none">0</span></button>
+        <button class="ceo-tab" id="ctab-approvals" onclick="ceoTab('approvals')"><i class="ti ti-circle-check"></i> Approvals<span class="ceo-tb" id="ceo-appr-badge" style="display:none">0</span></button>
+        <button class="ceo-tab" id="ctab-travel" onclick="ceoTab('travel')"><i class="ti ti-plane"></i> Travel</button>
+        <button class="ceo-tab" id="ctab-chat" onclick="ceoTab('chat')"><i class="ti ti-message-circle"></i> Chat<span class="ceo-tb" id="ceo-chat-badge" style="display:none">!</span></button>
+        <button class="ceo-tab" id="ctab-decisions" onclick="ceoTab('decisions')"><i class="ti ti-book-2"></i> Decisions</button>
+        <button class="ceo-tab" id="ctab-calendar" onclick="ceoTab('calendar')"><i class="ti ti-calendar"></i> Calendar</button>
       </div>
 
-      <!-- CEO COLLABORATION PANEL -->
-      <div class="panel ceo-collab-panel" style="margin-top:12px">
-        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-message-circle" style="color:#534AB7"></i> Your Feedback</div></div>
-        <p style="font-size:12px;color:#555;margin-bottom:12px;line-height:1.6">Let your EA know how things are going. Approve the report or flag items for review.</p>
-        <div class="ceo-approval-bar">
-          <button class="ceo-approve-btn approve" id="ceo-btn-approve" onclick="setCEOApproval('approved')"><i class="ti ti-circle-check"></i> Approve Report</button>
-          <button class="ceo-approve-btn flag" id="ceo-btn-flag" onclick="setCEOApproval('flagged')"><i class="ti ti-flag"></i> Flag for Review</button>
+      <!-- ── OVERVIEW TAB ── -->
+      <div class="ceo-panel active" id="ceo-panel-overview">
+        <div class="ceo-metric-grid">
+          <div class="ceo-metric-card"><div class="ceo-metric-lbl">Hours This Month</div><div class="ceo-metric-val" id="ceo-hours">—</div></div>
+          <div class="ceo-metric-card"><div class="ceo-metric-lbl">Billable Hours</div><div class="ceo-metric-val purple" id="ceo-bill-hours">—</div></div>
+          <div class="ceo-metric-card"><div class="ceo-metric-lbl">Amount Billed</div><div class="ceo-metric-val green" id="ceo-earnings">—</div></div>
+          <div class="ceo-metric-card"><div class="ceo-metric-lbl">Tasks Done</div><div class="ceo-metric-val amber" id="ceo-tasks">—</div></div>
+          <div class="ceo-metric-card"><div class="ceo-metric-lbl">Meetings</div><div class="ceo-metric-val" id="ceo-meetings">—</div></div>
+          <div class="ceo-metric-card"><div class="ceo-metric-lbl">Decisions Logged</div><div class="ceo-metric-val" id="ceo-decisions">—</div></div>
         </div>
-        <textarea class="ceo-comment-box" id="ceo-comment-input" placeholder="Leave a comment for your EA — questions, feedback, or anything you'd like to discuss..."></textarea>
-        <button class="btn-primary" onclick="submitCEOComment()" style="padding:9px 20px;font-size:12px"><i class="ti ti-send"></i> Send to EA</button>
-        <div class="ceo-comment-thread" id="ceo-comment-thread"></div>
+        <div class="panel">
+          <div class="panel-hdr">
+            <div class="panel-ttl">Time Breakdown</div>
+            <span id="ceo-report-period" style="font-size:11px;color:#555"></span>
+          </div>
+          <div id="ceo-time-body"><div class="portal-empty"><i class="ti ti-file-report"></i>No report published yet.<br>Your EA will publish a monthly report for you to review here.</div></div>
+        </div>
+        <div class="panel" style="margin-top:12px">
+          <div class="panel-hdr"><div class="panel-ttl">Activity Summary</div></div>
+          <div id="ceo-activity-body"></div>
+        </div>
+        <div class="panel ceo-collab-panel" style="margin-top:12px">
+          <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-message-circle" style="color:#534AB7"></i> Your Feedback</div></div>
+          <p style="font-size:12px;color:#555;margin-bottom:12px;line-height:1.6">Approve the report or flag items for review. Use the Chat tab for real-time conversation.</p>
+          <div class="ceo-approval-bar">
+            <button class="ceo-approve-btn approve" id="ceo-btn-approve" onclick="setCEOApproval('approved')"><i class="ti ti-circle-check"></i> Approve Report</button>
+            <button class="ceo-approve-btn flag" id="ceo-btn-flag" onclick="setCEOApproval('flagged')"><i class="ti ti-flag"></i> Flag for Review</button>
+          </div>
+          <textarea class="ceo-comment-box" id="ceo-comment-input" placeholder="Leave a comment for your EA — questions, feedback, or anything you'd like to discuss..."></textarea>
+          <button class="btn-primary" onclick="submitCEOComment()" style="padding:9px 20px;font-size:12px"><i class="ti ti-send"></i> Send to EA</button>
+          <div class="ceo-comment-thread" id="ceo-comment-thread"></div>
+        </div>
       </div>
+
+      <!-- ── TASKS TAB ── -->
+      <div class="ceo-panel" id="ceo-panel-tasks">
+        <div class="panel">
+          <div class="panel-hdr">
+            <div class="panel-ttl"><i class="ti ti-list-check"></i> Your Tasks</div>
+            <button class="btn-outline btn-sm" onclick="loadCEOTasks()" style="font-size:11px"><i class="ti ti-refresh"></i> Refresh</button>
+          </div>
+          <p style="font-size:12px;color:#555;margin-bottom:14px">Tasks your EA assigned to you. Check the box to mark complete.</p>
+          <div id="ceo-tasks-body"><div class="portal-empty"><i class="ti ti-loader"></i>Loading...</div></div>
+        </div>
+      </div>
+
+      <!-- ── APPROVALS TAB ── -->
+      <div class="ceo-panel" id="ceo-panel-approvals">
+        <div class="panel">
+          <div class="panel-hdr">
+            <div class="panel-ttl"><i class="ti ti-circle-check"></i> Pending Approvals</div>
+            <button class="btn-outline btn-sm" onclick="loadCEOApprovals()" style="font-size:11px"><i class="ti ti-refresh"></i> Refresh</button>
+          </div>
+          <p style="font-size:12px;color:#555;margin-bottom:14px">Decisions your EA needs you to sign off on.</p>
+          <div id="ceo-appr-body"><div class="portal-empty"><i class="ti ti-loader"></i>Loading...</div></div>
+        </div>
+        <div class="panel" style="margin-top:12px">
+          <div class="panel-hdr"><div class="panel-ttl" style="font-size:13px">Recently Decided</div></div>
+          <div id="ceo-appr-done-body"></div>
+        </div>
+      </div>
+
+      <!-- ── TRAVEL TAB ── -->
+      <div class="ceo-panel" id="ceo-panel-travel">
+        <div class="panel">
+          <div class="panel-hdr">
+            <div class="panel-ttl"><i class="ti ti-plane"></i> Your Trips</div>
+            <button class="btn-outline btn-sm" onclick="loadCEOTravel()" style="font-size:11px"><i class="ti ti-refresh"></i> Refresh</button>
+          </div>
+          <p style="font-size:12px;color:#555;margin-bottom:14px">Itineraries managed by your EA.</p>
+          <div id="ceo-travel-body"><div class="portal-empty"><i class="ti ti-loader"></i>Loading...</div></div>
+        </div>
+      </div>
+
+      <!-- ── CHAT TAB ── -->
+      <div class="ceo-panel" id="ceo-panel-chat">
+        <div class="panel ceo-collab-panel">
+          <div class="panel-hdr">
+            <div class="panel-ttl"><i class="ti ti-message-circle"></i> Direct Chat</div>
+            <span style="font-size:11px;color:#1D9E75;font-weight:600">● Live</span>
+          </div>
+          <p style="font-size:12px;color:#555;margin-bottom:10px">Real-time messaging with your EA — separate from report feedback.</p>
+          <div class="ceo-chat-thread" id="ceo-chat-thread"><div style="font-size:12px;color:#444;text-align:center;padding:24px 0">Loading messages...</div></div>
+          <div class="ceo-chat-input-row">
+            <textarea class="ceo-chat-textarea" id="ceo-chat-input" placeholder="Message your EA..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendCEOChatMessage();}"></textarea>
+            <button class="btn-primary ceo-chat-send" id="ceo-chat-send-btn" onclick="sendCEOChatMessage()"><i class="ti ti-send"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── DECISIONS TAB ── -->
+      <div class="ceo-panel" id="ceo-panel-decisions">
+        <div class="panel">
+          <div class="panel-hdr">
+            <div class="panel-ttl"><i class="ti ti-book-2"></i> Decision Log</div>
+            <button class="btn-outline btn-sm" onclick="loadCEODecisions()" style="font-size:11px"><i class="ti ti-refresh"></i> Refresh</button>
+          </div>
+          <p style="font-size:12px;color:#555;margin-bottom:14px">Decisions logged by your EA in the latest published report.</p>
+          <div id="ceo-dec-body"><div class="portal-empty"><i class="ti ti-loader"></i>Loading...</div></div>
+        </div>
+      </div>
+
+      <!-- ── CALENDAR TAB ── -->
+      <div class="ceo-panel" id="ceo-panel-calendar">
+        <div class="panel">
+          <div class="panel-hdr">
+            <div class="panel-ttl"><i class="ti ti-calendar"></i> Upcoming Schedule</div>
+            <button class="btn-outline btn-sm" onclick="loadCEOCalendar()" style="font-size:11px"><i class="ti ti-refresh"></i> Refresh</button>
+          </div>
+          <p style="font-size:12px;color:#555;margin-bottom:14px">Your upcoming meetings and task deadlines managed by your EA.</p>
+          <div id="ceo-cal-body"><div class="portal-empty"><i class="ti ti-loader"></i>Loading...</div></div>
+        </div>
+      </div>
+
     </div>
 
     <!-- INTEGRATIONS SCREEN -->
@@ -5579,7 +5788,8 @@ async function publishPortalReport(){
       sessions: entries.length, tasksDone: tasksDone,
       meetingsCount: meetingsCount, decisionsCount: decisionsCount,
       startStr: startStr, endStr: endStr,
-      entries: entries.map(function(e){ return {date:e.date,description:e.description,seconds:e.seconds,billable:e.billable,earnings:e.earnings||0}; })
+      entries: entries.map(function(e){ return {date:e.date,description:e.description,seconds:e.seconds,billable:e.billable,earnings:e.earnings||0}; }),
+      decisions: (typeof getDecisions==='function'?getDecisions():[]).slice(-30).map(function(d){ return {id:d.id,title:d.title,context:d.context,outcome:d.outcome,action:d.action,date:d.date||d.createdAt}; })
     }
   };
   try {
@@ -5678,6 +5888,8 @@ async function loadCEOPortal(){
   } catch(err){ console.warn('CEO portal load error:', err); }
   // Auto-load CEO feedback thread
   if(typeof loadCEOCommentThread==='function') setTimeout(loadCEOCommentThread, 400);
+  // Load tab badges
+  setTimeout(loadCEOPortalBadges, 800);
 }
 
 document.addEventListener('keydown', function(e){
@@ -6187,6 +6399,327 @@ async function loadCEOFeedbackForReport(clientId){
     if(list) list.innerHTML = '<div style="font-size:12px;color:#444;padding:8px 0">Error loading CEO feedback.</div>';
     console.warn('loadCEOFeedbackForReport error:', err);
   }
+}
+
+// ══════════════════════════════════════════════════════════════
+// CEO PORTAL TABS — v6.7
+// ══════════════════════════════════════════════════════════════
+
+function ceoTab(name) {
+  document.querySelectorAll('.ceo-tab').forEach(function(t){ t.classList.remove('active'); });
+  var btn = document.getElementById('ctab-' + name);
+  if(btn) btn.classList.add('active');
+  document.querySelectorAll('.ceo-panel').forEach(function(p){ p.style.display='none'; });
+  var panel = document.getElementById('ceo-panel-' + name);
+  if(panel) panel.style.display = 'block';
+  switch(name){
+    case 'tasks':     loadCEOTasks();     break;
+    case 'approvals': loadCEOApprovals(); break;
+    case 'travel':    loadCEOTravel();    break;
+    case 'chat':      loadCEOChat();      break;
+    case 'decisions': loadCEODecisions(); break;
+    case 'calendar':  loadCEOCalendar();  break;
+  }
+}
+
+async function _ceoProfile(){
+  if(!window.sb||!window.currentUser) return null;
+  try{
+    var r = await sb.from('profiles').select('linked_ea_id,linked_client_id,full_name').eq('id',window.currentUser.id).single();
+    return r.data;
+  }catch(e){ return null; }
+}
+
+// ── TASKS ────────────────────────────────────────────────────
+async function loadCEOTasks(){
+  var body=document.getElementById('ceo-tasks-body');
+  if(!body) return;
+  var p=await _ceoProfile();
+  if(!p||!p.linked_ea_id){ body.innerHTML='<div class="portal-empty">Portal not configured. Contact your EA.</div>'; return; }
+  body.innerHTML='<div style="font-size:12px;color:#444;padding:8px">Loading tasks…</div>';
+  try{
+    var {data}=await sb.from('tasks').select('*').eq('created_by',p.linked_ea_id).in('owner',['CEO','Both']).neq('status','completed').order('created_at',{ascending:false});
+    var tasks=data||[];
+    var badge=document.getElementById('ceo-tasks-badge');
+    if(badge){ if(tasks.length){badge.textContent=tasks.length;badge.style.display='inline-block';}else{badge.style.display='none';} }
+    if(!tasks.length){ body.innerHTML='<div class="portal-empty"><i class="ti ti-circle-check"></i>No tasks assigned to you right now.</div>'; return; }
+    body.innerHTML=tasks.map(function(t){
+      var pColor=t.priority==='high'?'#E24B4A':t.priority==='medium'?'#f0b429':'#555';
+      var pLabel=t.priority?(t.priority.charAt(0).toUpperCase()+t.priority.slice(1)):'Normal';
+      var dueStr=t.due_date?' · Due '+t.due_date:'';
+      var statusClass=t.status==='in-progress'?'inprog':'todo';
+      return '<div class="ceo-task-card">'+
+        '<div style="display:flex;align-items:center;gap:10px">'+
+        '<input type="checkbox" onchange="ceoMarkTaskDone(''+t.id+'',this)" style="width:16px;height:16px;accent-color:#f0b429;cursor:pointer;flex-shrink:0">'+
+        '<div style="flex:1;min-width:0">'+
+        '<div style="font-size:13px;font-weight:500;color:#e0e0e0;line-height:1.4">'+(t.name||'Untitled')+'</div>'+
+        (t.description?'<div style="font-size:11px;color:#555;margin-top:3px">'+t.description+'</div>':'')+
+        '<div style="font-size:10px;color:'+pColor+';margin-top:4px;font-weight:600">'+pLabel+dueStr+'</div>'+
+        '</div>'+
+        '<span class="ceo-status-pill '+statusClass+'">'+(t.status||'todo')+'</span>'+
+        '</div></div>';
+    }).join('');
+  }catch(err){ body.innerHTML='<div class="portal-empty">Error loading tasks. Try refreshing.</div>'; console.warn(err); }
+}
+
+async function ceoMarkTaskDone(id, cb){
+  if(!window.sb) return;
+  try{
+    await sb.from('tasks').update({status:'completed',completed_at:new Date().toISOString()}).eq('id',id);
+    var card=cb.closest('.ceo-task-card');
+    if(card){card.style.opacity='0.45';card.style.pointerEvents='none';}
+    setTimeout(loadCEOTasks,1200);
+    if(typeof showToast==='function') showToast('Task complete ✓','Your EA will be notified.','success',3000);
+  }catch(e){}
+}
+
+// ── APPROVALS ────────────────────────────────────────────────
+async function loadCEOApprovals(){
+  var body=document.getElementById('ceo-appr-body');
+  var doneBody=document.getElementById('ceo-appr-done-body');
+  if(!body) return;
+  var p=await _ceoProfile();
+  if(!p||!p.linked_ea_id){ body.innerHTML='<div class="portal-empty">Portal not configured.</div>'; return; }
+  body.innerHTML='<div style="font-size:12px;color:#444;padding:8px">Loading…</div>';
+  try{
+    var [pendRes,doneRes]=await Promise.all([
+      sb.from('approvals').select('*').eq('created_by',p.linked_ea_id).eq('status','pending').order('created_at',{ascending:false}),
+      sb.from('approvals').select('*').eq('created_by',p.linked_ea_id).neq('status','pending').order('decided_at',{ascending:false}).limit(5)
+    ]);
+    var pending=pendRes.data||[];
+    var done=doneRes.data||[];
+    var badge=document.getElementById('ceo-appr-badge');
+    if(badge){ if(pending.length){badge.textContent=pending.length;badge.style.display='inline-block';}else{badge.style.display='none';} }
+    if(!pending.length){
+      body.innerHTML='<div class="portal-empty"><i class="ti ti-circle-check"></i>No pending approvals — all clear.</div>';
+    } else {
+      body.innerHTML=pending.map(function(a){
+        var amtStr=a.amount?' · $'+Number(a.amount).toLocaleString():'';
+        return '<div class="ceo-appr-card">'+
+          '<div style="font-size:13px;font-weight:500;color:#e0e0e0;margin-bottom:4px">'+(a.title||'Untitled')+'</div>'+
+          (a.description?'<div style="font-size:12px;color:#666;margin-bottom:8px;line-height:1.5">'+a.description+'</div>':'')+
+          '<div style="font-size:10px;color:#555;margin-bottom:12px">'+(a.category||'')+amtStr+'</div>'+
+          '<div style="display:flex;gap:8px">'+
+          '<button class="ceo-approve-btn approve" onclick="ceoDecideApproval(''+a.id+'','approved',this)" style="flex:1"><i class="ti ti-circle-check"></i> Approve</button>'+
+          '<button class="ceo-approve-btn flag" onclick="ceoDecideApproval(''+a.id+'','rejected',this)" style="flex:1"><i class="ti ti-x"></i> Reject</button>'+
+          '</div></div>';
+      }).join('');
+    }
+    if(doneBody){
+      doneBody.innerHTML=done.length?done.map(function(a){
+        var color=a.status==='approved'?'#1D9E75':'#E24B4A';
+        var icon=a.status==='approved'?'✓':'✕';
+        return '<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #111">'+
+          '<span style="font-size:12px;color:#bbb">'+(a.title||'')+'</span>'+
+          '<span style="font-size:11px;color:'+color+';font-weight:600">'+icon+' '+a.status+'</span></div>';
+      }).join(''):'<div style="font-size:12px;color:#444;padding:8px 0">No decided approvals yet.</div>';
+    }
+  }catch(err){ body.innerHTML='<div class="portal-empty">Error loading approvals.</div>'; console.warn(err); }
+}
+
+async function ceoDecideApproval(id, decision, btn){
+  if(!window.sb||!window.currentUser) return;
+  if(btn){ btn.disabled=true; btn.innerHTML='<i class="ti ti-loader"></i>'; }
+  try{
+    await sb.from('approvals').update({status:decision,decided_by:window.currentUser.id,decided_at:new Date().toISOString()}).eq('id',id);
+    if(typeof showToast==='function') showToast('Approval '+decision, decision==='approved'?'✓ Signed off.':'✕ Rejected.', decision==='approved'?'success':'info', 3000);
+    setTimeout(loadCEOApprovals, 700);
+  }catch(e){ if(btn){btn.disabled=false;btn.innerHTML=(decision==='approved'?'<i class="ti ti-circle-check"></i> Approve':'<i class="ti ti-x"></i> Reject');} }
+}
+
+// ── TRAVEL ───────────────────────────────────────────────────
+async function loadCEOTravel(){
+  var body=document.getElementById('ceo-travel-body');
+  if(!body) return;
+  var p=await _ceoProfile();
+  if(!p||!p.linked_ea_id){ body.innerHTML='<div class="portal-empty">Portal not configured.</div>'; return; }
+  body.innerHTML='<div style="font-size:12px;color:#444;padding:8px">Loading trips…</div>';
+  try{
+    var today=new Date().toISOString().split('T')[0];
+    var {data}=await sb.from('trips').select('*').eq('created_by',p.linked_ea_id).order('departure_date',{ascending:true});
+    var trips=data||[];
+    if(!trips.length){ body.innerHTML='<div class="portal-empty"><i class="ti ti-plane"></i>No trips yet. Your EA will add trip itineraries here.</div>'; return; }
+    var upcoming=trips.filter(function(t){ return !t.departure_date||t.departure_date>=today; });
+    var past=trips.filter(function(t){ return t.departure_date&&t.departure_date<today; });
+    var renderTrip=function(t){
+      var budStr=t.budget?'$'+Number(t.budget).toLocaleString():'—';
+      var dStr=(t.departure_date||'TBD')+(t.return_date?' → '+t.return_date:'');
+      return '<div class="ceo-trip-card">'+
+        '<div style="font-size:14px;font-weight:600;color:#f0b429;margin-bottom:4px">✈ '+(t.name||'Untitled Trip')+'</div>'+
+        '<div style="font-size:11px;color:#666;margin-bottom:6px">'+dStr+' · Budget: '+budStr+'</div>'+
+        (t.objectives?'<div style="font-size:12px;color:#555;line-height:1.5">'+t.objectives+'</div>':'')+
+        '</div>';
+    };
+    body.innerHTML=
+      (upcoming.length?'<div style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:8px">Upcoming</div>'+upcoming.map(renderTrip).join(''):'<div style="font-size:12px;color:#444;padding:8px 0">No upcoming trips.</div>')+
+      (past.length?'<div style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin:16px 0 8px">Past Trips</div>'+past.map(renderTrip).join(''):'');
+  }catch(err){ body.innerHTML='<div class="portal-empty">Error loading trips.</div>'; console.warn(err); }
+}
+
+// ── CHAT ─────────────────────────────────────────────────────
+async function loadCEOChat(){
+  var thread=document.getElementById('ceo-chat-thread');
+  if(!thread) return;
+  var p=await _ceoProfile();
+  if(!p||!p.linked_ea_id){ thread.innerHTML='<div style="font-size:12px;color:#444;text-align:center;padding:24px 0">Portal not configured.</div>'; return; }
+  try{
+    var {data}=await sb.from('portal_comments')
+      .select('*').eq('ea_id',p.linked_ea_id).eq('client_id',p.linked_client_id)
+      .in('status_flag',['chat','ea_reply']).order('created_at',{ascending:true}).limit(50);
+    var msgs=data||[];
+    if(!msgs.length){ thread.innerHTML='<div style="font-size:12px;color:#444;text-align:center;padding:24px 0">No messages yet. Start the conversation below ↓</div>'; return; }
+    thread.innerHTML=msgs.map(function(m){
+      var isEA=m.status_flag==='ea_reply';
+      var time=m.created_at?new Date(m.created_at).toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}):'';
+      var date=m.created_at?new Date(m.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric'}):'';
+      return '<div style="display:flex;flex-direction:column;align-items:'+(isEA?'flex-start':'flex-end')+';margin-bottom:10px">'+
+        '<div style="max-width:80%;background:'+(isEA?'#1a1830':'#1c1600')+';border:1px solid '+(isEA?'#2a2550':'#3a2c00')+';border-radius:12px;padding:9px 13px">'+
+        '<div style="font-size:10px;font-weight:700;color:'+(isEA?'#7F77DD':'#f0b429')+';margin-bottom:4px">'+(isEA?(m.ceo_name||'EA'):(m.ceo_name||'You'))+'</div>'+
+        '<div style="font-size:13px;color:#ddd;line-height:1.5">'+(m.comment||'')+'</div>'+
+        '<div style="font-size:10px;color:#444;margin-top:5px;text-align:right">'+date+' '+time+'</div>'+
+        '</div></div>';
+    }).join('');
+    thread.scrollTop=thread.scrollHeight;
+    // Clear unread badge
+    var badge=document.getElementById('ceo-chat-badge');
+    if(badge) badge.style.display='none';
+  }catch(err){ thread.innerHTML='<div style="font-size:12px;color:#444;text-align:center;padding:24px 0">Error loading chat.</div>'; }
+}
+
+async function sendCEOChatMessage(){
+  var input=document.getElementById('ceo-chat-input');
+  var text=input?input.value.trim():'';
+  if(!text) return;
+  if(!window.sb||!window.currentUser){ alert('Not connected.'); return; }
+  var p=await _ceoProfile();
+  if(!p||!p.linked_ea_id) return;
+  var btn=document.getElementById('ceo-chat-send-btn');
+  if(btn){btn.disabled=true;btn.innerHTML='<i class="ti ti-loader"></i>';}
+  try{
+    await sb.from('portal_comments').insert({
+      ea_id:p.linked_ea_id, client_id:p.linked_client_id,
+      ceo_user_id:window.currentUser.id,
+      ceo_name:(window.currentProfile&&window.currentProfile.full_name)||'CEO',
+      comment:text, status_flag:'chat', is_read:false
+    });
+    if(input) input.value='';
+    loadCEOChat();
+    // Notify EA
+    if(typeof createNotification==='function') createNotification('CEO sent a message in Direct Chat');
+  }catch(err){ alert('Error sending: '+(err.message||err)); }
+  if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-send"></i>';}
+}
+
+// ── DECISIONS ────────────────────────────────────────────────
+async function loadCEODecisions(){
+  var body=document.getElementById('ceo-dec-body');
+  if(!body) return;
+  var p=await _ceoProfile();
+  if(!p||!p.linked_ea_id){ body.innerHTML='<div class="portal-empty">Portal not configured.</div>'; return; }
+  body.innerHTML='<div style="font-size:12px;color:#444;padding:8px">Loading…</div>';
+  try{
+    var snapRes=await sb.from('client_portal_snapshots').select('data_json')
+      .eq('client_id',p.linked_client_id).eq('ea_id',p.linked_ea_id)
+      .order('published_at',{ascending:false}).limit(1);
+    var snap=(snapRes.data||[])[0];
+    var decisions=(snap&&snap.data_json&&snap.data_json.decisions)||[];
+    if(!decisions.length){
+      body.innerHTML='<div class="portal-empty"><i class="ti ti-book-2"></i>No decisions in the current report.<br><span style="font-size:11px;color:#444">Your EA can include decisions when publishing the next report.</span></div>';
+      return;
+    }
+    body.innerHTML=decisions.map(function(d){
+      var date=d.date?(d.date+'').split('T')[0]:'';
+      return '<div class="ceo-dec-card">'+
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">'+
+        '<div style="font-size:13px;font-weight:500;color:#e0e0e0;flex:1">'+(d.title||d.decision||'Decision')+'</div>'+
+        (date?'<span style="font-size:10px;color:#444;flex-shrink:0;margin-left:12px">'+date+'</span>':'')+
+        '</div>'+
+        (d.context?'<div style="font-size:12px;color:#666;margin-bottom:4px;line-height:1.5">'+d.context+'</div>':'')+
+        ((d.outcome||d.action)?'<div style="font-size:11px;color:#534AB7;margin-top:4px">→ '+(d.outcome||d.action)+'</div>':'')+
+        '</div>';
+    }).join('');
+  }catch(err){ body.innerHTML='<div class="portal-empty">Error loading decisions.</div>'; console.warn(err); }
+}
+
+// ── CALENDAR ─────────────────────────────────────────────────
+async function loadCEOCalendar(){
+  var body=document.getElementById('ceo-cal-body');
+  if(!body) return;
+  var p=await _ceoProfile();
+  if(!p||!p.linked_ea_id){ body.innerHTML='<div class="portal-empty">Portal not configured.</div>'; return; }
+  body.innerHTML='<div style="font-size:12px;color:#444;padding:8px">Loading calendar…</div>';
+  try{
+    var today=new Date().toISOString().split('T')[0];
+    var [meetRes,taskRes]=await Promise.all([
+      sb.from('meetings').select('title,meeting_date,time,location').eq('created_by',p.linked_ea_id).gte('meeting_date',today).order('meeting_date').limit(12),
+      sb.from('tasks').select('name,due_date,priority').eq('created_by',p.linked_ea_id).not('due_date','is',null).gte('due_date',today).neq('status','completed').order('due_date').limit(12)
+    ]);
+    var meetings=meetRes.data||[];
+    var tasks=taskRes.data||[];
+    var events=[
+      ...meetings.map(function(m){ return {date:m.meeting_date,label:m.title,sub:[m.time,m.location].filter(Boolean).join(' · '),icon:'ti-calendar-event',color:'#7F77DD'}; }),
+      ...tasks.map(function(t){ return {date:t.due_date,label:t.name,sub:'Due date',icon:'ti-list-check',color:'#f0b429'}; })
+    ].sort(function(a,b){ return a.date>b.date?1:-1; });
+    if(!events.length){ body.innerHTML='<div class="portal-empty"><i class="ti ti-calendar"></i>No upcoming events or deadlines.</div>'; return; }
+    var byDate={};
+    events.forEach(function(ev){ if(!byDate[ev.date]) byDate[ev.date]=[]; byDate[ev.date].push(ev); });
+    body.innerHTML=Object.keys(byDate).sort().map(function(dt){
+      var d=new Date(dt+'T12:00:00');
+      var lbl=d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+      var isToday=dt===today;
+      return '<div style="margin-bottom:16px">'+
+        '<div style="font-size:10px;font-weight:700;color:'+(isToday?'#f0b429':'#444')+';text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px">'+lbl+(isToday?' · TODAY':'')+'</div>'+
+        byDate[dt].map(function(ev){
+          return '<div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:#0d0d18;border:1px solid #1a1a2e;border-left:3px solid '+ev.color+';border-radius:7px;margin-bottom:6px">'+
+            '<i class="ti '+ev.icon+'" style="color:'+ev.color+';font-size:16px;flex-shrink:0"></i>'+
+            '<div><div style="font-size:13px;color:#e0e0e0;font-weight:500">'+ev.label+'</div>'+
+            (ev.sub?'<div style="font-size:11px;color:#444;margin-top:2px">'+ev.sub+'</div>':'')+
+            '</div></div>';
+        }).join('')+'</div>';
+    }).join('');
+  }catch(err){ body.innerHTML='<div class="portal-empty">Error loading calendar.</div>'; console.warn(err); }
+}
+
+// ── EA REPLY (from EA dashboard → CEO chat) ──────────────────
+async function sendEAReplyToChat(clientId){
+  var input=document.getElementById('ea-reply-input-'+clientId);
+  if(!input) return;
+  var text=input.value.trim();
+  if(!text) return;
+  if(!window.sb||!window.currentUser) return;
+  try{
+    await sb.from('portal_comments').insert({
+      ea_id:window.currentUser.id, client_id:clientId,
+      ceo_user_id:window.currentUser.id,
+      ceo_name:(window.currentProfile&&window.currentProfile.full_name)||'EA',
+      comment:text, status_flag:'ea_reply', is_read:false
+    });
+    input.value='';
+    if(typeof showToast==='function') showToast('Reply sent to CEO','','success',2500);
+    if(typeof loadEAFeedbackPanel==='function') loadEAFeedbackPanel();
+  }catch(e){ console.warn('EA reply error:',e); }
+}
+
+// ── LOAD CEO BADGE COUNTS on portal load ─────────────────────
+async function loadCEOPortalBadges(){
+  var p=await _ceoProfile();
+  if(!p||!p.linked_ea_id) return;
+  try{
+    var [taskRes,apprRes,chatRes]=await Promise.all([
+      sb.from('tasks').select('id',{count:'exact',head:true}).eq('created_by',p.linked_ea_id).in('owner',['CEO','Both']).neq('status','completed'),
+      sb.from('approvals').select('id',{count:'exact',head:true}).eq('created_by',p.linked_ea_id).eq('status','pending'),
+      sb.from('portal_comments').select('id',{count:'exact',head:true}).eq('ea_id',p.linked_ea_id).eq('client_id',p.linked_client_id).eq('status_flag','ea_reply').eq('is_read',false)
+    ]);
+    var taskCount=taskRes.count||0;
+    var apprCount=apprRes.count||0;
+    var chatCount=chatRes.count||0;
+    var tb=document.getElementById('ceo-tasks-badge');
+    var ab=document.getElementById('ceo-appr-badge');
+    var cb=document.getElementById('ceo-chat-badge');
+    if(tb){ if(taskCount>0){tb.textContent=taskCount;tb.style.display='inline-block';}else{tb.style.display='none';} }
+    if(ab){ if(apprCount>0){ab.textContent=apprCount;ab.style.display='inline-block';}else{ab.style.display='none';} }
+    if(cb){ if(chatCount>0){cb.textContent='!';cb.style.display='inline-block';}else{cb.style.display='none';} }
+  }catch(e){}
 }
 
 </script>
