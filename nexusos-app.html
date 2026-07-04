@@ -901,6 +901,168 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 .digest-preview .tag-amber { background:#fff8e6; color:#d97706; }
 .digest-preview .tag-red   { background:#fee2e2; color:#dc2626; }
 
+/* ── PHASE 4: CONTRACT BUILDER (v7.3) ───────────────────── */
+.contract-template-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.contract-template-card {
+  background: #0a0a14;
+  border: 1.5px solid #1e1e2e;
+  border-radius: 10px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all .15s;
+  text-align: center;
+}
+.contract-template-card:hover,
+.contract-template-card.selected {
+  border-color: #534AB7;
+  background: #0e0e1e;
+}
+.contract-template-card.selected { border-color: #1D9E75; }
+.contract-template-icon { font-size: 22px; margin-bottom: 6px; }
+.contract-template-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #ddd;
+  margin-bottom: 3px;
+}
+.contract-template-desc { font-size: 10px; color: #555; }
+
+.contract-preview-wrap {
+  background: #fff;
+  border-radius: 8px;
+  padding: 36px 40px;
+  color: #111;
+  font-size: 13px;
+  line-height: 1.8;
+  max-height: 520px;
+  overflow-y: auto;
+}
+.contract-preview-wrap h1 {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 4px;
+  color: #111;
+  font-weight: 700;
+}
+.contract-preview-wrap h2 {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 18px 0 6px;
+  color: #222;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.contract-preview-wrap p { margin-bottom: 8px; color: #333; }
+.contract-preview-wrap .contract-meta {
+  text-align: center;
+  color: #888;
+  font-size: 11px;
+  margin-bottom: 24px;
+}
+.contract-preview-wrap .sig-row {
+  display: flex;
+  gap: 32px;
+  margin-top: 32px;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+.contract-preview-wrap .sig-block {
+  flex: 1;
+}
+.contract-preview-wrap .sig-line {
+  border-bottom: 1px solid #bbb;
+  margin: 24px 0 4px;
+}
+.contract-preview-wrap .sig-label {
+  font-size: 10px;
+  color: #888;
+  text-transform: uppercase;
+}
+
+@media print {
+  .contract-print-hide { display: none !important; }
+  .contract-preview-wrap {
+    max-height: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+}
+
+/* ── PHASE 4: DOCUMENT HUB (v7.3) ───────────────────────── */
+.doc-card {
+  background: #0a0a14;
+  border: 1px solid #1e1e2e;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  transition: border-color .15s;
+}
+.doc-card:hover { border-color: #2a2a4a; }
+.doc-icon {
+  font-size: 22px;
+  width: 36px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.doc-info { flex: 1; min-width: 0; }
+.doc-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ddd;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.doc-meta { font-size: 11px; color: #555; margin-top: 2px; }
+.doc-type-badge {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.doc-type-badge.contract  { background: #1a1030; color: #7F77DD; }
+.doc-type-badge.proposal  { background: #0a1f12; color: #1D9E75; }
+.doc-type-badge.invoice   { background: #1a1200; color: #f0b429; }
+.doc-type-badge.report    { background: #1f0a0a; color: #E24B4A; }
+.doc-type-badge.other     { background: #111120; color: #888; }
+
+/* ── PHASE 4: EMAIL COMPOSER (v7.3) ─────────────────────── */
+.email-modal-box {
+  background: #0d0d1a;
+  border-radius: 10px;
+  padding: 22px 24px;
+  max-width: 580px;
+  width: 100%;
+}
+.email-template-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.email-tpl-btn {
+  font-size: 11px;
+  padding: 5px 12px;
+  border: 1px solid #1e1e2e;
+  border-radius: 6px;
+  background: transparent;
+  color: #666;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .15s;
+}
+.email-tpl-btn:hover,
+.email-tpl-btn.active { border-color: #534AB7; color: #7F77DD; background: #0e0e1e; }
+
 /* ── CLIENT REPORTS ──────────────────────────────────── */
 .report-filter-bar { display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap; align-items:center; }
 .report-metric-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; margin-bottom:20px; }
@@ -1457,6 +1619,28 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       </div>
     </div>
 
+    <!-- EMAIL COMPOSER MODAL (v7.3) -->
+    <div class="modal-overlay" id="email-composer-modal">
+      <div class="email-modal-box">
+        <div class="modal-hdr">
+          <div class="modal-ttl"><i class="ti ti-mail" style="margin-right:6px"></i>Email Composer</div>
+          <button class="modal-close" onclick="closeModal('email-composer-modal')">&#10005;</button>
+        </div>
+        <div class="email-template-tabs" id="email-tpl-tabs"></div>
+        <label>To</label>
+        <input type="email" id="email-to" placeholder="client@example.com">
+        <label>Subject</label>
+        <input type="text" id="email-subject" placeholder="Subject line">
+        <label>Body</label>
+        <textarea id="email-body" rows="10" style="font-size:12px;line-height:1.7"></textarea>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap">
+          <button class="btn-outline" onclick="closeModal('email-composer-modal')">Cancel</button>
+          <button class="btn-outline" onclick="copyEmailText()"><i class="ti ti-clipboard"></i> Copy</button>
+          <button class="btn-primary" onclick="openMailtoFromComposer()"><i class="ti ti-external-link"></i> Open in email client</button>
+        </div>
+      </div>
+    </div>
+
 <!-- CEO TOP STRIP (shown when CEO is logged in) -->
 <div id="ceo-top-strip">
   <div style="display:flex;align-items:center;gap:8px">
@@ -1476,7 +1660,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 <div id="auth-screen" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#0d0d14;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
   <div style="background:#13131f;border:1px solid #2a2a3d;border-radius:14px;padding:36px 32px;width:100%;max-width:400px">
     <div style="text-align:center;margin-bottom:8px"><svg viewBox="0 0 100 100" width="80" height="80" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 12px;filter:drop-shadow(0 4px 20px rgba(200,136,0,0.7))"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg><div style="font-weight:700;font-size:30px;letter-spacing:-0.5px;line-height:1"><span style="color:#ffffff">Nexus</span><span style="color:#f0b429">OS</span></div></div>
-    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v7.2 · Executive Edition</div>
+    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v7.3 · Executive Edition</div>
 
     <!-- TAB SWITCHER -->
     <div id="auth-tabs" style="display:flex;gap:4px;background:#0d0d14;padding:4px;border-radius:8px;margin-bottom:20px">
@@ -1589,6 +1773,8 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="nav-item" id="n-calendar" onclick="nav('calendar')"><i class="ti ti-calendar"></i> Calendar</div>
       <div class="nav-item" id="n-time-tracker" onclick="nav('time-tracker')"><i class="ti ti-clock"></i> Time Tracker</div>
       <div class="nav-item" id="n-client-reports" onclick="nav('client-reports')"><i class="ti ti-chart-bar"></i> Client Reports</div>
+      <div class="nav-item" id="n-contracts" onclick="nav('contracts')"><i class="ti ti-file-certificate"></i> Contracts</div>
+      <div class="nav-item" id="n-docs" onclick="nav('docs')"><i class="ti ti-files"></i> Document Hub</div>
       <div class="nav-item" id="n-integrations" onclick="nav('integrations')"><i class="ti ti-plug"></i> Integrations</div>
     </div>
     <div class="nav-section">
@@ -1597,7 +1783,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="nav-item" id="n-pricing" onclick="nav('pricing')"><i class="ti ti-credit-card"></i> Pricing & Plans</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v7.2<br><span>© Jhun Rey Velado 2026</span></div>
+    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v7.3<br><span>© Jhun Rey Velado 2026</span></div>
   </div>
 
   <!-- CONTENT -->
@@ -2649,6 +2835,92 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       </div>
     </div>
 
+    <!-- CONTRACT BUILDER (v7.3) -->
+    <div class="screen" id="s-contracts">
+      <div class="pg-eyebrow">Fractional EA</div>
+      <div class="pg-title">Contract Builder</div>
+      <div class="pg-sub">Professional contracts & proposals — fill in the form, preview, print to PDF</div>
+
+      <!-- Template selector -->
+      <div class="panel contract-print-hide" style="margin-bottom:14px">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-template"></i> Choose a template</div></div>
+        <div class="contract-template-grid" id="contract-template-grid">
+          <div class="contract-template-card selected" onclick="selectContractTemplate('service')" id="tpl-service">
+            <div class="contract-template-icon">📋</div>
+            <div class="contract-template-name">Service Agreement</div>
+            <div class="contract-template-desc">Ongoing EA retainer</div>
+          </div>
+          <div class="contract-template-card" onclick="selectContractTemplate('nda')" id="tpl-nda">
+            <div class="contract-template-icon">🔒</div>
+            <div class="contract-template-name">NDA</div>
+            <div class="contract-template-desc">Non-disclosure agreement</div>
+          </div>
+          <div class="contract-template-card" onclick="selectContractTemplate('consulting')" id="tpl-consulting">
+            <div class="contract-template-icon">💼</div>
+            <div class="contract-template-name">Consulting Agreement</div>
+            <div class="contract-template-desc">Project-based engagement</div>
+          </div>
+          <div class="contract-template-card" onclick="selectContractTemplate('proposal')" id="tpl-proposal">
+            <div class="contract-template-icon">📄</div>
+            <div class="contract-template-name">Proposal</div>
+            <div class="contract-template-desc">Executive support proposal</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="two-col" style="gap:16px;align-items:flex-start">
+        <!-- Form -->
+        <div class="panel contract-print-hide">
+          <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-edit"></i> Details</div></div>
+          <label>Client / Company name</label>
+          <input type="text" id="ct-client" placeholder="Mark Espejo / Acme Corp" oninput="renderContractPreview()">
+          <label>Client email</label>
+          <input type="text" id="ct-client-email" placeholder="mark@acme.com" oninput="renderContractPreview()">
+          <label>Your name (EA)</label>
+          <input type="text" id="ct-ea-name" placeholder="Jhun Rey Velado" oninput="renderContractPreview()">
+          <label>Your company / trading name</label>
+          <input type="text" id="ct-ea-company" placeholder="Velado EA Services" oninput="renderContractPreview()">
+          <div class="two-col" style="gap:8px">
+            <div>
+              <label>Effective date</label>
+              <input type="date" id="ct-date" oninput="renderContractPreview()">
+            </div>
+            <div>
+              <label>Term / duration</label>
+              <input type="text" id="ct-term" placeholder="e.g. 3 months / ongoing" oninput="renderContractPreview()">
+            </div>
+          </div>
+          <label>Monthly retainer / fee</label>
+          <input type="text" id="ct-rate" placeholder="e.g. $3,500/month" oninput="renderContractPreview()">
+          <label>Scope of work</label>
+          <textarea id="ct-scope" rows="4" placeholder="Calendar management, travel coordination, inbox triage, meeting prep..." oninput="renderContractPreview()"></textarea>
+          <label>Additional terms <span style="font-size:10px;color:#555">(optional)</span></label>
+          <textarea id="ct-terms" rows="3" placeholder="Payment due within 14 days of invoice. 30-day notice to terminate..." oninput="renderContractPreview()"></textarea>
+          <div style="display:flex;gap:8px;margin-top:4px;flex-wrap:wrap">
+            <button class="btn-primary" onclick="printContract()"><i class="ti ti-printer"></i> Print / Save PDF</button>
+            <button class="btn-outline" onclick="saveContractDraft()"><i class="ti ti-device-floppy"></i> Save draft</button>
+          </div>
+          <div id="ct-save-msg" style="font-size:11px;color:#1D9E75;margin-top:6px;display:none">Draft saved!</div>
+        </div>
+
+        <!-- Live preview -->
+        <div style="flex:1.2">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px" class="contract-print-hide">
+            <div style="font-size:11px;color:#555">Live preview</div>
+          </div>
+          <div class="contract-preview-wrap" id="contract-preview-wrap">
+            <p style="color:#aaa;text-align:center;padding:40px 0">Fill in the form to see your contract preview...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Saved drafts -->
+      <div class="panel contract-print-hide" style="margin-top:16px">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-folders"></i> Saved drafts</div><button class="btn-outline btn-sm" onclick="loadContractDrafts()"><i class="ti ti-refresh"></i></button></div>
+        <div id="contract-drafts-list"><div class="empty-state" style="padding:20px"><i class="ti ti-file-off"></i>No saved drafts yet</div></div>
+      </div>
+    </div>
+
     <!-- CLIENT REPORTS -->
     <div class="screen" id="s-client-reports">
       <div class="pg-eyebrow">Fractional EA</div>
@@ -2827,6 +3099,67 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
         </div>
       </div>
 
+    </div>
+
+    <!-- DOCUMENT HUB (v7.3) -->
+    <div class="screen" id="s-docs">
+      <div class="pg-eyebrow">Fractional EA</div>
+      <div class="pg-title">Document Hub</div>
+      <div class="pg-sub">Centralise contracts, proposals, reports, and files — linked by client</div>
+
+      <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center">
+        <select id="doc-filter-client" onchange="loadDocs()" style="font-size:11px;padding:5px 8px;margin-bottom:0;width:auto">
+          <option value="">All clients</option>
+        </select>
+        <select id="doc-filter-type" onchange="loadDocs()" style="font-size:11px;padding:5px 8px;margin-bottom:0;width:auto">
+          <option value="">All types</option>
+          <option value="contract">Contract</option>
+          <option value="proposal">Proposal</option>
+          <option value="invoice">Invoice</option>
+          <option value="report">Report</option>
+          <option value="other">Other</option>
+        </select>
+        <input type="text" id="doc-search" placeholder="Search documents..." oninput="loadDocs()" style="font-size:12px;padding:6px 10px;margin-bottom:0;flex:1;min-width:180px">
+        <button class="btn-primary" onclick="openAddDocModal()" style="font-size:12px;padding:8px 16px;white-space:nowrap"><i class="ti ti-plus"></i> Add document</button>
+      </div>
+
+      <div id="docs-list"></div>
+    </div>
+
+    <!-- ADD DOCUMENT MODAL -->
+    <div class="modal-overlay" id="add-doc-modal">
+      <div class="modal-box" style="max-width:500px">
+        <div class="modal-hdr">
+          <div class="modal-ttl">Add document</div>
+          <button class="modal-close" onclick="closeModal('add-doc-modal')">&#10005;</button>
+        </div>
+        <label>Document title</label>
+        <input type="text" id="doc-title-input" placeholder="e.g. Acme Corp Service Agreement 2026">
+        <div class="two-col" style="gap:10px">
+          <div>
+            <label>Type</label>
+            <select id="doc-type-input">
+              <option value="contract">Contract</option>
+              <option value="proposal">Proposal</option>
+              <option value="invoice">Invoice</option>
+              <option value="report">Report</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label>Client</label>
+            <input type="text" id="doc-client-input" placeholder="Client name">
+          </div>
+        </div>
+        <label>URL / file link <span style="font-size:10px;color:#555">(Google Drive, Dropbox, etc.)</span></label>
+        <input type="url" id="doc-url-input" placeholder="https://drive.google.com/...">
+        <label>Notes <span style="font-size:10px;color:#555">(optional)</span></label>
+        <textarea id="doc-notes-input" rows="2" placeholder="Version, status, or any notes..."></textarea>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:12px">
+          <button class="btn-outline" onclick="closeModal('add-doc-modal')">Cancel</button>
+          <button class="btn-primary" onclick="saveDoc()">Save document</button>
+        </div>
+      </div>
     </div>
 
     <!-- INTEGRATIONS SCREEN -->
@@ -8370,6 +8703,388 @@ function openMailtoDigest(){
     var ow = document.getElementById('outbound-webhook-url');
     if(sw) sw.value = localStorage.getItem('nexusos_slack_webhook') || '';
     if(ow) ow.value = localStorage.getItem('nexusos_outbound_webhook') || '';
+  };
+})();
+
+
+
+// ══════════════════════════════════════════════════════════════
+// PHASE 4: CONTRACT BUILDER (v7.3)
+// ══════════════════════════════════════════════════════════════
+var _currentContractTemplate = 'service';
+
+var CONTRACT_TEMPLATES = {
+  service: {
+    name: 'Executive Assistant Service Agreement',
+    sections: function(d){
+      return [
+        { h: 'Parties', p: 'This Executive Assistant Service Agreement ("Agreement") is entered into as of '+d.date+' between '+d.eaCompany+' ("EA") and '+d.client+' ("Client").' },
+        { h: 'Services', p: 'EA agrees to provide fractional executive assistant services including but not limited to: '+d.scope },
+        { h: 'Term', p: 'This Agreement commences on '+d.date+' and continues for '+d.term+', unless terminated earlier pursuant to Section 6.' },
+        { h: 'Compensation', p: 'Client agrees to pay EA '+d.rate+'. Invoices are issued monthly and payment is due within 14 days of receipt.' },
+        { h: 'Confidentiality', p: 'EA agrees to hold in strictest confidence all information disclosed by Client and shall not disclose such information to any third party without prior written consent.' },
+        { h: 'Termination', p: 'Either party may terminate this Agreement with 30 days written notice. Upon termination, Client shall pay for all services rendered up to the termination date.' },
+        { h: 'Independent Contractor', p: 'EA is an independent contractor and not an employee of Client. EA is responsible for all taxes and statutory obligations arising from this engagement.' },
+        { h: 'Governing Law', p: 'This Agreement shall be governed by the laws of the jurisdiction in which EA is located. Any disputes shall be resolved through good-faith negotiation.' }
+      ];
+    }
+  },
+  nda: {
+    name: 'Non-Disclosure Agreement',
+    sections: function(d){
+      return [
+        { h: 'Parties', p: 'This Non-Disclosure Agreement ("Agreement") is entered into as of '+d.date+' between '+d.eaCompany+' ("Receiving Party") and '+d.client+' ("Disclosing Party").' },
+        { h: 'Definition of Confidential Information', p: '"Confidential Information" means any non-public information disclosed by Disclosing Party including business plans, client lists, financial data, and operational methods.' },
+        { h: 'Obligations', p: 'Receiving Party agrees to: (a) hold all Confidential Information in strict confidence; (b) not disclose to any third party; (c) use only for the purpose of evaluating or performing services for Disclosing Party.' },
+        { h: 'Scope of work', p: d.scope || 'Executive assistant and administrative support services.' },
+        { h: 'Term', p: 'This Agreement shall remain in force for '+d.term+' from the Effective Date, or until terminated by mutual written agreement.' },
+        { h: 'Exceptions', p: 'Obligations do not apply to information that is or becomes publicly known through no breach of this Agreement, or is received from a third party without restriction.' },
+        { h: 'Remedies', p: 'Receiving Party acknowledges that breach of this Agreement may cause irreparable harm for which monetary damages may be inadequate, and equitable relief may be sought.' }
+      ];
+    }
+  },
+  consulting: {
+    name: 'Consulting Agreement',
+    sections: function(d){
+      return [
+        { h: 'Parties', p: 'This Consulting Agreement ("Agreement") is entered into as of '+d.date+' between '+d.eaCompany+' ("Consultant") and '+d.client+' ("Client").' },
+        { h: 'Scope of Consulting Services', p: 'Consultant will provide the following services: '+d.scope },
+        { h: 'Project Term', p: 'Engagement commences on '+d.date+' with an expected duration of '+d.term+'. Both parties may agree in writing to extend.' },
+        { h: 'Fees & Payment', p: 'Client shall pay Consultant '+d.rate+'. Invoices issued upon milestone completion or monthly. Payment due within 14 days.' },
+        { h: 'Deliverables', p: 'All deliverables produced under this Agreement shall be provided in a professional manner and meet mutually agreed acceptance criteria.' },
+        { h: 'Intellectual Property', p: 'All work product created specifically for Client under this Agreement shall be considered work for hire and ownership transfers to Client upon payment.' },
+        { h: 'Confidentiality', p: 'Consultant agrees to maintain confidentiality of all Client proprietary information encountered during the engagement.' },
+        { h: 'Termination', p: 'Either party may terminate with 14 days written notice. Consultant shall be paid for all work completed to date of termination.' }
+      ];
+    }
+  },
+  proposal: {
+    name: 'Executive Support Proposal',
+    sections: function(d){
+      return [
+        { h: 'Executive Summary', p: 'This proposal outlines how '+d.eaCompany+' can support '+d.client+' with high-level executive assistance, beginning '+d.date+'.' },
+        { h: 'Your challenges', p: 'As a senior executive, your time is your most valuable resource. Administrative overhead, scheduling conflicts, and inbox management consume hours that should go to strategic work.' },
+        { h: 'Proposed solution', p: d.scope || 'A dedicated fractional EA engagement, providing calendar management, travel coordination, stakeholder communication, meeting preparation, and executive project support.' },
+        { h: 'Investment', p: d.rate+' — this covers all services outlined in the scope for the engagement term of '+d.term+'. Invoiced monthly, payment due within 14 days.' },
+        { h: 'What you get', p: 'Proactive inbox management · Calendar ownership · Travel & logistics · Meeting briefs & agendas · Executive communications · Ad hoc research & coordination' },
+        { h: 'Why '+(d.eaCompany||'us'), p: 'We specialise exclusively in fractional EA support for executives and founders. All engagements are managed through NexusOS — a purpose-built executive operating system that gives you real-time visibility into tasks, approvals, and reporting.' },
+        { h: 'Next steps', p: 'To proceed: (1) review and sign the attached Service Agreement; (2) schedule a 30-minute onboarding call; (3) we begin within 48 hours. Questions? Reply to '+d.eaEmail+'.' }
+      ];
+    }
+  }
+};
+
+function selectContractTemplate(tpl){
+  _currentContractTemplate = tpl;
+  document.querySelectorAll('.contract-template-card').forEach(function(c){ c.classList.remove('selected'); });
+  var el = document.getElementById('tpl-' + tpl);
+  if(el) el.classList.add('selected');
+  renderContractPreview();
+}
+
+function getContractFormData(){
+  var today = new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  return {
+    client:     (document.getElementById('ct-client')||{}).value    || '[Client Name]',
+    clientEmail:(document.getElementById('ct-client-email')||{}).value || '',
+    eaName:     (document.getElementById('ct-ea-name')||{}).value   || '[EA Name]',
+    eaCompany:  (document.getElementById('ct-ea-company')||{}).value|| '[EA Company]',
+    eaEmail:    (window.currentUser && window.currentUser.email)    || '',
+    date:       (function(){ var el=document.getElementById('ct-date'); return el&&el.value ? new Date(el.value).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : today; })(),
+    term:       (document.getElementById('ct-term')||{}).value      || '[Duration]',
+    rate:       (document.getElementById('ct-rate')||{}).value      || '[Fee]',
+    scope:      (document.getElementById('ct-scope')||{}).value     || '[Scope of work]',
+    terms:      (document.getElementById('ct-terms')||{}).value     || ''
+  };
+}
+
+function renderContractPreview(){
+  var wrap = document.getElementById('contract-preview-wrap');
+  if(!wrap) return;
+  var d = getContractFormData();
+  var tpl = CONTRACT_TEMPLATES[_currentContractTemplate];
+  if(!tpl){ wrap.innerHTML = '<p style="color:#aaa;text-align:center;padding:40px">Select a template to preview.</p>'; return; }
+  var secs = tpl.sections(d);
+  var innerHtml = '<h1>'+tpl.name+'</h1>'
+    +'<div class="contract-meta">Prepared for '+d.client+' &nbsp;·&nbsp; '+d.date+'</div>';
+  secs.forEach(function(s){
+    innerHtml += '<h2>'+s.h+'</h2><p>'+s.p.replace(/\n/g,'<br>')+'</p>';
+  });
+  if(d.terms){
+    innerHtml += '<h2>Additional Terms</h2><p>'+d.terms.replace(/\n/g,'<br>')+'</p>';
+  }
+  innerHtml += '<div class="sig-row">'
+    +'<div class="sig-block"><div class="sig-line"></div><div class="sig-label">'+d.eaName+' — '+d.eaCompany+'</div></div>'
+    +'<div class="sig-block"><div class="sig-line"></div><div class="sig-label">'+d.client+'</div></div>'
+    +'</div>';
+  wrap.innerHTML = innerHtml;
+}
+
+function printContract(){
+  var d = getContractFormData();
+  var tpl = CONTRACT_TEMPLATES[_currentContractTemplate];
+  if(!tpl){ alert('Please select a template first.'); return; }
+  var secs = tpl.sections(d);
+  var body = '<h1 style="text-align:center;font-size:22px;margin-bottom:4px">'+tpl.name+'</h1>'
+    +'<p style="text-align:center;color:#888;font-size:12px;margin-bottom:28px">Prepared for '+d.client+' · '+d.date+'</p>';
+  secs.forEach(function(s){
+    body += '<h2 style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin:18px 0 6px;color:#222">'+s.h+'</h2>'
+          + '<p style="font-size:13px;color:#333;line-height:1.8;margin-bottom:8px">'+s.p.replace(/\n/g,'<br>')+'</p>';
+  });
+  if(d.terms){
+    body += '<h2 style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin:18px 0 6px;color:#222">Additional Terms</h2>'
+          + '<p style="font-size:13px;color:#333;line-height:1.8;margin-bottom:8px">'+d.terms.replace(/\n/g,'<br>')+'</p>';
+  }
+  body += '<div style="display:flex;gap:48px;margin-top:48px;border-top:1px solid #ddd;padding-top:24px">'
+    +'<div style="flex:1"><div style="border-bottom:1px solid #aaa;margin-bottom:6px;height:36px"></div><div style="font-size:11px;color:#888;text-transform:uppercase">'+d.eaName+' — '+d.eaCompany+'</div></div>'
+    +'<div style="flex:1"><div style="border-bottom:1px solid #aaa;margin-bottom:6px;height:36px"></div><div style="font-size:11px;color:#888;text-transform:uppercase">'+d.client+'</div></div>'
+    +'</div>';
+  var win = window.open('','_blank','width=800,height=900');
+  win.document.write('<!DOCTYPE html><html><head><title>'+tpl.name+'</title>'
+    +'<style>body{font-family:Georgia,serif;max-width:700px;margin:40px auto;color:#111;padding:0 32px} @media print{body{margin:0}}</style>'
+    +'</head><body>'+body+'<script>setTimeout(function(){window.print();},400);<\/script></body></html>');
+  win.document.close();
+}
+
+function saveContractDraft(){
+  var d = getContractFormData();
+  var drafts = JSON.parse(localStorage.getItem('nexusos_contract_drafts')||'[]');
+  drafts.unshift({ id:'draft-'+Date.now(), template:_currentContractTemplate, data:d, savedAt:new Date().toISOString() });
+  localStorage.setItem('nexusos_contract_drafts', JSON.stringify(drafts.slice(0,20)));
+  var msg = document.getElementById('ct-save-msg');
+  if(msg){ msg.style.display='block'; setTimeout(function(){ msg.style.display='none'; }, 2500); }
+  loadContractDrafts();
+}
+
+function loadContractDrafts(){
+  var drafts = JSON.parse(localStorage.getItem('nexusos_contract_drafts')||'[]');
+  var list = document.getElementById('contract-drafts-list');
+  if(!list) return;
+  if(!drafts.length){
+    list.innerHTML = '<div class="empty-state" style="padding:20px"><i class="ti ti-file-off"></i>No saved drafts yet</div>';
+    return;
+  }
+  var tplNames = { service:'Service Agreement', nda:'NDA', consulting:'Consulting Agreement', proposal:'Proposal' };
+  list.innerHTML = drafts.map(function(dr){
+    return '<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #1a1a2e">'
+      +'<div style="flex:1">'
+      +'<div style="font-size:13px;font-weight:500;color:#ddd">'+(tplNames[dr.template]||dr.template)+' — '+dr.data.client+'</div>'
+      +'<div style="font-size:11px;color:#555">'+new Date(dr.savedAt).toLocaleDateString()+'</div>'
+      +'</div>'
+      +'<button class="btn-outline" style="font-size:10px;padding:4px 10px" onclick="loadDraftIntoForm(\''+dr.id+'\')">Load</button>'
+      +'<button class="btn-danger" style="font-size:10px;padding:4px 10px" onclick="deleteDraft(\''+dr.id+'\')">Delete</button>'
+      +'</div>';
+  }).join('');
+}
+
+function loadDraftIntoForm(id){
+  var drafts = JSON.parse(localStorage.getItem('nexusos_contract_drafts')||'[]');
+  var dr = drafts.find(function(d){ return d.id===id; });
+  if(!dr) return;
+  selectContractTemplate(dr.template);
+  var fields = { 'ct-client':dr.data.client,'ct-client-email':dr.data.clientEmail,'ct-ea-name':dr.data.eaName,'ct-ea-company':dr.data.eaCompany,'ct-term':dr.data.term,'ct-rate':dr.data.rate,'ct-scope':dr.data.scope,'ct-terms':dr.data.terms };
+  Object.keys(fields).forEach(function(id){ var el=document.getElementById(id); if(el) el.value=fields[id]||''; });
+  renderContractPreview();
+}
+
+function deleteDraft(id){
+  if(!confirm('Delete this draft?')) return;
+  var drafts = JSON.parse(localStorage.getItem('nexusos_contract_drafts')||'[]');
+  localStorage.setItem('nexusos_contract_drafts', JSON.stringify(drafts.filter(function(d){ return d.id!==id; })));
+  loadContractDrafts();
+}
+
+function loadContracts(){
+  // Pre-populate EA name from profile
+  var eaEl = document.getElementById('ct-ea-name');
+  var coEl = document.getElementById('ct-ea-company');
+  if(eaEl && !eaEl.value && window.currentProfile) eaEl.value = window.currentProfile.full_name||'';
+  if(coEl && !coEl.value && window.currentProfile) coEl.value = window.currentProfile.company_name||'';
+  // Set today's date
+  var dtEl = document.getElementById('ct-date');
+  if(dtEl && !dtEl.value) dtEl.value = new Date().toISOString().substring(0,10);
+  renderContractPreview();
+  loadContractDrafts();
+}
+
+// ══════════════════════════════════════════════════════════════
+// PHASE 4: DOCUMENT HUB (v7.3)
+// ══════════════════════════════════════════════════════════════
+var DOC_TYPE_ICONS = { contract:'📋', proposal:'📄', invoice:'💰', report:'📊', other:'📁' };
+
+function getDocuments(){ try{ return JSON.parse(localStorage.getItem('nexusos_documents')||'[]'); }catch(e){ return []; } }
+function saveDocuments(docs){ localStorage.setItem('nexusos_documents', JSON.stringify(docs)); }
+
+function loadDocs(){
+  var docs = getDocuments();
+  var cf = (document.getElementById('doc-filter-client')||{}).value||'';
+  var tf = (document.getElementById('doc-filter-type')||{}).value||'';
+  var sf = ((document.getElementById('doc-search')||{}).value||'').toLowerCase();
+
+  // Populate client dropdown
+  var clientSel = document.getElementById('doc-filter-client');
+  if(clientSel){
+    var clients = [...new Set(docs.map(function(d){ return d.client; }).filter(Boolean))];
+    var prev = clientSel.value;
+    clientSel.innerHTML = '<option value="">All clients</option>'
+      + clients.map(function(c){ return '<option value="'+c+'"'+(c===prev?' selected':'')+'>'+c+'</option>'; }).join('');
+  }
+
+  var filtered = docs.filter(function(d){
+    if(cf && d.client !== cf) return false;
+    if(tf && d.type !== tf) return false;
+    if(sf && !(d.title||'').toLowerCase().includes(sf) && !(d.notes||'').toLowerCase().includes(sf)) return false;
+    return true;
+  });
+
+  var list = document.getElementById('docs-list');
+  if(!list) return;
+  if(!filtered.length){
+    list.innerHTML = '<div class="empty-state"><i class="ti ti-files-off"></i>No documents yet — click "Add document" to get started.</div>';
+    return;
+  }
+  list.innerHTML = filtered.map(function(d){
+    return '<div class="doc-card">'
+      +'<div class="doc-icon">'+( DOC_TYPE_ICONS[d.type]||'📁' )+'</div>'
+      +'<div class="doc-info">'
+      +'<div class="doc-title">'+d.title+'</div>'
+      +'<div class="doc-meta">'+(d.client||'No client')+' · '+new Date(d.addedAt||Date.now()).toLocaleDateString()+(d.notes?' · '+d.notes:'')+'</div>'
+      +'</div>'
+      +'<span class="doc-type-badge '+d.type+'">'+d.type+'</span>'
+      +(d.url ? '<a href="'+d.url+'" target="_blank" rel="noopener" class="btn-outline" style="font-size:11px;padding:5px 10px;text-decoration:none;white-space:nowrap"><i class="ti ti-external-link"></i> Open</a>' : '')
+      +'<button class="btn-danger" style="font-size:10px;padding:5px 8px" onclick="deleteDoc(\''+d.id+'\')"><i class="ti ti-trash"></i></button>'
+      +'</div>';
+  }).join('');
+}
+
+function openAddDocModal(){
+  document.getElementById('doc-title-input').value='';
+  document.getElementById('doc-type-input').value='contract';
+  document.getElementById('doc-client-input').value='';
+  document.getElementById('doc-url-input').value='';
+  document.getElementById('doc-notes-input').value='';
+  document.getElementById('add-doc-modal').classList.add('active');
+}
+
+function saveDoc(){
+  var title = document.getElementById('doc-title-input').value.trim();
+  if(!title){ alert('Document title is required'); return; }
+  var docs = getDocuments();
+  docs.unshift({
+    id: 'doc-'+Date.now(),
+    title: title,
+    type:   document.getElementById('doc-type-input').value,
+    client: document.getElementById('doc-client-input').value.trim(),
+    url:    document.getElementById('doc-url-input').value.trim(),
+    notes:  document.getElementById('doc-notes-input').value.trim(),
+    addedAt: new Date().toISOString()
+  });
+  saveDocuments(docs);
+  closeModal('add-doc-modal');
+  loadDocs();
+  showToast('Document saved','Added to your document hub.','success');
+}
+
+function deleteDoc(id){
+  if(!confirm('Remove this document?')) return;
+  saveDocuments(getDocuments().filter(function(d){ return d.id!==id; }));
+  loadDocs();
+}
+
+// ══════════════════════════════════════════════════════════════
+// PHASE 4: EMAIL COMPOSER (v7.3)
+// ══════════════════════════════════════════════════════════════
+var EMAIL_TEMPLATES = {
+  invoice: {
+    label: 'Invoice',
+    subject: function(d){ return 'Invoice '+( d.invoiceNum||'#' )+' — '+(d.eaCompany||'NexusOS EA'); },
+    body: function(d){
+      return 'Hi '+(d.clientName||'there')+',\n\nPlease find your invoice for this period attached.\n\nAmount due: '+(d.amount||'[amount]')+'\nDue date: '+(d.dueDate||'14 days from receipt')+'\n\nYou can pay via '+(d.paymentMethod||'bank transfer or the link provided')+'.\n\nThank you for a great month. Looking forward to continuing our work together.\n\nBest,\n'+(d.eaName||'Your EA');
+    }
+  },
+  approval: {
+    label: 'Approval request',
+    subject: function(d){ return 'Action needed: '+( d.title||'Approval request' ); },
+    body: function(d){
+      return 'Hi '+(d.clientName||'there')+',\n\nI need your sign-off on the following:\n\n'+(d.title||'[Item]')+'\nAmount: '+(d.amount ? '$'+Number(d.amount).toLocaleString() : '[amount]')+'\nNotes: '+(d.notes||'Please review and approve at your earliest convenience.')+'\n\nYou can approve directly in your NexusOS portal at getnexusos.app.\n\nThanks,\n'+(d.eaName||'Your EA');
+    }
+  },
+  meeting: {
+    label: 'Meeting prep',
+    subject: function(d){ return 'Meeting prep: '+( d.title||'[Meeting title]' ); },
+    body: function(d){
+      return 'Hi '+(d.clientName||'there')+',\n\nHere\'s your prep brief for '+(d.title||'the upcoming meeting')+':\n\nDate: '+(d.date||'[date]')+'\nTime: '+(d.time||'[time]')+'\nParticipants: '+(d.participants||'[participants]')+'\n\nKey objectives:\n'+(d.objectives||'[objectives]')+'\n\nPlease review and let me know if you\'d like any changes to the agenda.\n\nBest,\n'+(d.eaName||'Your EA');
+    }
+  },
+  followup: {
+    label: 'Follow-up',
+    subject: function(d){ return 'Following up — '+(d.subject||'[topic]'); },
+    body: function(d){
+      return 'Hi '+(d.clientName||'there')+',\n\nJust following up on '+(d.subject||'our recent discussion')+'.\n\n'+(d.notes||'Please let me know if you need anything from my side to move this forward.')+'\n\nBest,\n'+(d.eaName||'Your EA');
+    }
+  },
+  report: {
+    label: 'Monthly report',
+    subject: function(d){ return 'Monthly report — '+(d.month||new Date().toLocaleDateString('en-US',{month:'long',year:'numeric'})); },
+    body: function(d){
+      return 'Hi '+(d.clientName||'there')+',\n\nPlease find your monthly executive report for '+(d.month||'this period')+' attached and published in your NexusOS portal.\n\nHighlights:\n• Tasks completed: '+(d.tasksDone||0)+'\n• Approvals processed: '+(d.approvals||0)+'\n• Hours logged: '+(d.hours||0)+'\n\nYou can view the full report at getnexusos.app.\n\nAlways a pleasure,\n'+(d.eaName||'Your EA');
+    }
+  }
+};
+
+function openEmailComposer(contextType, contextData){
+  var tplKeys = Object.keys(EMAIL_TEMPLATES);
+  var tabs = document.getElementById('email-tpl-tabs');
+  if(tabs){
+    tabs.innerHTML = tplKeys.map(function(k){
+      return '<button class="email-tpl-btn'+(k===contextType?' active':'')+'" onclick="applyEmailTemplate(\''+k+'\')">'
+        +EMAIL_TEMPLATES[k].label+'</button>';
+    }).join('');
+  }
+  window._emailCtxData = contextData || {};
+  applyEmailTemplate(contextType || 'followup');
+  document.getElementById('email-composer-modal').classList.add('active');
+}
+
+function applyEmailTemplate(key){
+  var tpl = EMAIL_TEMPLATES[key];
+  if(!tpl) return;
+  window._activeEmailTpl = key;
+  var d = Object.assign({
+    eaName:    (window.currentProfile && window.currentProfile.full_name) || '',
+    eaCompany: (window.currentProfile && window.currentProfile.company_name) || 'NexusOS EA'
+  }, window._emailCtxData || {});
+  document.getElementById('email-subject').value = tpl.subject(d);
+  document.getElementById('email-body').value    = tpl.body(d);
+  // Update tab active state
+  document.querySelectorAll('.email-tpl-btn').forEach(function(btn){
+    btn.classList.toggle('active', btn.textContent === tpl.label);
+  });
+}
+
+function copyEmailText(){
+  var subj = document.getElementById('email-subject').value;
+  var body = document.getElementById('email-body').value;
+  navigator.clipboard.writeText('Subject: '+subj+'\n\n'+body)
+    .then(function(){ showToast('Copied','Email text copied to clipboard.','success'); })
+    .catch(function(){ showToast('Copy failed','Please select and copy manually.','warning'); });
+}
+
+function openMailtoFromComposer(){
+  var to   = encodeURIComponent(document.getElementById('email-to').value||'');
+  var subj = encodeURIComponent(document.getElementById('email-subject').value||'');
+  var body = encodeURIComponent(document.getElementById('email-body').value||'');
+  window.open('mailto:'+to+'?subject='+subj+'&body='+body);
+}
+
+// ── Wire nav loaders ──
+(function(){
+  var _loaderPatch = window.nav;
+  window.nav = function(screen){
+    var res = _loaderPatch ? _loaderPatch(screen) : undefined;
+    if(screen === 'contracts') setTimeout(loadContracts, 60);
+    if(screen === 'docs') setTimeout(loadDocs, 60);
+    return res;
   };
 })();
 
