@@ -1063,6 +1063,147 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 .email-tpl-btn:hover,
 .email-tpl-btn.active { border-color: #534AB7; color: #7F77DD; background: #0e0e1e; }
 
+/* ── PHASE 5: ANALYTICS (v7.4) ──────────────────────────── */
+.analytics-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.analytics-kpi {
+  background: #0a0a14;
+  border: 1px solid #1e1e2e;
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.analytics-kpi-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: #555;
+  margin-bottom: 6px;
+}
+.analytics-kpi-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #f0f0f0;
+  line-height: 1;
+}
+.analytics-kpi-sub {
+  font-size: 11px;
+  color: #1D9E75;
+  margin-top: 4px;
+}
+.analytics-chart-panel {
+  background: #0a0a14;
+  border: 1px solid #1e1e2e;
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+.analytics-chart-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #aaa;
+  margin-bottom: 12px;
+}
+
+/* ── PHASE 5: AGENCY (v7.4) ─────────────────────────────── */
+.agency-member-card {
+  background: #0a0a14;
+  border: 1px solid #1e1e2e;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.agency-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #1a1030;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #7F77DD;
+  flex-shrink: 0;
+}
+.agency-member-info { flex: 1; min-width: 0; }
+.agency-member-name { font-size: 13px; font-weight: 600; color: #ddd; }
+.agency-member-role { font-size: 11px; color: #555; margin-top: 2px; }
+.agency-role-badge {
+  font-size: 10px;
+  padding: 3px 9px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+.agency-role-badge.lead   { background: #0a1f12; color: #1D9E75; }
+.agency-role-badge.member { background: #1a1030; color: #7F77DD; }
+.agency-role-badge.invite { background: #1a1200; color: #f0b429; }
+
+/* ── PHASE 5: DEVELOPER (v7.4) ──────────────────────────── */
+.api-key-display {
+  background: #060610;
+  border: 1px solid #1e1e2e;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-family: 'SF Mono','Fira Code',monospace;
+  font-size: 12px;
+  color: #1D9E75;
+  word-break: break-all;
+  margin: 8px 0;
+}
+.code-block {
+  background: #06060f;
+  border: 1px solid #1a1a2e;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-family: 'SF Mono','Fira Code',monospace;
+  font-size: 11px;
+  color: #aaa;
+  line-height: 1.7;
+  overflow-x: auto;
+  white-space: pre;
+  margin: 8px 0;
+}
+.webhook-log-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid #0f0f1a;
+  font-size: 11px;
+}
+.webhook-log-event {
+  color: #7F77DD;
+  font-weight: 600;
+  min-width: 140px;
+}
+.webhook-log-time { color: #555; margin-left: auto; }
+
+/* ── PHASE 5: AUDIT LOG (v7.4) ──────────────────────────── */
+.audit-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid #0f0f1a;
+  font-size: 11px;
+}
+.audit-action { color: #aaa; flex: 1; }
+.audit-user   { color: #555; min-width: 130px; }
+.audit-time   { color: #333; min-width: 120px; text-align: right; }
+.audit-dot    { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.audit-dot.create { background: #1D9E75; }
+.audit-dot.update { background: #f0b429; }
+.audit-dot.delete { background: #E24B4A; }
+.audit-dot.auth   { background: #534AB7; }
+.audit-dot.export { background: #888; }
+
 /* ── CLIENT REPORTS ──────────────────────────────────── */
 .report-filter-bar { display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap; align-items:center; }
 .report-metric-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; margin-bottom:20px; }
@@ -1660,7 +1801,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 <div id="auth-screen" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#0d0d14;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
   <div style="background:#13131f;border:1px solid #2a2a3d;border-radius:14px;padding:36px 32px;width:100%;max-width:400px">
     <div style="text-align:center;margin-bottom:8px"><svg viewBox="0 0 100 100" width="80" height="80" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 12px;filter:drop-shadow(0 4px 20px rgba(200,136,0,0.7))"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg><div style="font-weight:700;font-size:30px;letter-spacing:-0.5px;line-height:1"><span style="color:#ffffff">Nexus</span><span style="color:#f0b429">OS</span></div></div>
-    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v7.3 · Executive Edition</div>
+    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v7.4 · Executive Edition</div>
 
     <!-- TAB SWITCHER -->
     <div id="auth-tabs" style="display:flex;gap:4px;background:#0d0d14;padding:4px;border-radius:8px;margin-bottom:20px">
@@ -1763,6 +1904,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
     </div>
     <div class="nav-section">
       <div class="nav-lbl">Intelligence</div>
+      <div class="nav-item" id="n-analytics" onclick="nav('analytics')"><i class="ti ti-chart-dots"></i> Analytics</div>
       <div class="nav-item" id="n-pe" onclick="nav('pe')"><i class="ti ti-chart-line"></i> PE Dashboard</div>
       <div class="nav-item" id="n-relationships" onclick="nav('relationships')"><i class="ti ti-users"></i> Relationships</div>
       <div class="nav-item" id="n-notes" onclick="nav('notes')"><i class="ti ti-notes"></i> Notes Hub</div>
@@ -1780,10 +1922,12 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
     <div class="nav-section">
       <div class="nav-lbl">Account</div>
       <div class="nav-item" id="n-clients" onclick="nav('clients')"><i class="ti ti-users-group"></i> My Clients</div>
+      <div class="nav-item" id="n-agency" onclick="nav('agency')"><i class="ti ti-building-community"></i> Agency / Team</div>
+      <div class="nav-item" id="n-developer" onclick="nav('developer')"><i class="ti ti-code"></i> Developer</div>
       <div class="nav-item" id="n-pricing" onclick="nav('pricing')"><i class="ti ti-credit-card"></i> Pricing & Plans</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v7.3<br><span>© Jhun Rey Velado 2026</span></div>
+    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v7.4<br><span>© Jhun Rey Velado 2026</span></div>
   </div>
 
   <!-- CONTENT -->
@@ -3159,6 +3303,170 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
           <button class="btn-outline" onclick="closeModal('add-doc-modal')">Cancel</button>
           <button class="btn-primary" onclick="saveDoc()">Save document</button>
         </div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS (v7.4) -->
+    <div class="screen" id="s-analytics">
+      <div class="pg-eyebrow">Intelligence</div>
+      <div class="pg-title">Analytics</div>
+      <div class="pg-sub">Business performance — revenue, tasks, time, and approvals</div>
+
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px" class="contract-print-hide">
+        <select id="analytics-period" onchange="loadAnalytics()" style="font-size:11px;padding:5px 8px;margin-bottom:0;width:auto">
+          <option value="30">Last 30 days</option>
+          <option value="90" selected>Last 90 days</option>
+          <option value="180">Last 6 months</option>
+          <option value="365">Last 12 months</option>
+        </select>
+        <button class="btn-outline" onclick="loadAnalytics()" style="font-size:11px;padding:6px 12px"><i class="ti ti-refresh"></i> Refresh</button>
+        <button class="btn-outline" onclick="exportAnalyticsCSV()" style="font-size:11px;padding:6px 12px"><i class="ti ti-download"></i> Export CSV</button>
+      </div>
+
+      <!-- KPI cards -->
+      <div class="analytics-kpi-grid" id="analytics-kpi-grid">
+        <div class="analytics-kpi"><div class="analytics-kpi-label">Total Revenue</div><div class="analytics-kpi-value" id="kpi-revenue">—</div><div class="analytics-kpi-sub" id="kpi-revenue-sub"></div></div>
+        <div class="analytics-kpi"><div class="analytics-kpi-label">Billable Hours</div><div class="analytics-kpi-value" id="kpi-hours">—</div><div class="analytics-kpi-sub" id="kpi-hours-sub"></div></div>
+        <div class="analytics-kpi"><div class="analytics-kpi-label">Tasks Completed</div><div class="analytics-kpi-value" id="kpi-tasks">—</div><div class="analytics-kpi-sub" id="kpi-tasks-sub"></div></div>
+        <div class="analytics-kpi"><div class="analytics-kpi-label">Approvals Processed</div><div class="analytics-kpi-value" id="kpi-approvals">—</div><div class="analytics-kpi-sub" id="kpi-approvals-sub"></div></div>
+        <div class="analytics-kpi"><div class="analytics-kpi-label">Active Clients</div><div class="analytics-kpi-value" id="kpi-clients">—</div><div class="analytics-kpi-sub" id="kpi-clients-sub"></div></div>
+        <div class="analytics-kpi"><div class="analytics-kpi-label">Avg Hourly Rate</div><div class="analytics-kpi-value" id="kpi-rate">—</div><div class="analytics-kpi-sub" id="kpi-rate-sub"></div></div>
+      </div>
+
+      <!-- Charts row -->
+      <div class="two-col" style="gap:14px;margin-bottom:14px">
+        <div class="analytics-chart-panel">
+          <div class="analytics-chart-title">Revenue by client</div>
+          <div style="position:relative;height:220px"><canvas id="chart-revenue" role="img" aria-label="Revenue by client bar chart"></canvas></div>
+        </div>
+        <div class="analytics-chart-panel">
+          <div class="analytics-chart-title">Task status breakdown</div>
+          <div style="position:relative;height:220px"><canvas id="chart-tasks" role="img" aria-label="Task status doughnut chart"></canvas></div>
+        </div>
+      </div>
+
+      <div class="analytics-chart-panel">
+        <div class="analytics-chart-title">Billable hours by client</div>
+        <div id="chart-hours-wrap" style="position:relative;height:200px"><canvas id="chart-hours" role="img" aria-label="Billable hours by client bar chart"></canvas></div>
+      </div>
+
+      <!-- Audit log -->
+      <div class="panel" style="margin-top:16px">
+        <div class="panel-hdr">
+          <div class="panel-ttl"><i class="ti ti-list-details"></i> Audit log</div>
+          <button class="btn-outline btn-sm" onclick="exportAuditCSV()"><i class="ti ti-download"></i> Export</button>
+        </div>
+        <div id="audit-log-list"><div class="loading-indicator">Loading…</div></div>
+      </div>
+    </div>
+
+    <!-- AGENCY / TEAM (v7.4) -->
+    <div class="screen" id="s-agency">
+      <div class="pg-eyebrow">Account</div>
+      <div class="pg-title">Agency / Team</div>
+      <div class="pg-sub">Manage your EA team — invite members, assign clients, aggregate reporting</div>
+
+      <!-- Agency header -->
+      <div class="panel" style="margin-bottom:14px">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-building-community"></i> Your agency</div></div>
+        <div class="two-col" style="gap:12px">
+          <div>
+            <label>Agency name</label>
+            <input type="text" id="agency-name-input" placeholder="e.g. Velado Executive Services">
+            <button class="btn-primary" onclick="saveAgencyName()" style="font-size:12px;padding:8px 16px;margin-top:4px">Save</button>
+          </div>
+          <div style="padding:12px;background:#0a0a12;border-radius:8px">
+            <div style="font-size:11px;color:#555;margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em">Agency stats</div>
+            <div style="display:flex;gap:20px">
+              <div><div style="font-size:22px;font-weight:700;color:#f0f0f0" id="agency-stat-members">1</div><div style="font-size:10px;color:#555">Members</div></div>
+              <div><div style="font-size:22px;font-weight:700;color:#1D9E75" id="agency-stat-clients">—</div><div style="font-size:10px;color:#555">Clients</div></div>
+              <div><div style="font-size:22px;font-weight:700;color:#f0b429" id="agency-stat-revenue">—</div><div style="font-size:10px;color:#555">Revenue</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team members -->
+      <div class="panel" style="margin-bottom:14px">
+        <div class="panel-hdr">
+          <div class="panel-ttl"><i class="ti ti-users"></i> Team members</div>
+          <button class="btn-primary btn-sm" onclick="openInviteTeamModal()"><i class="ti ti-plus"></i> Invite EA</button>
+        </div>
+        <div id="agency-members-list"></div>
+      </div>
+
+      <!-- Sub-accounts note -->
+      <div style="padding:14px 16px;background:#0a0a12;border:1px solid #1e1e2e;border-radius:10px;font-size:12px;color:#555;line-height:1.8">
+        <strong style="color:#7F77DD">Agency mode (beta)</strong> — Team members you invite can log in and manage their own clients. As agency lead, you see aggregated metrics across all team members. Sub-account client data is isolated per EA. Full agency features including consolidated billing and shared client pools are on the roadmap.
+      </div>
+    </div>
+
+    <!-- INVITE TEAM MODAL -->
+    <div class="modal-overlay" id="invite-team-modal">
+      <div class="modal-box" style="max-width:460px">
+        <div class="modal-hdr">
+          <div class="modal-ttl">Invite team member</div>
+          <button class="modal-close" onclick="closeModal('invite-team-modal')">&#10005;</button>
+        </div>
+        <label>Name</label>
+        <input type="text" id="team-invite-name" placeholder="Full name">
+        <label>Email</label>
+        <input type="email" id="team-invite-email" placeholder="ea@example.com">
+        <label>Role</label>
+        <select id="team-invite-role">
+          <option value="member">EA Member</option>
+          <option value="lead">Agency Lead</option>
+        </select>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:12px">
+          <button class="btn-outline" onclick="closeModal('invite-team-modal')">Cancel</button>
+          <button class="btn-primary" onclick="inviteTeamMember()"><i class="ti ti-mail"></i> Send invite</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEVELOPER (v7.4) -->
+    <div class="screen" id="s-developer">
+      <div class="pg-eyebrow">Account</div>
+      <div class="pg-title">Developer</div>
+      <div class="pg-sub">API access, webhook log, and integration credentials</div>
+
+      <!-- API key panel -->
+      <div class="panel" style="margin-bottom:14px">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-key"></i> API Token</div></div>
+        <div style="font-size:12px;color:#555;margin-bottom:10px;line-height:1.7">Your personal NexusOS API token. Keep it secret — it grants full read access to your workspace data via the Supabase REST API.</div>
+        <div class="api-key-display" id="api-token-display">Click "Generate" to create your token</div>
+        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+          <button class="btn-primary" onclick="generateApiToken()" style="font-size:12px;padding:8px 14px"><i class="ti ti-refresh"></i> Generate new token</button>
+          <button class="btn-outline" onclick="copyApiToken()" style="font-size:12px;padding:8px 14px"><i class="ti ti-clipboard"></i> Copy</button>
+        </div>
+        <div style="margin-top:12px;padding:10px 12px;background:#0a0a12;border:1px solid #1e1e2e;border-radius:8px;font-size:11px;color:#555;line-height:1.9">
+          ⚠ Regenerating invalidates your previous token immediately. Update any scripts using the old token.
+        </div>
+      </div>
+
+      <!-- API examples -->
+      <div class="panel" style="margin-bottom:14px">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-terminal"></i> API examples</div></div>
+        <div style="font-size:12px;color:#666;margin-bottom:10px">Use the Supabase REST API to read your NexusOS data from external scripts or automations.</div>
+
+        <div style="font-size:11px;color:#7F77DD;margin-bottom:4px;font-weight:600">Get all tasks</div>
+        <div class="code-block" id="api-example-tasks">Loading…</div>
+
+        <div style="font-size:11px;color:#7F77DD;margin:10px 0 4px;font-weight:600">Get time entries (local storage export)</div>
+        <div class="code-block">// Time entries are stored client-side.
+// Export via: Analytics > Export CSV</div>
+
+        <div style="font-size:11px;color:#7F77DD;margin:10px 0 4px;font-weight:600">Trigger a webhook event</div>
+        <div class="code-block" id="api-example-webhook">Loading…</div>
+      </div>
+
+      <!-- Webhook event log -->
+      <div class="panel">
+        <div class="panel-hdr">
+          <div class="panel-ttl"><i class="ti ti-activity"></i> Webhook event log</div>
+          <button class="btn-outline btn-sm" onclick="loadWebhookLog()"><i class="ti ti-refresh"></i></button>
+        </div>
+        <div id="webhook-log-list"><div class="empty-state"><i class="ti ti-plug-off"></i>No webhook events yet</div></div>
       </div>
     </div>
 
@@ -9086,6 +9394,341 @@ function openMailtoFromComposer(){
     if(screen === 'docs') setTimeout(loadDocs, 60);
     return res;
   };
+})();
+
+
+
+// ══════════════════════════════════════════════════════════════
+// PHASE 5: ANALYTICS (v7.4)
+// ══════════════════════════════════════════════════════════════
+var _analyticsCharts = {};
+
+function destroyChart(id){
+  if(_analyticsCharts[id]){ try{ _analyticsCharts[id].destroy(); }catch(e){} delete _analyticsCharts[id]; }
+}
+
+async function loadAnalytics(){
+  var days = parseInt((document.getElementById('analytics-period')||{}).value||'90');
+  var since = new Date(); since.setDate(since.getDate()-days);
+
+  // Fetch Supabase data
+  var tasks=[], approvals=[], meetings=[], clients=[];
+  try {
+    var [tR,aR,mR,cR] = await Promise.all([
+      sb.from('tasks').select('*').gte('created_at', since.toISOString()),
+      sb.from('approvals').select('*').gte('created_at', since.toISOString()),
+      sb.from('meetings').select('*').gte('created_at', since.toISOString()),
+      sb.from('profiles').select('id,full_name,company_name').eq('workspace_role','ceo').limit(50)
+    ]);
+    tasks=tR.data||[]; approvals=aR.data||[]; meetings=mR.data||[]; clients=cR.data||[];
+  } catch(e){}
+
+  // Time entries from localStorage
+  var entries = [];
+  try { entries = JSON.parse(localStorage.getItem('nexusos_time_entries')||'[]'); } catch(e){}
+  var sinceTs = since.getTime();
+  var recentEntries = entries.filter(function(e){
+    return e.billable && new Date(e.date||e.created||0).getTime()>=sinceTs;
+  });
+
+  // KPI calculations
+  var totalRevenue = recentEntries.reduce(function(s,e){ return s+(e.earnings||0); },0);
+  var totalHours   = recentEntries.reduce(function(s,e){ return s+(e.seconds||0)/3600; },0);
+  var tasksDone    = tasks.filter(function(t){ return t.status==='completed'; }).length;
+  var apprvd       = approvals.filter(function(a){ return a.status==='approved'; }).length;
+  var apprvdAmt    = approvals.filter(function(a){ return a.status==='approved'; }).reduce(function(s,a){ return s+Number(a.amount||0); },0);
+  var uniqueClients= [...new Set(recentEntries.map(function(e){ return e.clientName; }).filter(Boolean))];
+  var avgRate      = totalHours>0 ? totalRevenue/totalHours : 0;
+
+  // Set KPIs
+  function kpi(id,val,sub){ var el=document.getElementById(id); if(el) el.textContent=val; var se=document.getElementById(id+'-sub'); if(se) se.textContent=sub||''; }
+  kpi('kpi-revenue','$'+Math.round(totalRevenue).toLocaleString(), apprvdAmt>0 ? '$'+Math.round(apprvdAmt).toLocaleString()+' approved' : '');
+  kpi('kpi-hours', Math.round(totalHours*10)/10+'h', uniqueClients.length+' clients billed');
+  kpi('kpi-tasks', tasksDone, tasks.length+' total created');
+  kpi('kpi-approvals', apprvd, approvals.length+' total requests');
+  kpi('kpi-clients', uniqueClients.length, clients.length+' CEO accounts');
+  kpi('kpi-rate', avgRate>0?'$'+Math.round(avgRate)+'/h':'—', 'average billable rate');
+
+  // Load Chart.js then render charts
+  if(!window.Chart){
+    var s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js';
+    s.onload=function(){ renderAnalyticsCharts(recentEntries,tasks,approvals); };
+    document.head.appendChild(s);
+  } else {
+    renderAnalyticsCharts(recentEntries,tasks,approvals);
+  }
+
+  // Audit log
+  loadAuditLog();
+}
+
+function renderAnalyticsCharts(entries, tasks, approvals){
+  var COLORS=['#2a78d6','#1baf7a','#eda100','#4a3aa7','#e34948','#e87ba4','#eb6834','#888780'];
+
+  // Chart 1: Revenue by client (bar)
+  destroyChart('revenue');
+  var clientRevMap={};
+  entries.forEach(function(e){ if(e.clientName) clientRevMap[e.clientName]=(clientRevMap[e.clientName]||0)+(e.earnings||0); });
+  var clLabels=Object.keys(clientRevMap).slice(0,8);
+  var clData=clLabels.map(function(k){ return Math.round(clientRevMap[k]); });
+  var ctx1=document.getElementById('chart-revenue');
+  if(ctx1&&clLabels.length){
+    _analyticsCharts.revenue=new Chart(ctx1,{type:'bar',data:{labels:clLabels,datasets:[{label:'Revenue ($)',data:clData,backgroundColor:COLORS.slice(0,clLabels.length),borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{color:'#555',callback:function(v){return '$'+v.toLocaleString();}},grid:{color:'#1a1a2e'}},x:{ticks:{color:'#555'},grid:{display:false}}}}});
+  } else if(ctx1){
+    var c=ctx1.getContext('2d'); if(c){c.fillStyle='#333';c.font='12px sans-serif';c.textAlign='center';c.fillText('No billing data yet',ctx1.width/2,ctx1.height/2);}
+  }
+
+  // Chart 2: Task status doughnut
+  destroyChart('tasks');
+  var statusMap={'pending':0,'in-progress':0,'completed':0,'cancelled':0};
+  tasks.forEach(function(t){ if(statusMap[t.status]!==undefined) statusMap[t.status]++; else statusMap['pending']++; });
+  var sLabels=['Pending','In Progress','Completed','Cancelled'];
+  var sData=[statusMap.pending,statusMap['in-progress'],statusMap.completed,statusMap.cancelled];
+  var ctx2=document.getElementById('chart-tasks');
+  if(ctx2){
+    _analyticsCharts.tasks=new Chart(ctx2,{type:'doughnut',data:{labels:sLabels,datasets:[{data:sData,backgroundColor:['#eda100','#2a78d6','#1baf7a','#888780'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{position:'bottom',labels:{color:'#666',font:{size:11},boxWidth:10}}}}});
+  }
+
+  // Chart 3: Billable hours by client (horizontal bar)
+  destroyChart('hours');
+  var clientHrMap={};
+  entries.forEach(function(e){ if(e.clientName) clientHrMap[e.clientName]=(clientHrMap[e.clientName]||0)+(e.seconds||0)/3600; });
+  var hrLabels=Object.keys(clientHrMap).slice(0,8);
+  var hrData=hrLabels.map(function(k){ return Math.round(clientHrMap[k]*10)/10; });
+  var wrapEl=document.getElementById('chart-hours-wrap');
+  if(wrapEl) wrapEl.style.height=Math.max(180,(hrLabels.length*44)+60)+'px';
+  var ctx3=document.getElementById('chart-hours');
+  if(ctx3&&hrLabels.length){
+    _analyticsCharts.hours=new Chart(ctx3,{type:'bar',data:{labels:hrLabels,datasets:[{label:'Hours',data:hrData,backgroundColor:'#2a78d6',borderRadius:4}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#555',callback:function(v){return v+'h';}},grid:{color:'#1a1a2e'}},y:{ticks:{color:'#aaa'},grid:{display:false}}}}});
+  } else if(ctx3){
+    var c=ctx3.getContext('2d'); if(c){c.fillStyle='#333';c.font='12px sans-serif';c.textAlign='center';c.fillText('No time entries yet',ctx3.width/2,ctx3.height/2);}
+  }
+}
+
+function exportAnalyticsCSV(){
+  var entries=[];
+  try{ entries=JSON.parse(localStorage.getItem('nexusos_time_entries')||'[]'); }catch(e){}
+  var rows=[['Date','Client','Description','Hours','Rate','Earnings','Billable']];
+  entries.forEach(function(e){
+    rows.push([e.date||'',e.clientName||'',e.description||'',((e.seconds||0)/3600).toFixed(2),e.rate||0,(e.earnings||0).toFixed(2),e.billable?'Yes':'No']);
+  });
+  var csv=rows.map(function(r){ return r.map(function(v){ return '"'+String(v).replace(/"/g,'""')+'"'; }).join(','); }).join('\n');
+  var blob=new Blob([csv],{type:'text/csv'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a'); a.href=url; a.download='nexusos-analytics-'+new Date().toISOString().substring(0,10)+'.csv';
+  a.click(); URL.revokeObjectURL(url);
+  logAuditEvent('export','Analytics CSV exported',window.currentUser&&window.currentUser.email);
+}
+
+// ══════════════════════════════════════════════════════════════
+// PHASE 5: AUDIT LOG (v7.4)
+// ══════════════════════════════════════════════════════════════
+function logAuditEvent(type, action, user){
+  var log=[];
+  try{ log=JSON.parse(localStorage.getItem('nexusos_audit_log')||'[]'); }catch(e){}
+  log.unshift({ type:type||'update', action:action, user:user||(window.currentUser&&window.currentUser.email)||'system', ts:new Date().toISOString() });
+  localStorage.setItem('nexusos_audit_log', JSON.stringify(log.slice(0,200)));
+}
+
+function loadAuditLog(){
+  var log=[];
+  try{ log=JSON.parse(localStorage.getItem('nexusos_audit_log')||'[]'); }catch(e){}
+  var list=document.getElementById('audit-log-list');
+  if(!list) return;
+  if(!log.length){ list.innerHTML='<div class="empty-state" style="padding:20px"><i class="ti ti-list-check"></i>No audit events yet — actions are logged as you use NexusOS.</div>'; return; }
+  list.innerHTML=log.slice(0,50).map(function(e){
+    return '<div class="audit-row">'
+      +'<div class="audit-dot '+e.type+'"></div>'
+      +'<div class="audit-action">'+e.action+'</div>'
+      +'<div class="audit-user">'+e.user+'</div>'
+      +'<div class="audit-time">'+new Date(e.ts).toLocaleString()+'</div>'
+      +'</div>';
+  }).join('');
+}
+
+function exportAuditCSV(){
+  var log=[];
+  try{ log=JSON.parse(localStorage.getItem('nexusos_audit_log')||'[]'); }catch(e){}
+  var rows=[['Timestamp','Action','User','Type']];
+  log.forEach(function(e){ rows.push([e.ts,e.action,e.user,e.type]); });
+  var csv=rows.map(function(r){ return r.map(function(v){ return '"'+String(v||'').replace(/"/g,'""')+'"'; }).join(','); }).join('\n');
+  var blob=new Blob([csv],{type:'text/csv'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a'); a.href=url; a.download='nexusos-audit-log-'+new Date().toISOString().substring(0,10)+'.csv';
+  a.click(); URL.revokeObjectURL(url);
+}
+
+// Patch createNotification to also log audit events
+(function(){
+  var _origCN=window.createNotification||createNotification;
+  window.createNotification=function(msg){
+    logAuditEvent('update',msg,window.currentUser&&window.currentUser.email);
+    return _origCN&&_origCN(msg);
+  };
+})();
+
+// ══════════════════════════════════════════════════════════════
+// PHASE 5: AGENCY / TEAM (v7.4)
+// ══════════════════════════════════════════════════════════════
+function loadAgency(){
+  var agencyName=localStorage.getItem('nexusos_agency_name')||'';
+  var nameInput=document.getElementById('agency-name-input');
+  if(nameInput) nameInput.value=agencyName;
+
+  // Load members from localStorage (in a real multi-tenant app, this would be Supabase)
+  var members=[];
+  try{ members=JSON.parse(localStorage.getItem('nexusos_team_members')||'[]'); }catch(e){}
+
+  // Always show current user as Agency Lead
+  var me={ id:'me', name:(window.currentProfile&&window.currentProfile.full_name)||'You', email:(window.currentUser&&window.currentUser.email)||'', role:'lead', status:'active' };
+
+  var allMembers=[me].concat(members);
+  var listEl=document.getElementById('agency-members-list');
+  if(listEl){
+    listEl.innerHTML=allMembers.map(function(m){
+      var initials=(m.name||'?').split(' ').map(function(w){ return w[0]; }).join('').substring(0,2).toUpperCase();
+      return '<div class="agency-member-card">'
+        +'<div class="agency-avatar">'+initials+'</div>'
+        +'<div class="agency-member-info">'
+        +'<div class="agency-member-name">'+m.name+(m.id==='me'?' (you)':'')+'</div>'
+        +'<div class="agency-member-role">'+m.email+'</div>'
+        +'</div>'
+        +'<span class="agency-role-badge '+(m.status==='invited'?'invite':m.role)+'">'+(m.status==='invited'?'Invited':m.role==='lead'?'Lead':'Member')+'</span>'
+        +(m.id!=='me'?'<button class="btn-danger btn-sm" onclick="removeTeamMember(\''+m.id+'\')"><i class="ti ti-trash"></i></button>':'')
+        +'</div>';
+    }).join('');
+    document.getElementById('agency-stat-members').textContent=allMembers.length;
+  }
+
+  // Fill in agency stats from localStorage data
+  var entries=[]; try{ entries=JSON.parse(localStorage.getItem('nexusos_time_entries')||'[]'); }catch(e){}
+  var rev=entries.filter(function(e){ return e.billable; }).reduce(function(s,e){ return s+(e.earnings||0); },0);
+  var revEl=document.getElementById('agency-stat-revenue');
+  if(revEl) revEl.textContent=rev>0?'$'+Math.round(rev).toLocaleString():'$0';
+  // client count from Supabase async
+  if(window.sb && window.currentUser){
+    sb.from('profiles').select('id',{count:'exact',head:true}).eq('workspace_role','ceo')
+      .then(function(r){ var el=document.getElementById('agency-stat-clients'); if(el) el.textContent=r.count||0; });
+  }
+}
+
+function saveAgencyName(){
+  var name=(document.getElementById('agency-name-input')||{}).value||'';
+  localStorage.setItem('nexusos_agency_name',name);
+  showToast('Agency name saved','','success');
+  logAuditEvent('update','Agency name updated to: '+name,window.currentUser&&window.currentUser.email);
+}
+
+function openInviteTeamModal(){
+  document.getElementById('team-invite-name').value='';
+  document.getElementById('team-invite-email').value='';
+  document.getElementById('invite-team-modal').classList.add('active');
+}
+
+function inviteTeamMember(){
+  var name=(document.getElementById('team-invite-name')||{}).value.trim();
+  var email=(document.getElementById('team-invite-email')||{}).value.trim();
+  var role=(document.getElementById('team-invite-role')||{}).value||'member';
+  if(!name||!email){ alert('Name and email are required'); return; }
+  var members=[]; try{ members=JSON.parse(localStorage.getItem('nexusos_team_members')||'[]'); }catch(e){}
+  members.push({ id:'member-'+Date.now(), name:name, email:email, role:role, status:'invited', invitedAt:new Date().toISOString() });
+  localStorage.setItem('nexusos_team_members',JSON.stringify(members));
+  closeModal('invite-team-modal');
+  loadAgency();
+  showToast('Invite sent','Invitation recorded for '+name+'. In production, an email would be dispatched.','success');
+  // Open email composer with invite template
+  openEmailComposer('followup',{ clientName:name, subject:'Invitation to join '+( localStorage.getItem('nexusos_agency_name')||'our EA agency' )+' on NexusOS', notes:'I\'d like to invite you to join our executive assistant team on NexusOS. You\'ll get your own workspace to manage clients, track time, and collaborate.\n\nSign up at https://getnexusos.app to get started.' });
+  logAuditEvent('create','Team member invited: '+email,window.currentUser&&window.currentUser.email);
+}
+
+function removeTeamMember(id){
+  if(!confirm('Remove this team member?')) return;
+  var members=[]; try{ members=JSON.parse(localStorage.getItem('nexusos_team_members')||'[]'); }catch(e){}
+  localStorage.setItem('nexusos_team_members',JSON.stringify(members.filter(function(m){ return m.id!==id; })));
+  loadAgency();
+  logAuditEvent('delete','Team member removed',window.currentUser&&window.currentUser.email);
+}
+
+// ══════════════════════════════════════════════════════════════
+// PHASE 5: DEVELOPER TOOLS (v7.4)
+// ══════════════════════════════════════════════════════════════
+function generateApiToken(){
+  var tok=[...Array(32)].map(function(){ return Math.floor(Math.random()*16).toString(16); }).join('');
+  var prefixed='nxs_'+tok;
+  localStorage.setItem('nexusos_api_token',prefixed);
+  var el=document.getElementById('api-token-display');
+  if(el) el.textContent=prefixed;
+  updateApiExamples(prefixed);
+  logAuditEvent('auth','API token regenerated',window.currentUser&&window.currentUser.email);
+  showToast('Token generated','Copy and store it safely — it won\'t be shown again.','success');
+}
+
+function copyApiToken(){
+  var tok=localStorage.getItem('nexusos_api_token');
+  if(!tok){ showToast('No token','Generate a token first.','warning'); return; }
+  navigator.clipboard.writeText(tok).then(function(){ showToast('Copied','API token copied to clipboard.','success'); });
+}
+
+function updateApiExamples(tok){
+  var supaUrl=(typeof SUPABASE_URL!=='undefined')?SUPABASE_URL:'https://[your-project].supabase.co';
+  var ex1=document.getElementById('api-example-tasks');
+  var ex2=document.getElementById('api-example-webhook');
+  if(ex1) ex1.textContent='curl '+supaUrl+'/rest/v1/tasks \\\n  -H "apikey: '+(tok||'YOUR_TOKEN')+'" \\\n  -H "Authorization: Bearer '+(tok||'YOUR_TOKEN')+'" \\\n  -G --data-urlencode "select=*"';
+  var wh=localStorage.getItem('nexusos_outbound_webhook')||'https://hooks.zapier.com/hooks/catch/...';
+  if(ex2) ex2.textContent='curl -X POST '+wh+' \\\n  -H "Content-Type: application/json" \\\n  -d \'{"event":"task_created","data":{"name":"Strategy call prep"},"source":"NexusOS"}\'';
+}
+
+function loadDeveloper(){
+  var tok=localStorage.getItem('nexusos_api_token');
+  var el=document.getElementById('api-token-display');
+  if(el) el.textContent=tok?tok.substring(0,12)+'••••••••••••••••••••':'Click "Generate" to create your token';
+  updateApiExamples(tok);
+  loadWebhookLog();
+}
+
+function loadWebhookLog(){
+  var log=[]; try{ log=JSON.parse(localStorage.getItem('nexusos_webhook_log')||'[]'); }catch(e){}
+  var list=document.getElementById('webhook-log-list');
+  if(!list) return;
+  if(!log.length){ list.innerHTML='<div class="empty-state"><i class="ti ti-plug-off"></i>No webhook events fired yet</div>'; return; }
+  list.innerHTML=log.slice(0,20).map(function(e){
+    return '<div class="webhook-log-row">'
+      +'<div class="webhook-log-event">'+e.event+'</div>'
+      +'<div style="font-size:11px;color:#aaa;flex:1">'+JSON.stringify(e.data||{}).substring(0,60)+'…</div>'
+      +'<div class="webhook-log-time">'+new Date(e.ts||Date.now()).toLocaleTimeString()+'</div>'
+      +'</div>';
+  }).join('');
+}
+
+// Patch fireWebhook to also log events
+(function(){
+  var _origFW=window.fireWebhook||function(){};
+  window.fireWebhook=function(event,data){
+    _origFW(event,data);
+    var log=[]; try{ log=JSON.parse(localStorage.getItem('nexusos_webhook_log')||'[]'); }catch(e){}
+    log.unshift({ event:event, data:data, ts:new Date().toISOString() });
+    localStorage.setItem('nexusos_webhook_log',JSON.stringify(log.slice(0,100)));
+    logAuditEvent('update','Webhook fired: '+event,window.currentUser&&window.currentUser.email);
+  };
+})();
+
+// ── Wire nav loaders ──
+(function(){
+  var _p5nav=window.nav;
+  window.nav=function(screen){
+    var res=_p5nav?_p5nav(screen):undefined;
+    if(screen==='analytics') setTimeout(loadAnalytics,60);
+    if(screen==='agency') setTimeout(loadAgency,60);
+    if(screen==='developer') setTimeout(loadDeveloper,60);
+    return res;
+  };
+  // Log login event
+  document.addEventListener('DOMContentLoaded',function(){
+    setTimeout(function(){
+      if(window.currentUser) logAuditEvent('auth','User signed in',window.currentUser.email);
+    },3000);
+  });
 })();
 
 </script>
