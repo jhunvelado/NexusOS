@@ -2,421 +2,1072 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NexusOS — Personal Demo for Giovanni Amato</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amato Health Group · Client Portal — NexusOS</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#09090f;color:#e4e4f0;overflow-x:hidden}
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#09090f;
+    --surface:#0d0d16;
+    --surface2:#111120;
+    --border:#1a1a2e;
+    --border2:#222236;
+    --text:#e8e8f0;
+    --text2:#888899;
+    --text3:#444458;
+    --accent:#1baf7a;
+    --accent2:#0d7a55;
+    --purple:#7F77DD;
+    --amber:#f0b429;
+    --red:#E24B4A;
+    --blue:#378ADD;
+    --radius:10px;
+  }
+  html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;min-height:100vh}
 
-/* ── LANDING ── */
-#landing{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center}
-.demo-pill{display:inline-block;background:#0f0d1e;border:1px solid #534AB7;border-radius:20px;padding:6px 18px;font-size:12px;color:#a89eff;margin-bottom:28px}
-#landing h1{font-size:clamp(30px,5vw,52px);font-weight:900;line-height:1.18;color:#fff;margin-bottom:16px}
-#landing h1 span{background:linear-gradient(90deg,#534AB7,#a89eff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-#landing p{font-size:15px;color:#555;line-height:1.8;max-width:500px;margin:0 auto 36px}
-.note-card{background:#0d0d1a;border:1px solid #1e1e2e;border-left:4px solid #534AB7;border-radius:12px;padding:22px 26px;max-width:520px;text-align:left;margin:0 auto 36px}
-.note-from{font-size:10px;color:#333;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px}
-.note-text{font-size:13px;color:#666;line-height:1.85}
-.note-sig{margin-top:14px;font-size:13px;color:#534AB7;font-weight:600}
-.launch-btn{background:linear-gradient(90deg,#534AB7,#7c6fff);color:#fff;border:none;border-radius:12px;padding:16px 36px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;margin-bottom:12px}
-.launch-btn:hover{opacity:0.87}
-.demo-hint{font-size:11px;color:#2a2a3e;margin-top:8px}
+  /* ── TOPBAR ── */
+  .topbar{
+    position:sticky;top:0;z-index:100;
+    background:rgba(9,9,15,0.92);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+    display:flex;align-items:center;gap:12px;
+    padding:0 20px;height:54px;
+  }
+  .topbar-logo{display:flex;align-items:center;gap:9px}
+  .logo-mark{
+    width:32px;height:32px;border-radius:8px;
+    background:linear-gradient(135deg,#0d7a55,#1baf7a);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:800;color:#fff;letter-spacing:-0.5px;
+  }
+  .logo-text{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-0.3px}
+  .logo-sub{font-size:10px;color:var(--text3);margin-top:1px}
+  .topbar-divider{width:1px;height:24px;background:var(--border2);margin:0 4px}
+  .client-portal-badge{
+    font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--accent);background:#041f12;border:1px solid var(--accent2);
+    padding:3px 10px;border-radius:6px;
+  }
+  .topbar-managed{font-size:12px;color:var(--text3);margin-left:4px}
+  .topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+  .ceo-badge{
+    font-size:11px;font-weight:600;color:var(--accent);
+    background:#041f12;border:1px solid var(--accent2);
+    padding:4px 10px;border-radius:20px;display:flex;align-items:center;gap:5px;
+  }
+  .ceo-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block}
+  .avatar{
+    width:34px;height:34px;border-radius:50%;
+    background:linear-gradient(135deg,#0d7a55,#1baf7a);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:700;color:#fff;
+  }
 
-/* ── DEMO APP SHELL ── */
-#app{display:none;position:fixed;inset:0;background:#09090f;z-index:50;flex-direction:column}
-#app.open{display:flex}
+  /* ── HERO BANNER ── */
+  .hero{
+    background:linear-gradient(135deg,#041f12 0%,#09090f 60%);
+    border-bottom:1px solid #0d2a1a;
+    padding:24px 24px 20px;
+    position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:'';position:absolute;top:-40px;right:-40px;
+    width:200px;height:200px;border-radius:50%;
+    background:radial-gradient(circle,rgba(27,175,122,.12),transparent 70%);
+  }
+  .hero-eyebrow{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+  .hero-title{font-size:26px;font-weight:800;color:#fff;letter-spacing:-0.5px;margin-bottom:4px}
+  .hero-sub{font-size:13px;color:var(--text2)}
+  .hero-published{font-size:11px;color:var(--text3);margin-top:4px}
 
-/* Demo banner */
-#demo-bar{background:#0f0d1e;border-bottom:1px solid #534AB7;padding:7px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-#demo-bar span{font-size:11px;color:#534AB7;font-weight:600}
-#demo-bar button{background:none;border:1px solid #1e1e2e;border-radius:6px;padding:4px 12px;color:#444;font-size:11px;cursor:pointer;font-family:inherit;transition:color 0.12s}
-#demo-bar button:hover{color:#f87171;border-color:#3a1414}
+  /* ── MAIN LAYOUT ── */
+  .main{max-width:900px;margin:0 auto;padding:20px 16px 60px}
 
-/* Layout */
-.app-layout{display:flex;flex:1;overflow:hidden}
+  /* ── TAB NAV ── */
+  .tab-nav{
+    display:flex;gap:0;overflow-x:auto;border-bottom:1px solid var(--border);
+    margin-bottom:20px;scrollbar-width:none;
+  }
+  .tab-nav::-webkit-scrollbar{display:none}
+  .tab-btn{
+    padding:10px 14px;font-size:12px;font-weight:500;color:var(--text2);
+    background:none;border:none;border-bottom:2px solid transparent;
+    cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:5px;
+    transition:color .15s,border-color .15s;
+  }
+  .tab-btn:hover{color:var(--text)}
+  .tab-btn.active{color:var(--amber);border-bottom-color:var(--amber)}
+  .tab-btn .badge{
+    background:var(--red);color:#fff;border-radius:8px;
+    font-size:9px;padding:1px 5px;font-weight:700;
+  }
 
-/* Sidebar */
-.sidebar{width:210px;min-width:210px;background:#070710;border-right:1px solid #1e1e2e;display:flex;flex-direction:column;overflow-y:auto}
-.sb-logo{padding:18px 16px 14px;font-size:17px;font-weight:900;background:linear-gradient(90deg,#534AB7,#a89eff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:1px solid #1e1e2e}
-.sb-section{padding:12px 10px 4px;font-size:9px;color:#2a2a3e;text-transform:uppercase;letter-spacing:0.1em}
-.sb-item{display:flex;align-items:center;gap:9px;padding:9px 12px;margin:1px 6px;border-radius:7px;cursor:pointer;color:#444;font-size:13px;transition:all 0.12s}
-.sb-item:hover{background:#0d0d1a;color:#a89eff}
-.sb-item.active{background:#0f0d1e;color:#a89eff;font-weight:600}
-.sb-item .sb-icon{font-size:14px;width:18px;text-align:center}
-.sb-footer{margin-top:auto;padding:12px 14px;border-top:1px solid #0e0e1a;font-size:10px;color:#2a2a3e}
-.sb-footer .sb-user{color:#333;font-size:12px;font-weight:600;margin-bottom:2px}
+  /* ── PANELS ── */
+  .panel{display:none}
+  .panel.active{display:block}
 
-/* Main content */
-.main{flex:1;overflow-y:auto;padding:24px 28px;background:#09090f}
-.screen{display:none}
-.screen.active{display:block}
+  /* ── METRIC GRID ── */
+  .metric-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:16px}
+  .metric-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px}
+  .metric-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:6px}
+  .metric-val{font-size:22px;font-weight:700;color:var(--text);line-height:1}
+  .metric-val.green{color:var(--accent)}
+  .metric-val.purple{color:var(--purple)}
+  .metric-val.amber{color:var(--amber)}
 
-/* Shared content styles */
-.pg-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:4px}
-.pg-sub{font-size:13px;color:#444;margin-bottom:24px}
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
-.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:22px}
-.stat-card{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:10px;padding:16px}
-.stat-label{font-size:11px;color:#333;margin-bottom:6px}
-.stat-val{font-size:26px;font-weight:800;color:#fff}
-.stat-delta{font-size:11px;margin-top:4px}
-.dg{color:#22c55e}.dr{color:#f87171}.dy{color:#f0b429}.dp{color:#a89eff}
-.card{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:10px;padding:18px;margin-bottom:14px}
-.card-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
-.row-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #0a0a12}
-.row-item:last-child{border-bottom:none}
-.row-main{font-size:13px;color:#c4c4d4}
-.row-sub{font-size:11px;color:#444;margin-top:2px}
-.badge{font-size:10px;padding:3px 9px;border-radius:5px;font-weight:600;white-space:nowrap}
-.bg{background:#0a160e;color:#22c55e;border:1px solid #14532d}
-.bp{background:#0f0d1e;color:#a89eff;border:1px solid #2a1e6e}
-.by{background:#1a1400;color:#f0b429;border:1px solid #3a2e00}
-.br{background:#160a0a;color:#f87171;border:1px solid #3a1414}
-.btn-sm{background:#534AB7;border:none;border-radius:7px;padding:7px 14px;color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity 0.12s}
-.btn-sm:hover{opacity:0.82}
-.btn-ghost{background:none;border:1px solid #1e1e2e;border-radius:7px;padding:7px 14px;color:#666;font-size:12px;cursor:pointer;font-family:inherit}
-.tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.tag{font-size:10px;padding:3px 8px;border-radius:4px;background:#13131f;border:1px solid #1e1e2e;color:#444}
-.input-fake{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:7px;padding:10px 14px;font-size:13px;color:#333;width:100%;margin-bottom:10px}
-.section-hdr{font-size:15px;font-weight:700;color:#fff;margin-bottom:12px;margin-top:20px;display:flex;align-items:center;gap:8px}
-.pe-kpi{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:10px;padding:14px;text-align:center}
-.pe-kpi .k-val{font-size:22px;font-weight:800;color:#fff;margin-bottom:2px}
-.pe-kpi .k-lbl{font-size:10px;color:#333}
-.pe-kpi .k-delta{font-size:11px;margin-top:4px}
-.progress-bar{height:5px;background:#1e1e2e;border-radius:3px;margin-top:6px;overflow:hidden}
-.progress-fill{height:100%;background:#534AB7;border-radius:3px}
-.intel-card{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:10px;padding:16px;margin-bottom:12px}
-.intel-src{font-size:10px;color:#333;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px}
-.intel-title{font-size:13px;font-weight:600;color:#e4e4f0;margin-bottom:6px}
-.intel-body{font-size:12px;color:#555;line-height:1.7}
-.travel-seg{background:#0d0d1a;border:1px solid #1e1e2e;border-radius:10px;padding:16px;margin-bottom:10px;display:flex;gap:16px;align-items:flex-start}
-.travel-icon{font-size:22px;min-width:32px;text-align:center;margin-top:2px}
-.travel-info{flex:1}
-.travel-info .t-title{font-size:13px;font-weight:600;color:#e4e4f0;margin-bottom:3px}
-.travel-info .t-detail{font-size:12px;color:#444;line-height:1.6}
-@media(max-width:640px){
-  .sidebar{display:none}
-  .grid-3{grid-template-columns:repeat(2,1fr)}
-  .grid-2{grid-template-columns:1fr}
-  .main{padding:16px}
-}
+  /* ── CARDS ── */
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px}
+  .card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .card-ttl{font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:7px}
+  .card-ttl i{font-size:16px;color:var(--text3)}
+  .card-sub{font-size:11px;color:var(--text3);margin-top:2px}
+
+  /* ── BUTTONS ── */
+  .btn{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:opacity .15s}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{opacity:.88}
+  .btn-outline{background:none;border:1px solid var(--border2);color:var(--text2)}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+  .btn-sm{padding:5px 10px;font-size:11px}
+  .btn-approve{background:#041f12;color:var(--accent);border:1px solid var(--accent2);width:100%;margin-bottom:6px;justify-content:center;padding:12px}
+  .btn-flag{background:#1f0404;color:var(--red);border:1px solid #5a1414;width:100%;justify-content:center;padding:12px}
+
+  /* ── TASK ROWS ── */
+  .task-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+  .task-row:last-child{border-bottom:none}
+  .task-cb{width:16px;height:16px;border-radius:4px;border:1px solid var(--border2);background:none;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+  .task-cb.done{background:var(--accent);border-color:var(--accent)}
+  .task-name{flex:1;font-size:13px;color:var(--text)}
+  .task-name.done{text-decoration:line-through;color:var(--text3)}
+  .task-due{font-size:11px;color:var(--text3)}
+  .priority{font-size:10px;padding:2px 7px;border-radius:6px;font-weight:600}
+  .p-high{background:#1f0404;color:var(--red)}
+  .p-med{background:#1f1200;color:var(--amber)}
+  .p-low{background:#041f12;color:var(--accent)}
+
+  /* ── APPROVAL ROWS ── */
+  .appr-row{padding:12px 0;border-bottom:1px solid var(--border)}
+  .appr-row:last-child{border-bottom:none}
+  .appr-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px}
+  .appr-meta{font-size:11px;color:var(--text3);margin-bottom:8px}
+  .appr-amount{font-size:16px;font-weight:700;color:var(--amber);margin-bottom:8px}
+  .appr-btns{display:flex;gap:6px}
+  .appr-approve{padding:6px 14px;border-radius:7px;background:#041f12;color:var(--accent);border:1px solid var(--accent2);font-size:11px;font-weight:600;cursor:pointer}
+  .appr-reject{padding:6px 14px;border-radius:7px;background:#1f0404;color:var(--red);border:1px solid #5a1414;font-size:11px;font-weight:600;cursor:pointer}
+  .appr-badge{font-size:10px;padding:2px 8px;border-radius:6px;font-weight:600}
+  .appr-badge.pending{background:#1f1200;color:var(--amber)}
+  .appr-badge.approved{background:#041f12;color:var(--accent)}
+  .appr-badge.rejected{background:#1f0404;color:var(--red)}
+
+  /* ── TRAVEL ROWS ── */
+  .trip-row{padding:12px 0;border-bottom:1px solid var(--border);display:flex;gap:14px;align-items:flex-start}
+  .trip-row:last-child{border-bottom:none}
+  .trip-icon{width:38px;height:38px;border-radius:8px;background:#0a0a1a;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;color:var(--purple)}
+  .trip-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
+  .trip-meta{font-size:11px;color:var(--text3);line-height:1.7}
+
+  /* ── CHAT ── */
+  .chat-thread{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;max-height:340px;overflow-y:auto}
+  .chat-msg{max-width:80%}
+  .chat-msg.ea{align-self:flex-start}
+  .chat-msg.ceo{align-self:flex-end}
+  .chat-bubble{padding:10px 13px;border-radius:12px;font-size:12px;line-height:1.6}
+  .chat-msg.ea .chat-bubble{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-bottom-left-radius:3px}
+  .chat-msg.ceo .chat-bubble{background:#0d4030;border:1px solid #1a5a42;color:#a8f0d4;border-bottom-right-radius:3px}
+  .chat-sender{font-size:10px;color:var(--text3);margin-bottom:3px}
+  .chat-time{font-size:10px;color:var(--text3);margin-top:3px;text-align:right}
+  .chat-input-row{display:flex;gap:8px;align-items:flex-end}
+  .chat-textarea{flex:1;background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:9px 12px;color:var(--text);font-size:12px;font-family:inherit;resize:none;min-height:38px;max-height:80px}
+  .chat-textarea:focus{outline:none;border-color:var(--accent)}
+  .chat-send-btn{background:var(--accent);border:none;border-radius:8px;padding:9px 12px;color:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center}
+
+  /* ── DECISIONS ── */
+  .dec-row{padding:11px 0;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start}
+  .dec-row:last-child{border-bottom:none}
+  .dec-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:4px}
+  .dec-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
+  .dec-meta{font-size:11px;color:var(--text3)}
+
+  /* ── CALENDAR ── */
+  .cal-row{display:flex;gap:14px;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+  .cal-row:last-child{border-bottom:none}
+  .cal-date{text-align:center;flex-shrink:0;width:44px;background:var(--surface2);border-radius:8px;padding:5px 4px;border:1px solid var(--border)}
+  .cal-month{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em}
+  .cal-day{font-size:20px;font-weight:700;color:var(--text);line-height:1}
+  .cal-info{flex:1}
+  .cal-title{font-size:13px;font-weight:600;color:var(--text)}
+  .cal-time{font-size:11px;color:var(--text3);margin-top:2px}
+  .cal-type{font-size:10px;padding:2px 7px;border-radius:5px;font-weight:600}
+  .cal-type.board{background:#1a1030;color:var(--purple)}
+  .cal-type.investor{background:#041f12;color:var(--accent)}
+  .cal-type.ops{background:#1f1200;color:var(--amber)}
+  .cal-type.team{background:#0a0a1a;color:var(--text2)}
+
+  /* ── INVOICES ── */
+  .inv-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+  .inv-row:last-child{border-bottom:none}
+  .inv-num{font-size:12px;font-weight:600;color:var(--purple);min-width:100px}
+  .inv-desc{font-size:12px;color:var(--text2);flex:1}
+  .inv-amount{font-size:14px;font-weight:700;color:var(--accent);min-width:70px;text-align:right}
+  .inv-date{font-size:11px;color:var(--text3);min-width:80px;text-align:right}
+  .inv-status{font-size:10px;padding:2px 8px;border-radius:6px;font-weight:600}
+  .inv-status.paid{background:#041f12;color:var(--accent)}
+  .inv-status.pending{background:#1f1200;color:var(--amber)}
+
+  /* ── DOCUMENTS ── */
+  .doc-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+  .doc-row:last-child{border-bottom:none}
+  .doc-icon{font-size:22px;color:var(--purple);flex-shrink:0;width:28px;text-align:center}
+  .doc-name{font-size:13px;font-weight:600;color:var(--text);flex:1}
+  .doc-meta{font-size:11px;color:var(--text3)}
+  .doc-type{font-size:10px;padding:2px 7px;border-radius:5px;font-weight:600;background:#1a1030;color:var(--purple);white-space:nowrap}
+
+  /* ── MEETING BRIEF ── */
+  .mtg-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px}
+  .mtg-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
+  .mtg-title{font-size:13px;font-weight:600;color:var(--text)}
+  .mtg-meta{font-size:11px;color:var(--text3);margin-bottom:10px}
+  .brief-panel{background:#06060f;border:1px solid #1a1a2e;border-radius:8px;padding:13px 15px;font-size:12px;color:var(--text2);line-height:1.8;display:none}
+  .brief-panel.open{display:block}
+  .brief-panel ul{list-style:none;padding:0}
+  .brief-panel ul li{padding:3px 0;display:flex;gap:7px;align-items:flex-start}
+  .brief-panel ul li::before{content:'▸';color:var(--accent);flex-shrink:0;font-size:10px;margin-top:3px}
+
+  /* ── HISTORY ── */
+  .hist-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);cursor:pointer}
+  .hist-row:last-child{border-bottom:none}
+  .hist-month{font-size:13px;font-weight:600;color:var(--text);flex:1}
+  .hist-stats{display:flex;gap:18px}
+  .hist-stat-val{font-size:15px;font-weight:700;color:var(--accent)}
+  .hist-stat-lbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em}
+
+  /* ── EA CONTACT ── */
+  .contact-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:14px}
+  .ea-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#3C3489,#7F77DD);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0}
+  .ea-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px}
+  .ea-role{font-size:11px;color:var(--text3);margin-bottom:6px}
+  .ea-meta{display:flex;gap:14px;flex-wrap:wrap}
+  .ea-meta-item{font-size:11px;color:var(--text2);display:flex;align-items:center;gap:5px}
+  .ea-meta-item i{color:var(--purple);font-size:13px}
+
+  /* ── NOTIFICATIONS ── */
+  .notif-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)}
+  .notif-row:last-child{border-bottom:none}
+  .notif-label{font-size:13px;color:var(--text)}
+  .notif-sub{font-size:11px;color:var(--text3);margin-top:2px}
+  .toggle{width:36px;height:20px;background:var(--border2);border-radius:10px;border:none;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0}
+  .toggle.on{background:var(--accent)}
+  .toggle::after{content:'';position:absolute;left:3px;top:3px;width:14px;height:14px;border-radius:50%;background:#fff;transition:left .2s}
+  .toggle.on::after{left:19px}
+
+  /* ── FEEDBACK ── */
+  .feedback-panel{border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;background:var(--surface)}
+  .comment-box{width:100%;background:#06060f;border:1px solid var(--border2);border-radius:8px;padding:10px 12px;color:var(--text);font-size:12px;font-family:inherit;resize:none;min-height:80px;margin-top:10px}
+  .comment-box:focus{outline:none;border-color:var(--accent)}
+  .comment-thread{margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+  .comment-entry{padding:10px 0;border-bottom:1px solid var(--border)}
+  .comment-entry:last-child{border-bottom:none}
+  .comment-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;margin-bottom:6px;display:inline-block}
+  .comment-badge.approved{background:#041f12;color:var(--accent)}
+  .comment-text{font-size:12px;color:var(--text2);line-height:1.6}
+  .comment-time{font-size:10px;color:var(--text3);margin-top:3px}
+
+  /* ── EMPTY ── */
+  .empty{text-align:center;padding:30px 0;color:var(--text3);font-size:12px}
+  .empty i{font-size:28px;display:block;margin-bottom:8px}
+
+  /* ── DEMO RIBBON ── */
+  .demo-ribbon{
+    background:linear-gradient(90deg,#0d4030,#041f12);
+    border-bottom:1px solid #1a5a42;
+    padding:6px 20px;font-size:11px;color:var(--accent);
+    display:flex;align-items:center;gap:8px;
+  }
+  .demo-ribbon i{font-size:14px}
+  .demo-ribbon strong{font-weight:700;color:#a8f0d4}
+
+  /* ── POWERED BY ── */
+  .poweredby{text-align:center;padding:24px 0 8px;font-size:11px;color:var(--text3)}
+  .poweredby a{color:var(--purple);text-decoration:none}
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar{width:5px;height:5px}
+  ::-webkit-scrollbar-track{background:var(--bg)}
+  ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+  @media(max-width:600px){
+    .metric-grid{grid-template-columns:1fr 1fr}
+    .hist-stats{gap:10px}
+    .appr-btns{flex-direction:column}
+    .appr-btns button{width:100%}
+  }
 </style>
 </head>
 <body>
 
-<!-- ── LANDING ─────────────────────────────────────────────── -->
-<div id="landing">
-  <div class="demo-pill">&#127942; Personal demo &mdash; Giovanni Amato</div>
-  <h1>Meet <span>NexusOS</span> &mdash;<br>your executive OS</h1>
-  <p>A fully interactive demo. Click every section, explore every screen. This is a sandbox &mdash; nothing is saved, no account needed.</p>
-
-  <div class="note-card">
-    <div class="note-from">&#128140; From Jhun Rey Velado</div>
-    <div class="note-text">Giovanni &mdash; your feedback shaped this product. I wanted you to see everything before anyone else. Click every nav item inside. The PE Dashboard and Commitment Tracker are the two features that exist nowhere else in the market &mdash; I built those with your input in mind.<br><br>This is a demo sandbox. Navigate freely. Nothing is saved.</div>
-    <div class="note-sig">&mdash; Jhun Rey Velado, Creator of NexusOS</div>
-  </div>
-
-  <button class="launch-btn" onclick="openDemo()">&#9889; Open Interactive Demo</button>
-  <div class="demo-hint">No login required &middot; All data is sample data &middot; Nothing is stored</div>
+<!-- DEMO RIBBON -->
+<div class="demo-ribbon">
+  <i class="ti ti-eye"></i>
+  Live demo prepared for <strong>Giovanni Amato</strong> &nbsp;·&nbsp; Managed by <strong>Jhun Rey Velado</strong> &nbsp;·&nbsp; <span style="margin-left:auto;color:#888">Powered by NexusOS</span>
 </div>
 
-<!-- ── DEMO APP ─────────────────────────────────────────────── -->
-<div id="app">
-  <div id="demo-bar">
-    <span>&#127881; DEMO MODE &mdash; Sample data only. Nothing is saved.</span>
-    <button onclick="closeDemo()">&#10005; Exit Demo</button>
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-logo">
+    <div class="logo-mark">AHG</div>
+    <div>
+      <div class="logo-text">Amato Health Group</div>
+      <div class="logo-sub">Executive Operating System</div>
+    </div>
+  </div>
+  <div class="topbar-divider"></div>
+  <span class="client-portal-badge">Client Portal</span>
+  <span class="topbar-managed">Managed by Jhun Rey Velado</span>
+  <div class="topbar-right">
+    <span class="ceo-badge">Chief Executive Officer &nbsp; Giovanni Amato</span>
+    <div class="avatar">GA</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow"><i class="ti ti-building-hospital" style="font-size:14px"></i> Client Portal</div>
+  <div class="hero-title">Welcome, Giovanni</div>
+  <div class="hero-sub">Giovanni Amato · July 2026 · Amato Health Group</div>
+  <div class="hero-published">Published Jul 4, 2026 · by Jhun Rey Velado</div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+  <!-- TAB NAV -->
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('overview',this)"><i class="ti ti-layout-dashboard"></i> Overview</button>
+    <button class="tab-btn" onclick="switchTab('tasks',this)"><i class="ti ti-list-check"></i> Tasks <span class="badge">3</span></button>
+    <button class="tab-btn" onclick="switchTab('approvals',this)"><i class="ti ti-circle-check"></i> Approvals <span class="badge">2</span></button>
+    <button class="tab-btn" onclick="switchTab('travel',this)"><i class="ti ti-plane"></i> Travel</button>
+    <button class="tab-btn" onclick="switchTab('chat',this)"><i class="ti ti-message-circle"></i> Chat</button>
+    <button class="tab-btn" onclick="switchTab('decisions',this)"><i class="ti ti-book-2"></i> Decisions</button>
+    <button class="tab-btn" onclick="switchTab('calendar',this)"><i class="ti ti-calendar"></i> Calendar</button>
+    <button class="tab-btn" onclick="switchTab('invoices',this)"><i class="ti ti-file-invoice"></i> Invoices</button>
+    <button class="tab-btn" onclick="switchTab('documents',this)"><i class="ti ti-files"></i> Documents</button>
+    <button class="tab-btn" onclick="switchTab('meetings',this)"><i class="ti ti-video"></i> Meeting Briefs</button>
+    <button class="tab-btn" onclick="switchTab('notifications',this)"><i class="ti ti-bell"></i> Notifications</button>
+    <button class="tab-btn" onclick="switchTab('history',this)"><i class="ti ti-history"></i> History</button>
   </div>
 
-  <div class="app-layout">
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <div class="sb-logo">NexusOS</div>
-      <div class="sb-section">Main</div>
-      <div class="sb-item active" onclick="showScreen('dashboard',this)"><span class="sb-icon">&#9729;&#65039;</span>Dashboard</div>
-      <div class="sb-item" onclick="showScreen('tasks',this)"><span class="sb-icon">&#10003;</span>Task Centre</div>
-      <div class="sb-item" onclick="showScreen('approvals',this)"><span class="sb-icon">&#9989;</span>Approval Centre</div>
-      <div class="sb-section">Executive</div>
-      <div class="sb-item" onclick="showScreen('commitments',this)"><span class="sb-icon">&#128279;</span>Commitment Tracker</div>
-      <div class="sb-item" onclick="showScreen('relationships',this)"><span class="sb-icon">&#129309;</span>Relationships</div>
-      <div class="sb-item" onclick="showScreen('notes',this)"><span class="sb-icon">&#128221;</span>Notes Hub</div>
-      <div class="sb-item" onclick="showScreen('travel',this)"><span class="sb-icon">&#9992;&#65039;</span>Travel Hub</div>
-      <div class="sb-section">Intelligence</div>
-      <div class="sb-item" onclick="showScreen('intel',this)"><span class="sb-icon">&#129504;</span>Intelligence Centre</div>
-      <div class="sb-item" onclick="showScreen('meeting',this)"><span class="sb-icon">&#127775;</span>Meeting Prep AI</div>
-      <div class="sb-item" onclick="showScreen('pe',this)"><span class="sb-icon">&#128202;</span>PE Dashboard</div>
-      <div class="sb-section">Settings</div>
-      <div class="sb-item" onclick="showScreen('profile',this)"><span class="sb-icon">&#128100;</span>Profile</div>
-      <div class="sb-footer"><div class="sb-user">Giovanni Amato</div>Enterprise Plan &middot; Demo Mode</div>
+  <!-- ── OVERVIEW ── -->
+  <div class="panel active" id="panel-overview">
+
+    <div class="metric-grid">
+      <div class="metric-card"><div class="metric-lbl">Hours This Month</div><div class="metric-val">24.5 hrs</div></div>
+      <div class="metric-card"><div class="metric-lbl">Billable Hours</div><div class="metric-val purple">18.5 hrs</div></div>
+      <div class="metric-card"><div class="metric-lbl">Amount Billed</div><div class="metric-val green">$4,625</div></div>
+      <div class="metric-card"><div class="metric-lbl">Tasks Done</div><div class="metric-val amber">8</div></div>
+      <div class="metric-card"><div class="metric-lbl">Meetings</div><div class="metric-val">6</div></div>
+      <div class="metric-card"><div class="metric-lbl">Decisions Logged</div><div class="metric-val">4</div></div>
     </div>
 
-    <!-- Screens -->
-    <div class="main">
+    <!-- Time Breakdown -->
+    <div class="card">
+      <div class="card-hdr">
+        <div class="card-ttl"><i class="ti ti-clock"></i> Time breakdown</div>
+        <span style="font-size:11px;color:var(--text3)">July 2026</span>
+      </div>
+      <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:12px">
+        <thead><tr style="border-bottom:1px solid var(--border)">
+          <th style="text-align:left;padding:6px 8px;color:var(--text3);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.06em">Date</th>
+          <th style="text-align:left;padding:6px 8px;color:var(--text3);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.06em">Description</th>
+          <th style="text-align:right;padding:6px 8px;color:var(--text3);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.06em">Hours</th>
+          <th style="text-align:right;padding:6px 8px;color:var(--text3);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.06em">Amount</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">Jul 1</td><td style="padding:8px;color:var(--text2)">Board meeting prep + materials</td><td style="padding:8px;text-align:right">3.5h</td><td style="padding:8px;text-align:right;color:var(--accent)">$875</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">Jul 2</td><td style="padding:8px;color:var(--text2)">Vendor contract review — Epic EHR</td><td style="padding:8px;text-align:right">2.0h</td><td style="padding:8px;text-align:right;color:var(--accent)">$500</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">Jul 3</td><td style="padding:8px;color:var(--text2)">Medicare compliance documentation</td><td style="padding:8px;text-align:right">4.0h</td><td style="padding:8px;text-align:right;color:var(--accent)">$1,000</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">Jul 4</td><td style="padding:8px;color:var(--text2)">Investor update deck + ACHE travel arrangements</td><td style="padding:8px;text-align:right">2.5h</td><td style="padding:8px;text-align:right;color:var(--accent)">$625</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:8px">Jul 5</td><td style="padding:8px;color:var(--text2)">Hiring coordination — Director of Nursing</td><td style="padding:8px;text-align:right">3.0h</td><td style="padding:8px;text-align:right;color:var(--accent)">$750</td></tr>
+          <tr><td style="padding:8px">Jul 5</td><td style="padding:8px;color:var(--text2)">Email management + scheduling</td><td style="padding:8px;text-align:right">3.5h</td><td style="padding:8px;text-align:right;color:var(--accent)">$875</td></tr>
+        </tbody>
+        <tfoot><tr style="border-top:2px solid var(--border2)">
+          <td colspan="2" style="padding:10px 8px;font-weight:600;color:var(--text)">Total this month</td>
+          <td style="padding:10px 8px;text-align:right;font-weight:700;color:var(--text)">18.5h</td>
+          <td style="padding:10px 8px;text-align:right;font-weight:700;color:var(--accent)">$4,625</td>
+        </tr></tfoot>
+      </table>
+      </div>
+    </div>
 
-      <!-- DASHBOARD -->
-      <div class="screen active" id="sc-dashboard">
-        <div class="pg-title">Good morning, Giovanni &#9728;&#65039;</div>
-        <div class="pg-sub">Tuesday, June 30 &middot; 3 items need your attention today</div>
-        <div class="grid-3">
-          <div class="stat-card"><div class="stat-label">Open Tasks</div><div class="stat-val">14</div><div class="stat-delta dg">&#8593; 3 added this week</div></div>
-          <div class="stat-card"><div class="stat-label">Pending Approvals</div><div class="stat-val">4</div><div class="stat-delta dy">1 marked urgent</div></div>
-          <div class="stat-card"><div class="stat-label">Commitments</div><div class="stat-val">7</div><div class="stat-delta dr">2 overdue</div></div>
-        </div>
-        <div class="card">
-          <div class="card-title">Today&rsquo;s Priority Items <span class="btn-sm" onclick="showScreen('tasks',document.querySelector('[onclick*=tasks]'))">View all</span></div>
-          <div class="row-item"><div><div class="row-main">Review Series B term sheet (Andreessen deck)</div><div class="row-sub">Due today &middot; Finance</div></div><span class="badge by">Due today</span></div>
-          <div class="row-item"><div><div class="row-main">Confirm Amsterdam travel logistics with EA</div><div class="row-sub">Due today &middot; Travel</div></div><span class="badge bp">In progress</span></div>
-          <div class="row-item"><div><div class="row-main">Follow up with David Chen &mdash; committed last Monday</div><div class="row-sub">Overdue by 3 days &middot; Commitment</div></div><span class="badge br">Overdue</span></div>
-          <div class="row-item"><div><div class="row-main">Approve Q3 budget revision &mdash; submitted by CFO</div><div class="row-sub">Awaiting your sign-off &middot; Finance</div></div><span class="badge by">Awaiting</span></div>
-        </div>
-        <div class="grid-2">
-          <div class="card">
-            <div class="card-title">AI Morning Briefing</div>
-            <div style="font-size:12px;color:#555;line-height:1.8">&#128161; <strong style="color:#c4c4d4">3 competitor moves</strong> flagged overnight &mdash; Sintra AI raised $12M Series A.<br>&#128201; <strong style="color:#c4c4d4">Portfolio update:</strong> MedCore KPIs up 18% MoM.<br>&#128338; <strong style="color:#c4c4d4">Calendar gap:</strong> Friday afternoon is open &mdash; 3 pending requests.</div>
+    <!-- Activity Summary -->
+    <div class="card">
+      <div class="card-hdr"><div class="card-ttl"><i class="ti ti-chart-bar"></i> Activity summary</div></div>
+      <div style="display:flex;gap:24px;flex-wrap:wrap">
+        <div><div style="font-size:28px;font-weight:700;color:var(--amber)">8</div><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em">Tasks completed</div></div>
+        <div><div style="font-size:28px;font-weight:700;color:var(--purple)">6</div><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em">Meetings managed</div></div>
+        <div><div style="font-size:28px;font-weight:700;color:var(--accent)">4</div><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em">Decisions logged</div></div>
+        <div><div style="font-size:28px;font-weight:700;color:var(--blue)">2</div><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em">Trips arranged</div></div>
+      </div>
+    </div>
+
+    <!-- EA Contact -->
+    <div class="card">
+      <div class="card-hdr"><div class="card-ttl"><i class="ti ti-address-card"></i> Your executive assistant</div></div>
+      <div class="contact-card">
+        <div class="ea-avatar">JV</div>
+        <div style="flex:1">
+          <div class="ea-name">Jhun Rey Velado</div>
+          <div class="ea-role">Executive Assistant · NexusOS</div>
+          <div class="ea-meta">
+            <div class="ea-meta-item"><i class="ti ti-mail"></i> jhun07.velado@gmail.com</div>
+            <div class="ea-meta-item"><i class="ti ti-phone"></i> Available on request</div>
+            <div class="ea-meta-item"><i class="ti ti-clock"></i> Mon–Fri 8am–6pm PHT</div>
           </div>
-          <div class="card">
-            <div class="card-title">Upcoming Travel</div>
-            <div style="font-size:13px;color:#888;margin-bottom:8px">&#9992;&#65039; Amsterdam &mdash; <span style="color:#a89eff">Jul 8&ndash;11</span></div>
-            <div style="font-size:12px;color:#444;line-height:1.7">KLM 0842 &middot; Dep 08:15 MNL<br>Waldorf Astoria Amsterdam &middot; 3 nights<br>Board meeting Jul 9 @ 14:00 CET</div>
+        </div>
+        <button class="btn btn-outline btn-sm" onclick="switchTab('chat',document.querySelector('.tab-btn:nth-child(5)'))"><i class="ti ti-message-circle"></i> Message</button>
+      </div>
+    </div>
+
+    <!-- Feedback -->
+    <div class="card feedback-panel">
+      <div class="card-hdr"><div class="card-ttl"><i class="ti ti-message-circle" style="color:var(--purple)"></i> Your feedback</div></div>
+      <p style="font-size:12px;color:var(--text3);margin-bottom:12px;line-height:1.6">Approve this month's report or flag items for review.</p>
+      <button class="btn btn-approve" onclick="approveReport(this)"><i class="ti ti-circle-check"></i> Approve Report</button>
+      <button class="btn btn-flag"><i class="ti ti-flag"></i> Flag for Review</button>
+      <textarea class="comment-box" id="comment-input" placeholder="Leave a comment for Jhun — questions, feedback, anything you'd like to discuss…"></textarea>
+      <div style="margin-top:8px">
+        <button class="btn btn-primary btn-sm" onclick="sendComment()"><i class="ti ti-send"></i> Send to EA</button>
+      </div>
+      <div class="comment-thread">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:10px">Previous feedback</div>
+        <div class="comment-entry">
+          <span class="comment-badge approved">✓ Approved</span>
+          <div class="comment-text">Hi Jhun, the June report looks great. Love the new portal — very clean. Let's discuss the Epic implementation timeline on our next call.</div>
+          <div class="comment-time">Jun 30 at 09:14 AM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TASKS ── -->
+  <div class="panel" id="panel-tasks">
+    <div class="card">
+      <div class="card-hdr">
+        <div class="card-ttl"><i class="ti ti-list-check"></i> Your tasks</div>
+        <span style="font-size:11px;color:var(--text3)">3 pending</span>
+      </div>
+      <p style="font-size:12px;color:var(--text3);margin-bottom:12px">Tasks assigned by your EA. Click the checkbox to mark complete.</p>
+
+      <div class="task-row">
+        <div class="task-cb" onclick="toggleTask(this)"><i class="ti ti-check" style="font-size:10px;color:#fff;display:none"></i></div>
+        <div style="flex:1">
+          <div class="task-name">Review Q3 clinical outcomes report</div>
+          <div class="task-due">Due Jul 10, 2026 · Submitted by Jhun</div>
+        </div>
+        <span class="priority p-high">High</span>
+      </div>
+
+      <div class="task-row">
+        <div class="task-cb" onclick="toggleTask(this)"><i class="ti ti-check" style="font-size:10px;color:#fff;display:none"></i></div>
+        <div style="flex:1">
+          <div class="task-name">Sign Epic EHR vendor contract</div>
+          <div class="task-due">Due Jul 8, 2026 · Submitted by Jhun</div>
+        </div>
+        <span class="priority p-high">High</span>
+      </div>
+
+      <div class="task-row">
+        <div class="task-cb" onclick="toggleTask(this)"><i class="ti ti-check" style="font-size:10px;color:#fff;display:none"></i></div>
+        <div style="flex:1">
+          <div class="task-name">Approve Director of Nursing hire — final candidates</div>
+          <div class="task-due">Due Jul 12, 2026 · Submitted by Jhun</div>
+        </div>
+        <span class="priority p-med">Medium</span>
+      </div>
+
+      <div class="task-row">
+        <div class="task-cb done" onclick="toggleTask(this)"><i class="ti ti-check" style="font-size:10px;color:#fff"></i></div>
+        <div style="flex:1">
+          <div class="task-name done">Review Medicare compliance audit findings</div>
+          <div class="task-due">Completed Jul 3, 2026</div>
+        </div>
+        <span class="priority p-low">Done</span>
+      </div>
+
+      <div class="task-row">
+        <div class="task-cb done" onclick="toggleTask(this)"><i class="ti ti-check" style="font-size:10px;color:#fff"></i></div>
+        <div style="flex:1">
+          <div class="task-name done">Review and approve board presentation deck</div>
+          <div class="task-due">Completed Jul 2, 2026</div>
+        </div>
+        <span class="priority p-low">Done</span>
+      </div>
+
+      <div class="task-row">
+        <div class="task-cb done" onclick="toggleTask(this)"><i class="ti ti-check" style="font-size:10px;color:#fff"></i></div>
+        <div style="flex:1">
+          <div class="task-name done">Confirm ACHE Congress attendance + travel</div>
+          <div class="task-due">Completed Jul 1, 2026</div>
+        </div>
+        <span class="priority p-low">Done</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── APPROVALS ── -->
+  <div class="panel" id="panel-approvals">
+    <div class="card">
+      <div class="card-hdr">
+        <div class="card-ttl"><i class="ti ti-circle-check"></i> Pending approvals</div>
+        <span class="appr-badge pending">2 awaiting</span>
+      </div>
+      <p style="font-size:12px;color:var(--text3);margin-bottom:14px">Sign off on these decisions to keep projects moving.</p>
+
+      <div class="appr-row">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div class="appr-title">Epic EHR System Implementation</div>
+          <span class="appr-badge pending">Pending</span>
+        </div>
+        <div class="appr-meta">Submitted by Jhun · Jul 3, 2026 · Healthcare Technology</div>
+        <div class="appr-amount">$180,000</div>
+        <p style="font-size:12px;color:var(--text2);margin-bottom:10px;line-height:1.6">Full Epic EHR implementation across all 2 clinic locations. Includes 12-month license, implementation support, and staff training. ROI estimated at 18 months based on billing efficiency gains.</p>
+        <div class="appr-btns">
+          <button class="appr-approve" onclick="approveItem(this,'approved')"><i class="ti ti-check"></i> Approve</button>
+          <button class="appr-reject" onclick="approveItem(this,'rejected')"><i class="ti ti-x"></i> Reject</button>
+          <button class="btn btn-outline btn-sm" style="margin-left:auto"><i class="ti ti-message-circle"></i> Ask Jhun</button>
+        </div>
+      </div>
+
+      <div class="appr-row">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div class="appr-title">New Clinic Lease — Chicago, IL</div>
+          <span class="appr-badge pending">Pending</span>
+        </div>
+        <div class="appr-meta">Submitted by Jhun · Jul 4, 2026 · Real Estate</div>
+        <div class="appr-amount">$45,000/mo</div>
+        <p style="font-size:12px;color:var(--text2);margin-bottom:10px;line-height:1.6">3,800 sq ft medical office space in Lincoln Park. 5-year lease, includes 2 months free. Build-out estimate $120K covered by landlord. Target opening Q4 2026.</p>
+        <div class="appr-btns">
+          <button class="appr-approve" onclick="approveItem(this,'approved')"><i class="ti ti-check"></i> Approve</button>
+          <button class="appr-reject" onclick="approveItem(this,'rejected')"><i class="ti ti-x"></i> Reject</button>
+          <button class="btn btn-outline btn-sm" style="margin-left:auto"><i class="ti ti-message-circle"></i> Ask Jhun</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hdr"><div class="card-ttl" style="font-size:12px;color:var(--text3)">Recently decided</div></div>
+      <div class="appr-row">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div class="appr-title">Medical Equipment Purchase — Ultrasound Unit</div>
+          <span class="appr-badge approved">Approved</span>
+        </div>
+        <div class="appr-meta">Approved Jun 28, 2026 · $28,500</div>
+      </div>
+      <div class="appr-row">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div class="appr-title">ACHE Congress Chicago — Travel Budget</div>
+          <span class="appr-badge approved">Approved</span>
+        </div>
+        <div class="appr-meta">Approved Jun 25, 2026 · $3,200</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TRAVEL ── -->
+  <div class="panel" id="panel-travel">
+    <div class="card">
+      <div class="card-hdr"><div class="card-ttl"><i class="ti ti-plane"></i> Upcoming trips</div></div>
+      <p style="font-size:12px;color:var(--text3);margin-bottom:14px">Itineraries managed by Jhun. All bookings confirmed.</p>
+
+      <div class="trip-row">
+        <div class="trip-icon"><i class="ti ti-building-hospital"></i></div>
+        <div>
+          <div class="trip-title">ACHE Congress on Healthcare Leadership</div>
+          <div class="trip-meta">
+            Chicago, IL &nbsp;·&nbsp; Aug 14–17, 2026<br>
+            ✈ United UA 432 · Departs SFO 7:45 AM · Arrives ORD 1:52 PM<br>
+            🏨 Hyatt Regency Chicago · Confirmation: HC9284<br>
+            📋 Sessions: Health Equity, AI in Healthcare, Value-Based Care
           </div>
         </div>
       </div>
 
-      <!-- TASKS -->
-      <div class="screen" id="sc-tasks">
-        <div class="pg-title">Task Centre</div>
-        <div class="pg-sub">14 open tasks across 4 categories</div>
-        <div class="card">
-          <div class="card-title">High Priority <span class="badge br">3 overdue</span></div>
-          <div class="row-item"><div><div class="row-main">Review Series B term sheet</div><div class="row-sub">Owner: Giovanni &middot; Due Jun 30 &middot; Finance</div></div><span class="badge br">Overdue</span></div>
-          <div class="row-item"><div><div class="row-main">Follow up: David Chen intro email</div><div class="row-sub">Owner: EA &middot; Due Jun 27 &middot; Relationships</div></div><span class="badge br">Overdue</span></div>
-          <div class="row-item"><div><div class="row-main">Approve Q3 marketing budget</div><div class="row-sub">Owner: Giovanni &middot; Due Jul 1 &middot; Finance</div></div><span class="badge by">Due soon</span></div>
-        </div>
-        <div class="card">
-          <div class="card-title">In Progress <span class="badge bp">5 tasks</span></div>
-          <div class="row-item"><div><div class="row-main">Amsterdam board deck preparation</div><div class="row-sub">Owner: EA &middot; Due Jul 7 &middot; Board</div></div><span class="badge bp">In progress</span></div>
-          <div class="row-item"><div><div class="row-main">Due diligence: MedCore portfolio review</div><div class="row-sub">Owner: Giovanni &middot; Due Jul 5 &middot; PE</div></div><span class="badge bp">In progress</span></div>
-          <div class="row-item"><div><div class="row-main">Update investor relations mailing list</div><div class="row-sub">Owner: EA &middot; Due Jul 3 &middot; Investors</div></div><span class="badge bp">In progress</span></div>
-        </div>
-        <div class="card">
-          <div class="card-title">Completed this week <span class="badge bg">6 done</span></div>
-          <div class="row-item"><div><div class="row-main">Q3 board pack sent to all directors</div><div class="row-sub">Completed Jun 28 &middot; Board</div></div><span class="badge bg">Done</span></div>
-          <div class="row-item"><div><div class="row-main">Signed NDA with Apex Ventures</div><div class="row-sub">Completed Jun 27 &middot; Legal</div></div><span class="badge bg">Done</span></div>
-        </div>
-      </div>
-
-      <!-- APPROVALS -->
-      <div class="screen" id="sc-approvals">
-        <div class="pg-title">Approval Centre</div>
-        <div class="pg-sub">4 items awaiting your decision</div>
-        <div class="card">
-          <div class="card-title" style="color:#f0b429">&#9888; Urgent</div>
-          <div class="row-item">
-            <div><div class="row-main">Q3 Budget Revision &mdash; +$240,000 over plan</div><div class="row-sub">Submitted by: Ana Reyes (CFO) &middot; Jun 28 &middot; Reason: New hire + infra upgrade</div></div>
-            <div style="display:flex;gap:8px;flex-shrink:0"><button class="btn-sm" style="background:#22c55e" onclick="demoAction('Approved Q3 budget')">Approve</button><button class="btn-ghost" onclick="demoAction('Rejected Q3 budget')">Reject</button></div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-title">Pending</div>
-          <div class="row-item">
-            <div><div class="row-main">Vendor contract renewal &mdash; Salesforce Enterprise</div><div class="row-sub">Submitted by: EA &middot; Jun 29 &middot; $84,000/yr</div></div>
-            <div style="display:flex;gap:8px;flex-shrink:0"><button class="btn-sm" onclick="demoAction('Approved Salesforce renewal')">Approve</button><button class="btn-ghost" onclick="demoAction('Rejected Salesforce')">Reject</button></div>
-          </div>
-          <div class="row-item">
-            <div><div class="row-main">Travel upgrade: Business class to Amsterdam</div><div class="row-sub">Submitted by: EA &middot; Jun 29 &middot; +$1,800 vs economy</div></div>
-            <div style="display:flex;gap:8px;flex-shrink:0"><button class="btn-sm" onclick="demoAction('Approved travel upgrade')">Approve</button><button class="btn-ghost" onclick="demoAction('Rejected travel upgrade')">Reject</button></div>
-          </div>
-          <div class="row-item">
-            <div><div class="row-main">New hire offer: Senior Data Analyst</div><div class="row-sub">Submitted by: HR &middot; Jun 27 &middot; $95,000 base + equity</div></div>
-            <div style="display:flex;gap:8px;flex-shrink:0"><button class="btn-sm" onclick="demoAction('Approved offer letter')">Approve</button><button class="btn-ghost" onclick="demoAction('Rejected offer')">Reject</button></div>
+      <div class="trip-row">
+        <div class="trip-icon"><i class="ti ti-chart-line"></i></div>
+        <div>
+          <div class="trip-title">Investor Meeting — Series B Discussions</div>
+          <div class="trip-meta">
+            New York, NY &nbsp;·&nbsp; Jul 28–29, 2026<br>
+            ✈ Southwest WN 1108 · Departs SFO 8:00 AM · Arrives JFK 4:18 PM<br>
+            🏨 The Beekman Hotel · Confirmation: BK5591<br>
+            📋 Meetings: Andreessen Horowitz, General Catalyst, Health Innovation Partners
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- COMMITMENTS -->
-      <div class="screen" id="sc-commitments">
-        <div class="pg-title">Commitment Tracker</div>
-        <div class="pg-sub">Every promise made &mdash; logged, tracked, followed up. Nothing gets dropped.</div>
-        <div style="background:#0a160a;border:1px solid #14532d;border-radius:8px;padding:12px 16px;font-size:12px;color:#4ade80;margin-bottom:20px">&#10024; <strong>Unique to NexusOS</strong> &mdash; This feature does not exist in any competing platform.</div>
-        <div class="card">
-          <div class="card-title"><span style="color:#f87171">Overdue &mdash; 2 commitments</span></div>
-          <div class="row-item">
-            <div><div class="row-main">Send intro email connecting David Chen to Marco Rossi</div><div class="row-sub">Committed to: David Chen &middot; Made Jun 23 in board call &middot; 7 days overdue</div></div>
-            <div style="display:flex;gap:8px;flex-shrink:0"><button class="btn-sm" onclick="demoAction('Marked commitment done')">Mark done</button></div>
+  <!-- ── CHAT ── -->
+  <div class="panel" id="panel-chat">
+    <div class="card">
+      <div class="card-hdr">
+        <div class="card-ttl"><i class="ti ti-message-circle"></i> Direct chat</div>
+        <span style="font-size:11px;color:var(--accent);font-weight:600">● Live</span>
+      </div>
+      <p style="font-size:12px;color:var(--text3);margin-bottom:12px">Real-time messaging with Jhun.</p>
+
+      <div class="chat-thread" id="chat-thread">
+        <div class="chat-msg ea">
+          <div class="chat-sender">Jhun Rey Velado</div>
+          <div class="chat-bubble">Good morning Giovanni! Your board presentation deck is ready for final review — I've uploaded it to the Documents tab. Let me know if you'd like any changes before tomorrow's meeting.</div>
+          <div class="chat-time">Jul 4 · 7:52 AM</div>
+        </div>
+        <div class="chat-msg ceo">
+          <div class="chat-sender" style="text-align:right">Giovanni Amato</div>
+          <div class="chat-bubble">Thanks Jhun! I'll review it this afternoon. Can you also confirm the Epic vendor call is still on for July 9?</div>
+          <div class="chat-time">Jul 4 · 9:10 AM</div>
+        </div>
+        <div class="chat-msg ea">
+          <div class="chat-sender">Jhun Rey Velado</div>
+          <div class="chat-bubble">Confirmed ✓ — Epic call is Jul 9 at 2:00 PM. I've added the contract redlines and your talking points to Documents. Also, the Chicago lease landlord is asking for a decision by Jul 12 — approval is in the Approvals tab.</div>
+          <div class="chat-time">Jul 4 · 9:18 AM</div>
+        </div>
+        <div class="chat-msg ceo">
+          <div class="chat-sender" style="text-align:right">Giovanni Amato</div>
+          <div class="chat-bubble">Perfect. I'll approve both this week. Love the new portal by the way — much cleaner than before!</div>
+          <div class="chat-time">Jul 4 · 10:05 AM</div>
+        </div>
+        <div class="chat-msg ea">
+          <div class="chat-sender">Jhun Rey Velado</div>
+          <div class="chat-bubble">Glad you like it! It's built on NexusOS — the new invoices and documents tabs should make things a lot easier for you. Have a great 4th of July! 🎉</div>
+          <div class="chat-time">Jul 4 · 10:08 AM</div>
+        </div>
+      </div>
+
+      <div class="chat-input-row">
+        <textarea class="chat-textarea" id="chat-input" placeholder="Message Jhun…" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}"></textarea>
+        <button class="chat-send-btn" onclick="sendChat()"><i class="ti ti-send"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DECISIONS ── -->
+  <div class="panel" id="panel-decisions">
+    <div class="card">
+      <div class="card-hdr"><div class="card-ttl"><i class="ti ti-book-2"></i> Decision log</div></div>
+      <p style="font-size:12px;color:var(--text3);margin-bottom:14px">Key decisions logged by Jhun this month.</p>
+
+      <div class="dec-row"><div class="dec-dot"></div><div>
+        <div class="dec-title">Proceed with Epic EHR implementation — Q3 2026</div>
+        <div class="dec-meta">Context: Legacy system reaching EOL. Epic selected over Cerner after 3-vendor evaluation. · Jul 1, 2026</div>
+      </div></div>
+
+      <div class="dec-row"><div class="dec-dot" style="background:var(--purple)"></div><div>
+        <div class="dec-title">Expand to third clinic location — Chicago, Q4 2026</div>
+        <div class="dec-meta">Context: Lincoln Park demographic analysis shows strong demand. Lease under negotiation. · Jun 28, 2026</div>
+      </div></div>
+
+      <div class="dec-row"><div class="dec-dot" style="background:var(--amber)"></div><div>
+        <div class="dec-title">Partner with Northwestern Medicine for residency program</div>
+        <div class="dec-meta">Context: Talent pipeline for future physicians. MOU to be drafted by legal. · Jun 20, 2026</div>
+      </div></div>
+
+      <div class="dec-row"><div class="dec-dot" style="background:var(--blue)"></div><div>
+        <div class="dec-title">Raise Series B — target $12M at $60M valuation</div>
+        <div class="dec-meta">Context: Fund Chicago expansion + EHR. NY investor meetings scheduled July 28–29. · Jun 15, 2026</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ── CALENDAR ── -->
+  <div class="panel" id="panel-calendar">
+    <div class="card">
+      <div class="card-hdr"><div class="card-ttl"><i class="ti ti-calendar"></i> Upcoming schedule</div></div>
+      <p style="font-size:12px;color:var(--text3);margin-bottom:14px">Managed by Jhun. All times local unless noted.</p>
+
+      <div class="cal-row">
+        <div class="cal-date"><div class="cal-month">Jul</div><div class="cal-day">8</div></div>
+        <div class="cal-info"><div class="cal-title">Board of Directors Meeting</div><div class="cal-time">9:00 AM – 12:00 PM · Amato Health Group HQ · Boardroom A</div></div>
+        <span class="cal-type board">Board</span>
+      </div>
+      <div class="cal-row">
+        <div class="cal-date"><div class="cal-month">Jul</div><div class="cal-day">9</div></div>
+        <div class="cal-info"><div class="cal-title">Epic EHR Vendor Call — Contract Finalization</div><div class="cal-time">2:00 PM – 3:30 PM · Zoom · Epic rep: Sarah Thornton</div></div>
+        <span class="cal-type ops">Vendor</span>
+      </div>
+      <div class="cal-row">
+        <div class="cal-date"><div class="cal-month">Jul</div><div class="cal-day">11</div></div>
+        <div class="cal-info"><div class="cal-title">Medicare Compliance Review — Final Submission</div><div class="cal-time">10:00 AM – 11:00 AM · Conference Call · CMS Contact: Briggs</div></div>
+        <span class="cal-type ops">Compliance</span>
+      </div>
+      <div class="cal-row">
+        <div class="cal-date"><div class="cal-month">Jul</div><div class="cal-day">15</div></div>
+        <div class="cal-info"><div class="cal-title">Investor Update Call — Q2 Performance</div><div class="cal-time">3:00 PM – 4:00 PM · Zoom · Andreessen Horowitz + General Catalyst</div></div>
+        <span class="cal-type investor">Investor</span>
+      </div>
+      <div class="cal-row">
+        <div class="cal-date"><div class="cal-month">Jul</div><div class="cal-day">17</div></div>
+        <div class="cal-info"><div class="cal-title">All-Staff Town Hall</div><div class="cal-time">11:00 AM – 12:30 PM · Main Clinic · All locations on livestream</div></div>
+        <span class="cal-type team">Team</span>
+      </div>
+      <div class="cal-row">
+        <div class="cal-date"><div class="cal-month">Jul</div><div class="cal-day">28</div></div>
+        <div class="cal-info"><div class="cal-title">NYC Investor Meetings — Day 1</div><div class="cal-time">9:00 AM – 6:00 PM · New York, NY · 3 investor meetings</div></div>
+        <span class="cal-type investor">Investor</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── INVOICES ── -->
+  <div class="panel" id="panel-invoices">
+    <div class="card">
+      <div class="card-hdr">
+        <div class="card-ttl"><i class="ti ti-file-invoice"></i> Invoice history</div>
+        <span style="font-size:11px;color:var(--text3)">Issued by Jhun Rey Velado</span>
+      </div>
+      <p style="font-size:12px;color:var(--text3);margin-bottom:14px">All invoices for EA services rendered to Amato Health Group.</p>
+
+      <div class="inv-row">
+        <div class="inv-num">INV-2026-07</div>
+        <div class="inv-desc">July 2026 — Executive Assistant Services</div>
+        <div class="inv-amount">$4,625</div>
+        <div class="inv-date">Jul 4, 2026</div>
+        <span class="inv-status pending">Pending</span>
+      </div>
+      <div class="inv-row">
+        <div class="inv-num">INV-2026-06</div>
+        <div class="inv-desc">June 2026 — Executive Assistant Services</div>
+        <div class="inv-amount">$4,200</div>
+        <div class="inv-date">Jun 1, 2026</div>
+        <span class="inv-status paid">Paid</span>
+      </div>
+      <div class="inv-row">
+        <div class="inv-num">INV-2026-05</div>
+        <div class="inv-desc">May 2026 — Executive Assistant Services</div>
+        <div class="inv-amount">$3,950</div>
+        <div class="inv-date">May 1, 2026</div>
+        <span class="inv-status paid">Paid</span>
+      </div>
+      <div class="inv-row">
+        <div class="inv-num">INV-2026-04</div>
+        <div class="inv-desc">April 2026 — Executive Assistant Services + Travel Coordination</div>
+        <div class="inv-amount">$4,100</div>
+        <div class="inv-date">Apr 1, 2026</div>
+        <span class="inv-status paid">Paid</span>
+      </div>
+      <div class="inv-row">
+        <div class="inv-num">INV-2026-03</div>
+        <div class="inv-desc">March 2026 — Executive Assistant Services</div>
+        <div class="inv-amount">$3,750</div>
+        <div class="inv-date">Mar 1, 2026</div>
+        <span class="inv-status paid">Paid</span>
+      </div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:12px;color:var(--text3)">Total billed (2026 YTD)</span>
+        <span style="font-size:18px;font-weight:700;color:var(--accent)">$20,625</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DOCUMENTS ── -->
+  <div class="panel" id="panel-documents">
+    <div class="card">
+      <div class="card-hdr">
+        <div class="card-ttl"><i class="ti ti-files"></i> Shared documents</div>
+        <span style="font-size:11px;color:var(--text3)">Shared by Jhun</span>
+      </div>
+      <p style="font-size:12px;color:var(--text3);margin-bottom:14px">Contracts, reports, and files prepared for Amato Health Group.</p>
+
+      <div class="doc-row">
+        <div class="doc-icon"><i class="ti ti-file-certificate"></i></div>
+        <div style="flex:1">
+          <div class="doc-name">Epic EHR Systems Agreement 2026</div>
+          <div class="doc-meta">Contract · Updated Jul 3, 2026 · Jhun's notes: Final version with redlines highlighted on §7.2</div>
+        </div>
+        <span class="doc-type">Contract</span>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon"><i class="ti ti-presentation"></i></div>
+        <div style="flex:1">
+          <div class="doc-name">Q3 2026 Board Presentation Deck</div>
+          <div class="doc-meta">Report · Updated Jul 4, 2026 · Jhun's notes: Final — ready for tomorrow's meeting</div>
+        </div>
+        <span class="doc-type" style="background:#041f12;color:var(--accent)">Report</span>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon"><i class="ti ti-report-medical"></i></div>
+        <div style="flex:1">
+          <div class="doc-name">Medicare Compliance Audit Report — CMS 2026</div>
+          <div class="doc-meta">Report · Jun 28, 2026 · Jhun's notes: 3 minor findings, all resolved. Ready for submission.</div>
+        </div>
+        <span class="doc-type" style="background:#041f12;color:var(--accent)">Report</span>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon"><i class="ti ti-building"></i></div>
+        <div style="flex:1">
+          <div class="doc-name">Chicago Clinic Lease Agreement — Lincoln Park</div>
+          <div class="doc-meta">Contract · Jun 30, 2026 · Jhun's notes: Landlord requesting decision by Jul 12</div>
+        </div>
+        <span class="doc-type">Contract</span>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon"><i class="ti ti-file-certificate"></i></div>
+        <div style="flex:1">
+          <div class="doc-name">EA Service Agreement — Jhun Rey Velado × Amato Health Group</div>
+          <div class="doc-meta">Contract · Jan 1, 2026 · Active · 12-month retainer</div>
+        </div>
+        <span class="doc-type">Contract</span>
+      </div>
+      <div class="doc-row">
+        <div class="doc-icon"><i class="ti ti-chart-bar"></i></div>
+        <div style="flex:1">
+          <div class="doc-name">Investor Deck — Series B · $12M Target</div>
+          <div class="doc-meta">Report · Jul 2, 2026 · Jhun's notes: Reviewed by legal. Ready for NYC meetings Jul 28.</div>
+        </div>
+        <span class="doc-type" style="background:#041f12;color:var(--accent)">Report</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MEETING BRIEFS ── -->
+  <div class="panel" id="panel-meetings">
+    <div class="card">
+      <div class="card-hdr"><div class="card-ttl"><i class="ti ti-video"></i> Meeting briefs</div></div>
+      <p style="font-size:12px;color:var(--text3);margin-bottom:14px">AI-generated executive prep summaries. Click "Brief Me" to expand.</p>
+
+      <div class="mtg-card">
+        <div class="mtg-header">
+          <div>
+            <div class="mtg-title">Board of Directors Meeting</div>
+            <div class="mtg-meta">Jul 8 · 9:00 AM · AHG HQ Boardroom A</div>
           </div>
-          <div class="row-item">
-            <div><div class="row-main">Share MedCore Q2 financials with Apex Ventures</div><div class="row-sub">Committed to: Apex Ventures &middot; Made Jun 25 &middot; 5 days overdue</div></div>
-            <div style="display:flex;gap:8px;flex-shrink:0"><button class="btn-sm" onclick="demoAction('Marked commitment done')">Mark done</button></div>
+          <button class="btn btn-outline btn-sm" onclick="toggleBrief('brief-1',this)"><i class="ti ti-sparkles"></i> Brief Me</button>
+        </div>
+        <div class="brief-panel" id="brief-1">
+          <ul>
+            <li>Purpose: Present Q2 financial performance, approve Epic EHR budget ($180K), and vote on Chicago clinic expansion. Board expects strong growth narrative tied to Series B fundraise.</li>
+            <li>Key decisions needed: (1) Epic implementation approval — bring the 3-vendor comparison summary. (2) Chicago lease authorization — bring the financial model Jhun prepared. (3) Series B fundraise timeline sign-off.</li>
+            <li>Background: Q2 revenue grew 22% YoY. Medicare audit passed with minor findings — use as compliance win. Northwestern residency MOU is a talent story for the board.</li>
+            <li>Desired outcome: Walk out with all three approvals signed and board confidence in Series B execution.</li>
+            <li>Prep: Review the Q3 board deck in Documents. Know your cash runway — currently 9 months. Jhun has your speaker notes in the deck notes section.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mtg-card">
+        <div class="mtg-header">
+          <div>
+            <div class="mtg-title">Epic EHR Vendor Call — Contract Finalization</div>
+            <div class="mtg-meta">Jul 9 · 2:00 PM · Zoom · Epic rep: Sarah Thornton</div>
           </div>
+          <button class="btn btn-outline btn-sm" onclick="toggleBrief('brief-2',this)"><i class="ti ti-sparkles"></i> Brief Me</button>
         </div>
-        <div class="card">
-          <div class="card-title">Upcoming</div>
-          <div class="row-item"><div><div class="row-main">Send Amsterdam itinerary to board directors</div><div class="row-sub">Committed to: Board &middot; Due Jul 5 &middot; Made Jun 30 in board call</div></div><span class="badge bp">Due Jul 5</span></div>
-          <div class="row-item"><div><div class="row-main">Intro call with Dr. Santos re: HealthTech partnership</div><div class="row-sub">Committed to: Dr. Santos &middot; Due Jul 8 &middot; Made Jun 28</div></div><span class="badge by">Due Jul 8</span></div>
-          <div class="row-item"><div><div class="row-main">Share Q3 roadmap with Series B lead investor</div><div class="row-sub">Committed to: Andreessen team &middot; Due Jul 10</div></div><span class="badge by">Due Jul 10</span></div>
-        </div>
-      </div>
-
-      <!-- RELATIONSHIPS -->
-      <div class="screen" id="sc-relationships">
-        <div class="pg-title">Relationship Intelligence</div>
-        <div class="pg-sub">Know who matters, what was discussed, and when to reach out next.</div>
-        <div class="card">
-          <div class="card-title">Key Contacts</div>
-          <div class="row-item"><div><div class="row-main">David Chen &mdash; Partner, Andreessen Horowitz</div><div class="row-sub">Last contact: Jun 23 &middot; Board call &middot; Next: Send intro email (overdue)</div></div><span class="badge br">Follow up</span></div>
-          <div class="row-item"><div><div class="row-main">Ana Reyes &mdash; CFO, Internal</div><div class="row-sub">Last contact: Jun 28 &middot; Budget review &middot; Next: Budget approval pending</div></div><span class="badge bp">Active</span></div>
-          <div class="row-item"><div><div class="row-main">Marco Rossi &mdash; CEO, MedCore (Portfolio)</div><div class="row-sub">Last contact: Jun 20 &middot; Monthly KPI review &middot; Next: Jul 15</div></div><span class="badge bg">Current</span></div>
-          <div class="row-item"><div><div class="row-main">Dr. Elena Santos &mdash; CEO, HealthTech Partners</div><div class="row-sub">Last contact: Jun 15 &middot; Intro dinner &middot; Next: Intro call committed Jul 8</div></div><span class="badge by">Scheduled</span></div>
-          <div class="row-item"><div><div class="row-main">James Whitfield &mdash; MD, Apex Ventures</div><div class="row-sub">Last contact: Jun 25 &middot; NDA signed &middot; Next: Share MedCore financials (overdue)</div></div><span class="badge br">Follow up</span></div>
+        <div class="brief-panel" id="brief-2">
+          <ul>
+            <li>Purpose: Finalize contract terms for Epic EHR implementation. Key open issues are §7.2 data migration liability and §12.1 SLA guarantees. Jhun has highlighted these in the contract in Documents.</li>
+            <li>Key decisions needed: Accept Epic's liability cap at $500K, or push for unlimited data breach coverage. Training schedule — onsite or remote? Go-live date — Q4 2026 or Q1 2027?</li>
+            <li>Background: Epic won the evaluation over Cerner and Meditech. Biggest risk is the data migration from current system. Ask Sarah about their migration team's healthcare experience specifically.</li>
+            <li>Desired outcome: Redlines agreed, contract signed by Jul 12 so implementation can start Q3.</li>
+            <li>Prep: Read §7.2 and §12.1 in the contract (Documents tab). Your leverage: you haven't signed yet and Cerner is still in play.</li>
+          </ul>
         </div>
       </div>
 
-      <!-- NOTES -->
-      <div class="screen" id="sc-notes">
-        <div class="pg-title">Notes Hub</div>
-        <div class="pg-sub">Meeting notes, action items, and follow-ups all in one place.</div>
-        <div class="card">
-          <div class="card-title">Recent Notes</div>
-          <div class="row-item" onclick="demoAction('Opened note')"><div><div class="row-main">Board Call &mdash; Jun 30, 2026</div><div class="row-sub">Attendees: Giovanni, David Chen, Ana Reyes, board directors &middot; 14 action items</div></div><span class="badge dp">14 actions</span></div>
-          <div class="row-item" onclick="demoAction('Opened note')"><div><div class="row-main">Series B Investor Update &mdash; Jun 28</div><div class="row-sub">Andreessen Horowitz meeting &middot; Term sheet reviewed &middot; 3 action items</div></div><span class="badge dp">3 actions</span></div>
-          <div class="row-item" onclick="demoAction('Opened note')"><div><div class="row-main">MedCore Q2 KPI Review &mdash; Jun 20</div><div class="row-sub">Marco Rossi &middot; Revenue +18% MoM &middot; 5 action items</div></div><span class="badge bg">Done</span></div>
-          <div class="row-item" onclick="demoAction('Opened note')"><div><div class="row-main">HealthTech Partnership &mdash; Intro dinner Jun 15</div><div class="row-sub">Dr. Elena Santos &middot; Exploring JV &middot; Next: Formal proposal</div></div><span class="badge by">Follow-up</span></div>
-        </div>
-        <div class="card">
-          <div class="card-title">Quick note</div>
-          <div class="input-fake" contenteditable="true" style="min-height:60px;outline:none;color:#888" onclick="this.style.color='#e4e4f0'">Type a note&hellip;</div>
-          <button class="btn-sm" onclick="demoAction('Note saved')">Save note</button>
-        </div>
-      </div>
-
-      <!-- TRAVEL -->
-      <div class="screen" id="sc-travel">
-        <div class="pg-title">Travel Hub</div>
-        <div class="pg-sub">All itineraries, confirmations, and logistics in one view.</div>
-        <div class="section-hdr">&#9992;&#65039; Upcoming &mdash; Amsterdam, Netherlands &middot; Jul 8&ndash;11</div>
-        <div class="travel-seg"><div class="travel-icon">&#9992;&#65039;</div><div class="travel-info"><div class="t-title">KLM 0842 &mdash; MNL &#8594; AMS</div><div class="t-detail">Departure: Jul 8, 08:15 &middot; Arrival: Jul 8, 16:40 (local)<br>Business class &middot; Seat 3A &middot; Confirmation: KLM-8842XJ</div></div><span class="badge bp">Confirmed</span></div>
-        <div class="travel-seg"><div class="travel-icon">&#127970;</div><div class="travel-info"><div class="t-title">Waldorf Astoria Amsterdam</div><div class="t-detail">Check-in: Jul 8 &middot; Check-out: Jul 11 &middot; 3 nights<br>Herengracht 542&ndash;556 &middot; Junior Suite &middot; Conf: WA-2026-4471</div></div><span class="badge bp">Confirmed</span></div>
-        <div class="travel-seg"><div class="travel-icon">&#128338;</div><div class="travel-info"><div class="t-title">Board Meeting &mdash; Jul 9 @ 14:00 CET</div><div class="t-detail">Location: Keizersgracht 424, Amsterdam<br>Attendees: 8 directors &middot; Duration: 3 hours &middot; Deck ready</div></div><span class="badge bg">Confirmed</span></div>
-        <div class="travel-seg"><div class="travel-icon">&#128663;</div><div class="travel-info"><div class="t-title">Ground transport &mdash; Schiphol to hotel</div><div class="t-detail">Private transfer booked &middot; Driver: Hans Vermeer &middot; +31-6-1234-5678<br>Meet at arrivals, Terminal 2</div></div><span class="badge bg">Booked</span></div>
-        <div class="travel-seg"><div class="travel-icon">&#9992;&#65039;</div><div class="travel-info"><div class="t-title">KLM 0843 &mdash; AMS &#8594; MNL (Return)</div><div class="t-detail">Departure: Jul 11, 12:30 &middot; Arrival: Jul 12, 07:15<br>Business class &middot; Seat 4A &middot; Confirmation: KLM-8843XK</div></div><span class="badge bp">Confirmed</span></div>
-      </div>
-
-      <!-- INTELLIGENCE -->
-      <div class="screen" id="sc-intel">
-        <div class="pg-title">Intelligence Centre</div>
-        <div class="pg-sub">Daily briefings, competitor moves, and market intel curated for your morning review.</div>
-        <div class="section-hdr">&#127975; Today&rsquo;s Briefing &mdash; Jun 30, 2026</div>
-        <div class="intel-card"><div class="intel-src">&#128202; Market Intelligence</div><div class="intel-title">Sintra AI raises $12M Series A &mdash; positions against executive platforms</div><div class="intel-body">Singapore-based Sintra AI closed a $12M round led by GIC. The platform targets EA automation with AI agents. Relevance: direct competitor entering the CEO-OS space. Recommend: accelerate NexusOS AI features roadmap.</div><div class="tag-row"><span class="tag">Competitor</span><span class="tag">Funding</span><span class="tag">AI</span></div></div>
-        <div class="intel-card"><div class="intel-src">&#128201; Portfolio Update</div><div class="intel-title">MedCore Health KPIs &mdash; Revenue up 18% MoM, patient volume +22%</div><div class="intel-body">MedCore Q2 performance exceeds target across all KPIs. Marco Rossi reports strong retention (94%) and new hospital partnerships in Visayas region. Board presentation ready for Amsterdam.</div><div class="tag-row"><span class="tag">Portfolio</span><span class="tag">MedCore</span><span class="tag">Positive</span></div></div>
-        <div class="intel-card"><div class="intel-src">&#128240; Industry News</div><div class="intel-title">PE deal volume in SEA down 14% Q2 2026 &mdash; healthcare and SaaS bucking trend</div><div class="intel-body">Bain &amp; Co report shows overall PE deal volume contracting in Q2, but healthcare and B2B SaaS remain resilient. Your portfolio is well-positioned in both sectors.</div><div class="tag-row"><span class="tag">PE</span><span class="tag">Market</span><span class="tag">SEA</span></div></div>
-      </div>
-
-      <!-- MEETING PREP AI -->
-      <div class="screen" id="sc-meeting">
-        <div class="pg-title">Meeting Prep AI</div>
-        <div class="pg-sub">Briefed, informed, and ready &mdash; before every meeting.</div>
-        <div class="card">
-          <div class="card-title">Upcoming meetings today</div>
-          <div class="row-item"><div><div class="row-main">Series B call &mdash; Andreessen Horowitz</div><div class="row-sub">14:00 &middot; 45 min &middot; David Chen, Sarah Park</div></div><button class="btn-sm" onclick="showMeetingBrief()">View brief</button></div>
-          <div class="row-item"><div><div class="row-main">Weekly EA sync</div><div class="row-sub">16:00 &middot; 30 min &middot; Internal</div></div><button class="btn-sm" onclick="demoAction('Brief loaded')">View brief</button></div>
-        </div>
-        <div class="card" id="meeting-brief" style="display:none">
-          <div class="card-title">&#127775; AI Brief &mdash; Andreessen Horowitz &middot; 14:00</div>
-          <div style="font-size:13px;color:#c4c4d4;font-weight:600;margin-bottom:8px">About David Chen</div>
-          <div style="font-size:12px;color:#555;line-height:1.75;margin-bottom:14px">Partner at a16z since 2019. Led investments in Figma, Notion, Linear. Strong preference for execution-first founders. Last meeting: board call Jun 23 &mdash; raised concerns about Q3 burn rate.</div>
-          <div style="font-size:13px;color:#c4c4d4;font-weight:600;margin-bottom:8px">Key topics to prepare for</div>
-          <div style="font-size:12px;color:#555;line-height:1.75;margin-bottom:14px">1. Q3 burn rate &mdash; have your updated CFO projections ready<br>2. Series B use of funds &mdash; Chen will ask for a breakdown<br>3. Amsterdam board outcomes &mdash; he&rsquo;ll want a preview</div>
-          <div style="font-size:13px;color:#c4c4d4;font-weight:600;margin-bottom:8px">Things to avoid</div>
-          <div style="font-size:12px;color:#555;line-height:1.75">David Chen does not respond well to slides-first presentations. Lead with numbers, then context. He values brevity.</div>
-        </div>
-      </div>
-
-      <!-- PE DASHBOARD -->
-      <div class="screen" id="sc-pe">
-        <div class="pg-title">PE Dashboard</div>
-        <div class="pg-sub">Portfolio KPIs, deal flow, and board commitments &mdash; all in one place.</div>
-        <div style="background:#0a160a;border:1px solid #14532d;border-radius:8px;padding:12px 16px;font-size:12px;color:#4ade80;margin-bottom:20px">&#10024; <strong>Unique to NexusOS</strong> &mdash; This dashboard does not exist in any competing platform on the market.</div>
-        <div class="section-hdr">&#128201; Portfolio Overview</div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">
-          <div class="pe-kpi"><div class="k-val">3</div><div class="k-lbl">Active portfolio cos.</div></div>
-          <div class="pe-kpi"><div class="k-val">$48M</div><div class="k-lbl">Total AUM</div><div class="k-delta dg">&#8593; $4.2M vs last quarter</div></div>
-          <div class="pe-kpi"><div class="k-val">2.4x</div><div class="k-lbl">Avg MOIC</div><div class="k-delta dg">&#8593; 0.3x MoM</div></div>
-          <div class="pe-kpi"><div class="k-val">18%</div><div class="k-lbl">Avg revenue growth</div><div class="k-delta dg">Above target</div></div>
-        </div>
-        <div class="card">
-          <div class="card-title">Portfolio Companies</div>
-          <div class="row-item">
-            <div style="flex:1"><div class="row-main">MedCore Health</div><div class="row-sub">Healthcare SaaS &middot; Series B &middot; CEO: Marco Rossi</div><div class="progress-bar"><div class="progress-fill" style="width:82%"></div></div></div>
-            <div style="text-align:right;margin-left:20px"><div style="font-size:14px;font-weight:700;color:#22c55e">+18%</div><div style="font-size:10px;color:#333">Rev MoM</div></div>
+      <div class="mtg-card">
+        <div class="mtg-header">
+          <div>
+            <div class="mtg-title">Investor Update Call — Q2 Performance</div>
+            <div class="mtg-meta">Jul 15 · 3:00 PM · Zoom · a16z + General Catalyst</div>
           </div>
-          <div class="row-item">
-            <div style="flex:1"><div class="row-main">LogiStack</div><div class="row-sub">Supply chain AI &middot; Series A &middot; CEO: Priya Kapoor</div><div class="progress-bar"><div class="progress-fill" style="width:65%;background:#f0b429"></div></div></div>
-            <div style="text-align:right;margin-left:20px"><div style="font-size:14px;font-weight:700;color:#f0b429">+7%</div><div style="font-size:10px;color:#333">Rev MoM</div></div>
-          </div>
-          <div class="row-item">
-            <div style="flex:1"><div class="row-main">FinPath</div><div class="row-sub">B2B Fintech &middot; Seed &middot; CEO: James Uy</div><div class="progress-bar"><div class="progress-fill" style="width:45%;background:#534AB7"></div></div></div>
-            <div style="text-align:right;margin-left:20px"><div style="font-size:14px;font-weight:700;color:#a89eff">+31%</div><div style="font-size:10px;color:#333">Rev MoM</div></div>
-          </div>
+          <button class="btn btn-outline btn-sm" onclick="toggleBrief('brief-3',this)"><i class="ti ti-sparkles"></i> Brief Me</button>
         </div>
-        <div class="card">
-          <div class="card-title">Deal Pipeline</div>
-          <div class="row-item"><div><div class="row-main">NovaCare &mdash; Healthcare diagnostics</div><div class="row-sub">Stage: LOI signed &middot; Valuation: $18M pre-money &middot; Lead: Giovanni</div></div><span class="badge bp">LOI Signed</span></div>
-          <div class="row-item"><div><div class="row-main">EduBridge &mdash; EdTech Southeast Asia</div><div class="row-sub">Stage: Due diligence &middot; Estimated close: Q3 2026</div></div><span class="badge by">Due diligence</span></div>
-          <div class="row-item"><div><div class="row-main">GreenRoute &mdash; Climate logistics</div><div class="row-sub">Stage: First meeting &middot; Intro via James Whitfield</div></div><span class="badge dp">Exploring</span></div>
+        <div class="brief-panel" id="brief-3">
+          <ul>
+            <li>Purpose: Q2 update call ahead of Series B close. Investors want to see the growth story, Chicago expansion plan, and Medicare compliance resolution before wiring $12M.</li>
+            <li>Key decisions needed: Confirm Series B terms — $60M post-money valuation is their anchor. Be ready to discuss board seat allocation and liquidation preferences.</li>
+            <li>Background: a16z led the Series A. General Catalyst is new. Both have healthcare portfolio companies — lean into clinical outcome data. They will ask about path to profitability (currently 18 months).</li>
+            <li>Desired outcome: Investors reaffirm term sheet, agree on close date of Aug 15. Walk away with clear next steps and no outstanding diligence items.</li>
+            <li>Prep: Know your Q2 numbers cold — 22% revenue growth, EBITDA margin improving to -12%. Have the Chicago and Epic slides ready but don't lead with them.</li>
+          </ul>
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- PROFILE -->
-      <div class="screen" id="sc-profile">
-        <div class="pg-title">Profile</div>
-        <div class="pg-sub">Your account and workspace settings</div>
-        <div class="card">
-          <div class="card-title">Account Details</div>
-          <div class="row-item"><div class="row-main">Name</div><div style="font-size:13px;color:#666">Giovanni Amato</div></div>
-          <div class="row-item"><div class="row-main">Role</div><div style="font-size:13px;color:#666">Chief Executive Officer</div></div>
-          <div class="row-item"><div class="row-main">Plan</div><div><span class="badge bp">Enterprise</span></div></div>
-          <div class="row-item"><div class="row-main">Workspace</div><div style="font-size:13px;color:#666">Amato Holdings</div></div>
-        </div>
-        <div class="card" style="background:#0a160a;border-color:#14532d">
-          <div class="card-title" style="color:#4ade80">&#128275; Demo Mode Active</div>
-          <div style="font-size:13px;color:#2a6a3a;line-height:1.75">You are exploring a read-only demo. All data shown is sample data. Nothing you do here is saved. To create a real account and workspace, visit the live app at <a href="https://jhunvelado.github.io/NexusOS/nexusos-app.html" target="_blank" style="color:#4ade80">jhunvelado.github.io/NexusOS</a>.</div>
+  <!-- ── NOTIFICATIONS ── -->
+  <div class="panel" id="panel-notifications">
+    <div class="card">
+      <div class="card-hdr">
+        <div class="card-ttl"><i class="ti ti-bell"></i> Notification preferences</div>
+        <button class="btn btn-primary btn-sm" onclick="saveNotifs()"><i class="ti ti-check"></i> Save</button>
+      </div>
+      <p style="font-size:12px;color:var(--text3);margin-bottom:16px">Choose how you want Jhun to alert you when something needs your attention.</p>
+
+      <div class="notif-row">
+        <div><div class="notif-label">Browser push notifications</div><div class="notif-sub">Get notified instantly in your browser</div></div>
+        <button class="toggle" onclick="this.classList.toggle('on')"></button>
+      </div>
+      <div class="notif-row">
+        <div><div class="notif-label">Weekly email digest</div><div class="notif-sub">Summary of the week's activity every Monday</div></div>
+        <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+      </div>
+      <div class="notif-row">
+        <div><div class="notif-label">New approval requests</div><div class="notif-sub">Alert when Jhun submits something for your sign-off</div></div>
+        <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+      </div>
+      <div class="notif-row">
+        <div><div class="notif-label">Task completions</div><div class="notif-sub">Alert when a task assigned to me is marked done</div></div>
+        <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+      </div>
+      <div class="notif-row">
+        <div><div class="notif-label">New report published</div><div class="notif-sub">Alert when Jhun publishes a monthly activity report</div></div>
+        <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+      </div>
+      <div style="margin-top:14px">
+        <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:5px">Notification email address</label>
+        <input type="email" value="giovanni.amato@amatohealthgroup.com" style="width:100%;background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:9px 12px;color:var(--text);font-size:12px;font-family:inherit">
+      </div>
+    </div>
+  </div>
+
+  <!-- ── HISTORY ── -->
+  <div class="panel" id="panel-history">
+    <div class="card">
+      <div class="card-hdr"><div class="card-ttl"><i class="ti ti-history"></i> Report archive</div></div>
+      <p style="font-size:12px;color:var(--text3);margin-bottom:14px">All monthly reports published by Jhun Rey Velado.</p>
+
+      <div class="hist-row">
+        <div class="hist-month">July 2026 <span style="font-size:10px;background:#1f1200;color:var(--amber);padding:2px 7px;border-radius:5px;margin-left:6px;font-weight:600">Current</span></div>
+        <div class="hist-stats">
+          <div style="text-align:right"><div class="hist-stat-val">$4,625</div><div class="hist-stat-lbl">Billed</div></div>
+          <div style="text-align:right"><div class="hist-stat-val" style="color:var(--purple)">18.5h</div><div class="hist-stat-lbl">Hours</div></div>
+          <div style="text-align:right"><div class="hist-stat-val" style="color:var(--amber)">8</div><div class="hist-stat-lbl">Tasks</div></div>
         </div>
       </div>
+      <div class="hist-row">
+        <div class="hist-month">June 2026</div>
+        <div class="hist-stats">
+          <div style="text-align:right"><div class="hist-stat-val">$4,200</div><div class="hist-stat-lbl">Billed</div></div>
+          <div style="text-align:right"><div class="hist-stat-val" style="color:var(--purple)">16.8h</div><div class="hist-stat-lbl">Hours</div></div>
+          <div style="text-align:right"><div class="hist-stat-val" style="color:var(--amber)">10</div><div class="hist-stat-lbl">Tasks</div></div>
+        </div>
+      </div>
+      <div class="hist-row">
+        <div class="hist-month">May 2026</div>
+        <div class="hist-stats">
+          <div style="text-align:right"><div class="hist-stat-val">$3,950</div><div class="hist-stat-lbl">Billed</div></div>
+          <div style="text-align:right"><div class="hist-stat-val" style="color:var(--purple)">15.8h</div><div class="hist-stat-lbl">Hours</div></div>
+          <div style="text-align:right"><div class="hist-stat-val" style="color:var(--amber)">9</div><div class="hist-stat-lbl">Tasks</div></div>
+        </div>
+      </div>
+      <div class="hist-row">
+        <div class="hist-month">April 2026</div>
+        <div class="hist-stats">
+          <div style="text-align:right"><div class="hist-stat-val">$4,100</div><div class="hist-stat-lbl">Billed</div></div>
+          <div style="text-align:right"><div class="hist-stat-val" style="color:var(--purple)">16.4h</div><div class="hist-stat-lbl">Hours</div></div>
+          <div style="text-align:right"><div class="hist-stat-val" style="color:var(--amber)">11</div><div class="hist-stat-lbl">Tasks</div></div>
+        </div>
+      </div>
+      <div class="hist-row">
+        <div class="hist-month">March 2026</div>
+        <div class="hist-stats">
+          <div style="text-align:right"><div class="hist-stat-val">$3,750</div><div class="hist-stat-lbl">Billed</div></div>
+          <div style="text-align:right"><div class="hist-stat-val" style="color:var(--purple)">15.0h</div><div class="hist-stat-lbl">Hours</div></div>
+          <div style="text-align:right"><div class="hist-stat-val" style="color:var(--amber)">8</div><div class="hist-stat-lbl">Tasks</div></div>
+        </div>
+      </div>
+      <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between">
+        <span style="font-size:12px;color:var(--text3)">2026 YTD total billed</span>
+        <span style="font-size:18px;font-weight:700;color:var(--accent)">$20,625</span>
+      </div>
+    </div>
+  </div>
 
-    </div><!-- /main -->
-  </div><!-- /app-layout -->
-</div><!-- /app -->
+  <div class="poweredby">Powered by <a href="https://getnexusos.app" target="_blank">NexusOS</a> · Executive Operating System · Built by Jhun Rey Velado</div>
 
-<!-- Toast -->
-<div id="toast" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#13131f;border:1px solid #534AB7;border-radius:10px;padding:10px 20px;font-size:13px;color:#a89eff;z-index:9999;display:none;transition:opacity 0.2s"></div>
+</div><!-- /main -->
 
 <script>
-function openDemo(){
-  document.getElementById('landing').style.display='none';
-  document.getElementById('app').classList.add('open');
+function switchTab(name, btn){
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  var panel = document.getElementById('panel-'+name);
+  if(panel) panel.classList.add('active');
+  if(btn) btn.classList.add('active');
 }
-function closeDemo(){
-  document.getElementById('app').classList.remove('open');
-  document.getElementById('landing').style.display='flex';
+
+function toggleTask(cb){
+  cb.classList.toggle('done');
+  var icon = cb.querySelector('i');
+  if(icon) icon.style.display = cb.classList.contains('done') ? 'block' : 'none';
+  var nameEl = cb.closest('.task-row').querySelector('.task-name');
+  if(nameEl) nameEl.classList.toggle('done');
 }
-function showScreen(id,el){
-  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
-  var sc=document.getElementById('sc-'+id);
-  if(sc)sc.classList.add('active');
-  document.querySelectorAll('.sb-item').forEach(function(i){i.classList.remove('active');});
-  if(el)el.classList.add('active');
+
+function approveItem(btn, result){
+  var row = btn.closest('.appr-row');
+  var badge = row.querySelector('.appr-badge');
+  if(badge){ badge.className='appr-badge '+(result==='approved'?'approved':'rejected'); badge.textContent=result==='approved'?'Approved':'Rejected'; }
+  var btnsDiv = row.querySelector('.appr-btns');
+  if(btnsDiv){ btnsDiv.innerHTML='<span style="font-size:12px;color:var(--text3)">Decision recorded · '+(new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}))+'</span>'; }
 }
-function showMeetingBrief(){
-  var b=document.getElementById('meeting-brief');
-  if(b){b.style.display=b.style.display==='none'?'block':'none';}
+
+function approveReport(btn){
+  btn.innerHTML='<i class="ti ti-circle-check"></i> Report Approved ✓';
+  btn.style.background='var(--accent)';
+  btn.style.color='#fff';
 }
-function demoAction(msg){
-  var t=document.getElementById('toast');
-  t.textContent='&#10003; '+msg+' (demo only — not saved)';
-  t.style.display='block';t.style.opacity='1';
-  setTimeout(function(){t.style.opacity='0';setTimeout(function(){t.style.display='none';},300);},2200);
+
+function sendComment(){
+  var input = document.getElementById('comment-input');
+  var text = (input||{}).value.trim();
+  if(!text) return;
+  var thread = document.querySelector('.comment-thread');
+  var entry = document.createElement('div');
+  entry.className='comment-entry';
+  entry.innerHTML='<div class="comment-text">'+text+'</div><div class="comment-time">Just now</div>';
+  thread.appendChild(entry);
+  input.value='';
 }
-// Landing is flex by default
-document.getElementById('landing').style.display='flex';
+
+function sendChat(){
+  var input = document.getElementById('chat-input');
+  var text = (input||{}).value.trim();
+  if(!text) return;
+  var thread = document.getElementById('chat-thread');
+  var msg = document.createElement('div');
+  msg.className='chat-msg ceo';
+  msg.innerHTML='<div class="chat-sender" style="text-align:right">Giovanni Amato</div>'
+    +'<div class="chat-bubble">'+text+'</div>'
+    +'<div class="chat-time">Just now</div>';
+  thread.appendChild(msg);
+  thread.scrollTop=thread.scrollHeight;
+  input.value='';
+  setTimeout(function(){
+    var reply = document.createElement('div');
+    reply.className='chat-msg ea';
+    reply.innerHTML='<div class="chat-sender">Jhun Rey Velado</div>'
+      +'<div class="chat-bubble">Got it, Giovanni! I\'ll take care of that right away. 👍</div>'
+      +'<div class="chat-time">Just now</div>';
+    thread.appendChild(reply);
+    thread.scrollTop=thread.scrollHeight;
+  }, 1400);
+}
+
+function toggleBrief(id, btn){
+  var panel = document.getElementById(id);
+  if(!panel) return;
+  var isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open');
+  btn.innerHTML = isOpen ? '<i class="ti ti-sparkles"></i> Brief Me' : '<i class="ti ti-chevron-up"></i> Close';
+}
+
+function saveNotifs(){
+  var btn = event.currentTarget;
+  btn.innerHTML='<i class="ti ti-check"></i> Saved!';
+  setTimeout(function(){ btn.innerHTML='<i class="ti ti-check"></i> Save'; }, 1800);
+}
 </script>
 </body>
 </html>
