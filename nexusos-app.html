@@ -562,6 +562,154 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 .timer-summary-val { font-size:20px; font-weight:600; color:#f0f0f0; }
 .billable-toggle { display:flex; align-items:center; gap:8px; }
 .billable-toggle input[type=checkbox] { width:16px; height:16px; cursor:pointer; accent-color:#1D9E75; }
+/* ── INVOICE MODAL (v6.9) ────────────────────────────────── */
+.invoice-preview {
+  background: #fff;
+  border-radius: 8px;
+  padding: 32px 36px;
+  color: #111;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  max-height: 420px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+}
+.inv-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:28px; }
+.inv-brand { font-size:22px; font-weight:800; color:#111; letter-spacing:-0.5px; }
+.inv-brand-sub { font-size:11px; color:#888; margin-top:2px; }
+.inv-meta { text-align:right; }
+.inv-meta .inv-num { font-size:18px; font-weight:700; color:#111; }
+.inv-meta .inv-date { font-size:11px; color:#888; margin-top:2px; }
+.inv-parties { display:flex; gap:40px; margin-bottom:24px; }
+.inv-party { flex:1; }
+.inv-party-lbl { font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:#aaa; font-weight:600; margin-bottom:6px; }
+.inv-party-name { font-size:14px; font-weight:600; color:#111; }
+.inv-party-detail { font-size:12px; color:#666; margin-top:2px; }
+.inv-table { width:100%; border-collapse:collapse; margin-bottom:20px; }
+.inv-table th { font-size:10px; text-transform:uppercase; letter-spacing:.07em; color:#aaa; font-weight:600; border-bottom:2px solid #f0f0f0; padding:6px 8px; text-align:left; }
+.inv-table td { padding:8px 8px; border-bottom:1px solid #f5f5f5; font-size:12px; color:#333; vertical-align:top; }
+.inv-table td:last-child, .inv-table th:last-child { text-align:right; }
+.inv-totals { display:flex; justify-content:flex-end; }
+.inv-totals-box { min-width:220px; }
+.inv-total-row { display:flex; justify-content:space-between; padding:5px 0; font-size:12px; color:#555; border-bottom:1px solid #f0f0f0; }
+.inv-total-row.grand { border-bottom:none; border-top:2px solid #111; margin-top:4px; padding-top:8px; font-size:15px; font-weight:700; color:#111; }
+.inv-notes { margin-top:20px; padding-top:16px; border-top:1px solid #f0f0f0; font-size:11px; color:#888; }
+.inv-footer { margin-top:24px; text-align:center; font-size:10px; color:#ccc; }
+@media print {
+  body * { visibility: hidden !important; }
+  #invoice-print-area, #invoice-print-area * { visibility: visible !important; }
+  #invoice-print-area {
+    position: fixed !important;
+    top: 0; left: 0;
+    width: 100%; height: auto;
+    background: #fff !important;
+    padding: 40px !important;
+    color: #111 !important;
+  }
+}
+
+/* ── MOBILE RESPONSIVE (v7.0) ───────────────────────────────── */
+.hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  color: #888;
+  font-size: 20px;
+  line-height: 1;
+  margin-right: 4px;
+}
+@media (max-width: 768px) {
+  .hamburger-btn { display: flex; align-items: center; }
+  .sidebar {
+    position: fixed !important;
+    left: -260px;
+    top: 0;
+    height: 100vh;
+    z-index: 30000;
+    transition: left 0.22s ease;
+    box-shadow: 4px 0 24px #000a;
+  }
+  .sidebar.mobile-open { left: 0 !important; }
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 29999;
+  }
+  .sidebar-overlay.active { display: block; }
+  .content { margin-left: 0 !important; padding: 12px !important; }
+  .topbar { padding: 0 12px !important; }
+  .two-col { grid-template-columns: 1fr !important; }
+  .timer-client-row { flex-direction: column !important; }
+  .timer-client-row > div { max-width: 100% !important; min-width: 0 !important; }
+  .ceo-metric-grid { grid-template-columns: 1fr 1fr !important; }
+  .ceo-tab-nav { overflow-x: auto; flex-wrap: nowrap !important; }
+  .inv-parties { flex-direction: column; gap: 12px; }
+  .inv-header { flex-direction: column; gap: 12px; }
+  .inv-meta { text-align: left; }
+  .top-right { gap: 6px !important; }
+  #top-role { display: none; }
+}
+
+/* ── OKR TRACKER (v7.0) ────────────────────────────────────── */
+.okr-objective {
+  background: #0d0d1a;
+  border: 1px solid #1e1e2e;
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+.okr-obj-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.okr-obj-title {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e0e0e0;
+}
+.okr-obj-quarter {
+  font-size: 10px;
+  background: #1a1a2e;
+  color: #666;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+.okr-kr-list { margin-top: 8px; display: flex; flex-direction: column; gap: 8px; }
+.okr-kr-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #0a0a14;
+  border: 1px solid #1a1a2e;
+  border-radius: 7px;
+  padding: 9px 12px;
+}
+.okr-kr-label { flex: 1; font-size: 12px; color: #bbb; }
+.okr-kr-progress { min-width: 140px; }
+.okr-progress-bar { height: 5px; background: #1a1a2e; border-radius: 3px; margin-top: 4px; }
+.okr-progress-fill { height: 5px; border-radius: 3px; background: #1D9E75; transition: width 0.3s; }
+.okr-kr-pct { font-size: 11px; color: #1D9E75; font-weight: 600; min-width: 36px; text-align: right; }
+.okr-add-btn { margin-top: 8px; font-size: 11px; }
+
+/* ── BRANDING PREVIEW (v7.0) ────────────────────────────────── */
+.brand-preview {
+  margin-top: 12px;
+  padding: 12px 16px;
+  background: #0d1a10;
+  border: 1px solid #1D9E75;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #1D9E75;
+  display: none;
+}
 
 /* ── CLIENT REPORTS ──────────────────────────────────── */
 .report-filter-bar { display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap; align-items:center; }
@@ -1083,7 +1231,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 <div id="auth-screen" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#0d0d14;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
   <div style="background:#13131f;border:1px solid #2a2a3d;border-radius:14px;padding:36px 32px;width:100%;max-width:400px">
     <div style="text-align:center;margin-bottom:8px"><svg viewBox="0 0 100 100" width="80" height="80" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 12px;filter:drop-shadow(0 4px 20px rgba(200,136,0,0.7))"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg><div style="font-weight:700;font-size:30px;letter-spacing:-0.5px;line-height:1"><span style="color:#ffffff">Nexus</span><span style="color:#f0b429">OS</span></div></div>
-    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v6.8 · Executive Edition</div>
+    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v7.0 · Executive Edition</div>
 
     <!-- TAB SWITCHER -->
     <div id="auth-tabs" style="display:flex;gap:4px;background:#0d0d14;padding:4px;border-radius:8px;margin-bottom:20px">
@@ -1139,7 +1287,9 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 <div class="watermark">NexusOS © Jhun Rey Velado 2026 · Proprietary</div>
 
 <!-- TOPBAR -->
-<div class="topbar">
+<div id="sidebar-overlay" class="sidebar-overlay" onclick="closeMobileSidebar()"></div>
+    <div class="topbar">
+      <button class="hamburger-btn" onclick="toggleMobileSidebar()" aria-label="Menu">&#9776;</button>
   <button id="mobile-menu-btn" onclick="toggleMobileSidebar()" aria-label="Menu" title="Menu">&#9776;</button>
   <div class="logo" style="display:flex;align-items:center;gap:8px;min-width:0"><svg viewBox="0 0 100 100" width="24" height="24" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="flex-shrink:0;display:block"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg><span style="display:flex;flex-direction:column;min-width:0"><span style="font-weight:700;font-size:15px;color:#f0b429;line-height:1">NexusOS</span><span class="logo-sub" style="color:#555;font-size:10px;font-weight:400">Executive Operating System</span></span></div>
   <div class="topbar-right">
@@ -1176,6 +1326,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
     <div class="nav-section">
       <div class="nav-lbl">Operations</div>
       <div class="nav-item" id="n-tasks" onclick="nav('tasks')"><i class="ti ti-list-check"></i> Tasks</div>
+      <div class="nav-item" id="n-okr" onclick="nav('okr')"><i class="ti ti-target"></i> OKR Goals</div>
       <div class="nav-item" id="n-approvals" onclick="nav('approvals')"><i class="ti ti-circle-check"></i> Approvals<span class="nav-badge" id="appr-count" style="display:none">0</span></div>
       <div class="nav-item" id="n-travel" onclick="nav('travel')"><i class="ti ti-plane"></i> Travel Hub</div>
       <div class="nav-item" id="n-meeting" onclick="nav('meeting')"><i class="ti ti-clipboard-list"></i> Meeting Prep</div>
@@ -1201,7 +1352,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="nav-item" id="n-pricing" onclick="nav('pricing')"><i class="ti ti-credit-card"></i> Pricing & Plans</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v6.8<br><span>© Jhun Rey Velado 2026</span></div>
+    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v7.0<br><span>© Jhun Rey Velado 2026</span></div>
   </div>
 
   <!-- CONTENT -->
@@ -1347,6 +1498,72 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="panel">
         <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-calendar"></i> Today's meetings</div></div>
         <div id="dash-meetings"><div class="empty-state"><i class="ti ti-calendar-off"></i>No meetings today — add in Meeting Prep</div></div>
+      </div>
+    </div>
+
+    <!-- OKR GOALS (v7.0) -->
+    <div class="screen" id="s-okr">
+      <div class="pg-eyebrow">Operations</div>
+      <div class="pg-title">OKR Goals</div>
+      <div class="pg-sub">Objectives & Key Results — track strategic goals with CEO visibility</div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div style="display:flex;gap:8px">
+          <select id="okr-filter-quarter" onchange="loadOKR()" style="font-size:11px;padding:5px 8px;margin-bottom:0;width:auto">
+            <option value="">All quarters</option>
+            <option value="Q1">Q1</option>
+            <option value="Q2">Q2</option>
+            <option value="Q3">Q3</option>
+            <option value="Q4">Q4</option>
+          </select>
+          <select id="okr-filter-year" onchange="loadOKR()" style="font-size:11px;padding:5px 8px;margin-bottom:0;width:auto">
+            <option value="2026">2026</option>
+            <option value="2027">2027</option>
+          </select>
+        </div>
+        <button class="btn-primary" onclick="openOKRModal()" style="font-size:12px;padding:8px 16px"><i class="ti ti-plus"></i> Add Objective</button>
+      </div>
+
+      <div id="okr-list"></div>
+    </div>
+
+    <!-- OKR ADD/EDIT MODAL -->
+    <div class="modal-overlay" id="okr-modal">
+      <div class="modal-box" style="max-width:560px">
+        <div class="modal-hdr">
+          <div class="modal-ttl" id="okr-modal-title">Add Objective</div>
+          <button class="modal-close" onclick="closeModal('okr-modal')">&#10005;</button>
+        </div>
+        <input type="hidden" id="okr-id">
+        <label>Objective Title</label>
+        <input type="text" id="okr-title" placeholder="e.g. Grow recurring revenue to $50K MRR">
+        <label>Description <span style="font-size:10px;color:#555">(optional)</span></label>
+        <textarea id="okr-desc" placeholder="Context, strategy, or notes..." style="min-height:60px"></textarea>
+        <div style="display:flex;gap:10px">
+          <div style="flex:1">
+            <label>Quarter</label>
+            <select id="okr-quarter">
+              <option value="Q1">Q1</option>
+              <option value="Q2">Q2</option>
+              <option value="Q3">Q3</option>
+              <option value="Q4" selected>Q4</option>
+            </select>
+          </div>
+          <div style="flex:1">
+            <label>Year</label>
+            <select id="okr-year">
+              <option value="2026" selected>2026</option>
+              <option value="2027">2027</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-top:8px;margin-bottom:6px;font-size:12px;font-weight:600;color:#aaa">Key Results</div>
+        <div id="okr-kr-inputs"></div>
+        <button class="btn-outline okr-add-btn" onclick="addKRInput()" style="width:100%;margin-top:6px"><i class="ti ti-plus"></i> Add Key Result</button>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px">
+          <button class="btn-outline" onclick="closeModal('okr-modal')">Cancel</button>
+          <button class="btn-primary" onclick="saveOKRModal()">Save Objective</button>
+        </div>
       </div>
     </div>
 
@@ -1738,6 +1955,33 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
           <button class="btn-primary" onclick="saveCompany()" style="width:100%">Save company</button>
         </div>
       </div>
+
+      <!-- PORTAL BRANDING (v7.0) -->
+      <div class="panel" style="margin-top:12px">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-palette"></i> Client Portal Branding</div></div>
+        <div style="font-size:12px;color:#555;margin-bottom:14px">Your CEO sees this brand in their client portal — make it yours.</div>
+        <div class="two-col" style="gap:12px">
+          <div>
+            <label>Brand Name</label>
+            <input type="text" id="brand-name" placeholder="e.g. Velado EA Services">
+            <label>Logo URL <span style="font-size:10px;color:#555">(public image link)</span></label>
+            <input type="text" id="brand-logo" placeholder="https://yoursite.com/logo.png">
+          </div>
+          <div>
+            <label>Accent Color</label>
+            <div style="display:flex;gap:8px;align-items:center">
+              <input type="color" id="brand-accent" value="#f0b429" style="width:48px;height:36px;padding:2px;border-radius:6px;cursor:pointer;border:1px solid #1e1e2e;background:#0d0d1a">
+              <input type="text" id="brand-accent-hex" placeholder="#f0b429" style="flex:1" oninput="syncAccentHex()">
+            </div>
+            <div class="brand-preview" id="brand-preview">
+              <strong id="brand-preview-name">Brand Name</strong> &nbsp;·&nbsp; Your CEO portal will show this brand.
+            </div>
+          </div>
+        </div>
+        <div id="brand-success" class="success-banner" style="display:none;margin-top:10px;background:#081510;border:1px solid #1D9E75;border-radius:6px;padding:9px 12px;font-size:12px;color:#1D9E75">Branding saved!</div>
+        <button class="btn-primary" onclick="saveBranding()" style="margin-top:12px">Save branding</button>
+      </div>
+
       <div class="panel">
         <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-lock"></i> Security</div></div>
         <div class="two-col">
@@ -2045,11 +2289,53 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
         <div class="panel-hdr">
           <div class="panel-ttl">Time Log</div>
           <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn-outline" onclick="openInvoiceModal()" style="font-size:11px;padding:5px 12px;white-space:nowrap"><i class="ti ti-file-invoice"></i> Export Invoice</button>
             <select id="log-filter-client" onchange="renderTimeLog()" style="font-size:11px;padding:4px 8px;margin-bottom:0;width:auto"><option value="">All clients</option></select>
             <input type="date" id="log-filter-date" onchange="renderTimeLog()" style="font-size:11px;padding:4px 8px;margin-bottom:0;width:auto">
           </div>
         </div>
         <div id="time-log-body"></div>
+      </div>
+    </div>
+
+
+    <!-- INVOICE MODAL (v6.9) -->
+    <div class="modal-overlay" id="invoice-modal">
+      <div class="modal-box" style="max-width:720px;width:96vw">
+        <div class="modal-hdr">
+          <div class="modal-ttl"><i class="ti ti-file-invoice" style="color:#f0b429"></i> Export Invoice</div>
+          <button class="modal-close" onclick="closeModal('invoice-modal')">&#10005;</button>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+          <div style="flex:1;min-width:150px">
+            <label style="font-size:11px;color:#666;display:block;margin-bottom:4px">Client</label>
+            <select id="inv-client" onchange="generateInvoicePreview()" style="margin-bottom:0;width:100%"><option value="">All clients</option></select>
+          </div>
+          <div style="flex:1;min-width:130px">
+            <label style="font-size:11px;color:#666;display:block;margin-bottom:4px">From</label>
+            <input type="date" id="inv-from" onchange="generateInvoicePreview()" style="margin-bottom:0;width:100%">
+          </div>
+          <div style="flex:1;min-width:130px">
+            <label style="font-size:11px;color:#666;display:block;margin-bottom:4px">To</label>
+            <input type="date" id="inv-to" onchange="generateInvoicePreview()" style="margin-bottom:0;width:100%">
+          </div>
+          <div style="flex:1;min-width:110px">
+            <label style="font-size:11px;color:#666;display:block;margin-bottom:4px">Invoice #</label>
+            <input type="text" id="inv-num" placeholder="INV-001" oninput="generateInvoicePreview()" style="margin-bottom:0;width:100%">
+          </div>
+        </div>
+        <div style="margin-bottom:10px">
+          <label style="font-size:11px;color:#666;display:block;margin-bottom:4px">Notes (optional)</label>
+          <input type="text" id="inv-notes" placeholder="Payment due within 14 days. Thank you for your business." oninput="generateInvoicePreview()" style="margin-bottom:0;width:100%">
+        </div>
+        <div class="invoice-preview" id="invoice-preview-box">
+          <div style="color:#888;text-align:center;padding:40px 0">Select a client and date range to preview the invoice.</div>
+        </div>
+        <div id="invoice-print-area" style="display:none"></div>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px">
+          <button class="btn-outline" onclick="closeModal('invoice-modal')">Cancel</button>
+          <button class="btn-primary" onclick="printInvoice()" id="inv-print-btn" disabled><i class="ti ti-printer"></i> Print / Save PDF</button>
+        </div>
       </div>
     </div>
 
@@ -2828,7 +3114,7 @@ function nav(screen) {
   const ni=document.getElementById('n-'+screen);
   if(ni)ni.classList.add('active');
   // Load data for screen
-  const loaders={tasks:loadTasks,approvals:loadApprovals,travel:loadTrips,meeting:loadMeetings,chat:loadChat,notifications:loadNotifications,briefing:loadBriefing,intel:loadIntel,notes:loadNotes,settings:loadSettings,relationships:loadRelationships,pricing:function(){},commitments:loadCommitments};
+  const loaders={tasks:loadTasks,approvals:loadApprovals,travel:loadTrips,meeting:loadMeetings,chat:loadChat,notifications:loadNotifications,briefing:loadBriefing,intel:loadIntel,notes:loadNotes,settings:function(){if(typeof loadSettings==='function')loadSettings();if(typeof loadBrandingSettings==='function')loadBrandingSettings();},relationships:loadRelationships,pricing:function(){},commitments:loadCommitments,okr:loadOKR};
   if(loaders[screen])loaders[screen]();
 }
 
@@ -5854,6 +6140,8 @@ async function loadCEOPortal(){
     var eaRes = await sb.from('profiles').select('full_name').eq('id', profile.linked_ea_id).single();
     var stripEl = document.getElementById('ceo-strip-ea-name');
     if(stripEl && eaRes.data) stripEl.textContent = 'Managed by ' + (eaRes.data.full_name || 'your EA');
+    // v7.0: apply EA brand to CEO portal
+    if(typeof applyBrandingToCEOPortal === 'function') applyBrandingToCEOPortal(profile.linked_ea_id);
   } catch(e){}
   // Fetch latest published snapshot
   try {
@@ -6744,6 +7032,441 @@ async function loadCEOPortalBadges(){
     if(ab){ if(apprCount>0){ab.textContent=apprCount;ab.style.display='inline-block';}else{ab.style.display='none';} }
     if(cb){ if(chatCount>0){cb.textContent='!';cb.style.display='inline-block';}else{cb.style.display='none';} }
   }catch(e){}
+}
+
+
+
+// ══════════════════════════════════════════════════════════════
+// INVOICE PDF — v6.9
+// ══════════════════════════════════════════════════════════════
+
+function openInvoiceModal() {
+  // Populate client dropdown from time entries + mc clients
+  var entries = getTimeEntries();
+  var clientMap = {};
+  entries.forEach(function(e){
+    if(e.clientId && e.clientName) clientMap[e.clientId] = e.clientName;
+  });
+  // Also pull from mc clients if available
+  if(typeof mcGetClients === 'function'){
+    mcGetClients().forEach(function(c){ clientMap[c.id] = c.name; });
+  }
+  var sel = document.getElementById('inv-client');
+  sel.innerHTML = '<option value="">All clients</option>';
+  Object.keys(clientMap).forEach(function(id){
+    var o = document.createElement('option');
+    o.value = id; o.textContent = clientMap[id];
+    sel.appendChild(o);
+  });
+  // Default date range: current month
+  var now = new Date();
+  var y = now.getFullYear(), m = now.getMonth();
+  var firstDay = new Date(y, m, 1).toISOString().slice(0,10);
+  var lastDay  = new Date(y, m+1, 0).toISOString().slice(0,10);
+  document.getElementById('inv-from').value = firstDay;
+  document.getElementById('inv-to').value   = lastDay;
+  // Auto invoice number
+  var inv = document.getElementById('inv-num');
+  if(!inv.value){
+    var pad = function(n){ return n < 10 ? '0'+n : ''+n; };
+    inv.value = 'INV-' + y + pad(m+1) + '-001';
+  }
+  document.getElementById('inv-notes').value = 'Payment due within 14 days. Thank you for your business.';
+  document.getElementById('invoice-modal').classList.add('active');
+  generateInvoicePreview();
+}
+
+function generateInvoicePreview() {
+  var clientId = document.getElementById('inv-client').value;
+  var fromStr  = document.getElementById('inv-from').value;
+  var toStr    = document.getElementById('inv-to').value;
+  var invNum   = document.getElementById('inv-num').value || 'INV-001';
+  var notes    = document.getElementById('inv-notes').value;
+  var box      = document.getElementById('invoice-preview-box');
+  var printBtn = document.getElementById('inv-print-btn');
+
+  var entries = getTimeEntries().filter(function(e){
+    if(!e.billable) return false;
+    if(clientId && e.clientId !== clientId) return false;
+    if(fromStr && e.date < fromStr) return false;
+    if(toStr   && e.date > toStr)   return false;
+    return true;
+  });
+
+  if(!entries.length){
+    box.innerHTML = '<div style="color:#888;text-align:center;padding:40px 0">No billable entries found for this selection.</div>';
+    printBtn.disabled = true;
+    return;
+  }
+  printBtn.disabled = false;
+
+  // Sort by date
+  entries.sort(function(a,b){ return a.date < b.date ? -1 : 1; });
+
+  var eaName  = (currentProfile && currentProfile.full_name) || 'Your EA';
+  var eaEmail = (currentProfile && currentProfile.email) || '';
+  var clientName = clientId
+    ? (document.getElementById('inv-client').options[document.getElementById('inv-client').selectedIndex].text)
+    : 'All Clients';
+
+  var totalSecs = entries.reduce(function(s,e){ return s + (e.seconds||0); },0);
+  var totalEarn = entries.reduce(function(s,e){ return s + (e.earnings||0); },0);
+  var totalHrs  = (totalSecs/3600).toFixed(2);
+
+  var today = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+
+  var rows = entries.map(function(e){
+    var hrs = (e.seconds/3600).toFixed(2);
+    var rate = e.rate ? '$'+Number(e.rate).toFixed(2)+'/hr' : '—';
+    var earn = e.earnings ? '$'+Number(e.earnings).toFixed(2) : '—';
+    return '<tr>'
+      +'<td>'+e.date+'</td>'
+      +'<td>'+(e.clientName||clientName)+'</td>'
+      +'<td>'+(e.description||'—')+'</td>'
+      +'<td style="text-align:right">'+hrs+'</td>'
+      +'<td style="text-align:right">'+rate+'</td>'
+      +'<td style="text-align:right">'+earn+'</td>'
+      +'</tr>';
+  }).join('');
+
+  var notesHtml = notes
+    ? '<div class="inv-notes">'+notes+'</div>'
+    : '';
+
+  var html = '<div class="inv-header">'
+    +'<div><div class="inv-brand">'+eaName+'</div><div class="inv-brand-sub">Executive Assistant'+( eaEmail ? ' &nbsp;·&nbsp; '+eaEmail : '')+'</div></div>'
+    +'<div class="inv-meta"><div class="inv-num">'+invNum+'</div><div class="inv-date">Issued: '+today+'</div></div>'
+    +'</div>'
+    +'<div class="inv-parties">'
+    +'<div class="inv-party"><div class="inv-party-lbl">From</div><div class="inv-party-name">'+eaName+'</div></div>'
+    +'<div class="inv-party"><div class="inv-party-lbl">Bill To</div><div class="inv-party-name">'+clientName+'</div></div>'
+    +'</div>'
+    +'<table class="inv-table">'
+    +'<thead><tr><th>Date</th><th>Client</th><th>Description</th><th>Hours</th><th>Rate</th><th>Amount</th></tr></thead>'
+    +'<tbody>'+rows+'</tbody>'
+    +'</table>'
+    +'<div class="inv-totals"><div class="inv-totals-box">'
+    +'<div class="inv-total-row"><span>Total Hours</span><span>'+totalHrs+' hrs</span></div>'
+    +'<div class="inv-total-row grand"><span>Total Due</span><span>$'+Number(totalEarn).toFixed(2)+'</span></div>'
+    +'</div></div>'
+    +notesHtml
+    +'<div class="inv-footer">Generated by NexusOS &nbsp;·&nbsp; getnexusos.app</div>';
+
+  box.innerHTML = html;
+  // Also update hidden print area
+  document.getElementById('invoice-print-area').innerHTML = html;
+}
+
+function printInvoice() {
+  var printArea = document.getElementById('invoice-print-area');
+  var content   = printArea ? printArea.innerHTML : '';
+  var win = window.open('', '_blank', 'width=900,height=700');
+  if(!win){ alert('Please allow popups for getnexusos.app to save PDF.'); return; }
+  win.document.write(
+    '<!DOCTYPE html><html><head><title>Invoice</title>'
+    +'<style>'
+    +'*{box-sizing:border-box;margin:0;padding:0}'
+    +'body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:48px;color:#111;font-size:13px;line-height:1.5}'
+    +'.inv-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px}'
+    +'.inv-brand{font-size:24px;font-weight:800;color:#111;letter-spacing:-0.5px}'
+    +'.inv-brand-sub{font-size:11px;color:#888;margin-top:2px}'
+    +'.inv-meta{text-align:right}'
+    +'.inv-num{font-size:20px;font-weight:700;color:#111}'
+    +'.inv-date{font-size:11px;color:#888;margin-top:2px}'
+    +'.inv-parties{display:flex;gap:40px;margin-bottom:24px}'
+    +'.inv-party-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#aaa;font-weight:600;margin-bottom:6px}'
+    +'.inv-party-name{font-size:14px;font-weight:600;color:#111}'
+    +'.inv-table{width:100%;border-collapse:collapse;margin-bottom:20px}'
+    +'.inv-table th{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#aaa;font-weight:600;border-bottom:2px solid #eee;padding:6px 8px;text-align:left}'
+    +'.inv-table td{padding:8px;border-bottom:1px solid #f5f5f5;font-size:12px;color:#333;vertical-align:top}'
+    +'.inv-table td:last-child,.inv-table th:last-child{text-align:right}'
+    +'.inv-totals{display:flex;justify-content:flex-end}'
+    +'.inv-totals-box{min-width:220px}'
+    +'.inv-total-row{display:flex;justify-content:space-between;padding:5px 0;font-size:12px;color:#555;border-bottom:1px solid #f0f0f0}'
+    +'.inv-total-row.grand{border-bottom:none;border-top:2px solid #111;margin-top:4px;padding-top:8px;font-size:16px;font-weight:700;color:#111}'
+    +'.inv-notes{margin-top:20px;padding-top:16px;border-top:1px solid #eee;font-size:11px;color:#888}'
+    +'.inv-footer{margin-top:28px;text-align:center;font-size:10px;color:#ccc}'
+    +'</style>'
+    +'</head><body>'
+    +content
+    +'</body></html>'
+  );
+  win.document.close();
+  setTimeout(function(){ win.print(); }, 400);
+}
+
+
+
+// ══════════════════════════════════════════════════════════════
+// MOBILE SIDEBAR (v7.0)
+// ══════════════════════════════════════════════════════════════
+function toggleMobileSidebar() {
+  var sb = document.querySelector('.sidebar');
+  var ov = document.getElementById('sidebar-overlay');
+  if(!sb) return;
+  var open = sb.classList.toggle('mobile-open');
+  if(ov) ov.classList.toggle('active', open);
+}
+function closeMobileSidebar() {
+  var sb = document.querySelector('.sidebar');
+  var ov = document.getElementById('sidebar-overlay');
+  if(sb) sb.classList.remove('mobile-open');
+  if(ov) ov.classList.remove('active');
+}
+// Close sidebar on nav click (mobile)
+(function(){
+  document.addEventListener('click', function(e){
+    var navItem = e.target.closest('.nav-item');
+    if(navItem) closeMobileSidebar();
+  });
+})();
+
+// ══════════════════════════════════════════════════════════════
+// PORTAL BRANDING (v7.0)
+// ══════════════════════════════════════════════════════════════
+function syncAccentHex() {
+  var hex = document.getElementById('brand-accent-hex').value.trim();
+  if(/^#[0-9a-fA-F]{6}$/.test(hex)) document.getElementById('brand-accent').value = hex;
+  updateBrandPreview();
+}
+function updateBrandPreview() {
+  var name = document.getElementById('brand-name').value.trim();
+  var preview = document.getElementById('brand-preview');
+  var previewName = document.getElementById('brand-preview-name');
+  if(name && preview) {
+    preview.style.display = 'block';
+    if(previewName) previewName.textContent = name;
+  } else if(preview) {
+    preview.style.display = 'none';
+  }
+}
+// Wire up live preview
+document.addEventListener('DOMContentLoaded', function(){
+  var bn = document.getElementById('brand-name');
+  var ba = document.getElementById('brand-accent');
+  var bah = document.getElementById('brand-accent-hex');
+  if(bn) bn.addEventListener('input', updateBrandPreview);
+  if(ba) ba.addEventListener('input', function(){
+    if(bah) bah.value = ba.value;
+    updateBrandPreview();
+  });
+});
+
+async function saveBranding() {
+  if(!window.sb || !window.currentUser) return;
+  var name   = document.getElementById('brand-name').value.trim();
+  var logo   = document.getElementById('brand-logo').value.trim();
+  var accent = document.getElementById('brand-accent').value.trim();
+  try {
+    await sb.from('profiles').update({
+      brand_name: name || null,
+      brand_logo_url: logo || null,
+      brand_accent: accent || null,
+      updated_at: new Date().toISOString()
+    }).eq('id', window.currentUser.id);
+    if(window.currentProfile){
+      window.currentProfile.brand_name = name;
+      window.currentProfile.brand_logo_url = logo;
+      window.currentProfile.brand_accent = accent;
+    }
+    var s = document.getElementById('brand-success');
+    if(s){ s.style.display = 'block'; setTimeout(function(){ s.style.display='none'; }, 3000); }
+  } catch(err){ alert('Error saving branding: ' + err.message); }
+}
+
+async function loadBrandingSettings() {
+  if(!window.currentProfile) return;
+  var p = window.currentProfile;
+  var bn = document.getElementById('brand-name');
+  var bl = document.getElementById('brand-logo');
+  var ba = document.getElementById('brand-accent');
+  var bah = document.getElementById('brand-accent-hex');
+  if(bn) bn.value = p.brand_name || '';
+  if(bl) bl.value = p.brand_logo_url || '';
+  if(ba) ba.value = p.brand_accent || '#f0b429';
+  if(bah) bah.value = p.brand_accent || '#f0b429';
+  updateBrandPreview();
+}
+
+async function applyBrandingToCEOPortal(eaId) {
+  if(!window.sb || !eaId) return;
+  try {
+    var res = await sb.from('profiles')
+      .select('brand_name,brand_logo_url,brand_accent,full_name')
+      .eq('id', eaId).single();
+    if(!res.data) return;
+    var b = res.data;
+    var stripBadge = document.querySelector('#ceo-top-strip .ceo-strip-badge');
+    var stripName  = document.getElementById('ceo-strip-ea-name');
+    var eyebrow    = document.querySelector('.ceo-welcome-eyebrow');
+    if(b.brand_name) {
+      if(stripBadge) stripBadge.textContent = b.brand_name;
+      if(eyebrow) eyebrow.innerHTML = '<i class="ti ti-shield-check"></i> ' + b.brand_name;
+    }
+    if(b.brand_name && stripName) {
+      stripName.textContent = 'Managed by ' + (b.full_name || 'your EA');
+    }
+    if(b.brand_accent) {
+      document.documentElement.style.setProperty('--ceo-accent', b.brand_accent);
+      // Apply to top strip and active ceo tabs
+      document.querySelectorAll('.ceo-top-strip-badge, .ceo-tab.active').forEach(function(el){
+        el.style.color = b.brand_accent;
+      });
+      var strip = document.getElementById('ceo-top-strip');
+      if(strip) strip.style.borderBottomColor = b.brand_accent + '33';
+    }
+    if(b.brand_logo_url) {
+      var logoEls = document.querySelectorAll('.topbar-logo svg, .topbar-logo img');
+      var topbarLogo = document.querySelector('.topbar-logo');
+      if(topbarLogo && b.brand_logo_url) {
+        var img = document.createElement('img');
+        img.src = b.brand_logo_url;
+        img.style.cssText = 'height:28px;width:auto;object-fit:contain;border-radius:4px';
+        img.onerror = function(){ img.remove(); };
+        topbarLogo.innerHTML = '';
+        topbarLogo.appendChild(img);
+      }
+    }
+  } catch(e){ console.warn('applyBranding error:', e); }
+}
+
+// ══════════════════════════════════════════════════════════════
+// OKR GOALS (v7.0)
+// ══════════════════════════════════════════════════════════════
+function getGoals(){ try{ return JSON.parse(localStorage.getItem('nexusos_goals')||'[]'); }catch(e){ return []; } }
+function saveGoals(g){ localStorage.setItem('nexusos_goals', JSON.stringify(g)); }
+
+function loadOKR() {
+  var qf = (document.getElementById('okr-filter-quarter')||{}).value || '';
+  var yf = (document.getElementById('okr-filter-year')||{}).value || '';
+  var goals = getGoals().filter(function(g){
+    if(qf && g.quarter !== qf) return false;
+    if(yf && String(g.year) !== yf) return false;
+    return true;
+  });
+  var list = document.getElementById('okr-list');
+  if(!list) return;
+  if(!goals.length){
+    list.innerHTML = '<div class="empty-state"><i class="ti ti-target"></i>No objectives yet — add your first OKR above.</div>';
+    return;
+  }
+  list.innerHTML = goals.map(function(g){
+    var krs = (g.keyResults||[]).map(function(kr){
+      var pct = kr.target > 0 ? Math.min(100, Math.round(kr.current/kr.target*100)) : 0;
+      var color = pct >= 70 ? '#1D9E75' : pct >= 40 ? '#f0b429' : '#E24B4A';
+      return '<div class="okr-kr-row">'
+        +'<div class="okr-kr-label">'+kr.title+'</div>'
+        +'<div class="okr-kr-progress">'
+        +'<div style="font-size:10px;color:#666;display:flex;justify-content:space-between"><span>'+kr.current+' / '+kr.target+' '+kr.unit+'</span></div>'
+        +'<div class="okr-progress-bar"><div class="okr-progress-fill" style="width:'+pct+'%;background:'+color+'"></div></div>'
+        +'</div>'
+        +'<div class="okr-kr-pct" style="color:'+color+'">'+pct+'%</div>'
+        +'<button class="btn-outline" style="font-size:10px;padding:3px 8px" onclick="promptUpdateKR('+JSON.stringify(g.id)+','+JSON.stringify(kr.id)+')">Update</button>'
+        +'</div>';
+    }).join('');
+    return '<div class="okr-objective">'
+      +'<div class="okr-obj-header">'
+      +'<div class="okr-obj-title">'+g.title+'</div>'
+      +'<div class="okr-obj-quarter">'+g.quarter+' '+g.year+'</div>'
+      +'<button class="btn-outline" style="font-size:10px;padding:4px 8px" onclick="editOKR('+JSON.stringify(g.id)+')"><i class="ti ti-pencil"></i></button>'
+      +'<button class="btn-danger" style="font-size:10px;padding:4px 8px" onclick="deleteOKR('+JSON.stringify(g.id)+')"><i class="ti ti-trash"></i></button>'
+      +'</div>'
+      +(g.description ? '<div style="font-size:11px;color:#555;margin-bottom:8px">'+g.description+'</div>' : '')
+      +'<div class="okr-kr-list">'+krs+'</div>'
+      +'</div>';
+  }).join('');
+}
+
+function openOKRModal(id) {
+  document.getElementById('okr-id').value = id || '';
+  document.getElementById('okr-modal-title').textContent = id ? 'Edit Objective' : 'Add Objective';
+  document.getElementById('okr-title').value = '';
+  document.getElementById('okr-desc').value = '';
+  document.getElementById('okr-quarter').value = 'Q4';
+  document.getElementById('okr-year').value = '2026';
+  document.getElementById('okr-kr-inputs').innerHTML = '';
+  if(id) {
+    var g = getGoals().find(function(x){ return x.id === id; });
+    if(g) {
+      document.getElementById('okr-title').value = g.title;
+      document.getElementById('okr-desc').value = g.description || '';
+      document.getElementById('okr-quarter').value = g.quarter;
+      document.getElementById('okr-year').value = String(g.year);
+      (g.keyResults||[]).forEach(function(kr){ addKRInput(kr); });
+    }
+  } else {
+    addKRInput();
+  }
+  document.getElementById('okr-modal').classList.add('active');
+}
+
+function editOKR(id){ openOKRModal(id); }
+
+function addKRInput(kr) {
+  var cont = document.getElementById('okr-kr-inputs');
+  var div = document.createElement('div');
+  div.style.cssText = 'display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap';
+  div.innerHTML = '<input type="text" placeholder="Key Result title" value="'+(kr&&kr.title?kr.title:'')+'" style="flex:2;min-width:160px;margin-bottom:0" class="okr-kr-title">'
+    +'<input type="number" placeholder="Target" value="'+(kr&&kr.target?kr.target:'')+'" style="width:80px;margin-bottom:0" class="okr-kr-target" min="0" step="1">'
+    +'<input type="number" placeholder="Current" value="'+(kr&&kr.current!==undefined?kr.current:0)+'" style="width:80px;margin-bottom:0" class="okr-kr-current" min="0" step="1">'
+    +'<input type="text" placeholder="Unit" value="'+(kr&&kr.unit?kr.unit:'%')+'" style="width:60px;margin-bottom:0" class="okr-kr-unit">'
+    +'<button class="btn-danger" style="font-size:11px;padding:5px 8px" onclick="this.parentNode.remove()" type="button">&#10005;</button>';
+  cont.appendChild(div);
+}
+
+function saveOKRModal() {
+  var title = document.getElementById('okr-title').value.trim();
+  if(!title){ alert('Objective title is required'); return; }
+  var id = document.getElementById('okr-id').value || ('okr-' + Date.now());
+  var krs = [];
+  document.querySelectorAll('#okr-kr-inputs > div').forEach(function(row){
+    var t = row.querySelector('.okr-kr-title').value.trim();
+    if(!t) return;
+    krs.push({
+      id: 'kr-' + Date.now() + '-' + Math.random().toString(36).slice(2,6),
+      title: t,
+      target: parseFloat(row.querySelector('.okr-kr-target').value)||0,
+      current: parseFloat(row.querySelector('.okr-kr-current').value)||0,
+      unit: row.querySelector('.okr-kr-unit').value.trim()||'%'
+    });
+  });
+  var goals = getGoals();
+  var idx = goals.findIndex(function(g){ return g.id === id; });
+  var obj = {
+    id: id,
+    title: title,
+    description: document.getElementById('okr-desc').value.trim(),
+    quarter: document.getElementById('okr-quarter').value,
+    year: parseInt(document.getElementById('okr-year').value),
+    keyResults: krs,
+    updatedAt: new Date().toISOString()
+  };
+  if(idx >= 0) goals[idx] = obj;
+  else goals.unshift(obj);
+  saveGoals(goals);
+  closeModal('okr-modal');
+  loadOKR();
+}
+
+function deleteOKR(id) {
+  if(!confirm('Delete this objective and all its key results?')) return;
+  saveGoals(getGoals().filter(function(g){ return g.id !== id; }));
+  loadOKR();
+}
+
+function promptUpdateKR(goalId, krId) {
+  var goals = getGoals();
+  var g = goals.find(function(x){ return x.id === goalId; });
+  if(!g) return;
+  var kr = (g.keyResults||[]).find(function(k){ return k.id === krId; });
+  if(!kr) return;
+  var val = prompt('Update current value for "'+kr.title+'" (target: '+kr.target+' '+kr.unit+')', kr.current);
+  if(val === null) return;
+  var num = parseFloat(val);
+  if(isNaN(num)){ alert('Please enter a number.'); return; }
+  kr.current = num;
+  saveGoals(goals);
+  loadOKR();
 }
 
 </script>
