@@ -1204,6 +1204,119 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 .audit-dot.auth   { background: #534AB7; }
 .audit-dot.export { background: #888; }
 
+/* ── CEO PORTAL v7.5: NEW TABS ──────────────────────────── */
+.ceo-contact-card {
+  background: #0a0a14;
+  border: 1px solid #1e1e2e;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+.ceo-ea-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #1a1030;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: #7F77DD;
+  flex-shrink: 0;
+}
+.ceo-ea-info { flex: 1; min-width: 0; }
+.ceo-ea-name { font-size: 14px; font-weight: 600; color: #ddd; margin-bottom: 2px; }
+.ceo-ea-role { font-size: 11px; color: #555; margin-bottom: 6px; }
+.ceo-ea-meta { display: flex; gap: 14px; flex-wrap: wrap; }
+.ceo-ea-meta-item { font-size: 11px; color: #888; display: flex; align-items: center; gap: 5px; }
+.ceo-ea-meta-item i { color: #534AB7; font-size: 13px; }
+.ceo-ea-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+.ceo-history-entry {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #0f0f1a;
+  cursor: pointer;
+}
+.ceo-history-entry:last-child { border-bottom: none; }
+.ceo-history-month {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ddd;
+  flex: 1;
+}
+.ceo-history-metrics {
+  display: flex;
+  gap: 16px;
+}
+.ceo-history-stat {
+  text-align: right;
+}
+.ceo-history-stat-val { font-size: 14px; font-weight: 600; color: #1D9E75; }
+.ceo-history-stat-lbl { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: .05em; }
+
+.ceo-inv-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #0f0f1a;
+}
+.ceo-inv-row:last-child { border-bottom: none; }
+.ceo-inv-num { font-size: 12px; font-weight: 600; color: #7F77DD; min-width: 80px; }
+.ceo-inv-client { font-size: 12px; color: #aaa; flex: 1; }
+.ceo-inv-amount { font-size: 14px; font-weight: 600; color: #1D9E75; min-width: 80px; text-align: right; }
+.ceo-inv-date { font-size: 11px; color: #555; min-width: 90px; text-align: right; }
+.ceo-inv-status {
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+.ceo-inv-status.paid { background: #0a1f12; color: #1D9E75; }
+.ceo-inv-status.sent { background: #1a1200; color: #f0b429; }
+
+.ceo-doc-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #0f0f1a;
+}
+.ceo-doc-row:last-child { border-bottom: none; }
+.ceo-doc-icon { font-size: 20px; color: #534AB7; flex-shrink: 0; }
+.ceo-doc-info { flex: 1; min-width: 0; }
+.ceo-doc-title { font-size: 13px; font-weight: 600; color: #ddd; }
+.ceo-doc-meta { font-size: 11px; color: #555; margin-top: 2px; }
+
+.ceo-brief-panel {
+  background: #060610;
+  border: 1px solid #1a1a2e;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #aaa;
+  line-height: 1.7;
+  display: none;
+}
+.ceo-notif-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #0f0f1a;
+}
+.ceo-notif-row:last-child { border-bottom: none; }
+.ceo-notif-label { font-size: 13px; color: #ddd; }
+.ceo-notif-sub { font-size: 11px; color: #555; margin-top: 2px; }
+
 /* ── CLIENT REPORTS ──────────────────────────────────── */
 .report-filter-bar { display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap; align-items:center; }
 .report-metric-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; margin-bottom:20px; }
@@ -1801,7 +1914,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 <div id="auth-screen" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#0d0d14;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
   <div style="background:#13131f;border:1px solid #2a2a3d;border-radius:14px;padding:36px 32px;width:100%;max-width:400px">
     <div style="text-align:center;margin-bottom:8px"><svg viewBox="0 0 100 100" width="80" height="80" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 12px;filter:drop-shadow(0 4px 20px rgba(200,136,0,0.7))"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg><div style="font-weight:700;font-size:30px;letter-spacing:-0.5px;line-height:1"><span style="color:#ffffff">Nexus</span><span style="color:#f0b429">OS</span></div></div>
-    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v7.4 · Executive Edition</div>
+    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v7.5 · Executive Edition</div>
 
     <!-- TAB SWITCHER -->
     <div id="auth-tabs" style="display:flex;gap:4px;background:#0d0d14;padding:4px;border-radius:8px;margin-bottom:20px">
@@ -1927,7 +2040,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="nav-item" id="n-pricing" onclick="nav('pricing')"><i class="ti ti-credit-card"></i> Pricing & Plans</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v7.4<br><span>© Jhun Rey Velado 2026</span></div>
+    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v7.5<br><span>© Jhun Rey Velado 2026</span></div>
   </div>
 
   <!-- CONTENT -->
@@ -2554,7 +2667,27 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
         </div>
       </div>
 
+      <!-- EA Contact Info for CEO portal (v7.5) -->
+      <div class="panel" style="margin-top:12px">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-address-card"></i> Contact info for CEO portal</div></div>
+        <div style="font-size:12px;color:#555;margin-bottom:12px;line-height:1.7">This info appears in your CEO's contact card. They can message or call you directly.</div>
+        <div class="two-col" style="gap:10px">
+          <div>
+            <label>Phone number</label>
+            <input type="tel" id="ea-contact-phone" placeholder="+63 917 123 4567">
+          </div>
+          <div>
+            <label>Availability hours</label>
+            <input type="text" id="ea-contact-avail" placeholder="Mon–Fri 9am–5pm PHT">
+          </div>
+        </div>
+        <label>Additional note</label>
+        <input type="text" id="ea-contact-note" placeholder="e.g. WhatsApp preferred for urgent matters">
+        <button class="btn-primary" onclick="saveEAContactInfo()" style="font-size:12px;padding:8px 16px;margin-top:4px"><i class="ti ti-check"></i> Save contact info</button>
+      </div>
+
       <!-- PORTAL BRANDING (v7.0) -->
+
       <div class="panel" style="margin-top:12px">
         <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-palette"></i> Client Portal Branding</div></div>
         <div style="font-size:12px;color:#555;margin-bottom:14px">Your CEO sees this brand in their client portal — make it yours.</div>
@@ -3127,6 +3260,11 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
         <button class="ceo-tab" id="ctab-chat" onclick="ceoTab('chat')"><i class="ti ti-message-circle"></i> Chat<span class="ceo-tb" id="ceo-chat-badge" style="display:none">!</span></button>
         <button class="ceo-tab" id="ctab-decisions" onclick="ceoTab('decisions')"><i class="ti ti-book-2"></i> Decisions</button>
         <button class="ceo-tab" id="ctab-calendar" onclick="ceoTab('calendar')"><i class="ti ti-calendar"></i> Calendar</button>
+        <button class="ceo-tab" id="ctab-invoices" onclick="ceoTab('invoices')"><i class="ti ti-file-invoice"></i> Invoices</button>
+        <button class="ceo-tab" id="ctab-ceodocs" onclick="ceoTab('ceodocs')"><i class="ti ti-files"></i> Documents</button>
+        <button class="ceo-tab" id="ctab-ceomeetings" onclick="ceoTab('ceomeetings')"><i class="ti ti-video"></i> Meetings</button>
+        <button class="ceo-tab" id="ctab-ceonotif" onclick="ceoTab('ceonotif')"><i class="ti ti-bell"></i> Notifications</button>
+        <button class="ceo-tab" id="ctab-ceohistory" onclick="ceoTab('ceohistory')"><i class="ti ti-history"></i> History</button>
       </div>
 
       <!-- ── OVERVIEW TAB ── -->
@@ -3150,6 +3288,37 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
           <div class="panel-hdr"><div class="panel-ttl">Activity Summary</div></div>
           <div id="ceo-activity-body"></div>
         </div>
+        <!-- EA Contact Card (v7.5) -->
+        <div class="panel" style="margin-top:12px" id="ceo-ea-contact-panel">
+          <div class="panel-hdr">
+            <div class="panel-ttl"><i class="ti ti-address-card"></i> Your Executive Assistant</div>
+          </div>
+          <div class="ceo-contact-card" id="ceo-contact-card">
+            <div class="ceo-ea-avatar" id="ceo-ea-initials">EA</div>
+            <div class="ceo-ea-info">
+              <div class="ceo-ea-name" id="ceo-ea-name">Loading…</div>
+              <div class="ceo-ea-role">Executive Assistant · NexusOS</div>
+              <div class="ceo-ea-meta">
+                <div class="ceo-ea-meta-item" id="ceo-ea-email-row"><i class="ti ti-mail"></i> <span id="ceo-ea-email">—</span></div>
+                <div class="ceo-ea-meta-item" id="ceo-ea-phone-row" style="display:none"><i class="ti ti-phone"></i> <span id="ceo-ea-phone">—</span></div>
+                <div class="ceo-ea-meta-item" id="ceo-ea-avail-row" style="display:none"><i class="ti ti-clock"></i> <span id="ceo-ea-avail">—</span></div>
+              </div>
+            </div>
+            <div class="ceo-ea-actions">
+              <button class="btn-outline btn-sm" onclick="ceoTab('chat')" style="font-size:11px"><i class="ti ti-message-circle"></i> Message</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Report History (v7.5) -->
+        <div class="panel" style="margin-top:12px">
+          <div class="panel-hdr">
+            <div class="panel-ttl"><i class="ti ti-history"></i> Report history</div>
+            <button class="btn-outline btn-sm" onclick="ceoTab('ceohistory')" style="font-size:11px">See all</button>
+          </div>
+          <div id="ceo-history-preview"><div class="portal-empty" style="padding:12px 0"><i class="ti ti-loader"></i> Loading…</div></div>
+        </div>
+
         <div class="panel ceo-collab-panel" style="margin-top:12px">
           <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-message-circle" style="color:#534AB7"></i> Your Feedback</div></div>
           <p style="font-size:12px;color:#555;margin-bottom:12px;line-height:1.6">Approve the report or flag items for review. Use the Chat tab for real-time conversation.</p>
@@ -3242,6 +3411,105 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
           <div id="ceo-cal-body"><div class="portal-empty"><i class="ti ti-loader"></i>Loading...</div></div>
         </div>
       </div>
+
+      <!-- ── INVOICES TAB ── -->
+      <div class="ceo-panel" id="ceo-panel-invoices">
+        <div class="panel">
+          <div class="panel-hdr">
+            <div class="panel-ttl"><i class="ti ti-file-invoice"></i> Invoice history</div>
+            <button class="btn-outline btn-sm" onclick="loadCEOInvoices()" style="font-size:11px"><i class="ti ti-refresh"></i> Refresh</button>
+          </div>
+          <p style="font-size:12px;color:#555;margin-bottom:14px">Invoices issued by your EA. Download or view by clicking any row.</p>
+          <div id="ceo-invoices-body"><div class="portal-empty"><i class="ti ti-loader"></i>Loading...</div></div>
+        </div>
+      </div>
+
+      <!-- ── DOCUMENTS TAB ── -->
+      <div class="ceo-panel" id="ceo-panel-ceodocs">
+        <div class="panel">
+          <div class="panel-hdr">
+            <div class="panel-ttl"><i class="ti ti-files"></i> Shared documents</div>
+            <button class="btn-outline btn-sm" onclick="loadCEODocs()" style="font-size:11px"><i class="ti ti-refresh"></i> Refresh</button>
+          </div>
+          <p style="font-size:12px;color:#555;margin-bottom:14px">Contracts, proposals, and files your EA has shared with you.</p>
+          <div id="ceo-docs-body"><div class="portal-empty"><i class="ti ti-loader"></i>Loading...</div></div>
+        </div>
+      </div>
+
+      <!-- ── MEETINGS TAB ── -->
+      <div class="ceo-panel" id="ceo-panel-ceomeetings">
+        <div class="panel">
+          <div class="panel-hdr">
+            <div class="panel-ttl"><i class="ti ti-video"></i> Meeting briefs</div>
+            <button class="btn-outline btn-sm" onclick="loadCEOMeetingBriefs()" style="font-size:11px"><i class="ti ti-refresh"></i> Refresh</button>
+          </div>
+          <p style="font-size:12px;color:#555;margin-bottom:14px">AI-generated prep summaries for your upcoming meetings. Click "Brief Me" to generate.</p>
+          <div id="ceo-meetings-body"><div class="portal-empty"><i class="ti ti-loader"></i>Loading...</div></div>
+        </div>
+      </div>
+
+      <!-- ── NOTIFICATIONS SETTINGS TAB ── -->
+      <div class="ceo-panel" id="ceo-panel-ceonotif">
+        <div class="panel">
+          <div class="panel-hdr">
+            <div class="panel-ttl"><i class="ti ti-bell"></i> Notification preferences</div>
+            <button class="btn-primary btn-sm" onclick="saveCEONotifPrefs()" style="font-size:11px">Save</button>
+          </div>
+          <p style="font-size:12px;color:#555;margin-bottom:16px">Choose how you want to be alerted when your EA updates your workspace.</p>
+          <div class="ceo-notif-row">
+            <div>
+              <div class="ceo-notif-label">Browser push notifications</div>
+              <div class="ceo-notif-sub">Get notified instantly when tasks are completed or approvals are needed</div>
+            </div>
+            <input type="checkbox" id="ceo-notif-browser" style="width:18px;height:18px;cursor:pointer">
+          </div>
+          <div class="ceo-notif-row">
+            <div>
+              <div class="ceo-notif-label">Email digest</div>
+              <div class="ceo-notif-sub">Receive a weekly summary of activity from your EA</div>
+            </div>
+            <input type="checkbox" id="ceo-notif-email" style="width:18px;height:18px;cursor:pointer">
+          </div>
+          <div class="ceo-notif-row">
+            <div>
+              <div class="ceo-notif-label">New approval requests</div>
+              <div class="ceo-notif-sub">Alert me when my EA submits something that needs my sign-off</div>
+            </div>
+            <input type="checkbox" id="ceo-notif-approvals" style="width:18px;height:18px;cursor:pointer" checked>
+          </div>
+          <div class="ceo-notif-row">
+            <div>
+              <div class="ceo-notif-label">Task completions</div>
+              <div class="ceo-notif-sub">Alert me when a task assigned to me is marked complete</div>
+            </div>
+            <input type="checkbox" id="ceo-notif-tasks" style="width:18px;height:18px;cursor:pointer" checked>
+          </div>
+          <div class="ceo-notif-row">
+            <div>
+              <div class="ceo-notif-label">New report published</div>
+              <div class="ceo-notif-sub">Alert me when my EA publishes a new monthly report</div>
+            </div>
+            <input type="checkbox" id="ceo-notif-reports" style="width:18px;height:18px;cursor:pointer" checked>
+          </div>
+          <div style="margin-top:14px">
+            <label style="font-size:12px;color:#aaa;display:block;margin-bottom:4px">Notification email address</label>
+            <input type="email" id="ceo-notif-email-addr" placeholder="your@email.com" style="font-size:12px">
+          </div>
+        </div>
+      </div>
+
+      <!-- ── REPORT HISTORY TAB ── -->
+      <div class="ceo-panel" id="ceo-panel-ceohistory">
+        <div class="panel">
+          <div class="panel-hdr">
+            <div class="panel-ttl"><i class="ti ti-history"></i> Report archive</div>
+            <button class="btn-outline btn-sm" onclick="loadCEOReportHistory()" style="font-size:11px"><i class="ti ti-refresh"></i> Refresh</button>
+          </div>
+          <p style="font-size:12px;color:#555;margin-bottom:14px">All past monthly reports published by your EA. Click to expand.</p>
+          <div id="ceo-history-body"><div class="portal-empty"><i class="ti ti-loader"></i>Loading...</div></div>
+        </div>
+      </div>
+
 
     </div>
 
@@ -7687,7 +7955,12 @@ function ceoTab(name) {
     case 'travel':    loadCEOTravel();    break;
     case 'chat':      loadCEOChat();      break;
     case 'decisions': loadCEODecisions(); break;
-    case 'calendar':  loadCEOCalendar();  break;
+    case 'calendar':     loadCEOCalendar();        break;
+    case 'invoices':     loadCEOInvoices();        break;
+    case 'ceodocs':      loadCEODocs();            break;
+    case 'ceomeetings':  loadCEOMeetingBriefs();   break;
+    case 'ceonotif':     loadCEONotifPrefs();      break;
+    case 'ceohistory':   loadCEOReportHistory();   break;
   }
 }
 
@@ -8150,6 +8423,17 @@ function printInvoice() {
   );
   win.document.close();
   setTimeout(function(){ win.print(); }, 400);
+  // Save invoice record for CEO portal
+  (function(){
+    var clientSel=document.getElementById('inv-client-sel');
+    var invNum=(document.getElementById('inv-num')||{}).value||'INV-'+(Date.now()%100000);
+    var total=(document.getElementById('inv-total-val')||{}).textContent||'$0.00';
+    var clientName=clientSel&&clientSel.selectedIndex>0?clientSel.options[clientSel.selectedIndex].text:'';
+    var rec={ id:'inv-'+Date.now(), num:invNum, clientName:clientName, amount:total, date:new Date().toISOString().split('T')[0], status:'sent' };
+    var recs=[]; try{ recs=JSON.parse(localStorage.getItem('nexusos_invoice_records')||'[]'); }catch(e){}
+    recs.unshift(rec);
+    localStorage.setItem('nexusos_invoice_records', JSON.stringify(recs.slice(0,100)));
+  })();
 }
 
 
@@ -9729,6 +10013,305 @@ function loadWebhookLog(){
       if(window.currentUser) logAuditEvent('auth','User signed in',window.currentUser.email);
     },3000);
   });
+})();
+
+
+
+// ══════════════════════════════════════════════════════════════
+// CEO PORTAL v7.5 — NEW TAB FUNCTIONS
+// ══════════════════════════════════════════════════════════════
+
+// ── EA CONTACT CARD ───────────────────────────────────────────
+async function loadCEOEAContact(){
+  var nameEl=document.getElementById('ceo-ea-name');
+  var emailEl=document.getElementById('ceo-ea-email');
+  var initEl=document.getElementById('ceo-ea-initials');
+  var phoneRow=document.getElementById('ceo-ea-phone-row');
+  var availRow=document.getElementById('ceo-ea-avail-row');
+  var phoneEl=document.getElementById('ceo-ea-phone');
+  var availEl=document.getElementById('ceo-ea-avail');
+  if(!nameEl) return;
+
+  // Fetch EA profile from Supabase
+  var eaProfile = null;
+  try {
+    var cp = await _ceoProfile();
+    if(cp && cp.linked_ea_id && window.sb){
+      var r = await sb.from('profiles').select('full_name,email').eq('id',cp.linked_ea_id).single();
+      eaProfile = r.data;
+    }
+  } catch(e){}
+
+  if(eaProfile){
+    var name = eaProfile.full_name || 'Your EA';
+    if(nameEl) nameEl.textContent = name;
+    if(emailEl) emailEl.textContent = eaProfile.email || '—';
+    var initials = name.split(' ').map(function(w){ return w[0]; }).join('').substring(0,2).toUpperCase();
+    if(initEl) initEl.textContent = initials;
+  }
+
+  // EA contact extras from localStorage (set by EA in Settings)
+  var contactInfo = {};
+  try{ contactInfo = JSON.parse(localStorage.getItem('nexusos_ea_contact_info')||'{}'); }catch(e){}
+  if(contactInfo.phone && phoneEl){ phoneEl.textContent = contactInfo.phone; phoneRow.style.display='flex'; }
+  if(contactInfo.avail && availEl){ availEl.textContent = contactInfo.avail; availRow.style.display='flex'; }
+}
+
+// ── SAVE EA CONTACT INFO (EA side in Settings) ─────────────────
+function saveEAContactInfo(){
+  var phone = (document.getElementById('ea-contact-phone')||{}).value||'';
+  var avail = (document.getElementById('ea-contact-avail')||{}).value||'';
+  var note  = (document.getElementById('ea-contact-note')||{}).value||'';
+  localStorage.setItem('nexusos_ea_contact_info', JSON.stringify({ phone:phone, avail:avail, note:note }));
+  showToast('Contact info saved','Your CEO will see this in their portal contact card.','success');
+  if(typeof logAuditEvent==='function') logAuditEvent('update','EA contact info updated',window.currentUser&&window.currentUser.email);
+}
+
+function loadEAContactInfoSettings(){
+  var info = {};
+  try{ info = JSON.parse(localStorage.getItem('nexusos_ea_contact_info')||'{}'); }catch(e){}
+  var ph=document.getElementById('ea-contact-phone'); if(ph) ph.value=info.phone||'';
+  var av=document.getElementById('ea-contact-avail'); if(av) av.value=info.avail||'';
+  var nt=document.getElementById('ea-contact-note'); if(nt) nt.value=info.note||'';
+}
+
+// ── INVOICE HISTORY ──────────────────────────────────────────
+async function loadCEOInvoices(){
+  var body = document.getElementById('ceo-invoices-body');
+  if(!body) return;
+  body.innerHTML = '<div class="portal-empty"><i class="ti ti-loader"></i> Loading…</div>';
+
+  // Get CEO's company name to filter invoices
+  var ceoCompany = '';
+  try{
+    var r = await sb.from('profiles').select('company_name,full_name').eq('id',window.currentUser.id).single();
+    ceoCompany = (r.data && (r.data.company_name || r.data.full_name)) || '';
+  } catch(e){}
+
+  var recs = [];
+  try{ recs = JSON.parse(localStorage.getItem('nexusos_invoice_records')||'[]'); }catch(e){}
+
+  // Filter to records for this CEO's client (loose match)
+  var filtered = recs.filter(function(r){
+    if(!ceoCompany) return true;
+    return !r.clientName || r.clientName.toLowerCase().includes(ceoCompany.toLowerCase()) || ceoCompany.toLowerCase().includes((r.clientName||'').toLowerCase());
+  });
+
+  if(!filtered.length){
+    body.innerHTML = '<div class="portal-empty" style="padding:24px 0"><i class="ti ti-file-invoice"></i><br>No invoices yet.<br><span style="font-size:11px;color:#333;margin-top:6px;display:block">Your EA will record invoices here after issuing them.</span></div>';
+    return;
+  }
+
+  body.innerHTML = filtered.map(function(inv){
+    return '<div class="ceo-inv-row">'
+      +'<div class="ceo-inv-num">'+inv.num+'</div>'
+      +'<div class="ceo-inv-client">'+inv.clientName+'</div>'
+      +'<div class="ceo-inv-amount">'+inv.amount+'</div>'
+      +'<div class="ceo-inv-date">'+inv.date+'</div>'
+      +'<span class="ceo-inv-status '+(inv.status||'sent')+'">'+((inv.status||'sent').charAt(0).toUpperCase()+(inv.status||'sent').slice(1))+'</span>'
+      +'</div>';
+  }).join('');
+}
+
+// ── SHARED DOCUMENTS ─────────────────────────────────────────
+async function loadCEODocs(){
+  var body = document.getElementById('ceo-docs-body');
+  if(!body) return;
+  body.innerHTML = '<div class="portal-empty"><i class="ti ti-loader"></i> Loading…</div>';
+
+  var ceoName = '';
+  try{
+    var r = await sb.from('profiles').select('full_name,company_name').eq('id',window.currentUser.id).single();
+    ceoName = (r.data && (r.data.full_name||r.data.company_name)) || '';
+  } catch(e){}
+
+  var allDocs = [];
+  try{ allDocs = JSON.parse(localStorage.getItem('nexusos_documents')||'[]'); }catch(e){}
+
+  // Show docs marked sharedWithCEO OR matching client name
+  var docs = allDocs.filter(function(d){
+    if(d.sharedWithCEO) return true;
+    if(!ceoName) return false;
+    var cn = (d.clientName||d.client||'').toLowerCase();
+    return cn && (cn.includes(ceoName.toLowerCase()) || ceoName.toLowerCase().includes(cn));
+  });
+
+  if(!docs.length){
+    body.innerHTML = '<div class="portal-empty" style="padding:24px 0"><i class="ti ti-files"></i><br>No shared documents yet.<br><span style="font-size:11px;color:#333;margin-top:6px;display:block">Your EA can share contracts, proposals, and files from Document Hub.</span></div>';
+    return;
+  }
+
+  var icons = { contract:'ti-file-certificate', proposal:'ti-file-description', invoice:'ti-file-invoice', report:'ti-chart-bar', other:'ti-file' };
+  body.innerHTML = docs.map(function(d){
+    var icon = icons[d.type||'other'] || 'ti-file';
+    var clickable = d.url ? 'onclick="window.open(\''+d.url+'\',\'_blank\')" style="cursor:pointer"' : '';
+    return '<div class="ceo-doc-row" '+clickable+'>'
+      +'<i class="ti '+icon+' ceo-doc-icon"></i>'
+      +'<div class="ceo-doc-info">'
+      +'<div class="ceo-doc-title">'+d.title+'</div>'
+      +'<div class="ceo-doc-meta">'+(d.type||'Document')+' · '+(d.clientName||d.client||'')+(d.notes?' · '+d.notes:'')+'</div>'
+      +'</div>'
+      +(d.url?'<button class="btn-outline btn-sm" onclick="window.open(\''+d.url+'\',\'_blank\')" style="font-size:11px"><i class="ti ti-external-link"></i> Open</button>':'')
+      +'</div>';
+  }).join('');
+}
+
+// ── MEETING BRIEFS (CEO-facing) ──────────────────────────────
+async function loadCEOMeetingBriefs(){
+  var body = document.getElementById('ceo-meetings-body');
+  if(!body) return;
+  body.innerHTML = '<div class="portal-empty"><i class="ti ti-loader"></i> Loading…</div>';
+
+  var meetings = [];
+  try {
+    var today = new Date().toISOString().split('T')[0];
+    var r = await sb.from('meetings').select('*').gte('meeting_date', today).order('meeting_date',{ascending:true}).limit(10);
+    meetings = r.data || [];
+  } catch(e){}
+
+  if(!meetings.length){
+    body.innerHTML = '<div class="portal-empty" style="padding:24px 0"><i class="ti ti-calendar-off"></i><br>No upcoming meetings found.<br><span style="font-size:11px;color:#333;margin-top:6px;display:block">Ask your EA to log meetings in Meeting Prep.</span></div>';
+    return;
+  }
+
+  body.innerHTML = meetings.map(function(m, idx){
+    var dt = m.meeting_date ? new Date(m.meeting_date+'T00:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}) : '—';
+    var panelId = 'ceo-mtg-brief-'+idx;
+    return '<div class="panel" style="margin-bottom:10px;padding:14px 16px">'
+      +'<div style="display:flex;align-items:center;justify-content:space-between;gap:12px">'
+      +'<div style="flex:1;min-width:0">'
+      +'<div style="font-size:13px;font-weight:600;color:#ddd">'+m.title+'</div>'
+      +'<div style="font-size:11px;color:#555;margin-top:3px">'+dt+(m.attendees?' · '+m.attendees:'')+'</div>'
+      +'</div>'
+      +'<button class="btn-outline btn-sm" onclick="generateCEOMeetingBrief('+idx+','+JSON.stringify(m).replace(/"/g,'&quot;')+')" style="font-size:11px;white-space:nowrap"><i class="ti ti-sparkles"></i> Brief Me</button>'
+      +'</div>'
+      +'<div class="ceo-brief-panel" id="'+panelId+'"></div>'
+      +'</div>';
+  }).join('');
+}
+
+async function generateCEOMeetingBrief(idx, mtg){
+  var panelId = 'ceo-mtg-brief-' + idx;
+  var panel = document.getElementById(panelId);
+  if(!panel) return;
+  if(panel.style.display==='block'){ panel.style.display='none'; return; }
+  panel.style.display='block';
+  panel.textContent = 'Generating AI brief…';
+  var apiKey = localStorage.getItem('nexusos_claude_key');
+  if(!apiKey){ panel.innerHTML='<span style="color:#E24B4A">Set your Claude API key in EA Settings to generate meeting briefs.</span>'; return; }
+  var prompt = 'Generate a concise executive meeting brief for a CEO. Meeting: "'+mtg.title+'" on '+(mtg.meeting_date||'TBD')+'. Attendees: '+(mtg.attendees||'TBD')+'. Agenda: '+(mtg.agenda||mtg.notes||'Not specified')+'. In 4-5 bullet points cover: purpose, key decisions needed, background context, desired outcome, and any prep the CEO should do. Be direct and executive-level.';
+  try {
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{ 'x-api-key':apiKey, 'anthropic-version':'2023-06-01', 'anthropic-dangerous-direct-browser-access':'true', 'content-type':'application/json' },
+      body: JSON.stringify({ model:'claude-haiku-4-5-20251001', max_tokens:500, messages:[{role:'user',content:prompt}] })
+    });
+    var data = await res.json();
+    var text = data.content&&data.content[0]&&data.content[0].text || 'No brief generated.';
+    panel.innerHTML = text.replace(/\n/g,'<br>');
+  } catch(e) {
+    panel.innerHTML = '<span style="color:#E24B4A">Error generating brief: '+e.message+'</span>';
+  }
+}
+
+// ── NOTIFICATION PREFERENCES ─────────────────────────────────
+function loadCEONotifPrefs(){
+  var prefs = {};
+  try{ prefs = JSON.parse(localStorage.getItem('nexusos_ceo_notif_prefs')||'{}'); }catch(e){}
+  var fields = ['browser','email','approvals','tasks','reports'];
+  fields.forEach(function(f){
+    var el = document.getElementById('ceo-notif-'+f);
+    if(el) el.checked = prefs[f] !== undefined ? prefs[f] : (f==='approvals'||f==='tasks'||f==='reports');
+  });
+  var emailAddr = document.getElementById('ceo-notif-email-addr');
+  if(emailAddr) emailAddr.value = prefs.emailAddr || (window.currentUser&&window.currentUser.email) || '';
+}
+
+function saveCEONotifPrefs(){
+  var prefs = {};
+  ['browser','email','approvals','tasks','reports'].forEach(function(f){
+    var el = document.getElementById('ceo-notif-'+f);
+    if(el) prefs[f] = el.checked;
+  });
+  var emailAddr = document.getElementById('ceo-notif-email-addr');
+  if(emailAddr) prefs.emailAddr = emailAddr.value;
+
+  // Request browser notification permission if enabled
+  if(prefs.browser && 'Notification' in window && Notification.permission !== 'granted'){
+    Notification.requestPermission();
+  }
+
+  localStorage.setItem('nexusos_ceo_notif_prefs', JSON.stringify(prefs));
+  showToast('Preferences saved','Notification settings updated.','success');
+}
+
+// ── REPORT HISTORY ───────────────────────────────────────────
+async function loadCEOReportHistory(){
+  var body = document.getElementById('ceo-history-body');
+  var preview = document.getElementById('ceo-history-preview');
+  if(!body && !preview) return;
+  [body, preview].forEach(function(el){ if(el) el.innerHTML='<div class="portal-empty"><i class="ti ti-loader"></i> Loading…</div>'; });
+
+  var snapshots = [];
+  try {
+    if(window.sb && window.currentUser){
+      var cp = await _ceoProfile();
+      var eaId = cp && cp.linked_ea_id;
+      if(eaId){
+        var r = await sb.from('client_portal_snapshots')
+          .select('month_year,published_at,data_json')
+          .eq('client_id', window.currentUser.id)
+          .order('published_at', {ascending:false})
+          .limit(24);
+        snapshots = r.data || [];
+      } else {
+        // Fallback: fetch where ea_id is linked
+        var r2 = await sb.from('client_portal_snapshots')
+          .select('month_year,published_at,data_json')
+          .order('published_at', {ascending:false})
+          .limit(24);
+        snapshots = r2.data || [];
+      }
+    }
+  } catch(e){ console.error('Report history error:', e); }
+
+  function renderRows(list, limit){
+    if(!list.length) return '<div class="portal-empty" style="padding:20px 0"><i class="ti ti-history"></i><br>No past reports yet.<br><span style="font-size:11px;color:#333;margin-top:4px;display:block">Reports appear here after your EA publishes them.</span></div>';
+    return list.slice(0,limit||list.length).map(function(s){
+      var d = s.data_json || {};
+      var earnings = d.totalEarn ? '$'+Math.round(d.totalEarn).toLocaleString() : '—';
+      var hours = d.billSecs ? Math.round(d.billSecs/3600*10)/10+'h' : '—';
+      var tasks = d.tasksDone !== undefined ? d.tasksDone : '—';
+      return '<div class="ceo-history-entry">'
+        +'<div class="ceo-history-month">'+s.month_year+'</div>'
+        +'<div class="ceo-history-metrics">'
+        +'<div class="ceo-history-stat"><div class="ceo-history-stat-val">'+earnings+'</div><div class="ceo-history-stat-lbl">Billed</div></div>'
+        +'<div class="ceo-history-stat"><div class="ceo-history-stat-val" style="color:#7F77DD">'+hours+'</div><div class="ceo-history-stat-lbl">Hours</div></div>'
+        +'<div class="ceo-history-stat"><div class="ceo-history-stat-val" style="color:#f0b429">'+tasks+'</div><div class="ceo-history-stat-lbl">Tasks</div></div>'
+        +'</div>'
+        +'</div>';
+    }).join('');
+  }
+
+  if(body) body.innerHTML = renderRows(snapshots, 24);
+  if(preview) preview.innerHTML = renderRows(snapshots, 3) + (snapshots.length > 3 ? '<div style="font-size:11px;color:#534AB7;margin-top:8px;cursor:pointer" onclick="ceoTab(\'ceohistory\')">View all '+snapshots.length+' reports →</div>' : '');
+}
+
+// ── Wire loadCEOPortal to load new components ─────────────────
+(function(){
+  var _origLoadCEOPortal = window.loadCEOPortal || (typeof loadCEOPortal !== 'undefined' ? loadCEOPortal : null);
+  window.loadCEOPortal = async function(){
+    if(_origLoadCEOPortal) await _origLoadCEOPortal.apply(this, arguments);
+    setTimeout(loadCEOEAContact, 200);
+    setTimeout(loadCEOReportHistory, 400);
+  };
+
+  // Wire EA settings load to populate contact info fields
+  var _origLoadSettings = window.loadSettings || (typeof loadSettings !== 'undefined' ? loadSettings : null);
+  window.loadSettings = async function(){
+    if(_origLoadSettings) await _origLoadSettings.apply(this, arguments);
+    loadEAContactInfoSettings();
+  };
 })();
 
 </script>
