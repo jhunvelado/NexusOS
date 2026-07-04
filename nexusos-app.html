@@ -6450,7 +6450,7 @@ async function loadCEOTasks(){
       var statusClass=t.status==='in-progress'?'inprog':'todo';
       return '<div class="ceo-task-card">'+
         '<div style="display:flex;align-items:center;gap:10px">'+
-        '<input type="checkbox" onchange="ceoMarkTaskDone(''+t.id+'',this)" style="width:16px;height:16px;accent-color:#f0b429;cursor:pointer;flex-shrink:0">'+
+        '<input type="checkbox" data-tid="'+t.id+'" onchange="ceoMarkTaskDone(this.dataset.tid,this)" style="width:16px;height:16px;accent-color:#f0b429;cursor:pointer;flex-shrink:0">'+
         '<div style="flex:1;min-width:0">'+
         '<div style="font-size:13px;font-weight:500;color:#e0e0e0;line-height:1.4">'+(t.name||'Untitled')+'</div>'+
         (t.description?'<div style="font-size:11px;color:#555;margin-top:3px">'+t.description+'</div>':'')+
@@ -6500,8 +6500,8 @@ async function loadCEOApprovals(){
           (a.description?'<div style="font-size:12px;color:#666;margin-bottom:8px;line-height:1.5">'+a.description+'</div>':'')+
           '<div style="font-size:10px;color:#555;margin-bottom:12px">'+(a.category||'')+amtStr+'</div>'+
           '<div style="display:flex;gap:8px">'+
-          '<button class="ceo-approve-btn approve" onclick="ceoDecideApproval(''+a.id+'','approved',this)" style="flex:1"><i class="ti ti-circle-check"></i> Approve</button>'+
-          '<button class="ceo-approve-btn flag" onclick="ceoDecideApproval(''+a.id+'','rejected',this)" style="flex:1"><i class="ti ti-x"></i> Reject</button>'+
+          '<button class="ceo-approve-btn approve" data-aid="'+a.id+'" data-dec="approved" onclick="ceoDecideApproval(this.dataset.aid,this.dataset.dec,this)" style="flex:1"><i class="ti ti-circle-check"></i> Approve</button>'+
+          '<button class="ceo-approve-btn flag" data-aid="'+a.id+'" data-dec="rejected" onclick="ceoDecideApproval(this.dataset.aid,this.dataset.dec,this)" style="flex:1"><i class="ti ti-x"></i> Reject</button>'+
           '</div></div>';
       }).join('');
     }
