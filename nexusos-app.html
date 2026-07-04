@@ -846,6 +846,61 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
   margin: 12px 0;
 }
 
+/* ── PHASE 3: WEBHOOKS & DIGEST (v7.2) ─────────────────── */
+.webhook-field {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.webhook-field input { flex: 1; margin-bottom: 0; font-size: 12px; }
+.webhook-status {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: none;
+}
+.webhook-status.ok  { display:inline; background:#0a1f12; color:#1D9E75; border:1px solid #1D9E75; }
+.webhook-status.err { display:inline; background:#1f0a0a; color:#E24B4A; border:1px solid #E24B4A; }
+
+/* ── DIGEST MODAL (v7.2) ────────────────────────────────── */
+.digest-modal-box {
+  background: #0d0d1a;
+  border-radius: 10px;
+  padding: 22px 24px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.digest-preview {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  color: #111;
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 12px 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+.digest-preview h1 { font-size:18px; color:#111; margin:0 0 4px; }
+.digest-preview h2 { font-size:13px; color:#333; border-bottom:1px solid #eee; padding-bottom:4px; margin:14px 0 8px; }
+.digest-preview p  { margin: 4px 0; color:#444; }
+.digest-preview ul { margin:4px 0 8px; padding-left:18px; }
+.digest-preview li { margin-bottom:3px; color:#333; }
+.digest-preview .tag {
+  display:inline-block;
+  font-size:10px;
+  padding:1px 7px;
+  border-radius:10px;
+  font-weight:600;
+  margin-right:4px;
+}
+.digest-preview .tag-green { background:#e6f7f0; color:#1D9E75; }
+.digest-preview .tag-amber { background:#fff8e6; color:#d97706; }
+.digest-preview .tag-red   { background:#fee2e2; color:#dc2626; }
+
 /* ── CLIENT REPORTS ──────────────────────────────────── */
 .report-filter-bar { display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap; align-items:center; }
 .report-metric-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; margin-bottom:20px; }
@@ -1382,6 +1437,26 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       </div>
     </div>
 
+    <!-- EMAIL DIGEST MODAL (v7.2) -->
+    <div class="modal-overlay" id="digest-modal">
+      <div class="digest-modal-box">
+        <div class="modal-hdr">
+          <div class="modal-ttl"><i class="ti ti-file-description" style="margin-right:6px"></i>Weekly Digest</div>
+          <button class="modal-close" onclick="closeModal('digest-modal')">&#10005;</button>
+        </div>
+        <div style="font-size:12px;color:#555;margin-bottom:10px">A snapshot of this week's NexusOS activity — ready to send to your CEO or share with stakeholders.</div>
+        <div class="digest-preview" id="digest-preview-box">
+          <div style="color:#999;text-align:center;padding:20px">Click Generate to build your digest…</div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:4px">
+          <button class="btn-outline" onclick="closeModal('digest-modal')">Close</button>
+          <button class="btn-outline" id="digest-mailto-btn" onclick="openMailtoDigest()" style="display:none"><i class="ti ti-mail"></i> Open in email</button>
+          <button class="btn-outline" id="digest-copy-btn" onclick="copyDigestText()" style="display:none"><i class="ti ti-clipboard"></i> Copy text</button>
+          <button class="btn-primary" onclick="generateDigest()"><i class="ti ti-refresh"></i> Generate</button>
+        </div>
+      </div>
+    </div>
+
 <!-- CEO TOP STRIP (shown when CEO is logged in) -->
 <div id="ceo-top-strip">
   <div style="display:flex;align-items:center;gap:8px">
@@ -1401,7 +1476,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 <div id="auth-screen" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#0d0d14;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
   <div style="background:#13131f;border:1px solid #2a2a3d;border-radius:14px;padding:36px 32px;width:100%;max-width:400px">
     <div style="text-align:center;margin-bottom:8px"><svg viewBox="0 0 100 100" width="80" height="80" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 12px;filter:drop-shadow(0 4px 20px rgba(200,136,0,0.7))"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg><div style="font-weight:700;font-size:30px;letter-spacing:-0.5px;line-height:1"><span style="color:#ffffff">Nexus</span><span style="color:#f0b429">OS</span></div></div>
-    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v7.1 · Executive Edition</div>
+    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v7.2 · Executive Edition</div>
 
     <!-- TAB SWITCHER -->
     <div id="auth-tabs" style="display:flex;gap:4px;background:#0d0d14;padding:4px;border-radius:8px;margin-bottom:20px">
@@ -1522,7 +1597,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="nav-item" id="n-pricing" onclick="nav('pricing')"><i class="ti ti-credit-card"></i> Pricing & Plans</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v7.1<br><span>© Jhun Rey Velado 2026</span></div>
+    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v7.2<br><span>© Jhun Rey Velado 2026</span></div>
   </div>
 
   <!-- CONTENT -->
@@ -2215,6 +2290,47 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
           Uses <strong style="color:#666">Claude Haiku</strong> (~$0.001 per briefing). Key never leaves your browser.
         </div>
       </div>
+      <!-- NOTIFICATIONS & WEBHOOKS (v7.2) -->
+      <div class="panel" style="margin-top:12px">
+        <div class="panel-hdr"><div class="panel-ttl"><i class="ti ti-bell-ringing"></i> Notifications & Webhooks</div></div>
+        <div style="font-size:12px;color:#555;margin-bottom:16px">Get alerted in Slack or trigger automations (Zapier, Make) when key events happen in NexusOS.</div>
+
+        <!-- Slack -->
+        <div style="margin-bottom:18px">
+          <label style="display:flex;align-items:center;gap:6px"><span style="font-size:14px">💬</span> Slack Incoming Webhook</label>
+          <div style="font-size:11px;color:#444;margin-bottom:8px">
+            Get it at <a href="https://api.slack.com/messaging/webhooks" target="_blank" rel="noopener" style="color:#534AB7">api.slack.com/messaging/webhooks →</a>
+          </div>
+          <div class="webhook-field">
+            <input type="text" id="slack-webhook-url" placeholder="https://hooks.slack.com/services/T.../B.../...">
+            <button class="btn-outline" onclick="saveSlackWebhook()" style="font-size:11px;padding:6px 12px;white-space:nowrap">Save</button>
+            <button class="btn-outline" onclick="testSlackWebhook()" style="font-size:11px;padding:6px 12px;white-space:nowrap">Test</button>
+          </div>
+          <span id="slack-webhook-status" class="webhook-status"></span>
+          <div style="margin-top:8px;font-size:11px;color:#444">Fires on: CEO approval, CEO flag, new portal comment</div>
+        </div>
+
+        <!-- Outbound webhook -->
+        <div style="margin-bottom:18px">
+          <label style="display:flex;align-items:center;gap:6px"><span style="font-size:14px">⚡</span> Outbound Webhook (Zapier / Make)</label>
+          <div style="font-size:11px;color:#444;margin-bottom:8px">Paste your Zapier "Catch Hook" or Make webhook URL.</div>
+          <div class="webhook-field">
+            <input type="text" id="outbound-webhook-url" placeholder="https://hooks.zapier.com/hooks/catch/...">
+            <button class="btn-outline" onclick="saveOutboundWebhook()" style="font-size:11px;padding:6px 12px;white-space:nowrap">Save</button>
+            <button class="btn-outline" onclick="testOutboundWebhook()" style="font-size:11px;padding:6px 12px;white-space:nowrap">Test</button>
+          </div>
+          <span id="outbound-webhook-status" class="webhook-status"></span>
+          <div style="margin-top:8px;font-size:11px;color:#444">Fires on: task created, approval received, CEO feedback, meeting added</div>
+        </div>
+
+        <!-- Weekly digest -->
+        <div>
+          <label style="display:flex;align-items:center;gap:6px"><span style="font-size:14px">📧</span> Weekly Email Digest</label>
+          <div style="font-size:11px;color:#444;margin-bottom:8px">Generate a summary of this week's activity — copy to clipboard or open in your email client.</div>
+          <button class="btn-outline" onclick="openDigestModal()" style="font-size:12px;padding:8px 16px"><i class="ti ti-file-description"></i> Generate digest</button>
+        </div>
+      </div>
+
       <div class="panel" style="margin-top:12px;border:1px solid #2a1010">
         <div class="panel-hdr"><div class="panel-ttl" style="color:#E24B4A"><i class="ti ti-alert-triangle"></i> Danger zone</div></div>
         <div style="font-size:12px;color:#888;margin-bottom:10px">These actions cannot be undone.</div>
@@ -6533,6 +6649,8 @@ var INTEGRATIONS_LIST = [
   { name:'Claude AI', category:'Artificial Intelligence', icon:'✦', color:'#534AB7', desc:'Powers your AI Briefing with personalized executive summaries. Add your Anthropic API key in Settings to activate.', status:'manual' },
   { name:'Google Calendar', category:'Scheduling', icon:'📅', color:'#DB4437', desc:'Sync your Google Calendar events into the NexusOS calendar view. One-click OAuth connection.', status:'available' },
   { name:'Paddle', category:'Payments', icon:'💳', color:'#f0b429', desc:'Handles global billing, subscriptions, and tax compliance for NexusOS plans — Starter, Professional, Enterprise.', status:'connected' },
+  { name:'Slack', category:'Notifications', icon:'💬', color:'#4A154B', desc:'Receive real-time Slack alerts when your CEO approves a report, flags an item, or leaves a comment. Paste your incoming webhook URL in Settings.', status:'manual' },
+  { name:'Zapier', category:'Automation', icon:'⚡', color:'#FF4A00', desc:'Trigger Zaps on any NexusOS event — task created, approval received, CEO feedback. Paste your Zapier Catch Hook URL in Settings.', status:'manual' },
   { name:'Make.com', category:'Automation', icon:'⚡', color:'#6D4AFF', desc:'Automates trial signup notifications and paid plan welcome emails via webhook-to-Gmail workflows.', status:'connected' },
   { name:'Gmail', category:'Email', icon:'✉️', color:'#EA4335', desc:'Receives automated notifications when new users sign up for free trials or paid plans.', status:'connected' },
   { name:'GitHub Pages', category:'Hosting', icon:'🐙', color:'#f0f0f0', desc:'Hosts NexusOS at getnexusos.app — zero-cost global CDN deployment from the main branch.', status:'connected' },
@@ -6544,10 +6662,14 @@ function renderIntegrationsScreen(){
   if(!grid) return;
   var gcalConn = localStorage.getItem('nexusos_gcal_connected') === '1';
   var claudeConn = !!localStorage.getItem('nexusos_claude_key');
+  var slackConn  = !!localStorage.getItem('nexusos_slack_webhook');
+  var zapierConn = !!localStorage.getItem('nexusos_outbound_webhook');
   grid.innerHTML = INTEGRATIONS_LIST.map(function(intg){
     var status = intg.status;
     if(intg.name === 'Google Calendar' && gcalConn) status = 'connected';
     if(intg.name === 'Claude AI' && claudeConn) status = 'connected';
+    if(intg.name === 'Slack' && slackConn) status = 'connected';
+    if(intg.name === 'Zapier' && zapierConn) status = 'connected';
     var statusLabel = status === 'connected' ? '● Connected' : status === 'manual' ? '⚙ Manual setup' : '+ Available';
     var statusClass = status;
     return '<div class="integration-card">'+
@@ -7971,6 +8093,285 @@ function copyAvailabilityText() {
     window.getSelection().addRange(range);
   });
 }
+
+
+
+// ══════════════════════════════════════════════════════════════
+// PHASE 3: SLACK WEBHOOK (v7.2)
+// ══════════════════════════════════════════════════════════════
+function saveSlackWebhook(){
+  var url = (document.getElementById('slack-webhook-url')||{}).value||'';
+  var st = document.getElementById('slack-webhook-status');
+  if(!url){ if(st){st.textContent='Enter a webhook URL first';st.className='webhook-status err';} return; }
+  localStorage.setItem('nexusos_slack_webhook', url.trim());
+  if(st){ st.textContent='Saved'; st.className='webhook-status ok'; setTimeout(function(){ st.style.display='none'; }, 2500); }
+  showToast('Slack webhook saved','Notifications will now fire to Slack.','success');
+}
+
+function testSlackWebhook(){
+  var url = localStorage.getItem('nexusos_slack_webhook') || ((document.getElementById('slack-webhook-url')||{}).value||'').trim();
+  if(!url){ showToast('No webhook URL','Save a Slack webhook URL first.','warning'); return; }
+  sendSlackNotification('🧪 *NexusOS test* — Slack integration is working! You\'ll receive alerts here for CEO feedback and approvals.', '🔔');
+  showToast('Test sent','Check your Slack channel — message should appear shortly.','info');
+}
+
+function sendSlackNotification(text, emoji){
+  var url = localStorage.getItem('nexusos_slack_webhook');
+  if(!url) return;
+  var payload = JSON.stringify({
+    text: (emoji || '🔔') + ' ' + text,
+    username: 'NexusOS',
+    icon_emoji: ':nexus:'
+  });
+  // no-cors: Slack webhook receives the POST; response is opaque (expected)
+  fetch(url, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: payload
+  }).catch(function(e){ console.warn('Slack webhook err (may be CORS — notification still delivered):', e); });
+}
+
+// ══════════════════════════════════════════════════════════════
+// PHASE 3: OUTBOUND WEBHOOK (v7.2)
+// ══════════════════════════════════════════════════════════════
+function saveOutboundWebhook(){
+  var url = (document.getElementById('outbound-webhook-url')||{}).value||'';
+  var st = document.getElementById('outbound-webhook-status');
+  if(!url){ if(st){st.textContent='Enter a webhook URL first';st.className='webhook-status err';} return; }
+  localStorage.setItem('nexusos_outbound_webhook', url.trim());
+  if(st){ st.textContent='Saved'; st.className='webhook-status ok'; setTimeout(function(){ st.style.display='none'; }, 2500); }
+  showToast('Webhook saved','Events will now fire to your Zapier/Make endpoint.','success');
+}
+
+function testOutboundWebhook(){
+  var url = localStorage.getItem('nexusos_outbound_webhook') || ((document.getElementById('outbound-webhook-url')||{}).value||'').trim();
+  if(!url){ showToast('No webhook URL','Save a webhook URL first.','warning'); return; }
+  fireWebhook('test', { message: 'NexusOS outbound webhook test', timestamp: new Date().toISOString(), source: 'getnexusos.app' });
+  showToast('Test sent','Check your Zapier/Make scenario — payload should arrive shortly.','info');
+}
+
+function fireWebhook(event, data){
+  var url = localStorage.getItem('nexusos_outbound_webhook');
+  if(!url) return;
+  var payload = JSON.stringify({
+    event: event,
+    timestamp: new Date().toISOString(),
+    source: 'NexusOS',
+    data: data || {}
+  });
+  fetch(url, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: payload
+  }).catch(function(e){ console.warn('Outbound webhook err:', e); });
+}
+
+// ══════════════════════════════════════════════════════════════
+// PHASE 3: ENHANCED REALTIME NOTIFICATIONS (v7.2)
+// Replaces subscribeToRealtimeNotifications — now also fires
+// Slack + outbound webhook on key events
+// ══════════════════════════════════════════════════════════════
+var _notifChannelSub72 = null;
+
+function subscribeToRealtimeNotifications(){
+  if(!window.sb || !window.currentUser){
+    setTimeout(subscribeToRealtimeNotifications, 2000);
+    return;
+  }
+  if(_notifChannelSub72) return;
+
+  _notifChannelSub72 = sb
+    .channel('nexus-notifs-v72-' + window.currentUser.id)
+
+    // ── CEO feedback / comments ──
+    .on('postgres_changes', {
+      event: 'INSERT', schema: 'public', table: 'portal_comments',
+      filter: 'ea_id=eq.' + window.currentUser.id
+    }, function(payload){
+      var c = payload.new || {};
+      var ceoName = c.ceo_name || 'Your CEO';
+      var statusMsg = c.status_flag === 'approved' ? 'approved a report ✅'
+                    : c.status_flag === 'flagged'  ? 'flagged a report for review ⚑'
+                    : 'left a comment 💬';
+      var snippet = c.comment ? (' · "' + c.comment.substring(0, 80) + '"') : '';
+
+      // Browser notification
+      showBrowserNotification('CEO Feedback — NexusOS', ceoName + ' ' + statusMsg + snippet);
+      // In-app toast
+      showToast('CEO Feedback', ceoName + ' ' + statusMsg, c.status_flag === 'approved' ? 'success' : 'info', 6000);
+      // Slack
+      sendSlackNotification(
+        '*CEO Feedback* — ' + ceoName + ' ' + statusMsg + snippet,
+        c.status_flag === 'approved' ? '✅' : c.status_flag === 'flagged' ? '⚑' : '💬'
+      );
+      // Outbound webhook
+      fireWebhook('ceo_feedback', {
+        ceo_name: ceoName,
+        status: c.status_flag,
+        comment: c.comment || '',
+        client_id: c.client_id
+      });
+      // Refresh EA panel
+      if(typeof loadEAFeedbackPanel === 'function') loadEAFeedbackPanel();
+    })
+
+    // ── New tasks (EA workspace) ──
+    .on('postgres_changes', {
+      event: 'INSERT', schema: 'public', table: 'tasks'
+    }, function(payload){
+      var t = payload.new || {};
+      if(t.created_by === window.currentUser.id) return; // own task — skip
+      var msg = 'New task assigned: ' + (t.name || 'Untitled');
+      showBrowserNotification('New Task — NexusOS', msg);
+      showToast('New Task', msg, 'info');
+      sendSlackNotification('📋 *New Task* — ' + (t.name || 'Untitled') + (t.due_date ? ' (due ' + t.due_date + ')' : ''), '📋');
+      fireWebhook('task_created', { name: t.name, due_date: t.due_date, status: t.status });
+    })
+
+    // ── New approvals ──
+    .on('postgres_changes', {
+      event: 'INSERT', schema: 'public', table: 'approvals'
+    }, function(payload){
+      var a = payload.new || {};
+      if(a.created_by === window.currentUser.id) return;
+      var msg = 'Approval request: ' + (a.title || 'Untitled') + ' — $' + Number(a.amount || 0).toLocaleString();
+      showBrowserNotification('Approval Request — NexusOS', msg);
+      showToast('Approval Request', msg, 'info');
+      sendSlackNotification('💰 *Approval Request* — ' + (a.title||'Untitled') + ' — $' + Number(a.amount||0).toLocaleString(), '💰');
+      fireWebhook('approval_received', { title: a.title, amount: a.amount, status: a.status });
+    })
+
+    .subscribe();
+}
+
+// ══════════════════════════════════════════════════════════════
+// PHASE 3: EMAIL DIGEST (v7.2)
+// ══════════════════════════════════════════════════════════════
+var _digestRawText = '';
+
+function openDigestModal(){
+  document.getElementById('digest-modal').classList.add('active');
+  generateDigest();
+}
+
+async function generateDigest(){
+  var box = document.getElementById('digest-preview-box');
+  if(!box) return;
+  box.innerHTML = '<div style="color:#999;text-align:center;padding:20px">Fetching your data…</div>';
+
+  var now = new Date();
+  var weekStart = new Date(now); weekStart.setDate(now.getDate() - now.getDay());
+  weekStart.setHours(0,0,0,0);
+  var weekStr = weekStart.toLocaleDateString('en-US',{month:'long',day:'numeric'}) + ' – ' + now.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+
+  var tasks=[], approvals=[], meetings=[], trips=[];
+  try {
+    var [tR, aR, mR, trR] = await Promise.all([
+      sb.from('tasks').select('*').order('created_at',{ascending:false}).limit(20),
+      sb.from('approvals').select('*').order('created_at',{ascending:false}).limit(10),
+      sb.from('meetings').select('*').order('meeting_date').limit(10),
+      sb.from('trips').select('*').order('created_at',{ascending:false}).limit(5)
+    ]);
+    tasks     = tR.data  || [];
+    approvals = aR.data  || [];
+    meetings  = mR.data  || [];
+    trips     = trR.data || [];
+  } catch(e){ box.innerHTML = '<div style="color:#dc2626;padding:12px">Error fetching data: '+e.message+'</div>'; return; }
+
+  var open   = tasks.filter(function(t){ return t.status !== 'completed'; });
+  var done   = tasks.filter(function(t){ return t.status === 'completed'; });
+  var pend   = approvals.filter(function(a){ return a.status === 'pending'; });
+  var apprvd = approvals.filter(function(a){ return a.status === 'approved'; });
+  var name   = (window.currentProfile && window.currentProfile.full_name) || 'EA';
+
+  // ── HTML preview ──
+  var html = '<h1>NexusOS Weekly Digest</h1>';
+  html += '<p style="color:#888;font-size:11px">Week of ' + weekStr + ' · Generated by NexusOS</p>';
+  html += '<p>Hi, here\'s your executive summary for the week.</p>';
+
+  html += '<h2>📋 Tasks</h2><ul>';
+  html += '<li><span class="tag tag-green">Done</span> ' + done.length + ' tasks completed</li>';
+  html += '<li><span class="tag tag-amber">Open</span> ' + open.length + ' tasks in progress</li>';
+  if(open.slice(0,3).length){ open.slice(0,3).forEach(function(t){ html += '<li>↳ ' + t.name + (t.due_date?' (due '+t.due_date+')':'') + '</li>'; }); }
+  html += '</ul>';
+
+  html += '<h2>✅ Approvals</h2><ul>';
+  html += '<li><span class="tag tag-amber">Pending</span> ' + pend.length + ' awaiting decision</li>';
+  html += '<li><span class="tag tag-green">Approved</span> ' + apprvd.length + ' this period</li>';
+  pend.slice(0,3).forEach(function(a){ html += '<li>↳ ' + a.title + ' — $' + Number(a.amount||0).toLocaleString() + '</li>'; });
+  html += '</ul>';
+
+  html += '<h2>📅 Upcoming Meetings</h2>';
+  if(meetings.length){
+    html += '<ul>';
+    meetings.slice(0,5).forEach(function(m){ html += '<li>' + (m.meeting_date||'TBD') + ' · ' + m.title + (m.participants?' ('+m.participants+')':'') + '</li>'; });
+    html += '</ul>';
+  } else { html += '<p>No meetings scheduled.</p>'; }
+
+  if(trips.length){
+    html += '<h2>✈️ Travel</h2><ul>';
+    trips.slice(0,3).forEach(function(t){ html += '<li>' + t.destination + (t.travel_date?' · '+t.travel_date:'') + '</li>'; });
+    html += '</ul>';
+  }
+
+  html += '<h2>📊 Summary</h2><ul>';
+  html += '<li>' + tasks.length + ' total tasks · ' + done.length + ' done</li>';
+  html += '<li>' + approvals.length + ' approvals tracked · $' + approvals.filter(function(a){return a.status==='approved';}).reduce(function(s,a){return s+Number(a.amount||0);},0).toLocaleString() + ' approved total</li>';
+  html += '<li>' + meetings.length + ' meetings planned</li>';
+  html += '</ul>';
+
+  html += '<p style="color:#aaa;font-size:11px;margin-top:16px;border-top:1px solid #eee;padding-top:10px">— ' + name + ' · NexusOS · getnexusos.app</p>';
+
+  box.innerHTML = html;
+
+  // ── Plain text version for clipboard / mailto ──
+  _digestRawText = 'NexusOS Weekly Digest — ' + weekStr + '\n\n'
+    + 'TASKS\n'
+    + '  Completed: ' + done.length + '\n'
+    + '  Open: ' + open.length + (open.slice(0,3).length ? '\n' + open.slice(0,3).map(function(t){ return '    · '+t.name+(t.due_date?' (due '+t.due_date+')':''); }).join('\n') : '') + '\n\n'
+    + 'APPROVALS\n'
+    + '  Pending: ' + pend.length + '\n'
+    + '  Approved: ' + apprvd.length + '\n'
+    + (pend.slice(0,3).length ? pend.slice(0,3).map(function(a){ return '  · '+a.title+' — $'+Number(a.amount||0).toLocaleString(); }).join('\n') + '\n' : '')
+    + '\nMEETINGS\n'
+    + (meetings.slice(0,5).map(function(m){ return '  · '+(m.meeting_date||'TBD')+' — '+m.title; }).join('\n') || '  None scheduled')
+    + '\n\nGenerated by NexusOS · getnexusos.app';
+
+  var mb = document.getElementById('digest-mailto-btn');
+  var cb = document.getElementById('digest-copy-btn');
+  if(mb) mb.style.display = 'inline-flex';
+  if(cb) cb.style.display = 'inline-flex';
+}
+
+function copyDigestText(){
+  if(!_digestRawText){ showToast('Nothing to copy','Generate the digest first.','warning'); return; }
+  navigator.clipboard.writeText(_digestRawText).then(function(){
+    var btn = document.getElementById('digest-copy-btn');
+    if(btn){ btn.textContent='✓ Copied!'; setTimeout(function(){ btn.innerHTML='<i class="ti ti-clipboard"></i> Copy text'; }, 2000); }
+    showToast('Digest copied','Paste it into any email or message.','success');
+  }).catch(function(){ showToast('Copy failed','Please select and copy the text manually.','warning'); });
+}
+
+function openMailtoDigest(){
+  if(!_digestRawText){ generateDigest(); return; }
+  var subject = encodeURIComponent('NexusOS Weekly Digest');
+  var body    = encodeURIComponent(_digestRawText);
+  window.open('mailto:?subject=' + subject + '&body=' + body);
+}
+
+// ── Load webhook URLs into Settings fields ──
+(function(){
+  var _origLoadSettings = typeof loadSettings === 'function' ? loadSettings : null;
+  window.loadSettings = function(){
+    if(_origLoadSettings) _origLoadSettings();
+    var sw = document.getElementById('slack-webhook-url');
+    var ow = document.getElementById('outbound-webhook-url');
+    if(sw) sw.value = localStorage.getItem('nexusos_slack_webhook') || '';
+    if(ow) ow.value = localStorage.getItem('nexusos_outbound_webhook') || '';
+  };
+})();
 
 </script>
 
