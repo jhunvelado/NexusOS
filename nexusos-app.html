@@ -780,7 +780,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
   padding:10px 14px; margin-bottom:8px;
 }
 .ceo-comment-meta { font-size:10px; color:#444; margin-bottom:4px; }
-.ceo-comment-text { font-size:13px; color:#ccc; line-height:1.6; }
+.ceo-comment-text { font-size:13px; color:#ccc; line-height:1.6; word-break:break-all; overflow-wrap:anywhere; }
 /* EA feedback panel on dashboard */
 .ea-feedback-card {
   background:#0a0a12; border:1px solid #1e1e2e; border-radius:8px;
@@ -790,7 +790,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 .ea-feedback-approved { border-left:3px solid #1D9E75 !important; }
 .ea-feedback-flagged  { border-left:3px solid #E24B4A !important; }
 .ea-feedback-client { font-size:11px; color:#7F77DD; font-weight:600; margin-bottom:2px; }
-.ea-feedback-text { font-size:12px; color:#aaa; line-height:1.5; }
+.ea-feedback-text { font-size:12px; color:#aaa; line-height:1.5; word-break:break-all; overflow-wrap:anywhere; }
 .ea-feedback-date { font-size:10px; color:#333; margin-top:4px; }
 .ea-feedback-status { font-size:10px; font-weight:700; padding:2px 7px; border-radius:6px; display:inline-block; margin-bottom:4px; }
 .ea-feedback-status.approved { background:#081510; color:#1D9E75; }
@@ -969,7 +969,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 <div id="auth-screen" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#0d0d14;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
   <div style="background:#13131f;border:1px solid #2a2a3d;border-radius:14px;padding:36px 32px;width:100%;max-width:400px">
     <div style="color:#f0b429;font-weight:700;font-size:20px;margin-bottom:4px">⚡ NexusOS</div>
-    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v6.4 · Executive Edition</div>
+    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v6.5 · Executive Edition</div>
 
     <!-- TAB SWITCHER -->
     <div id="auth-tabs" style="display:flex;gap:4px;background:#0d0d14;padding:4px;border-radius:8px;margin-bottom:20px">
@@ -1087,7 +1087,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="nav-item" id="n-pricing" onclick="nav('pricing')"><i class="ti ti-credit-card"></i> Pricing & Plans</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer">NexusOS v6.4<br><span>© Jhun Rey Velado 2026</span></div>
+    <div class="sidebar-footer">NexusOS v6.5<br><span>© Jhun Rey Velado 2026</span></div>
   </div>
 
   <!-- CONTENT -->
@@ -1973,6 +1973,14 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
         <div class="panel-hdr"><div class="panel-ttl">Activity Summary</div></div>
         <div id="report-activity-body"></div>
       </div>
+      <!-- CEO Feedback from Client (v6.5) -->
+      <div class="panel" style="margin-top:12px;display:none" id="report-ceo-feedback-panel">
+        <div class="panel-hdr">
+          <div class="panel-ttl"><i class="ti ti-message-circle" style="color:#534AB7;margin-right:6px"></i> CEO Feedback <span id="report-ceo-fb-badge" style="display:none;background:#100e22;color:#534AB7;border:1px solid #1a1830;border-radius:10px;padding:1px 8px;font-size:10px;font-weight:700;margin-left:6px"></span></div>
+          <span style="font-size:11px;color:#534AB7;cursor:pointer" onclick="loadCEOFeedbackForReport()"><i class="ti ti-refresh"></i> Refresh</span>
+        </div>
+        <div id="report-ceo-feedback-list"><div style="font-size:12px;color:#444;padding:8px 0">Select a client above to see their CEO feedback.</div></div>
+      </div>
     </div>
 
     <!-- CEO CLIENT PORTAL -->
@@ -2507,7 +2515,11 @@ async function doLogout() {
   await sb.auth.signOut();
   currentUser=null; currentProfile=null;
   const authEl=document.getElementById('auth-screen');
-  if(authEl){authEl.style.display='flex';}
+  if(authEl){
+    authEl.style.display='flex';
+    authEl.style.zIndex='9999';       // v6.5: was -1 from initApp wrapper
+    authEl.style.pointerEvents='auto'; // v6.5: restore interactivity
+  }
 }
 
 async function initApp(user) {
@@ -2535,7 +2547,10 @@ function setupUI() {
   const p = currentProfile;
   const name = p.full_name||p.email||'User';
   const role = p.role||'EA';
-  document.getElementById('top-role').textContent = role==='CEO'?'Chief Executive Officer':'Executive Assistant';
+  // v6.5: use workspace_role (not profile.role) for topbar badge
+  var _wsRole = (currentProfile && currentProfile.workspace_role) || '';
+  var _topRoleLabel = (_wsRole === 'ceo') ? 'Chief Executive Officer' : 'Executive Assistant';
+  document.getElementById('top-role').textContent = _topRoleLabel;
   document.getElementById('top-name').textContent = name;
   document.getElementById('top-av').textContent = name.substring(0,2).toUpperCase();
   document.getElementById('top-av').className = 'av '+(role==='CEO'?'av-ceo':'av-ea');
@@ -5157,6 +5172,8 @@ async function loadClientReport(){
     '<div><div style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:.07em;font-weight:600">Meetings</div><div style="font-size:22px;font-weight:700;color:#7F77DD;margin-top:6px">'+meetingsCount+'</div></div>'+
     '<div><div style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:.07em;font-weight:600">Decisions Logged</div><div style="font-size:22px;font-weight:700;color:#1D9E75;margin-top:6px">'+decisionsCount+'</div></div>'+
     '</div>';
+  // v6.5: load CEO feedback for this client
+  loadCEOFeedbackForReport(clientId);
 }
 
 function printClientReport(){ window.print(); }
@@ -5380,12 +5397,15 @@ window.addEventListener('load', function(){
 
 // Check workspace role (cached in localStorage for speed)
 async function checkWorkspaceRole(){
-  var cached = localStorage.getItem('nexusos_workspace_role');
-  if(cached === 'ceo') return 'ceo';
-  // Founder always stays EA
-  if(window.currentUser && window.currentUser.email === 'jhun07.velado@gmail.com') return 'ea';
+  // v6.5: Founder check FIRST — before any localStorage cache
+  if(window.currentUser && window.currentUser.email === 'jhun07.velado@gmail.com'){
+    localStorage.removeItem('nexusos_workspace_role'); // clear stale cache
+    return 'ea';
+  }
   if(localStorage.getItem('nexusos_founder') === '1') return 'ea';
   if(typeof isFounder === 'function' && isFounder()) return 'ea';
+  var cached = localStorage.getItem('nexusos_workspace_role');
+  if(cached === 'ceo') return 'ceo';
   // Fast path: currentProfile loaded by original initApp (select('*'))
   if(window.currentProfile && window.currentProfile.workspace_role === 'ceo'){
     localStorage.setItem('nexusos_workspace_role', 'ceo');
@@ -6104,6 +6124,70 @@ window.fetchGcalEvents = async function(){
     return _dlOrig.apply(this, arguments);
   };
 })();
+
+
+// ── v6.5: CEO Feedback panel in Client Reports ───────────
+// Loads portal_comments for the selected client (EA view).
+async function loadCEOFeedbackForReport(clientId){
+  var panel = document.getElementById('report-ceo-feedback-panel');
+  var list  = document.getElementById('report-ceo-feedback-list');
+  var badge = document.getElementById('report-ceo-fb-badge');
+  if(!panel) return;
+  if(!clientId){
+    panel.style.display = 'none';
+    return;
+  }
+  panel.style.display = 'block';
+  if(!window.sb || !window.currentUser){
+    if(list) list.innerHTML = '<div style="font-size:12px;color:#444;padding:8px 0">Not connected.</div>';
+    return;
+  }
+  if(list) list.innerHTML = '<div style="font-size:12px;color:#444;padding:8px 0">Loading...</div>';
+  try {
+    var { data } = await sb.from('portal_comments')
+      .select('*')
+      .eq('ea_id', window.currentUser.id)
+      .eq('client_id', clientId)
+      .order('created_at', {ascending: false})
+      .limit(20);
+    var items = data || [];
+    var unread = items.filter(function(c){ return !c.is_read; }).length;
+    if(badge){
+      badge.style.display = items.length ? 'inline-block' : 'none';
+      badge.textContent   = unread > 0 ? unread + ' new' : items.length;
+    }
+    if(!items.length){
+      if(list) list.innerHTML = '<div style="font-size:12px;color:#444;padding:8px 0">No CEO feedback yet for this client.</div>';
+      return;
+    }
+    if(list) list.innerHTML = items.map(function(c){
+      var borderClass = c.status_flag === 'approved' ? 'ea-feedback-approved' :
+                        c.status_flag === 'flagged'  ? 'ea-feedback-flagged'  :
+                        (c.is_read ? '' : 'unread');
+      var flagLabel = c.status_flag === 'approved'
+        ? '<span class="ea-feedback-status approved">✓ Approved</span>'
+        : c.status_flag === 'flagged'
+        ? '<span class="ea-feedback-status flagged">⚑ Flagged</span>' : '';
+      var dateStr = c.created_at
+        ? new Date(c.created_at).toLocaleDateString('en-US',
+            {month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+      return '<div class="ea-feedback-card ' + borderClass + '">' +
+        (flagLabel ? '<div>' + flagLabel + '</div>' : '') +
+        (c.comment  ? '<div class="ea-feedback-text">' + c.comment + '</div>' : '') +
+        '<div class="ea-feedback-date">' + dateStr + '</div>' +
+      '</div>';
+    }).join('');
+    // Mark as read
+    var unreadIds = items.filter(function(c){ return !c.is_read; })
+                         .map(function(c){ return c.id; });
+    if(unreadIds.length){
+      sb.from('portal_comments').update({is_read:true}).in('id', unreadIds).then(function(){});
+    }
+  } catch(err){
+    if(list) list.innerHTML = '<div style="font-size:12px;color:#444;padding:8px 0">Error loading CEO feedback.</div>';
+    console.warn('loadCEOFeedbackForReport error:', err);
+  }
+}
 
 </script>
 
