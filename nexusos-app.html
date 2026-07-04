@@ -711,6 +711,141 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
   display: none;
 }
 
+/* ── PHASE 2: AI MEETING BRIEF (v7.1) ───────────────────── */
+.ai-brief-panel {
+  margin-top: 10px;
+  background: #07100d;
+  border: 1px solid #1D9E75;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 12px;
+  color: #ccc;
+  line-height: 1.7;
+  display: none;
+}
+.ai-brief-panel.visible { display: block; }
+.ai-brief-panel h4 {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #1D9E75;
+  margin: 10px 0 5px;
+}
+.ai-brief-panel h4:first-child { margin-top: 0; }
+.ai-brief-loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #555;
+}
+.ai-brief-dot {
+  width: 6px; height: 6px;
+  background: #1D9E75;
+  border-radius: 50%;
+  animation: briefPulse 1s infinite alternate;
+}
+@keyframes briefPulse { from { opacity:.2; } to { opacity:1; } }
+
+/* ── PHASE 2: AI SCHEDULING CHAT (v7.1) ─────────────────── */
+.sched-chat-box {
+  background: #0a0a14;
+  border: 1px solid #1e1e2e;
+  border-radius: 10px;
+  padding: 14px;
+  margin-top: 18px;
+}
+.sched-chat-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #aaa;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sched-chat-title i { color: #534AB7; }
+.sched-messages {
+  min-height: 60px;
+  max-height: 260px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sched-msg {
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 9px 12px;
+  border-radius: 8px;
+  max-width: 90%;
+}
+.sched-msg.user {
+  background: #12122a;
+  border: 1px solid #2a2a4a;
+  align-self: flex-end;
+  color: #ddd;
+}
+.sched-msg.ai {
+  background: #07100d;
+  border: 1px solid #1D9E75;
+  align-self: flex-start;
+  color: #ccc;
+}
+.sched-msg.ai strong { color: #1D9E75; }
+.sched-input-row {
+  display: flex;
+  gap: 8px;
+}
+.sched-input-row input {
+  flex: 1;
+  margin-bottom: 0;
+  font-size: 12px;
+}
+.sched-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.sched-suggestion {
+  font-size: 10px;
+  padding: 4px 10px;
+  border: 1px solid #2a2a3a;
+  border-radius: 12px;
+  color: #666;
+  cursor: pointer;
+  background: transparent;
+  font-family: inherit;
+  transition: all .15s;
+}
+.sched-suggestion:hover { border-color: #534AB7; color: #7F77DD; }
+
+/* ── PHASE 2: AVAILABILITY (v7.1) ───────────────────────── */
+.avail-modal-box {
+  background: #0d0d1a;
+  border-radius: 10px;
+  padding: 22px 24px;
+  max-width: 520px;
+  width: 100%;
+}
+.avail-output {
+  background: #060610;
+  border: 1px solid #1e1e2e;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 12px;
+  color: #bbb;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  max-height: 340px;
+  overflow-y: auto;
+  margin: 12px 0;
+}
+
 /* ── CLIENT REPORTS ──────────────────────────────────── */
 .report-filter-bar { display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap; align-items:center; }
 .report-metric-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; margin-bottom:20px; }
@@ -1212,6 +1347,41 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 
 <!-- AUTH SCREEN -->
 
+    <!-- AVAILABILITY MODAL (v7.1) -->
+    <div class="modal-overlay" id="avail-modal">
+      <div class="avail-modal-box">
+        <div class="modal-hdr">
+          <div class="modal-ttl"><i class="ti ti-copy" style="margin-right:6px"></i>Copy Availability</div>
+          <button class="modal-close" onclick="closeModal('avail-modal')">&#10005;</button>
+        </div>
+        <div style="font-size:12px;color:#555;margin:6px 0 10px">Generates your free slots for the next 7 days (9 AM – 6 PM). Copy and paste into any message.</div>
+        <div style="display:flex;gap:10px;margin-bottom:10px">
+          <div style="flex:1">
+            <label style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#555">Work day start</label>
+            <input type="time" id="avail-start" value="09:00" style="margin-bottom:0">
+          </div>
+          <div style="flex:1">
+            <label style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#555">Work day end</label>
+            <input type="time" id="avail-end" value="18:00" style="margin-bottom:0">
+          </div>
+          <div style="flex:1">
+            <label style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#555">Slot duration</label>
+            <select id="avail-slot" style="margin-bottom:0">
+              <option value="30">30 min</option>
+              <option value="60" selected>1 hour</option>
+              <option value="90">90 min</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-outline" onclick="generateAvailability()" style="width:100%;margin-bottom:4px"><i class="ti ti-refresh"></i> Generate</button>
+        <div class="avail-output" id="avail-output">Click Generate to build your availability text...</div>
+        <div style="display:flex;gap:10px;justify-content:flex-end">
+          <button class="btn-outline" onclick="closeModal('avail-modal')">Close</button>
+          <button class="btn-primary" id="avail-copy-btn" onclick="copyAvailabilityText()"><i class="ti ti-clipboard"></i> Copy to clipboard</button>
+        </div>
+      </div>
+    </div>
+
 <!-- CEO TOP STRIP (shown when CEO is logged in) -->
 <div id="ceo-top-strip">
   <div style="display:flex;align-items:center;gap:8px">
@@ -1231,7 +1401,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 <div id="auth-screen" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#0d0d14;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
   <div style="background:#13131f;border:1px solid #2a2a3d;border-radius:14px;padding:36px 32px;width:100%;max-width:400px">
     <div style="text-align:center;margin-bottom:8px"><svg viewBox="0 0 100 100" width="80" height="80" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 12px;filter:drop-shadow(0 4px 20px rgba(200,136,0,0.7))"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg><div style="font-weight:700;font-size:30px;letter-spacing:-0.5px;line-height:1"><span style="color:#ffffff">Nexus</span><span style="color:#f0b429">OS</span></div></div>
-    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v7.0 · Executive Edition</div>
+    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v7.1 · Executive Edition</div>
 
     <!-- TAB SWITCHER -->
     <div id="auth-tabs" style="display:flex;gap:4px;background:#0d0d14;padding:4px;border-radius:8px;margin-bottom:20px">
@@ -1352,7 +1522,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="nav-item" id="n-pricing" onclick="nav('pricing')"><i class="ti ti-credit-card"></i> Pricing & Plans</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v7.0<br><span>© Jhun Rey Velado 2026</span></div>
+    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v7.1<br><span>© Jhun Rey Velado 2026</span></div>
   </div>
 
   <!-- CONTENT -->
@@ -1624,6 +1794,29 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="pg-sub">Briefings, objectives, and prep checklists</div>
       <button class="btn-primary" onclick="openMeetingModal()" style="margin-bottom:16px"><i class="ti ti-plus"></i> Add meeting</button>
       <div id="meetings-list"><div class="loading-indicator">Loading meetings...</div></div>
+
+      <!-- AI SCHEDULING CHAT (v7.1) -->
+      <div class="sched-chat-box">
+        <div class="sched-chat-title">
+          <i class="ti ti-sparkles"></i>
+          AI Scheduling Assistant
+          <span style="margin-left:auto;font-size:10px;color:#333">Powered by Claude</span>
+        </div>
+        <div class="sched-messages" id="sched-messages">
+          <div class="sched-msg ai">Hi! I can help you find meeting times, check your schedule, or suggest slots. What do you need?</div>
+        </div>
+        <div class="sched-input-row">
+          <input type="text" id="sched-input" placeholder="e.g. Find me 30 mins with Mark on Thursday…" onkeydown="if(event.key==='Enter')sendSchedulingMsg()">
+          <button class="btn-primary" onclick="sendSchedulingMsg()" style="white-space:nowrap;font-size:12px;padding:8px 14px">Ask</button>
+        </div>
+        <div class="sched-suggestions">
+          <button class="sched-suggestion" onclick="schedAsk('What\'s on my schedule this week?')">This week's schedule</button>
+          <button class="sched-suggestion" onclick="schedAsk('Find 30-min slots for tomorrow')">Free slots tomorrow</button>
+          <button class="sched-suggestion" onclick="schedAsk('When am I free Friday afternoon?')">Free Friday PM</button>
+          <button class="sched-suggestion" onclick="schedAsk('How many meetings do I have this month?')">Meeting count</button>
+        </div>
+      </div>
+
     </div>
 
     <!-- EXEC CHAT -->
@@ -2178,6 +2371,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
         <i class="ti ti-brand-google" style="color:#DB4437;font-size:17px;flex-shrink:0"></i>
         <span style="font-size:13px;color:#aaa" id="gcal-status">Google Calendar not connected</span>
         <span id="gcal-event-count"></span>
+        <button onclick="openAvailabilityModal()" style="background:transparent;border:1px solid #1D9E75;color:#1D9E75;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;transition:all 0.15s;white-space:nowrap" onmouseover="this.style.background='#071510'" onmouseout="this.style.background='transparent'"><i class="ti ti-copy"></i> Copy Availability</button>
         <button id="gcal-connect-btn" onclick="connectGcal()" style="margin-left:auto;background:transparent;border:1px solid #534AB7;color:#7F77DD;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;pointer-events:auto;transition:all 0.15s;white-space:nowrap" onmouseover="this.style.background='#1a1830'" onmouseout="this.style.background='transparent'">Connect</button>
       </div>
 
@@ -7467,6 +7661,315 @@ function promptUpdateKR(goalId, krId) {
   kr.current = num;
   saveGoals(goals);
   loadOKR();
+}
+
+
+
+// ══════════════════════════════════════════════════════════════
+// PHASE 2: AI MEETING BRIEF (v7.1)
+// ══════════════════════════════════════════════════════════════
+
+// Enhanced loadMeetings — adds Brief Me + AI panel per card
+async function loadMeetings(){
+  var data = [];
+  try {
+    var res = await sb.from('meetings').select('*').order('meeting_date');
+    data = res.data || [];
+  } catch(e) {}
+
+  var list = document.getElementById('meetings-list');
+  if(!list) return;
+  if(!data.length){
+    list.innerHTML = '<div class="empty-state"><i class="ti ti-calendar-off"></i>No meetings yet</div>';
+    return;
+  }
+
+  list.innerHTML = data.map(function(x){
+    return '<div class="panel" style="margin-bottom:10px" id="meet-card-'+x.id+'">'
+      +'<div class="panel-hdr">'
+      +'<div class="panel-ttl"><i class="ti ti-calendar"></i> '+x.title+'</div>'
+      +'<div style="display:flex;gap:6px">'
+      +'<button class="btn-outline btn-sm" onclick="toggleMeetingBrief(\''+x.id+'\','+JSON.stringify(x)+')"><i class="ti ti-sparkles"></i> Brief Me</button>'
+      +'<button class="btn-danger btn-sm" onclick="deleteMeeting(\''+x.id+'\')">Delete</button>'
+      +'</div>'
+      +'</div>'
+      +'<div style="font-size:12px;color:#888;margin-bottom:8px">'+(x.meeting_date||'')+' · '+(x.time||'')+' · '+(x.location||'')+'</div>'
+      +(x.participants?'<div style="font-size:12px;color:#ccc;margin-bottom:4px"><strong>Participants:</strong> '+x.participants+'</div>':'')
+      +(x.objectives?'<div style="font-size:12px;color:#ccc"><strong>Objectives:</strong> '+x.objectives+'</div>':'')
+      +'<div class="ai-brief-panel" id="brief-panel-'+x.id+'"></div>'
+      +'</div>';
+  }).join('');
+}
+
+// meetingBriefCache stores generated briefs so re-clicks don't re-call API
+var meetingBriefCache = {};
+
+function toggleMeetingBrief(id, mtg) {
+  var panel = document.getElementById('brief-panel-' + id);
+  if(!panel) return;
+  if(panel.classList.contains('visible')){
+    panel.classList.remove('visible');
+    return;
+  }
+  panel.classList.add('visible');
+  if(meetingBriefCache[id]){
+    panel.innerHTML = meetingBriefCache[id];
+    return;
+  }
+  generateMeetingBrief(id, mtg, panel);
+}
+
+async function generateMeetingBrief(id, mtg, panel) {
+  var apiKey = localStorage.getItem('nexusos_claude_key');
+  if(!apiKey){
+    panel.innerHTML = '<div style="font-size:12px;color:#E24B4A"><i class="ti ti-alert-circle"></i> No Claude API key found — add it in <a href="#" onclick="nav(\'settings\')" style="color:#534AB7">Settings</a></div>';
+    return;
+  }
+  panel.innerHTML = '<div class="ai-brief-loading"><div class="ai-brief-dot"></div> Generating brief…</div>';
+
+  var today = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  var prompt = 'You are an executive assistant AI. Generate a concise meeting brief for the following meeting.\n\n'
+    + 'Meeting: ' + (mtg.title||'Untitled') + '\n'
+    + 'Date: ' + (mtg.meeting_date||'TBD') + ' at ' + (mtg.time||'TBD') + '\n'
+    + 'Location: ' + (mtg.location||'N/A') + '\n'
+    + 'Participants: ' + (mtg.participants||'N/A') + '\n'
+    + 'Objectives: ' + (mtg.objectives||'N/A') + '\n'
+    + 'Today is: ' + today + '\n\n'
+    + 'Provide:\n'
+    + '1. **Purpose** (1 sentence — why this meeting matters)\n'
+    + '2. **Key talking points** (3-5 bullet points)\n'
+    + '3. **What to prepare** (2-3 action items before the meeting)\n'
+    + '4. **Ideal outcome** (1 sentence — what success looks like)\n\n'
+    + 'Be concise and executive-level. Use markdown bold for section headers.';
+
+  try {
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true',
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 600,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    var data = await res.json();
+    if(!res.ok || data.error){
+      panel.innerHTML = '<div style="font-size:12px;color:#E24B4A">Error: '+(data.error&&data.error.message||res.status)+'</div>';
+      return;
+    }
+    var text = (data.content&&data.content[0]&&data.content[0].text)||'';
+    // Render markdown-lite: **bold** → <strong>, bullet lines → list items
+    var rendered = text
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/^[-•]\s+/gm, '• ')
+      .replace(/\n\n/g, '<br><br>')
+      .replace(/\n/g, '<br>');
+    meetingBriefCache[id] = rendered;
+    panel.innerHTML = rendered;
+  } catch(err) {
+    panel.innerHTML = '<div style="font-size:12px;color:#E24B4A">Network error — check your API key and connection.</div>';
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// PHASE 2: AI SCHEDULING ASSISTANT (v7.1)
+// ══════════════════════════════════════════════════════════════
+var schedHistory = [];
+
+function schedAsk(q) {
+  var input = document.getElementById('sched-input');
+  if(input) input.value = q;
+  sendSchedulingMsg();
+}
+
+function renderSchedulingMsg(role, text) {
+  var box = document.getElementById('sched-messages');
+  if(!box) return;
+  var div = document.createElement('div');
+  div.className = 'sched-msg ' + role;
+  div.innerHTML = text
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+async function sendSchedulingMsg() {
+  var input = document.getElementById('sched-input');
+  var q = (input ? input.value.trim() : '');
+  if(!q) return;
+  if(input) input.value = '';
+
+  renderSchedulingMsg('user', q);
+  schedHistory.push({ role: 'user', content: q });
+
+  var apiKey = localStorage.getItem('nexusos_claude_key');
+  if(!apiKey){
+    renderSchedulingMsg('ai', '⚠ No Claude API key — add it in <a href="#" onclick="nav(\'settings\')" style="color:#534AB7">Settings</a> to use AI scheduling.');
+    return;
+  }
+
+  // Build calendar context from Supabase meetings + GCal
+  var today = new Date();
+  var todayStr = today.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  var meetContext = '';
+  try {
+    var res = await sb.from('meetings').select('title,meeting_date,time,participants').order('meeting_date');
+    var meets = res.data || [];
+    if(meets.length){
+      meetContext = '\n\nScheduled meetings:\n' + meets.map(function(m){
+        return '- '+m.title+' on '+(m.meeting_date||'TBD')+' at '+(m.time||'TBD')+(m.participants?' ('+m.participants+')':'');
+      }).join('\n');
+    }
+  } catch(e) {}
+
+  // Add GCal events if available
+  var gcalContext = '';
+  if(typeof calEvents === 'object'){
+    var gcalLines = [];
+    Object.keys(calEvents).sort().forEach(function(d){
+      var gcalEvs = (calEvents[d]||[]).filter(function(e){ return e.type==='gcal'; });
+      if(gcalEvs.length){
+        gcalLines.push(d + ': ' + gcalEvs.map(function(e){ return e.title; }).join(', '));
+      }
+    });
+    if(gcalLines.length){
+      gcalContext = '\n\nGoogle Calendar events:\n' + gcalLines.map(function(l){ return '- '+l; }).join('\n');
+    }
+  }
+
+  var systemPrompt = 'You are an AI scheduling assistant for an executive assistant. Today is ' + todayStr + '.'
+    + meetContext + gcalContext
+    + '\n\nHelp with scheduling requests: find free slots, suggest times, check conflicts, summarize the week\'s schedule. '
+    + 'Be concise and practical. When suggesting times, give specific day + time options. '
+    + 'If no calendar data is available, give general scheduling advice.';
+
+  // Keep last 8 turns of history
+  var msgs = schedHistory.slice(-8);
+
+  // Loading indicator
+  var loadDiv = document.createElement('div');
+  loadDiv.className = 'sched-msg ai';
+  loadDiv.innerHTML = '<div class="ai-brief-loading"><div class="ai-brief-dot"></div> Thinking…</div>';
+  var box = document.getElementById('sched-messages');
+  if(box){ box.appendChild(loadDiv); box.scrollTop = box.scrollHeight; }
+
+  try {
+    var res2 = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true',
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 400,
+        system: systemPrompt,
+        messages: msgs
+      })
+    });
+    var data2 = await res2.json();
+    if(loadDiv.parentNode) loadDiv.parentNode.removeChild(loadDiv);
+    var reply = (data2.content&&data2.content[0]&&data2.content[0].text)||'Sorry, I couldn\'t process that.';
+    schedHistory.push({ role: 'assistant', content: reply });
+    renderSchedulingMsg('ai', reply);
+  } catch(e2) {
+    if(loadDiv.parentNode) loadDiv.parentNode.removeChild(loadDiv);
+    renderSchedulingMsg('ai', '⚠ Network error — please check your connection.');
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// PHASE 2: COPY AVAILABILITY (v7.1)
+// ══════════════════════════════════════════════════════════════
+function openAvailabilityModal() {
+  document.getElementById('avail-output').textContent = 'Click Generate to build your availability text...';
+  document.getElementById('avail-modal').classList.add('active');
+}
+
+function generateAvailability() {
+  var startH = parseInt((document.getElementById('avail-start').value||'09:00').split(':')[0]);
+  var endH   = parseInt((document.getElementById('avail-end').value||'18:00').split(':')[0]);
+  var slotMins = parseInt(document.getElementById('avail-slot').value||'60');
+
+  // Build busy blocks from calEvents (meetings + gcal)
+  var busyByDay = {};
+  if(typeof calEvents === 'object'){
+    Object.keys(calEvents).forEach(function(d){
+      (calEvents[d]||[]).forEach(function(ev){
+        if(!busyByDay[d]) busyByDay[d] = [];
+        busyByDay[d].push(ev.title);
+      });
+    });
+  }
+
+  var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var today = new Date(); today.setHours(0,0,0,0);
+  var lines = [];
+  var eaName = (window.currentProfile && window.currentProfile.full_name) || 'My';
+
+  lines.push(eaName + "'s availability for the next 7 days:\n");
+
+  for(var i = 1; i <= 7; i++){
+    var d = new Date(today);
+    d.setDate(today.getDate() + i);
+    var dow = d.getDay();
+    // Skip weekends
+    if(dow === 0 || dow === 6) continue;
+
+    var dk = d.toISOString().substring(0,10);
+    var dayLabel = days[dow] + ' ' + months[d.getMonth()] + ' ' + d.getDate();
+    var busy = busyByDay[dk] || [];
+
+    if(busy.length === 0){
+      // Full day available — show hourly slots
+      var slots = [];
+      for(var h = startH; h + slotMins/60 <= endH; h++){
+        var hEnd = h + Math.floor(slotMins/60);
+        slots.push(fmt12(h) + '–' + fmt12(hEnd));
+      }
+      lines.push('📅 ' + dayLabel + ': ' + slots.join(', '));
+    } else {
+      // Has events — note as "available around meetings"
+      lines.push('📅 ' + dayLabel + ': Available around ' + busy.length + ' existing event' + (busy.length>1?'s':'') + ' — morning & afternoon slots open');
+    }
+  }
+
+  lines.push('\nTimezone: ' + Intl.DateTimeFormat().resolvedOptions().timeZone);
+  lines.push('Generated by NexusOS · getnexusos.app');
+
+  document.getElementById('avail-output').textContent = lines.join('\n');
+}
+
+function fmt12(h) {
+  if(h === 0) return '12am';
+  if(h < 12) return h + 'am';
+  if(h === 12) return '12pm';
+  return (h - 12) + 'pm';
+}
+
+function copyAvailabilityText() {
+  var text = document.getElementById('avail-output').textContent;
+  if(!text || text.startsWith('Click Generate')) { generateAvailability(); return; }
+  navigator.clipboard.writeText(text).then(function(){
+    var btn = document.getElementById('avail-copy-btn');
+    if(btn){ btn.textContent = '✓ Copied!'; setTimeout(function(){ btn.innerHTML = '<i class="ti ti-clipboard"></i> Copy to clipboard'; }, 2000); }
+  }).catch(function(){
+    // Fallback: select the text in the textarea
+    var el = document.getElementById('avail-output');
+    var range = document.createRange();
+    range.selectNode(el);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+  });
 }
 
 </script>
