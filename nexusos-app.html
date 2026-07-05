@@ -3,6 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#534AB7">
+<meta name="description" content="NexusOS — Executive Operating System for Fractional EAs">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NexusOS">
+<link rel="manifest" href="data:application/manifest+json,{%22name%22:%22NexusOS%22,%22short_name%22:%22NexusOS%22,%22description%22:%22Executive%20Operating%20System%20for%20Fractional%20EAs%22,%22start_url%22:%22/nexusos-app.html%22,%22display%22:%22standalone%22,%22orientation%22:%22portrait-primary%22,%22background_color%22:%22#0d0d14%22,%22theme_color%22:%22#534AB7%22,%22categories%22:[%22productivity%22,%22business%22],%22icons%22:[{%22src%22:%22data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20192%20192'%3E%3Crect%20width='192'%20height='192'%20fill='%230d0d14'/%3E%3Cpath%20fill='%23534AB7'%20d='M24%2024%20L64%2024%20L168%20168%20L128%20168%20Z'/%3E%3Cpath%20fill='%233C3489'%20d='M24%2024%20H64%20V168%20H24%20Z'/%3E%3Cpath%20fill='%233C3489'%20d='M128%2024%20H168%20V168%20H128%20Z'/%3E%3C/svg%3E%22,%22sizes%22:%22192x192%22,%22type%22:%22image/svg+xml%22,%22purpose%22:%22any%20maskable%22},{%22src%22:%22data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'%3E%3Crect%20width='512'%20height='512'%20fill='%230d0d14'/%3E%3Cpath%20fill='%23534AB7'%20d='M64%2064%20L160%2064%20L448%20448%20L352%20448%20Z'/%3E%3Cpath%20fill='%233C3489'%20d='M64%2064%20H160%20V448%20H64%20Z'/%3E%3Cpath%20fill='%233C3489'%20d='M352%2064%20H448%20V448%20H352%20Z'/%3E%3C/svg%3E%22,%22sizes%22:%22512x512%22,%22type%22:%22image/svg+xml%22,%22purpose%22:%22any%20maskable%22}],%22shortcuts%22:[{%22name%22:%22Tasks%22,%22url%22:%22/nexusos-app.html#tasks%22,%22description%22:%22View%20tasks%22},{%22name%22:%22Email%22,%22url%22:%22/nexusos-app.html#email%22,%22description%22:%22Open%20inbox%22},{%22name%22:%22Contacts%22,%22url%22:%22/nexusos-app.html#crm%22,%22description%22:%22CRM%20contacts%22}]}">
+<meta property="og:title" content="NexusOS — Executive Operating System">
+<meta property="og:description" content="AI-powered EA operating system with CEO portal, CRM, email, and governance.">
+<meta name="application-name" content="NexusOS">
 <title>NexusOS — Executive Operating System</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
@@ -1206,6 +1216,49 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 
 /* ── CEO PORTAL v7.5: NEW TABS ──────────────────────────── */
 
+/* ── PWA & EMAIL v7.8 ───────────────────────────────────────── */
+#pwa-install-bar { display:none; position:fixed; bottom:70px; left:50%; transform:translateX(-50%); background:#1a1830; border:1px solid #534AB7; border-radius:12px; padding:12px 18px; z-index:19000; box-shadow:0 4px 20px rgba(83,74,183,0.3); align-items:center; gap:14px; max-width:360px; width:90%; }
+#pwa-install-bar.show { display:flex; }
+#pwa-install-bar .pwa-icon { font-size:22px; flex-shrink:0; }
+#pwa-install-bar .pwa-text { flex:1; }
+#pwa-install-bar .pwa-title { font-size:13px; font-weight:600; color:#f0f0f0; }
+#pwa-install-bar .pwa-sub { font-size:11px; color:#888; margin-top:2px; }
+#pwa-install-btn { background:#534AB7; border:none; color:#fff; border-radius:8px; padding:8px 14px; font-size:12px; font-weight:600; cursor:pointer; white-space:nowrap; }
+#pwa-dismiss-btn { background:transparent; border:none; color:#666; font-size:18px; cursor:pointer; padding:0 2px; }
+#offline-toast { display:none; position:fixed; top:16px; left:50%; transform:translateX(-50%); background:#1a1830; border:1px solid #f59e0b; border-radius:8px; padding:8px 16px; font-size:12px; color:#fbbf24; z-index:20000; }
+/* Email screen */
+.email-toolbar { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:16px; }
+.email-search-wrap { position:relative; flex:1; min-width:180px; }
+.email-search-icon { position:absolute; left:11px; top:50%; transform:translateY(-50%); color:#666; font-size:15px; pointer-events:none; }
+.email-search { flex:1; min-width:180px; width:100%; background:#0a0a12; border:1px solid #252535; color:#f0f0f0; border-radius:8px; padding:9px 13px 9px 36px; font-size:13px; font-family:inherit; }
+.email-search:focus { outline:none; border-color:#534AB7; }
+.email-connect-bar { background:#0a0a12; border:1px solid #252535; border-radius:10px; padding:18px 20px; display:flex; align-items:center; gap:16px; margin-bottom:16px; }
+.email-thread-list { display:flex; flex-direction:column; gap:0; border:1px solid #1e1e2e; border-radius:10px; overflow:hidden; }
+.email-thread-row { display:flex; align-items:flex-start; gap:14px; padding:13px 16px; border-bottom:1px solid #1a1a28; cursor:pointer; transition:background .12s; }
+.email-thread-row:last-child { border-bottom:none; }
+.email-thread-row:hover { background:#12121f; }
+.email-thread-row.unread { background:#0e0e1c; }
+.email-thread-row.unread .eth-from { color:#f0f0f0; font-weight:600; }
+.eth-avatar { width:36px; height:36px; border-radius:50%; background:#1e1e2e; display:flex; align-items:center; justify-content:center; color:#888; font-size:13px; font-weight:600; flex-shrink:0; }
+.eth-from { font-size:13px; color:#ccc; font-weight:400; }
+.eth-subject { font-size:12px; color:#aaa; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:400px; }
+.eth-snippet { font-size:11px; color:#666; margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:400px; }
+.eth-meta { margin-left:auto; text-align:right; flex-shrink:0; }
+.eth-date { font-size:10px; color:#555; }
+.eth-badge { display:inline-block; background:#534AB7; color:#fff; border-radius:10px; padding:1px 6px; font-size:9px; font-weight:600; margin-top:4px; }
+.email-thread-view { background:#0a0a12; border:1px solid #252535; border-radius:10px; padding:20px; margin-top:16px; display:none; }
+.email-thread-view.open { display:block; }
+.etv-header { margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid #1e1e2e; }
+.etv-subject { font-size:16px; font-weight:600; color:#f0f0f0; margin-bottom:6px; }
+.etv-meta { font-size:11px; color:#666; }
+.etv-actions { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+.etv-msg { border-bottom:1px solid #1a1a28; padding-bottom:14px; margin-bottom:14px; }
+.etv-msg:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+.etv-from { font-size:12px; font-weight:600; color:#ccc; }
+.etv-body { font-size:12px; color:#aaa; margin-top:8px; line-height:1.6; white-space:pre-wrap; }
+.email-label { display:inline-flex; align-items:center; gap:4px; font-size:11px; padding:2px 8px; border-radius:20px; }
+.email-label.inbox { background:#1e1e2e; color:#888; }
+.email-label.unread { background:#1a1830; color:#7F77DD; }
 /* ── CRM v7.7 ───────────────────────────────────────────────── */
 .crm-toolbar { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:18px; }
 .crm-search  { flex:1; min-width:180px; background:#0a0a12; border:1px solid #252535; color:#f0f0f0; border-radius:8px; padding:9px 13px 9px 36px; font-size:13px; font-family:inherit; }
@@ -2009,7 +2062,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 <div id="auth-screen" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#0d0d14;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
   <div style="background:#13131f;border:1px solid #2a2a3d;border-radius:14px;padding:36px 32px;width:100%;max-width:400px">
     <div style="text-align:center;margin-bottom:8px"><svg viewBox="0 0 100 100" width="80" height="80" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 12px;filter:drop-shadow(0 4px 20px rgba(200,136,0,0.7))"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg><div style="font-weight:700;font-size:30px;letter-spacing:-0.5px;line-height:1"><span style="color:#ffffff">Nexus</span><span style="color:#f0b429">OS</span></div></div>
-    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v7.7 · Executive Edition</div>
+    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v7.8 · Executive Edition</div>
 
     <!-- TAB SWITCHER -->
     <div id="auth-tabs" style="display:flex;gap:4px;background:#0d0d14;padding:4px;border-radius:8px;margin-bottom:20px">
@@ -2134,10 +2187,11 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="nav-item" id="n-developer" onclick="nav('developer')"><i class="ti ti-code"></i> Developer</div>
       <div class="nav-item" id="n-governance" onclick="nav('governance')"><i class="ti ti-shield-check"></i> Governance</div>
       <div class="nav-item" id="n-crm" onclick="nav('crm')"><i class="ti ti-address-book"></i> Contacts / CRM</div>
+      <div class="nav-item" id="n-email" onclick="nav('email')"><i class="ti ti-mail"></i> Email <span id="n-email-badge" style="display:none;background:#534AB7;color:#fff;border-radius:10px;padding:1px 6px;font-size:9px;font-weight:700;margin-left:4px"></span></div>
       <div class="nav-item" id="n-pricing" onclick="nav('pricing')"><i class="ti ti-credit-card"></i> Pricing & Plans</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v7.7<br><span>© Jhun Rey Velado 2026</span></div>
+    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v7.8<br><span>© Jhun Rey Velado 2026</span></div>
   </div>
 
   <!-- CONTENT -->
@@ -4005,6 +4059,80 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div id="crm-contact-body"></div>
     </div>
 
+    <!-- EMAIL SCREEN (v7.8) -->
+    <div class="screen" id="s-email">
+      <div class="pg-eyebrow">Communication</div>
+      <div class="pg-title">Email Inbox</div>
+      <div class="pg-sub">Read, triage, and reply to emails — with AI draft assist</div>
+
+      <div class="email-connect-bar" id="email-connect-bar">
+        <i class="ti ti-mail" style="font-size:24px;color:#534AB7" aria-hidden="true"></i>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:600;color:#f0f0f0">Connect your Gmail</div>
+          <div style="font-size:11px;color:#666;margin-top:2px">Read, triage, and reply to emails directly in NexusOS</div>
+        </div>
+        <button onclick="connectGmail()" style="background:#534AB7;border:none;color:#fff;border-radius:8px;padding:9px 16px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap">Connect Gmail</button>
+      </div>
+
+      <div id="email-gmail-id-note" style="display:none;background:#0a0a12;border:1px solid #252535;border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:11px;color:#888">
+        <strong style="color:#ccc">Setup:</strong> Enable the Gmail API in your Google Cloud project and add <code style="color:#7F77DD">https://mail.google.com/</code> as an authorised scope. Use the same Client ID as your Google Calendar connection, or enter a dedicated one in
+        <span style="color:#534AB7;cursor:pointer" onclick="nav('settings')">Settings → Integrations</span>.
+      </div>
+
+      <div id="email-main" style="display:none">
+        <div class="email-toolbar">
+          <div class="email-search-wrap">
+            <i class="ti ti-search email-search-icon" aria-hidden="true"></i>
+            <input class="email-search" id="email-search-input" placeholder="Search emails…" oninput="filterEmailThreads(this.value)">
+          </div>
+          <select id="email-folder-filter" onchange="loadEmailFolder(this.value)" style="background:#0a0a12;border:1px solid #252535;color:#f0f0f0;border-radius:8px;padding:9px 10px;font-size:12px;font-family:inherit;cursor:pointer">
+            <option value="INBOX">Inbox</option>
+            <option value="SENT">Sent</option>
+            <option value="STARRED">Starred</option>
+          </select>
+          <button class="btn-outline btn-sm" onclick="loadEmailThreads()" style="font-size:11px"><i class="ti ti-refresh" aria-hidden="true"></i></button>
+          <button onclick="openComposeModal()" style="background:#534AB7;border:none;color:#fff;border-radius:8px;padding:9px 14px;font-size:12px;font-weight:600;cursor:pointer"><i class="ti ti-pencil" aria-hidden="true"></i> Compose</button>
+          <button onclick="disconnectGmail()" style="background:transparent;border:1px solid #333;color:#888;border-radius:8px;padding:8px 10px;font-size:11px;cursor:pointer">Disconnect</button>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px">
+          <div style="background:#0a0a12;border:1px solid #1e1e2e;border-radius:8px;padding:12px;text-align:center">
+            <div style="font-size:22px;font-weight:700;color:#534AB7" id="email-stat-unread">—</div>
+            <div style="font-size:10px;color:#666;margin-top:2px">Unread</div>
+          </div>
+          <div style="background:#0a0a12;border:1px solid #1e1e2e;border-radius:8px;padding:12px;text-align:center">
+            <div style="font-size:22px;font-weight:700;color:#ccc" id="email-stat-total">—</div>
+            <div style="font-size:10px;color:#666;margin-top:2px">Threads</div>
+          </div>
+          <div style="background:#0a0a12;border:1px solid #1e1e2e;border-radius:8px;padding:12px;text-align:center">
+            <div style="font-size:22px;font-weight:700;color:#22c55e" id="email-stat-today">—</div>
+            <div style="font-size:10px;color:#666;margin-top:2px">Today</div>
+          </div>
+        </div>
+
+        <div id="email-thread-list-wrap">
+          <div class="email-thread-list" id="email-thread-list"></div>
+        </div>
+
+        <div class="email-thread-view" id="email-thread-view">
+          <div class="etv-header">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+              <button onclick="closeThreadView()" style="background:transparent;border:none;color:#888;font-size:18px;cursor:pointer" aria-label="Back to inbox"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+              <div class="etv-subject" id="etv-subject">—</div>
+            </div>
+            <div class="etv-meta" id="etv-meta"></div>
+          </div>
+          <div class="etv-actions">
+            <button class="btn-outline btn-sm" onclick="emailAction('archive')" style="font-size:11px"><i class="ti ti-archive" aria-hidden="true"></i> Archive</button>
+            <button class="btn-outline btn-sm" onclick="emailAction('read')" style="font-size:11px"><i class="ti ti-eye" aria-hidden="true"></i> Mark Read</button>
+            <button class="btn-outline btn-sm" onclick="emailAction('star')" style="font-size:11px"><i class="ti ti-star" aria-hidden="true"></i> Star</button>
+            <button onclick="openReplyModal()" style="background:#534AB7;border:none;color:#fff;border-radius:6px;padding:7px 12px;font-size:11px;font-weight:600;cursor:pointer"><i class="ti ti-corner-up-left" aria-hidden="true"></i> Reply</button>
+          </div>
+          <div id="etv-messages"></div>
+        </div>
+      </div>
+    </div>
+
     <!-- INTEGRATIONS SCREEN -->
     <div class="screen" id="s-integrations">
       <div class="pg-eyebrow">Platform</div>
@@ -4040,6 +4168,36 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
     <div class="mc-btns">
       <button class="mc-btn cancel" onclick="closeAddClientModal()">Cancel</button>
       <button class="mc-btn primary" onclick="saveNewClient()">Add Client</button>
+    </div>
+  </div>
+</div>
+
+<!-- EMAIL: Compose Modal (v7.8) -->
+<div class="mc-modal-overlay" id="email-compose-modal">
+  <div class="mc-modal-box" style="width:540px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div class="mc-modal-title" style="margin-bottom:0" id="email-compose-title">New Email</div>
+      <button onclick="closeComposeModal()" style="background:none;border:none;color:#888;font-size:18px;cursor:pointer" aria-label="Close">&times;</button>
+    </div>
+    <div class="mc-field">
+      <label class="mc-lbl">To</label>
+      <input class="mc-input" id="email-to" placeholder="recipient@example.com">
+    </div>
+    <div class="mc-field">
+      <label class="mc-lbl">Subject</label>
+      <input class="mc-input" id="email-subject" placeholder="Subject">
+    </div>
+    <div class="mc-field">
+      <label class="mc-lbl">Message</label>
+      <textarea class="mc-input" id="email-body" rows="9" placeholder="Write your message…" style="resize:vertical"></textarea>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;margin-top:4px;flex-wrap:wrap">
+      <button onclick="aiDraftEmail()" style="background:#1a1830;border:1px solid #534AB7;color:#7F77DD;border-radius:8px;padding:8px 14px;font-size:12px;cursor:pointer;font-family:inherit"><i class="ti ti-sparkles" aria-hidden="true"></i> AI Draft</button>
+      <div id="email-ai-status" style="font-size:11px;color:#666"></div>
+      <div style="margin-left:auto;display:flex;gap:8px">
+        <button class="mc-btn cancel" onclick="closeComposeModal()">Cancel</button>
+        <button class="mc-btn primary" onclick="sendEmail()">Send</button>
+      </div>
     </div>
   </div>
 </div>
@@ -10394,6 +10552,7 @@ function loadWebhookLog(){
     if(screen==='developer')  setTimeout(loadDeveloper,60);
     if(screen==='governance') setTimeout(loadGovernanceDashboard,60);
     if(screen==='crm')        setTimeout(loadCRM,60);
+    if(screen==='email')       setTimeout(loadEmail,60);
     return res;
   };
   // Log login event
@@ -11431,9 +11590,426 @@ function showToast(msg){
   else { var t=document.getElementById('nexus-toast-container'); if(t){ var d=document.createElement('div'); d.textContent=msg; d.style.cssText='background:#534AB7;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;margin-top:8px'; t.appendChild(d); setTimeout(function(){ t.removeChild(d); },2500); } }
 }
 
+
+// ══════════════════════════════════════════════════════════════
+// NexusOS v7.8 — PWA + EMAIL
+// ══════════════════════════════════════════════════════════════
+
+// ── PWA: Service Worker ───────────────────────────────────────────────────────
+(function(){
+  if(!('serviceWorker' in navigator)) return;
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('/sw.js').then(function(reg){
+      reg.addEventListener('updatefound', function(){
+        var nw = reg.installing;
+        if(!nw) return;
+        nw.addEventListener('statechange', function(){
+          if(nw.state==='installed' && navigator.serviceWorker.controller){
+            if(confirm('NexusOS update available. Reload now?')) nw.postMessage('skipWaiting');
+          }
+        });
+      });
+    }).catch(function(){ /* sw.js not yet in repo — PWA meta tags still active */ });
+  });
+  window.addEventListener('online',  function(){ document.getElementById('offline-toast').style.display='none'; });
+  window.addEventListener('offline', function(){ var t=document.getElementById('offline-toast'); if(t) t.style.display='block'; });
+})();
+
+// ── PWA: Install prompt ───────────────────────────────────────────────────────
+var _pwaPrompt = null;
+window.addEventListener('beforeinstallprompt', function(e){
+  e.preventDefault();
+  _pwaPrompt = e;
+  if(!localStorage.getItem('nexusos_pwa_dismissed')){
+    var bar = document.getElementById('pwa-install-bar');
+    if(bar) bar.classList.add('show');
+  }
+});
+window.addEventListener('appinstalled', function(){
+  var bar = document.getElementById('pwa-install-bar');
+  if(bar) bar.classList.remove('show');
+  _pwaPrompt = null;
+  if(typeof logAuditEvent==='function') logAuditEvent('pwa','App installed','NexusOS added to home screen');
+});
+function pwaInstall(){
+  if(!_pwaPrompt) return;
+  _pwaPrompt.prompt();
+  _pwaPrompt.userChoice.then(function(result){
+    if(result.outcome==='accepted'){
+      var bar=document.getElementById('pwa-install-bar'); if(bar) bar.classList.remove('show');
+    }
+    _pwaPrompt=null;
+  });
+}
+function pwaDismiss(){
+  localStorage.setItem('nexusos_pwa_dismissed','1');
+  var bar=document.getElementById('pwa-install-bar'); if(bar) bar.classList.remove('show');
+}
+
+// ── Gmail OAuth ───────────────────────────────────────────────────────────────
+var GMAIL_CLIENT_ID = (function(){
+  var saved = localStorage.getItem('nexusos_gmail_client_id');
+  return saved || '626206970912-ie8vji85vjecqbb0i0uva1271u8tgi1a.apps.googleusercontent.com';
+})();
+var GMAIL_SCOPES = 'https://mail.google.com/';
+var _gmailToken = null;
+var _gmailTokenClient = null;
+var _gmailGisLoading = false;
+var _gmailGisCbs = [];
+var _gmailCurrentThreads = [];
+var _gmailOpenThread = null;
+var _gmailReplyTo = null;
+
+function _loadGmailGIS(cb){
+  if(_gmailTokenClient){ if(cb) cb(); return; }
+  if(cb) _gmailGisCbs.push(cb);
+  if(_gmailGisLoading) return;
+  _gmailGisLoading = true;
+  var s = document.createElement('script');
+  s.src = 'https://accounts.google.com/gsi/client';
+  s.onload = function(){
+    _gmailTokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: GMAIL_CLIENT_ID,
+      scope: GMAIL_SCOPES,
+      callback: function(resp){
+        if(resp.error){ console.warn('Gmail auth:', resp.error); _gmailUpdateConnectBar(false); return; }
+        _gmailToken = resp.access_token;
+        localStorage.setItem('nexusos_gmail_connected','1');
+        _gmailUpdateConnectBar(true);
+        loadEmailThreads();
+      }
+    });
+    _gmailGisCbs.splice(0).forEach(function(fn){ try{fn();}catch(e){} });
+  };
+  document.head.appendChild(s);
+}
+
+function _gmailHeaders(extra){
+  return Object.assign({ 'Authorization': 'Bearer ' + _gmailToken }, extra||{});
+}
+
+function _gmailFetch(url, opts){
+  return fetch('https://gmail.googleapis.com' + url, Object.assign({ headers: _gmailHeaders() }, opts||{}));
+}
+
+function connectGmail(){
+  _loadGmailGIS(function(){
+    var prev = localStorage.getItem('nexusos_gmail_connected')==='1';
+    _gmailTokenClient.requestAccessToken({ prompt: prev?'':'consent' });
+  });
+}
+
+function disconnectGmail(){
+  _gmailToken = null;
+  localStorage.removeItem('nexusos_gmail_connected');
+  _gmailUpdateConnectBar(false);
+}
+
+function _gmailUpdateConnectBar(connected){
+  var bar = document.getElementById('email-connect-bar');
+  var main = document.getElementById('email-main');
+  if(bar)  bar.style.display  = connected ? 'none' : 'flex';
+  if(main) main.style.display = connected ? 'block' : 'none';
+  var badge = document.getElementById('n-email-badge');
+  if(badge && !connected) badge.style.display = 'none';
+}
+
+// ── Load / render email ───────────────────────────────────────────────────────
+function loadEmail(){
+  var connected = !!_gmailToken || localStorage.getItem('nexusos_gmail_connected')==='1';
+  _gmailUpdateConnectBar(connected);
+  if(connected && _gmailToken) loadEmailThreads();
+  else if(connected && !_gmailToken){
+    // Token expired — reconnect silently
+    _loadGmailGIS(function(){
+      _gmailTokenClient.requestAccessToken({ prompt:'' });
+    });
+  }
+}
+
+function loadEmailFolder(folder){
+  loadEmailThreads(folder);
+}
+
+function loadEmailThreads(folder){
+  var list = document.getElementById('email-thread-list');
+  if(!list || !_gmailToken) return;
+  list.innerHTML = '<div style="padding:20px;text-align:center;color:#555;font-size:12px"><i class="ti ti-loader"></i> Loading…</div>';
+  var label = folder || (document.getElementById('email-folder-filter')||{value:'INBOX'}).value || 'INBOX';
+
+  _gmailFetch('/gmail/v1/users/me/threads?maxResults=25&labelIds=' + label + '&fields=threads(id,snippet)').then(function(r){ return r.json(); }).then(function(data){
+    if(!data.threads || !data.threads.length){
+      list.innerHTML = '<div style="padding:30px;text-align:center;color:#555;font-size:13px">No emails in this folder.</div>';
+      document.getElementById('email-stat-total').textContent='0';
+      document.getElementById('email-stat-unread').textContent='0';
+      document.getElementById('email-stat-today').textContent='0';
+      return;
+    }
+    // Fetch each thread (batch: just first 25, metadata only)
+    var ids = data.threads.map(function(t){ return t.id; });
+    Promise.all(ids.map(function(id){
+      return _gmailFetch('/gmail/v1/users/me/threads/'+id+'?format=metadata&metadataHeaders=From&metadataHeaders=Subject&metadataHeaders=Date&metadataHeaders=To&fields=id,messages(id,labelIds,payload(headers),snippet)').then(function(r){ return r.json(); });
+    })).then(function(threads){
+      _gmailCurrentThreads = threads.filter(Boolean);
+      renderEmailThreadList(_gmailCurrentThreads);
+    });
+  }).catch(function(e){
+    list.innerHTML = '<div style="padding:20px;text-align:center;color:#e34948;font-size:12px">Error loading emails. Try reconnecting Gmail.</div>';
+    console.warn('Gmail error', e);
+  });
+}
+
+function _threadHeader(thread, name){
+  var msgs = thread.messages||[];
+  var lastMsg = msgs[msgs.length-1]||{};
+  var hdrs = (lastMsg.payload&&lastMsg.payload.headers)||[];
+  function hdr(n){ var h=hdrs.find(function(h){ return h.name.toLowerCase()===n.toLowerCase(); }); return h?h.value:''; }
+  return {
+    from: hdr('From'),
+    subject: hdr('Subject')||'(no subject)',
+    date: hdr('Date'),
+    snippet: lastMsg.snippet||'',
+    unread: msgs.some(function(m){ return (m.labelIds||[]).includes('UNREAD'); }),
+    id: thread.id,
+    msgId: lastMsg.id
+  };
+}
+
+function renderEmailThreadList(threads){
+  var list = document.getElementById('email-thread-list');
+  if(!list) return;
+  var today = new Date().toDateString();
+  var unreadCount = 0; var todayCount = 0;
+
+  var rows = threads.map(function(t){
+    var h = _threadHeader(t);
+    var fromName = h.from.replace(/<[^>]+>/,'').replace(/"/g,'').trim() || h.from;
+    var initials = fromName.split(' ').map(function(w){return w[0];}).join('').substring(0,2).toUpperCase()||'?';
+    var dateStr = h.date ? new Date(h.date).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '';
+    if(h.unread) unreadCount++;
+    if(h.date && new Date(h.date).toDateString()===today) todayCount++;
+    return '<div class="email-thread-row'+(h.unread?' unread':'')+'" onclick="openEmailThread(\''+t.id+'\')">'
+      +'<div class="eth-avatar" aria-hidden="true">'+initials+'</div>'
+      +'<div style="flex:1;min-width:0">'
+      +'<div class="eth-from">'+fromName+'</div>'
+      +'<div class="eth-subject">'+h.subject+'</div>'
+      +'<div class="eth-snippet">'+h.snippet+'</div>'
+      +'</div>'
+      +'<div class="eth-meta">'
+      +'<div class="eth-date">'+dateStr+'</div>'
+      +(h.unread?'<div class="eth-badge">New</div>':'')
+      +'</div></div>';
+  }).join('');
+
+  list.innerHTML = rows || '<div style="padding:30px;text-align:center;color:#555;font-size:13px">No emails found.</div>';
+
+  document.getElementById('email-stat-total').textContent  = threads.length;
+  document.getElementById('email-stat-unread').textContent = unreadCount;
+  document.getElementById('email-stat-today').textContent  = todayCount;
+
+  // Update nav badge
+  var badge = document.getElementById('n-email-badge');
+  if(badge){ badge.textContent=unreadCount||''; badge.style.display=unreadCount?'inline':'none'; }
+}
+
+function filterEmailThreads(q){
+  if(!q){ renderEmailThreadList(_gmailCurrentThreads); return; }
+  q = q.toLowerCase();
+  var filtered = _gmailCurrentThreads.filter(function(t){
+    var h = _threadHeader(t);
+    return h.from.toLowerCase().includes(q)||h.subject.toLowerCase().includes(q)||h.snippet.toLowerCase().includes(q);
+  });
+  renderEmailThreadList(filtered);
+}
+
+// ── Thread view ───────────────────────────────────────────────────────────────
+function openEmailThread(threadId){
+  _gmailOpenThread = threadId;
+  var view = document.getElementById('email-thread-view');
+  var listWrap = document.getElementById('email-thread-list-wrap');
+  if(view) view.classList.add('open');
+  if(listWrap) listWrap.style.display='none';
+
+  document.getElementById('etv-subject').textContent='Loading…';
+  document.getElementById('etv-meta').textContent='';
+  document.getElementById('etv-messages').innerHTML='<div style="color:#555;font-size:12px;padding:16px 0">Loading thread…</div>';
+
+  _gmailFetch('/gmail/v1/users/me/threads/'+threadId+'?format=full&fields=id,messages(id,labelIds,payload,snippet)').then(function(r){ return r.json(); }).then(function(thread){
+    var msgs = thread.messages||[];
+    var first = msgs[0]||{};
+    var hdrs = (first.payload&&first.payload.headers)||[];
+    function hdr(n){ var h=hdrs.find(function(x){ return x.name.toLowerCase()===n.toLowerCase(); }); return h?h.value:''; }
+    document.getElementById('etv-subject').textContent = hdr('Subject')||'(no subject)';
+    document.getElementById('etv-meta').textContent    = 'From: '+hdr('From')+'  ·  '+msgs.length+' message'+(msgs.length!==1?'s':'');
+
+    // Store for reply
+    var lastHdrs = ((msgs[msgs.length-1].payload||{}).headers||[]);
+    function lhdr(n){ var h=lastHdrs.find(function(x){ return x.name.toLowerCase()===n.toLowerCase(); }); return h?h.value:''; }
+    _gmailReplyTo = { to: lhdr('From'), subject: hdr('Subject'), msgId: msgs[msgs.length-1].id };
+
+    var msgsHtml = msgs.map(function(m){
+      var mhdrs = (m.payload&&m.payload.headers)||[];
+      function mhdr(n){ var h=mhdrs.find(function(x){ return x.name.toLowerCase()===n.toLowerCase(); }); return h?h.value:''; }
+      var body = _extractBody(m.payload);
+      return '<div class="etv-msg">'
+        +'<div class="etv-from">'+mhdr('From')+'  <span style="font-size:10px;color:#555;font-weight:400">'+new Date(+m.internalDate||0).toLocaleString()+'</span></div>'
+        +'<div class="etv-body">'+body+'</div>'
+        +'</div>';
+    }).join('');
+    document.getElementById('etv-messages').innerHTML = msgsHtml;
+
+    // Mark read
+    if(msgs.some(function(m){ return (m.labelIds||[]).includes('UNREAD'); })){
+      _gmailFetch('/gmail/v1/users/me/threads/'+threadId+'/modify', {
+        method:'POST', headers: _gmailHeaders({'Content-Type':'application/json'}),
+        body: JSON.stringify({ removeLabelIds:['UNREAD'] })
+      }).catch(function(){});
+    }
+  }).catch(function(e){
+    document.getElementById('etv-messages').innerHTML='<div style="color:#e34948;font-size:12px">Error loading thread.</div>';
+  });
+}
+
+function _extractBody(payload){
+  if(!payload) return '(empty)';
+  // Try text/plain first
+  if(payload.mimeType==='text/plain' && payload.body && payload.body.data){
+    try{ return atob(payload.body.data.replace(/-/g,'+').replace(/_/g,'/')).replace(/</g,'&lt;').replace(/>/g,'&gt;'); }catch(e){}
+  }
+  // Try parts
+  if(payload.parts){
+    var plain = payload.parts.find(function(p){ return p.mimeType==='text/plain'; });
+    if(plain && plain.body && plain.body.data){
+      try{ return atob(plain.body.data.replace(/-/g,'+').replace(/_/g,'/')).replace(/</g,'&lt;').replace(/>/g,'&gt;'); }catch(e){}
+    }
+    var html = payload.parts.find(function(p){ return p.mimeType==='text/html'; });
+    if(html && html.body && html.body.data){
+      try{
+        var parser=new DOMParser();
+        var doc=parser.parseFromString(atob(html.body.data.replace(/-/g,'+').replace(/_/g,'/')), 'text/html');
+        return (doc.body||{}).innerText||'(html email)';
+      }catch(e){}
+    }
+    // Recurse into nested parts
+    for(var i=0;i<payload.parts.length;i++){
+      var r=_extractBody(payload.parts[i]);
+      if(r&&r!=='(empty)') return r;
+    }
+  }
+  return '(empty)';
+}
+
+function closeThreadView(){
+  var view = document.getElementById('email-thread-view');
+  var listWrap = document.getElementById('email-thread-list-wrap');
+  if(view) view.classList.remove('open');
+  if(listWrap) listWrap.style.display='block';
+  _gmailOpenThread = null;
+  _gmailReplyTo = null;
+}
+
+// ── Triage actions ────────────────────────────────────────────────────────────
+function emailAction(action){
+  if(!_gmailOpenThread || !_gmailToken) return;
+  var body;
+  if(action==='archive'){ body = JSON.stringify({ removeLabelIds:['INBOX'] }); }
+  else if(action==='read'){ body = JSON.stringify({ removeLabelIds:['UNREAD'] }); }
+  else if(action==='star'){ body = JSON.stringify({ addLabelIds:['STARRED'] }); }
+  _gmailFetch('/gmail/v1/users/me/threads/'+_gmailOpenThread+'/modify', {
+    method:'POST', headers: _gmailHeaders({'Content-Type':'application/json'}), body: body
+  }).then(function(){
+    if(action==='archive'){ closeThreadView(); loadEmailThreads(); }
+    if(typeof logAuditEvent==='function') logAuditEvent('email', action, _gmailOpenThread);
+  }).catch(function(e){ console.warn('triage error',e); });
+}
+
+// ── Compose / Reply ───────────────────────────────────────────────────────────
+function openComposeModal(){ openEmailComposeModal(false); }
+function openReplyModal(){
+  if(!_gmailReplyTo) return;
+  openEmailComposeModal(true);
+}
+function openEmailComposeModal(isReply){
+  var modal = document.getElementById('email-compose-modal');
+  if(!modal) return;
+  document.getElementById('email-compose-title').textContent = isReply ? 'Reply' : 'New Email';
+  document.getElementById('email-to').value = isReply && _gmailReplyTo ? _gmailReplyTo.to : '';
+  document.getElementById('email-subject').value = isReply && _gmailReplyTo ? 'Re: '+(_gmailReplyTo.subject||'').replace(/^Re:\s*/i,'') : '';
+  document.getElementById('email-body').value = '';
+  document.getElementById('email-ai-status').textContent = '';
+  modal.classList.add('open');
+}
+function closeComposeModal(){
+  var modal = document.getElementById('email-compose-modal');
+  if(modal) modal.classList.remove('open');
+}
+
+function _b64url(str){ return btoa(unescape(encodeURIComponent(str))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''); }
+
+function sendEmail(){
+  var to = (document.getElementById('email-to')||{value:''}).value.trim();
+  var subj = (document.getElementById('email-subject')||{value:''}).value.trim();
+  var body = (document.getElementById('email-body')||{value:''}).value.trim();
+  if(!to||!body){ alert('To and message body are required.'); return; }
+  if(!_gmailToken){ alert('Gmail is not connected.'); return; }
+  var mime = 'To: '+to+'\r\nSubject: '+subj+'\r\nContent-Type: text/plain; charset=utf-8\r\n\r\n'+body;
+  var raw = _b64url(mime);
+  var payload = { raw: raw };
+  if(_gmailReplyTo && _gmailReplyTo.msgId) payload.threadId = _gmailOpenThread;
+  _gmailFetch('/gmail/v1/users/me/messages/send', {
+    method:'POST', headers: _gmailHeaders({'Content-Type':'application/json'}),
+    body: JSON.stringify(payload)
+  }).then(function(r){ return r.json(); }).then(function(data){
+    if(data.id){ closeComposeModal(); if(typeof logAuditEvent==='function') logAuditEvent('email','Sent','To: '+to); }
+    else alert('Send failed. Check your Gmail OAuth permissions.');
+  }).catch(function(e){ alert('Send error: '+e.message); });
+}
+
+// ── AI Draft ─────────────────────────────────────────────────────────────────
+async function aiDraftEmail(){
+  var to      = (document.getElementById('email-to')||{value:''}).value.trim();
+  var subj    = (document.getElementById('email-subject')||{value:''}).value.trim();
+  var context = (document.getElementById('email-body')||{value:''}).value.trim();
+  var status  = document.getElementById('email-ai-status');
+  var claude  = localStorage.getItem('nexusos_claude_key');
+  if(!claude){ if(status) status.textContent='Add Claude API key in Settings to use AI Draft.'; return; }
+  if(status) status.textContent='Drafting with Claude…';
+
+  var prompt = 'You are a professional EA writing an email on behalf of an executive. Write a concise, professional email.\n'
+    + 'To: '+to+'\nSubject: '+subj+'\n'
+    + (context?'Context / notes: '+context+'\n':'')
+    + 'Write only the email body text, no subject line, no "Subject:" header.';
+
+  try{
+    var resp = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{ 'x-api-key':claude, 'anthropic-version':'2023-06-01', 'content-type':'application/json', 'anthropic-dangerous-direct-browser-access':'true' },
+      body: JSON.stringify({ model:'claude-haiku-4-5-20251001', max_tokens:600,
+        messages:[{ role:'user', content: prompt }] })
+    });
+    var data = await resp.json();
+    var draft = (data.content&&data.content[0]&&data.content[0].text)||'';
+    if(draft){ document.getElementById('email-body').value=draft; if(status) status.textContent='Draft ready — review and edit before sending.'; }
+    else { if(status) status.textContent='AI draft failed. Try again.'; }
+  }catch(e){
+    if(status) status.textContent='AI draft error: '+e.message;
+  }
+}
+
 </script>
 
 <!-- PRIVACY NOTICE (compact dark badge) -->
+<div id="pwa-install-bar" role="complementary" aria-label="Install NexusOS">
+  <div class="pwa-icon" aria-hidden="true"><i class="ti ti-device-mobile"></i></div>
+  <div class="pwa-text">
+    <div class="pwa-title">Install NexusOS</div>
+    <div class="pwa-sub">Add to home screen for offline access</div>
+  </div>
+  <button id="pwa-install-btn" onclick="pwaInstall()">Install</button>
+  <button id="pwa-dismiss-btn" onclick="pwaDismiss()" aria-label="Dismiss">&times;</button>
+</div>
+<div id="offline-toast" role="status" aria-live="polite">Offline — showing cached data</div>
+
 <div id="privacy-notice-bar">
   <div class="pnb-inner">
     <button class="pnb-badge" onclick="openPrivacyNotice()" title="Notice at collection | Your Privacy Choices">

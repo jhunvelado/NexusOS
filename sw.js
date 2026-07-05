@@ -1,117 +1,52 @@
-// NexusOS v6.0 — Service Worker
-// Handles background push notifications and PWA caching
+/* NexusOS Service Worker v7.8 */
+var CACHE = 'nexusos-v78';
+var SHELL = ['/', '/nexusos-app.html'];
 
-const CACHE_NAME = 'nexusos-v6';
-const OFFLINE_URL = '/nexusos-app.html';
-
-// ── INSTALL ───────────────────────────────────────────────
-self.addEventListener('install', function(event) {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(function(cache) {
-      return cache.addAll([
-        '/',
-        '/nexusos-app.html',
-        '/icon-192.png',
-        '/icon-512.png'
-      ]).catch(function() {
-        // Silently ignore missing assets during install
-      });
-    })
+self.addEventListener('install', function(e){
+  e.waitUntil(
+    caches.open(CACHE).then(function(c){ return c.addAll(SHELL); }).catch(function(){})
   );
   self.skipWaiting();
 });
 
-// ── ACTIVATE ──────────────────────────────────────────────
-self.addEventListener('activate', function(event) {
-  event.waitUntil(
-    caches.keys().then(function(keys) {
-      return Promise.all(
-        keys.filter(function(k) { return k !== CACHE_NAME; })
-            .map(function(k) { return caches.delete(k); })
-      );
+self.addEventListener('activate', function(e){
+  e.waitUntil(
+    caches.keys().then(function(keys){
+      return Promise.all(keys.filter(function(k){ return k!==CACHE; }).map(function(k){ return caches.delete(k); }));
     })
   );
   self.clients.claim();
 });
 
-// ── FETCH (network-first, cache fallback) ─────────────────
-self.addEventListener('fetch', function(event) {
-  // Only handle same-origin GET requests
-  if (event.request.method !== 'GET') return;
-  var url = new URL(event.request.url);
-  if (url.origin !== self.location.origin) return;
-
-  event.respondWith(
-    fetch(event.request).then(function(response) {
-      // Cache successful responses
-      if (response && response.status === 200) {
-        var clone = response.clone();
-        caches.open(CACHE_NAME).then(function(cache) {
-          cache.put(event.request, clone);
-        });
-      }
-      return response;
-    }).catch(function() {
-      // Network failed — serve from cache
-      return caches.match(event.request).then(function(cached) {
-        return cached || caches.match(OFFLINE_URL);
-      });
-    })
-  );
-});
-
-// ── PUSH NOTIFICATIONS ────────────────────────────────────
-self.addEventListener('push', function(event) {
-  var data = {};
-  try { data = event.data ? event.data.json() : {}; } catch(e) {}
-
-  var title   = data.title   || 'NexusOS';
-  var body    = data.body    || 'You have a new notification.';
-  var icon    = data.icon    || '/icon-192.png';
-  var badge   = data.badge   || '/icon-72.png';
-  var url     = data.url     || '/nexusos-app.html';
-  var tag     = data.tag     || 'nexusos-notif';
-
-  event.waitUntil(
-    self.registration.showNotification(title, {
-      body:  body,
-      icon:  icon,
-      badge: badge,
-      tag:   tag,
-      data:  { url: url },
-      vibrate: [200, 100, 200]
-    })
-  );
-});
-
-// ── NOTIFICATION CLICK ────────────────────────────────────
-self.addEventListener('notificationclick', function(event) {
-  event.notification.close();
-  var targetUrl = (event.notification.data && event.notification.data.url)
-    ? event.notification.data.url
-    : '/nexusos-app.html';
-
-  event.waitUntil(
-    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function(windowClients) {
-      // Focus existing tab if open
-      for (var i = 0; i < windowClients.length; i++) {
-        var client = windowClients[i];
-        if (client.url.indexOf('nexusos') !== -1 && 'focus' in client) {
-          return client.focus();
-        }
-      }
-      // Open new tab
-      if (clients.openWindow) {
-        return clients.openWindow(targetUrl);
-      }
-    })
-  );
-});
-
-// ── BACKGROUND SYNC ───────────────────────────────────────
-self.addEventListener('sync', function(event) {
-  if (event.tag === 'nexusos-sync') {
-    // Reserved for future background data sync
-    console.log('[NexusOS SW] Background sync triggered');
+self.addEventListener('fetch', function(e){
+  if(e.request.method!=='GET') return;
+  var url = e.request.url;
+  /* Always network-first for API calls */
+  if(url.includes('supabase.co')||url.includes('googleapis.com')||url.includes('anthropic.com')){
+    e.respondWith(
+      fetch(e.request).catch(function(){
+        return new Response(JSON.stringify({error:'offline'}),{headers:{'Content-Type':'application/json'}});
+      })
+    );
+    return;
   }
+  /* Cache-first for the app shell */
+  e.respondWith(
+    caches.match(e.request).then(function(cached){
+      var networkFetch = fetch(e.request).then(function(resp){
+        if(resp.ok){
+          var clone = resp.clone();
+          caches.open(CACHE).then(function(c){ c.put(e.request, clone); });
+        }
+        return resp;
+      });
+      return cached || networkFetch;
+    }).catch(function(){
+      return caches.match('/nexusos-app.html');
+    })
+  );
+});
+
+self.addEventListener('message', function(e){
+  if(e.data==='skipWaiting') self.skipWaiting();
 });
