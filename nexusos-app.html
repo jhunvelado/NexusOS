@@ -1216,6 +1216,101 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 
 /* ── CEO PORTAL v7.5: NEW TABS ──────────────────────────── */
 
+/* ── GUIDE NAV ITEM (v7.9) ─────────────────────────────────── */
+#n-guide { color: #a594f9 !important; }
+#n-guide:hover { background: #1a1630 !important; }
+
+/* ── WELCOME MODAL (v7.9) ───────────────────────────────────── */
+#welcome-overlay {
+  display: none; position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
+  align-items: center; justify-content: center;
+}
+#welcome-overlay.open { display: flex; }
+#welcome-modal {
+  background: #0f0f1a; border: 1px solid #2a2a40; border-radius: 18px;
+  width: 540px; max-width: 94vw; max-height: 90vh; overflow-y: auto;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.7); position: relative;
+}
+.wm-header {
+  background: linear-gradient(135deg, #13131f 0%, #1a1630 100%);
+  border-radius: 18px 18px 0 0; padding: 32px 32px 24px;
+  border-bottom: 1px solid #1e1e2e; position: relative; overflow: hidden;
+}
+.wm-header::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 80% at 0% 0%, rgba(83,74,183,0.2), transparent);
+  pointer-events: none;
+}
+.wm-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #534AB720; border: 1px solid #534AB755;
+  color: #a594f9; font-size: 10px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px; margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+.wm-title { font-size: 22px; font-weight: 700; color: #f0f0f0; margin-bottom: 6px; }
+.wm-title span { color: #f0b429; }
+.wm-sub { font-size: 13px; color: #666; line-height: 1.6; }
+.wm-body { padding: 24px 32px 28px; }
+.wm-section-label {
+  font-size: 10px; font-weight: 600; color: #444;
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;
+}
+.wm-features {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;
+}
+.wm-feat {
+  background: #13131f; border: 1px solid #1e1e2e; border-radius: 10px;
+  padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px;
+}
+.wm-feat-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.wm-feat-body h4 { font-size: 12px; font-weight: 600; color: #d0d0d8; margin-bottom: 2px; }
+.wm-feat-body p { font-size: 11px; color: #555; margin: 0; line-height: 1.5; }
+.wm-steps { margin-bottom: 20px; }
+.wm-step {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid #13131f;
+}
+.wm-step:last-child { border-bottom: none; }
+.wm-step-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #534AB7; color: #fff; font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.wm-step-body h4 { font-size: 13px; font-weight: 600; color: #d0d0d8; margin-bottom: 2px; }
+.wm-step-body p { font-size: 12px; color: #555; margin: 0; }
+.wm-actions {
+  display: flex; gap: 10px; align-items: center;
+  padding: 0 32px 28px; flex-wrap: wrap;
+}
+.wm-btn-primary {
+  background: #f0b429; color: #1a1400;
+  padding: 11px 24px; border-radius: 9px; font-size: 14px; font-weight: 700;
+  border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
+  text-decoration: none; transition: background 0.15s;
+}
+.wm-btn-primary:hover { background: #d9a320; }
+.wm-btn-outline {
+  background: transparent; color: #888;
+  padding: 11px 20px; border-radius: 9px; font-size: 13px; font-weight: 500;
+  border: 1px solid #2a2a3d; cursor: pointer; transition: all 0.15s;
+}
+.wm-btn-outline:hover { border-color: #534AB7; color: #a594f9; }
+.wm-skip {
+  font-size: 12px; color: #444; cursor: pointer; margin-left: auto;
+  text-decoration: underline; background: none; border: none;
+}
+.wm-skip:hover { color: #888; }
+.wm-close {
+  position: absolute; top: 16px; right: 16px;
+  background: #1e1e2e; border: none; color: #555; width: 28px; height: 28px;
+  border-radius: 50%; cursor: pointer; font-size: 14px;
+  display: flex; align-items: center; justify-content: center; z-index: 2;
+}
+.wm-close:hover { background: #2a2a3d; color: #d0d0d8; }
+
+
 /* ── PWA & EMAIL v7.8 ───────────────────────────────────────── */
 #pwa-install-bar { display:none; position:fixed; bottom:70px; left:50%; transform:translateX(-50%); background:#1a1830; border:1px solid #534AB7; border-radius:12px; padding:12px 18px; z-index:19000; box-shadow:0 4px 20px rgba(83,74,183,0.3); align-items:center; gap:14px; max-width:360px; width:90%; }
 #pwa-install-bar.show { display:flex; }
@@ -2190,8 +2285,9 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="nav-item" id="n-email" onclick="nav('email')"><i class="ti ti-mail"></i> Email <span id="n-email-badge" style="display:none;background:#534AB7;color:#fff;border-radius:10px;padding:1px 6px;font-size:9px;font-weight:700;margin-left:4px"></span></div>
       <div class="nav-item" id="n-pricing" onclick="nav('pricing')"><i class="ti ti-credit-card"></i> Pricing & Plans</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
+      <div class="nav-item" id="n-guide" onclick="openGuide()"><i class="ti ti-book"></i> Help &amp; Guide</div>
     </div>
-    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v7.8<br><span>© Jhun Rey Velado 2026</span></div>
+    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v7.9<br><span>© Jhun Rey Velado 2026</span></div>
   </div>
 
   <!-- CONTENT -->
@@ -11996,6 +12092,66 @@ async function aiDraftEmail(){
   }
 }
 
+
+// ── GUIDE & WELCOME (v7.9) ───────────────────────────────────────────────────
+function openGuide() {
+  window.open('guide.html', '_blank');
+}
+
+function closeWelcome() {
+  var el = document.getElementById('welcome-overlay');
+  if (el) el.classList.remove('open');
+  try { localStorage.setItem('nexusos_welcome_shown', '1'); } catch(e){}
+}
+
+function _v79CheckWelcome() {
+  try {
+    var shown = localStorage.getItem('nexusos_welcome_shown');
+    if (shown) return;
+    var el = document.getElementById('welcome-overlay');
+    if (!el) return;
+    // Populate EA name
+    var nameEl = document.getElementById('wm-name');
+    if (nameEl) {
+      var storedName = localStorage.getItem('nexusos_user_name') || '';
+      var parts = storedName.trim().split(' ');
+      if (parts[0]) nameEl.textContent = parts[0];
+    }
+    // Show after short delay so app finishes rendering
+    setTimeout(function() { el.classList.add('open'); }, 900);
+  } catch(e) {}
+}
+
+// Close on overlay click (outside modal)
+document.addEventListener('DOMContentLoaded', function() {
+  var overlay = document.getElementById('welcome-overlay');
+  if (overlay) {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closeWelcome();
+    });
+  }
+});
+
+// Run check after auth is resolved (hook into existing initApp or run on load)
+(function() {
+  var _origInitApp = window.initApp;
+  if (typeof _origInitApp === 'function') {
+    window.initApp = function() {
+      _origInitApp.apply(this, arguments);
+      setTimeout(_v79CheckWelcome, 1200);
+    };
+  } else {
+    window.addEventListener('load', function() {
+      setTimeout(_v79CheckWelcome, 1800);
+    });
+  }
+})();
+
+// Also expose as standalone for manual trigger (e.g., from Settings)
+window._showWelcomeGuide = function() {
+  var el = document.getElementById('welcome-overlay');
+  if (el) el.classList.add('open');
+};
 </script>
 
 <!-- PRIVACY NOTICE (compact dark badge) -->
@@ -12009,6 +12165,78 @@ async function aiDraftEmail(){
   <button id="pwa-dismiss-btn" onclick="pwaDismiss()" aria-label="Dismiss">&times;</button>
 </div>
 <div id="offline-toast" role="status" aria-live="polite">Offline — showing cached data</div>
+
+<!-- WELCOME / ONBOARDING MODAL (v7.9) -->
+<div id="welcome-overlay">
+  <div id="welcome-modal">
+    <div class="wm-header">
+      <button class="wm-close" onclick="closeWelcome()" aria-label="Close"><i class="ti ti-x"></i></button>
+      <div class="wm-badge"><i class="ti ti-bolt"></i> Welcome to NexusOS v7.8</div>
+      <div class="wm-title">You're all set, <span id="wm-name">EA</span>. 👋</div>
+      <div class="wm-sub">NexusOS is the operating system built for you and your CEO. Here's a quick look at what's waiting for you — and where to go if you need help.</div>
+    </div>
+
+    <div class="wm-body">
+      <div class="wm-section-label">What you can do in NexusOS</div>
+      <div class="wm-features">
+        <div class="wm-feat">
+          <div class="wm-feat-icon" style="color:#f0b429"><i class="ti ti-bolt"></i></div>
+          <div class="wm-feat-body"><h4>AI Morning Briefing</h4><p>Auto-generated daily brief for your CEO — from calendar, tasks, and email.</p></div>
+        </div>
+        <div class="wm-feat">
+          <div class="wm-feat-icon" style="color:#1D9E75"><i class="ti ti-list-check"></i></div>
+          <div class="wm-feat-body"><h4>Task Management</h4><p>Shared task list, priority triage, and CEO-visible status board.</p></div>
+        </div>
+        <div class="wm-feat">
+          <div class="wm-feat-icon" style="color:#a594f9"><i class="ti ti-mail"></i></div>
+          <div class="wm-feat-body"><h4>Gmail Integration</h4><p>Full inbox inside NexusOS with AI email drafting in one click.</p></div>
+        </div>
+        <div class="wm-feat">
+          <div class="wm-feat-icon" style="color:#06b6d4"><i class="ti ti-address-book"></i></div>
+          <div class="wm-feat-body"><h4>CRM &amp; Contacts</h4><p>Track every relationship — investor, client, board member.</p></div>
+        </div>
+        <div class="wm-feat">
+          <div class="wm-feat-icon" style="color:#ec4899"><i class="ti ti-building"></i></div>
+          <div class="wm-feat-body"><h4>CEO Portal</h4><p>Your CEO's live dashboard — fed entirely by what you manage here.</p></div>
+        </div>
+        <div class="wm-feat">
+          <div class="wm-feat-icon" style="color:#ef4444"><i class="ti ti-plane"></i></div>
+          <div class="wm-feat-body"><h4>Travel Hub</h4><p>Full itineraries with flights, hotel, meetings, and budget tracking.</p></div>
+        </div>
+      </div>
+
+      <div class="wm-section-label">Recommended first steps</div>
+      <div class="wm-steps">
+        <div class="wm-step">
+          <div class="wm-step-num">1</div>
+          <div class="wm-step-body"><h4>Invite your CEO</h4><p>Go to <strong>My Clients → Add Client</strong> and enter your CEO's email.</p></div>
+        </div>
+        <div class="wm-step">
+          <div class="wm-step-num">2</div>
+          <div class="wm-step-body"><h4>Connect Gmail</h4><p>Click <strong>Email</strong> in the sidebar → <strong>Connect Gmail</strong>. Takes 30 seconds.</p></div>
+        </div>
+        <div class="wm-step">
+          <div class="wm-step-num">3</div>
+          <div class="wm-step-body"><h4>Add your Claude API key</h4><p>Go to <strong>Settings → Developer</strong> to unlock AI briefings and email drafting.</p></div>
+        </div>
+        <div class="wm-step">
+          <div class="wm-step-num">4</div>
+          <div class="wm-step-body"><h4>Install on your phone</h4><p>Tap the <strong>Install NexusOS</strong> banner at the bottom to add it to your home screen.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wm-actions">
+      <a href="guide.html" target="_blank" class="wm-btn-primary" onclick="closeWelcome()">
+        <i class="ti ti-book"></i> Open Full Guide
+      </a>
+      <button class="wm-btn-outline" onclick="closeWelcome(); nav('dashboard')">
+        <i class="ti ti-layout-dashboard"></i> Go to Dashboard
+      </button>
+      <button class="wm-skip" onclick="closeWelcome()">Skip for now</button>
+    </div>
+  </div>
+</div>
 
 <div id="privacy-notice-bar">
   <div class="pnb-inner">
