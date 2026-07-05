@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NexusOS — Executive Operating System for Fractional EAs and CEOs</title>
-<meta name="description" content="NexusOS is the AI-powered executive operating system built for fractional EAs and their clients. CEO portal, client reports, time tracking, AI briefing, and real-time collaboration.">
+<title>NexusOS — Executive Operating System for CEOs and EAs</title>
+<meta name="description" content="NexusOS v7.8 — the AI-powered executive operating system for CEOs and EAs. Gmail integration, CRM, morning briefings, CEO analytics dashboard, PWA mobile-ready. One platform, no fragmentation.">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -17,8 +17,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,18,0.9
 .nav-links{display:flex;align-items:center;gap:24px}
 .nav-links a{color:#888;font-size:13px;text-decoration:none;transition:color 0.15s}
 .nav-links a:hover{color:#f0f0f0}
-.nav-cta{background:#f0b429;color:#1a1400 !important;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:background 0.15s}
-.nav-cta:hover{background:#d9a320}
+.nav-cta{background:#f0b429;color:#1a1400;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:background 0.15s}
+.nav-cta:hover{background:#d9a320;color:#1a1400}
 
 /* HERO */
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 24px 60px;text-align:center;position:relative;overflow:hidden}
@@ -61,24 +61,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,18,0.9
 .pc-panel{background:#13131f;border:1px solid #1e1e2e;border-radius:7px;padding:10px}
 .pc-panel-ttl{font-size:9px;color:#666;font-weight:500;margin-bottom:7px;display:flex;align-items:center;gap:5px}
 .pc-panel-ttl i{font-size:11px;color:#f0b429}
-.pc-task{background:#0a0a12;border-radius:5px;padding:6px 8px;margin-bottom:4px;border-left:2px solid #534AB7}
+.pc-task{background:#0a0a12;border-radius:5px;padding:6px 8px;margin-bottom:4px;border-left:2px solid #E24B4A}
 .pc-task-name{font-size:10px;color:#ccc;margin-bottom:2px}
-.pc-tag{font-size:8px;padding:1px 5px;border-radius:10px;font-weight:500;background:#1a1830;color:#534AB7;border:1px solid #2a2550}
+.pc-tag{font-size:8px;padding:1px 5px;border-radius:10px;font-weight:500;background:#1f0808;color:#E24B4A;border:1px solid #351010}
 .pc-appr{background:#0a0a12;border-radius:5px;padding:7px 8px;margin-bottom:4px}
 .pc-appr-name{font-size:10px;color:#ccc;margin-bottom:2px}
-.pc-appr-amt{font-size:11px;font-weight:600;color:#1D9E75}
+.pc-appr-amt{font-size:11px;font-weight:600;color:#f0b429}
 .pc-appr-btns{display:flex;gap:4px;margin-top:4px}
+.pc-btn-r{background:#150808;border:1px solid #E24B4A;color:#E24B4A;font-size:8px;padding:2px 7px;border-radius:4px}
 .pc-btn-g{background:#081510;border:1px solid #1D9E75;color:#1D9E75;font-size:8px;padding:2px 7px;border-radius:4px}
-.pc-btn-p{background:#100e22;border:1px solid #534AB7;color:#534AB7;font-size:8px;padding:2px 7px;border-radius:4px}
 
-/* SECTIONS */
+/* FEATURES */
 section{padding:80px 24px}
 .section-inner{max-width:1000px;margin:0 auto}
 .section-eyebrow{font-size:11px;color:#534AB7;text-transform:uppercase;letter-spacing:0.12em;font-weight:600;margin-bottom:10px;text-align:center}
 .section-title{font-size:clamp(26px,4vw,40px);font-weight:700;text-align:center;margin-bottom:12px;letter-spacing:-0.01em}
 .section-sub{font-size:15px;color:#888;text-align:center;max-width:520px;margin:0 auto 48px}
-
-/* FEATURES */
 .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
 .feature-card{background:#13131f;border:1px solid #1e1e2e;border-radius:12px;padding:22px;transition:border-color 0.2s}
 .feature-card:hover{border-color:#534AB733}
@@ -92,7 +90,7 @@ section{padding:80px 24px}
 .feature-card p{font-size:12px;color:#666;line-height:1.7}
 
 /* HOW IT WORKS */
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:48px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:48px;position:relative}
 .step-item{text-align:center;padding:24px 16px}
 .step-num{width:44px;height:44px;border-radius:50%;background:#13131f;border:1px solid #534AB7;color:#534AB7;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
 .step-item h3{font-size:14px;font-weight:600;margin-bottom:6px;color:#f0f0f0}
@@ -117,32 +115,7 @@ section{padding:80px 24px}
 .price-btn-gold{background:#f0b429;color:#1a1400}
 .price-btn-gold:hover{background:#d9a320}
 
-/* ABOUT / MISSION / VISION */
-.about-section{background:#080810;border-top:1px solid #1e1e2e;border-bottom:1px solid #1e1e2e}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:48px}
-.about-photo-placeholder{width:100%;aspect-ratio:1;max-width:320px;border-radius:20px;background:linear-gradient(135deg,#100e22,#081510);border:1px solid #1e1e2e;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;margin:0 auto}
-.about-initials{font-size:56px;font-weight:800;background:linear-gradient(135deg,#534AB7,#1D9E75);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.about-name-tag{font-size:12px;color:#555;letter-spacing:0.06em}
-.about-text h3{font-size:26px;font-weight:700;margin-bottom:16px;letter-spacing:-0.01em}
-.about-text h3 span{color:#f0b429}
-.about-text p{font-size:14px;color:#888;line-height:1.85;margin-bottom:14px}
-.about-tag{display:inline-flex;align-items:center;gap:6px;background:#13131f;border:1px solid #1e1e2e;color:#aaa;font-size:11px;padding:4px 12px;border-radius:20px;margin:3px}
-
-.mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px}
-.mv-card{border-radius:16px;padding:36px;position:relative;overflow:hidden}
-.mv-card.mission{background:#100e22;border:1px solid #534AB733}
-.mv-card.vision{background:#081510;border:1px solid #1D9E7533}
-.mv-icon{font-size:32px;margin-bottom:18px;display:block}
-.mv-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;margin-bottom:10px}
-.mv-card.mission .mv-label{color:#534AB7}
-.mv-card.vision .mv-label{color:#1D9E75}
-.mv-card h3{font-size:20px;font-weight:700;margin-bottom:12px;color:#f0f0f0;line-height:1.3}
-.mv-card p{font-size:13px;color:#888;line-height:1.8}
-.mv-accent{position:absolute;bottom:-30px;right:-30px;width:120px;height:120px;border-radius:50%;opacity:0.06}
-.mv-card.mission .mv-accent{background:#534AB7}
-.mv-card.vision .mv-accent{background:#1D9E75}
-
-/* PROOF */
+/* TESTIMONIAL / PROOF */
 .proof-section{background:#13131f;border-top:1px solid #1e1e2e;border-bottom:1px solid #1e1e2e}
 .proof-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:48px}
 .proof-card{background:#0d0d14;border:1px solid #1e1e2e;border-radius:10px;padding:20px}
@@ -152,20 +125,14 @@ section{padding:80px 24px}
 .proof-name{font-size:12px;font-weight:500;color:#ddd}
 .proof-title-sm{font-size:11px;color:#555}
 
-/* STATS BAR */
-.stats-section{padding:48px 24px;border-top:1px solid #1e1e2e;border-bottom:1px solid #1e1e2e}
-.stats-inner{max-width:800px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
-.stat-num{font-size:36px;font-weight:800;color:#f0b429;line-height:1}
-.stat-lbl{font-size:11px;color:#555;margin-top:6px;text-transform:uppercase;letter-spacing:0.08em;font-weight:600}
-
-/* CTA */
+/* CTA SECTION */
 .cta-section{text-align:center;padding:100px 24px}
 .cta-inner{max-width:600px;margin:0 auto}
 .cta-section h2{font-size:clamp(28px,5vw,44px);font-weight:700;margin-bottom:16px;letter-spacing:-0.01em}
 .cta-section p{font-size:15px;color:#888;margin-bottom:36px}
 
 /* FOOTER */
-footer{border-top:1px solid #1e1e2e;padding:40px 24px;text-align:center}
+footer{border-top:1px solid #1e1e2e;padding:32px 24px;text-align:center}
 .footer-logo{color:#f0b429;font-weight:700;font-size:15px;margin-bottom:8px}
 .footer-sub{font-size:12px;color:#444;line-height:1.8}
 .footer-links{display:flex;justify-content:center;gap:20px;margin-top:12px;flex-wrap:wrap}
@@ -173,15 +140,12 @@ footer{border-top:1px solid #1e1e2e;padding:40px 24px;text-align:center}
 .footer-links a:hover{color:#888}
 
 /* RESPONSIVE */
-@media(max-width:768px){
+@media(max-width:640px){
   .nav-links{display:none}
   .preview-inner{grid-template-columns:1fr}
   .preview-sidebar{display:none}
   .pc-stats{grid-template-columns:1fr 1fr}
   .hero-actions{flex-direction:column;align-items:center}
-  .about-grid{grid-template-columns:1fr}
-  .mv-grid{grid-template-columns:1fr}
-  .stats-inner{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
@@ -193,9 +157,7 @@ footer{border-top:1px solid #1e1e2e;padding:40px 24px;text-align:center}
   <div class="nav-links">
     <a href="#features">Features</a>
     <a href="#how-it-works">How it works</a>
-    <a href="#about">About</a>
     <a href="#pricing">Pricing</a>
-    <a href="integrations.html">Integrations</a>
     <a href="nexusos-app.html" class="nav-cta">Sign in →</a>
   </div>
 </nav>
@@ -204,9 +166,9 @@ footer{border-top:1px solid #1e1e2e;padding:40px 24px;text-align:center}
 <section class="hero">
   <div class="hero-bg"></div>
   <div style="position:relative;max-width:760px;margin:0 auto">
-    <div class="hero-badge"><i class="ti ti-bolt"></i> Executive Operating System · v6.0 · New</div>
-    <h1>The operating system<br>built for <span>fractional EAs</span></h1>
-    <p class="hero-sub">Manage multiple clients, publish CEO reports, track billable hours, and collaborate in real time — all from one AI-powered platform built specifically for fractional Executive Assistants.</p>
+    <div class="hero-badge"><i class="ti ti-bolt"></i> Executive Operating System · v7.8 · New</div>
+    <h1>The operating system<br>built for <span>executive teams</span></h1>
+    <p class="hero-sub">One AI-powered platform where the CEO and their EA manage everything — decisions, Gmail inbox, CRM contacts, travel, approvals, and governance. Installable on any device. No more fragmented tools.</p>
     <div class="hero-actions">
       <a href="nexusos-app.html" class="btn-primary-lg"><i class="ti ti-bolt"></i> Start free today</a>
       <a href="#features" class="btn-outline-lg"><i class="ti ti-play"></i> See how it works</a>
@@ -234,44 +196,47 @@ footer{border-top:1px solid #1e1e2e;padding:40px 24px;text-align:center}
         <div class="ps-lbl">Command</div>
         <div class="ps-item active"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
         <div class="ps-item"><i class="ti ti-bolt"></i> AI Briefing</div>
-        <div class="ps-item"><i class="ti ti-calendar"></i> Calendar</div>
-        <div class="ps-lbl">Fractional EA</div>
-        <div class="ps-item"><i class="ti ti-clock"></i> Time Tracker</div>
-        <div class="ps-item"><i class="ti ti-chart-bar"></i> Client Reports</div>
-        <div class="ps-item"><i class="ti ti-plug"></i> Integrations</div>
+        <div class="ps-item"><i class="ti ti-radar"></i> Intelligence</div>
         <div class="ps-lbl">Operations</div>
         <div class="ps-item"><i class="ti ti-list-check"></i> Tasks</div>
         <div class="ps-item"><i class="ti ti-circle-check"></i> Approvals</div>
-        <div class="ps-item"><i class="ti ti-users"></i> My Clients</div>
+        <div class="ps-item"><i class="ti ti-plane"></i> Travel Hub</div>
+        <div class="ps-item"><i class="ti ti-message-circle"></i> Exec Chat</div>
+        <div class="ps-lbl">Communications</div>
+        <div class="ps-item"><i class="ti ti-mail"></i> Email Inbox</div>
+        <div class="ps-item"><i class="ti ti-address-book"></i> Contacts / CRM</div>
+        <div class="ps-lbl">Analytics</div>
+        <div class="ps-item"><i class="ti ti-chart-bar"></i> CEO Analytics</div>
+        <div class="ps-item"><i class="ti ti-shield-check"></i> Governance</div>
       </div>
       <div class="preview-content">
         <div class="pc-eyebrow">Command Centre</div>
-        <div class="pc-title">Good morning, Jhun.</div>
-        <div class="pc-sub">Today's overview — 3 active clients · Prepared by NexusOS v6.0</div>
+        <div class="pc-title">Good morning, Camron.</div>
+        <div class="pc-sub">Sunday, June 28, 2026 · Prepared by EA — Jhun Rey Velado</div>
         <div class="pc-stats">
-          <div class="pc-stat"><div class="pc-stat-lbl">Hours this week</div><div class="pc-stat-val" style="color:#f0b429">24.5</div></div>
-          <div class="pc-stat"><div class="pc-stat-lbl">Active clients</div><div class="pc-stat-val" style="color:#534AB7">3</div></div>
-          <div class="pc-stat"><div class="pc-stat-lbl">Tasks done</div><div class="pc-stat-val" style="color:#1D9E75">12</div></div>
-          <div class="pc-stat"><div class="pc-stat-lbl">CEO feedback</div><div class="pc-stat-val" style="color:#f0f0f0">2</div></div>
+          <div class="pc-stat"><div class="pc-stat-lbl">Total tasks</div><div class="pc-stat-val" style="color:#f0f0f0">8</div></div>
+          <div class="pc-stat"><div class="pc-stat-lbl">Pending</div><div class="pc-stat-val" style="color:#f0b429">4</div></div>
+          <div class="pc-stat"><div class="pc-stat-lbl">Completed</div><div class="pc-stat-val" style="color:#1D9E75">1</div></div>
+          <div class="pc-stat"><div class="pc-stat-lbl">High priority</div><div class="pc-stat-val" style="color:#E24B4A">3</div></div>
         </div>
         <div class="pc-grid">
           <div class="pc-panel">
-            <div class="pc-panel-ttl"><i class="ti ti-clock"></i> Recent time entries</div>
-            <div class="pc-task"><div class="pc-task-name">Calendar management · Client A</div><span class="pc-tag">2.5 hrs</span></div>
-            <div class="pc-task"><div class="pc-task-name">Report preparation · Client B</div><span class="pc-tag">1.0 hr</span></div>
-            <div class="pc-task" style="border-left-color:#1D9E75"><div class="pc-task-name">CEO portal update · Client C</div><span class="pc-tag" style="background:#081510;color:#1D9E75;border-color:#0f2518">1.5 hrs</span></div>
+            <div class="pc-panel-ttl"><i class="ti ti-star"></i> Today's priorities</div>
+            <div class="pc-task"><div class="pc-task-name">Prepare Q3 Board Presentation</div><span class="pc-tag">high</span></div>
+            <div class="pc-task"><div class="pc-task-name">Review LOI — Massachusetts</div><span class="pc-tag">overdue</span></div>
+            <div class="pc-task" style="border-left-color:#f0b429"><div class="pc-task-name">Sign LOI — NJ Post-Acute Group</div><span class="pc-tag" style="background:#1a1000;color:#f0b429;border-color:#2a1e00">waiting</span></div>
           </div>
           <div class="pc-panel">
-            <div class="pc-panel-ttl"><i class="ti ti-message-circle"></i> CEO feedback</div>
+            <div class="pc-panel-ttl"><i class="ti ti-circle-check"></i> Pending approvals</div>
             <div class="pc-appr">
-              <div class="pc-appr-name">Maria L. · Client A</div>
-              <div class="pc-appr-amt">✓ Approved report</div>
-              <div class="pc-appr-btns"><button class="pc-btn-p">View</button><button class="pc-btn-g">Reply</button></div>
+              <div class="pc-appr-name">Executive Travel to Boston</div>
+              <div class="pc-appr-amt">$8,500</div>
+              <div class="pc-appr-btns"><button class="pc-btn-r">Reject</button><button class="pc-btn-g">Approve</button></div>
             </div>
             <div class="pc-appr">
-              <div class="pc-appr-name">David K. · Client B</div>
-              <div class="pc-appr-amt" style="color:#534AB7">💬 Left a comment</div>
-              <div class="pc-appr-btns"><button class="pc-btn-p">View</button><button class="pc-btn-g">Reply</button></div>
+              <div class="pc-appr-name">Legal Counsel Retainer</div>
+              <div class="pc-appr-amt">$120k</div>
+              <div class="pc-appr-btns"><button class="pc-btn-r">Reject</button><button class="pc-btn-g">Approve</button></div>
             </div>
           </div>
         </div>
@@ -280,67 +245,57 @@ footer{border-top:1px solid #1e1e2e;padding:40px 24px;text-align:center}
   </div>
 </div>
 
-<!-- STATS -->
-<div class="stats-section">
-  <div class="stats-inner">
-    <div><div class="stat-num">6+</div><div class="stat-lbl">Integrations</div></div>
-    <div><div class="stat-num">3</div><div class="stat-lbl">Plans available</div></div>
-    <div><div class="stat-num">∞</div><div class="stat-lbl">Automations via Make</div></div>
-    <div><div class="stat-num">v6.0</div><div class="stat-lbl">Latest version</div></div>
-  </div>
-</div>
-
 <!-- FEATURES -->
 <section id="features">
   <div class="section-inner">
     <div class="section-eyebrow">Everything in one place</div>
-    <h2 class="section-title">Built for fractional EAs<br>who run multiple clients</h2>
-    <p class="section-sub">Every feature designed around the fractional EA workflow — not adapted from something else.</p>
+    <h2 class="section-title">Built for how executives<br>actually operate</h2>
+    <p class="section-sub">12 platforms were researched before building NexusOS. None solved the real problem: no shared workspace for the CEO and EA together. v7.8 adds Gmail integration, full CRM, governance dashboards, and PWA mobile support.</p>
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon fi-a"><i class="ti ti-bolt"></i></div>
         <h3>AI Daily Briefing</h3>
-        <p>Claude AI reads your tasks, meetings, and priorities then writes a personalized morning briefing. Know exactly where to focus before your first client call of the day.</p>
+        <p>Every morning before your first meeting — a complete intelligence summary. Pending decisions, overdue tasks, relationship follow-ups, and meeting prep. You start the day knowing exactly where to focus.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon fi-g"><i class="ti ti-clock"></i></div>
-        <h3>Time Tracker</h3>
-        <p>Live timer per client, manual entries, billable vs. non-billable hours, and a weekly earnings summary. Know exactly how much you've earned across all clients at any moment.</p>
+        <div class="feature-icon fi-g"><i class="ti ti-circle-check"></i></div>
+        <h3>Approval Centre</h3>
+        <p>Every request from your EA — travel, expenses, legal, events — comes here with full context. Amount, reason, category. Approve or reject with one tap. No more digging through email threads.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon fi-p"><i class="ti ti-chart-bar"></i></div>
-        <h3>Client Reports</h3>
-        <p>Generate professional monthly reports per client — total hours, earnings, tasks completed, and decisions logged. Publish directly to your client's CEO portal with one click.</p>
+        <div class="feature-icon fi-p"><i class="ti ti-plane"></i></div>
+        <h3>Travel Hub</h3>
+        <p>Leg-by-leg itinerary, hotel confirmations, key contacts, AI pre-trip brief, and expense tracking against your approved budget. Everything in one place before you board.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon fi-b"><i class="ti ti-building"></i></div>
-        <h3>CEO Client Portal</h3>
-        <p>Each client gets their own secure read-only portal. They see what you publish — no more emailing PDFs. Send an invite link, they accept, they're in. Zero friction.</p>
+        <div class="feature-icon fi-r"><i class="ti ti-mail"></i></div>
+        <h3>Gmail Email Integration</h3>
+        <p>Your full Gmail inbox — inside NexusOS. Read threads, archive, star, and reply without switching tabs. AI Draft generates email copy on demand. Unread badge keeps you current at a glance.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon fi-g"><i class="ti ti-message-circle"></i></div>
-        <h3>Two-Way Collaboration</h3>
-        <p>CEOs can approve reports, flag issues, and leave comments directly in their portal. You get real-time browser notifications when they respond. No more chasing email replies.</p>
+        <div class="feature-icon fi-b"><i class="ti ti-message-circle"></i></div>
+        <h3>Executive Chat</h3>
+        <p>Private CEO-EA workspace. Real-time messaging, all history saved. Replaces fragmented WhatsApp threads. Every message tied to context — no noise, no missing updates.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon fi-a"><i class="ti ti-calendar"></i></div>
-        <h3>Google Calendar Sync</h3>
-        <p>Connect your Google Calendar and see all your events inside NexusOS. One-click OAuth — your schedule and client work in a single view, no switching between apps.</p>
+        <div class="feature-icon fi-g"><i class="ti ti-address-book"></i></div>
+        <h3>CRM &amp; Contact Management</h3>
+        <p>Full contact database for investors, board members, clients, and key relationships. Tag by type, log activities, track last contact date, and search instantly. Managed by your EA, visible to you in the CEO portal.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon fi-p"><i class="ti ti-list-check"></i></div>
-        <h3>Task Management</h3>
-        <p>Per-client task lists with priority tags, due dates, and status tracking. Shared with your CEO so they always know what's in progress without a status update call.</p>
+        <h3>Shared Task Management</h3>
+        <p>One task list. Both CEO and EA see the same live view. Priority tags, due dates, status, owner. Nothing falls through. Everything has an owner and a due date.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon fi-r"><i class="ti ti-plug"></i></div>
-        <h3>Integrations</h3>
-        <p>Connects with Supabase, Google Calendar, Claude AI, Paddle billing, Make.com automations, and Gmail — all working together inside one platform.</p>
+        <div class="feature-icon fi-a"><i class="ti ti-clipboard-list"></i></div>
+        <h3>Meeting Prep AI</h3>
+        <p>Auto-generated briefings for every meeting: key participants, objectives, required documents, and a prep checklist. You arrive prepared to every meeting without doing any research yourself.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon fi-b"><i class="ti ti-device-mobile"></i></div>
-        <h3>PWA Mobile App</h3>
-        <p>Install NexusOS on iOS or Android via "Add to Home Screen." Looks and feels like a native app. Get push notifications for CEO feedback even when the app is closed.</p>
+        <div class="feature-icon fi-r"><i class="ti ti-shield-check"></i></div>
+        <h3>Governance &amp; Analytics</h3>
+        <p>CEO Decision Analytics, KPI benchmarks, Executive Summary reports, and a Governance dashboard — all in the CEO portal. Track decisions made, pending actions, board items, and compliance status in one view.</p>
       </div>
     </div>
   </div>
@@ -350,114 +305,28 @@ footer{border-top:1px solid #1e1e2e;padding:40px 24px;text-align:center}
 <section id="how-it-works" style="background:#080810;border-top:1px solid #1e1e2e;border-bottom:1px solid #1e1e2e">
   <div class="section-inner">
     <div class="section-eyebrow">How it works</div>
-    <h2 class="section-title">From signup to first client<br>in under 10 minutes</h2>
-    <p class="section-sub">No installation. No IT team. Works in any browser on any device.</p>
+    <h2 class="section-title">Up and running in 5 minutes</h2>
+    <p class="section-sub">No installation. No IT team. Works in any browser on any device — or install as a PWA on iOS and Android.</p>
     <div class="steps">
       <div class="step-item">
         <div class="step-num">1</div>
         <h3>Create your account</h3>
-        <p>Sign up with your email as an EA. Complete the setup checklist — it guides you through every first step automatically.</p>
+        <p>Sign up with your email. Set your role — CEO or EA. Add your company name. Takes 60 seconds.</p>
       </div>
       <div class="step-item">
         <div class="step-num">2</div>
-        <h3>Add your clients</h3>
-        <p>Set up client profiles, start tracking time, and log tasks. Everything is organized per client from day one.</p>
+        <h3>Invite your CEO or EA</h3>
+        <p>Share the NexusOS link with your counterpart. They create their own account. You're now in the same workspace.</p>
       </div>
       <div class="step-item">
         <div class="step-num">3</div>
-        <h3>Publish a report</h3>
-        <p>At the end of the month, generate a professional client report and publish it to their CEO portal with one click.</p>
+        <h3>Start operating</h3>
+        <p>Add tasks, submit approvals, build trip itineraries, add contacts, send messages. Everything saves instantly.</p>
       </div>
       <div class="step-item">
         <div class="step-num">4</div>
-        <h3>Invite your CEO</h3>
-        <p>Send a secure invite link. Your client accepts, sees their portal, and can approve reports, leave feedback, or flag items — all in real time.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about" class="about-section">
-  <div class="section-inner">
-    <div class="section-eyebrow">About the founder</div>
-    <h2 class="section-title">Built by an EA, for EAs</h2>
-    <p class="section-sub">NexusOS wasn't designed in a boardroom. It was built from the ground up by someone who lived the problem every day.</p>
-    <div class="about-grid">
-      <div>
-        <div class="about-photo-placeholder">
-          <div class="about-initials">JRV</div>
-          <div class="about-name-tag">Jhun Rey Velado · Founder</div>
-        </div>
-      </div>
-      <div class="about-text">
-        <h3>Hi, I'm <span>Jhun Rey Velado</span></h3>
-        <p>I started in the virtual assistant industry as a Medical VA — coordinating patient care, managing clinic schedules, and supporting healthcare operations remotely. Over time, I transitioned into executive support and discovered something that surprised me: the tools built for EAs were either built for corporate teams with IT departments, or they were generic productivity apps with no understanding of the EA-client relationship.</p>
-        <p>So I built NexusOS. Every feature you see — the CEO portal, the time tracker, the client reports, the push notifications — exists because I needed it, or because other EAs told me they needed it. This is not a tool adapted from something else. It was designed from scratch for the fractional EA workflow.</p>
-        <p>NexusOS is where I run my own EA practice. It's the platform I trust for my clients every day. And now it's available to every EA who wants to operate at a higher level.</p>
-        <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:6px">
-          <span class="about-tag"><i class="ti ti-briefcase" style="font-size:11px"></i> Fractional EA</span>
-          <span class="about-tag"><i class="ti ti-heart" style="font-size:11px"></i> Former Medical VA</span>
-          <span class="about-tag"><i class="ti ti-code" style="font-size:11px"></i> Solo builder</span>
-          <span class="about-tag"><i class="ti ti-map-pin" style="font-size:11px"></i> Philippines</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MISSION & VISION -->
-<section id="mission-vision">
-  <div class="section-inner">
-    <div class="section-eyebrow">What drives us</div>
-    <h2 class="section-title">Mission & Vision</h2>
-    <p class="section-sub">The principles behind every feature we build and every decision we make.</p>
-    <div class="mv-grid">
-      <div class="mv-card mission">
-        <div class="mv-accent"></div>
-        <span class="mv-icon">🎯</span>
-        <div class="mv-label">Our Mission</div>
-        <h3>Empower fractional EAs to deliver executive-grade results — at scale</h3>
-        <p>NexusOS exists to give fractional Executive Assistants the infrastructure they need to serve multiple clients with the same quality, professionalism, and transparency that a full-time EA delivers to one. We remove the administrative friction so EAs can focus on what they do best: making their clients' lives easier and their businesses run better.</p>
-      </div>
-      <div class="mv-card vision">
-        <div class="mv-accent"></div>
-        <span class="mv-icon">🌏</span>
-        <div class="mv-label">Our Vision</div>
-        <h3>A world where every growing business has access to world-class executive support</h3>
-        <p>We believe that the fractional model is the future of executive assistance — and that geography, company size, or budget should never be the reason a CEO can't access the support they need. NexusOS is building the platform that makes that possible: a global network of skilled EAs, equipped with the same tools that today only exist inside the world's largest companies.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROOF -->
-<section class="proof-section">
-  <div class="section-inner">
-    <div class="section-eyebrow">Why NexusOS</div>
-    <h2 class="section-title">The gap no platform filled</h2>
-    <p class="section-sub">Every other tool was built for one person. NexusOS is built for the relationship between an EA and their clients.</p>
-    <div class="proof-grid">
-      <div class="proof-card">
-        <div class="proof-text">"As a fractional EA managing 4 clients, I was using a different tool for every function — time tracking in one app, reports in another, updates over WhatsApp. NexusOS replaced all of it."</div>
-        <div class="proof-author">
-          <div class="proof-av">EA</div>
-          <div><div class="proof-name">Fractional Executive Assistant</div><div class="proof-title-sm">Managing 4 clients across 3 industries</div></div>
-        </div>
-      </div>
-      <div class="proof-card">
-        <div class="proof-text">"The CEO portal changed how my clients see me. Instead of emailing a PDF report, I publish it to their portal and they can approve it or leave comments. It feels genuinely professional."</div>
-        <div class="proof-author">
-          <div class="proof-av">VA</div>
-          <div><div class="proof-name">Virtual EA · Former Medical VA</div><div class="proof-title-sm">Transitioned to fractional EA practice</div></div>
-        </div>
-      </div>
-      <div class="proof-card">
-        <div class="proof-text">"I was spending 3-4 hours a week just on admin — tracking hours, writing reports, chasing approvals. NexusOS cut that to under an hour. That's time I can bill to a client instead."</div>
-        <div class="proof-author">
-          <div class="proof-av">FE</div>
-          <div><div class="proof-name">Fractional EA · Healthcare sector</div><div class="proof-title-sm">3 clients · 25 hrs/week</div></div>
-        </div>
+        <h3>Replace your other tools</h3>
+        <p>One login replaces 12 fragmented tools. Your EA updates NexusOS. You stay informed without the noise.</p>
       </div>
     </div>
   </div>
@@ -468,56 +337,89 @@ footer{border-top:1px solid #1e1e2e;padding:40px 24px;text-align:center}
   <div class="section-inner">
     <div class="section-eyebrow">Pricing</div>
     <h2 class="section-title">Simple, transparent pricing</h2>
-    <p class="section-sub">Start free. Upgrade as your client roster grows. No hidden fees. Cancel anytime.</p>
+    <p class="section-sub">One CEO + EA workspace. No hidden fees. Cancel anytime.</p>
     <div class="pricing-grid">
       <div class="price-card">
         <div class="price-tier">Starter</div>
-        <div class="price-amount">$39<span>/month</span></div>
-        <div class="price-desc">For EAs getting started with their first client.</div>
+        <div class="price-amount">$49<span>/month</span></div>
+        <div class="price-desc">For one CEO and EA getting started with NexusOS.</div>
         <div class="price-feature"><i class="ti ti-check"></i> Dashboard + AI Briefing</div>
-        <div class="price-feature"><i class="ti ti-check"></i> Time tracker + billable hours</div>
         <div class="price-feature"><i class="ti ti-check"></i> Task management</div>
-        <div class="price-feature"><i class="ti ti-check"></i> Client reports</div>
-        <div class="price-feature"><i class="ti ti-check"></i> CEO client portal</div>
-        <div class="price-feature"><i class="ti ti-check"></i> 1 client workspace</div>
+        <div class="price-feature"><i class="ti ti-check"></i> Approval centre</div>
+        <div class="price-feature"><i class="ti ti-check"></i> Executive chat</div>
+        <div class="price-feature"><i class="ti ti-check"></i> CRM &amp; Contact Management</div>
+        <div class="price-feature"><i class="ti ti-check"></i> 1 CEO + 1 EA workspace</div>
         <a href="nexusos-app.html" class="price-btn price-btn-outline">Get started</a>
       </div>
       <div class="price-card featured">
         <div class="price-badge">Most popular</div>
         <div class="price-tier">Professional</div>
-        <div class="price-amount">$79<span>/month</span></div>
-        <div class="price-desc">For EAs managing multiple clients at once.</div>
+        <div class="price-amount">$149<span>/month</span></div>
+        <div class="price-desc">The full NexusOS platform for serious executive operators.</div>
         <div class="price-feature"><i class="ti ti-check"></i> Everything in Starter</div>
-        <div class="price-feature"><i class="ti ti-check"></i> Up to 3 client workspaces</div>
-        <div class="price-feature"><i class="ti ti-check"></i> Google Calendar sync</div>
-        <div class="price-feature"><i class="ti ti-check"></i> Push notifications</div>
-        <div class="price-feature"><i class="ti ti-check"></i> CEO two-way collaboration</div>
-        <div class="price-feature"><i class="ti ti-check"></i> Setup checklist + onboarding</div>
-        <div class="price-feature"><i class="ti ti-check"></i> Make.com automations</div>
+        <div class="price-feature"><i class="ti ti-check"></i> Travel Hub + itineraries</div>
+        <div class="price-feature"><i class="ti ti-check"></i> Gmail email integration + AI Draft</div>
+        <div class="price-feature"><i class="ti ti-check"></i> CEO Analytics &amp; Governance</div>
+        <div class="price-feature"><i class="ti ti-check"></i> Meeting Prep AI</div>
+        <div class="price-feature"><i class="ti ti-check"></i> PWA — installable on any device</div>
+        <div class="price-feature"><i class="ti ti-check"></i> Real-time notifications</div>
         <a href="nexusos-app.html" class="price-btn price-btn-primary">Get started</a>
       </div>
       <div class="price-card">
         <div class="price-tier">Enterprise</div>
-        <div class="price-amount">$179<span>/month</span></div>
-        <div class="price-desc">For established fractional EA practices with full client rosters.</div>
+        <div class="price-amount">$399<span>/month</span></div>
+        <div class="price-desc">For multi-site operators, PE-backed companies, and healthcare groups.</div>
         <div class="price-feature"><i class="ti ti-check"></i> Everything in Professional</div>
-        <div class="price-feature"><i class="ti ti-check"></i> Unlimited client workspaces</div>
-        <div class="price-feature"><i class="ti ti-check"></i> Priority support</div>
-        <div class="price-feature"><i class="ti ti-check"></i> Early access to new features</div>
+        <div class="price-feature"><i class="ti ti-check"></i> Up to 5 CEO workspaces</div>
+        <div class="price-feature"><i class="ti ti-check"></i> Google Calendar sync</div>
+        <div class="price-feature"><i class="ti ti-check"></i> Gmail + Outlook email connection</div>
+        <div class="price-feature"><i class="ti ti-check"></i> Custom branding (white-label)</div>
         <div class="price-feature"><i class="ti ti-check"></i> White-glove onboarding</div>
-        <div class="price-feature"><i class="ti ti-check"></i> Custom integrations</div>
-        <a href="nexusos-app.html" class="price-btn price-btn-gold">Get Enterprise</a>
+        <div class="price-feature"><i class="ti ti-check"></i> Priority support</div>
+        <a href="mailto:jhun07.velado@gmail.com?subject=NexusOS Enterprise" class="price-btn price-btn-gold">Contact us</a>
       </div>
     </div>
     <p style="text-align:center;font-size:12px;color:#444;margin-top:20px">Start with a free account — upgrade anytime. No credit card required to get started.</p>
   </div>
 </section>
 
+<!-- PROOF -->
+<section class="proof-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Why NexusOS</div>
+    <h2 class="section-title">The gap no platform filled</h2>
+    <p class="section-sub">12 platforms were researched. Every one solved one piece. None solved the whole problem.</p>
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="proof-text">"Every tool is built for one person. My EA uses Notion. I use Gmail. We sync on WhatsApp. Things slip — not because of bad intentions, but because no system exists to catch them."</div>
+        <div class="proof-author">
+          <div class="proof-av">CE</div>
+          <div><div class="proof-name">Healthcare CEO</div><div class="proof-title-sm">PE-backed, multi-state operator</div></div>
+        </div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-text">"The approval black hole is real. A travel request gets buried in email. By the time the CEO sees it, the deadline is gone. NexusOS puts every decision in one place with full context."</div>
+        <div class="proof-author">
+          <div class="proof-av">EA</div>
+          <div><div class="proof-name">Executive Assistant</div><div class="proof-title-sm">Supporting a Fortune 500 CEO</div></div>
+        </div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-text">"I was accountable for thousands of decisions a year. The problem wasn't intelligence — it was friction. Too many tools, too much switching, too much falling through the cracks."</div>
+        <div class="proof-author">
+          <div class="proof-av">PO</div>
+          <div><div class="proof-name">Private Equity Operator</div><div class="proof-title-sm">Managing 6-company portfolio</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta-section">
   <div class="cta-inner">
-    <h2>Ready to run your EA practice<br><span style="color:#f0b429">the right way?</span></h2>
-    <p>Join fractional EAs who use NexusOS to manage clients, track time, publish reports, and collaborate with CEOs — all in one place.</p>
+    <h2>Ready to run your executive office<br><span style="color:#f0b429">the right way?</span></h2>
+    <p>Join CEOs and Executive Assistants who use NexusOS to manage decisions, travel, approvals, and relationships — all in one place.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
       <a href="nexusos-app.html" class="btn-primary-lg"><i class="ti ti-bolt"></i> Start free today</a>
       <a href="mailto:jhun07.velado@gmail.com?subject=NexusOS Demo Request" class="btn-outline-lg"><i class="ti ti-calendar"></i> Request a demo</a>
@@ -529,16 +431,11 @@ footer{border-top:1px solid #1e1e2e;padding:40px 24px;text-align:center}
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">⚡ NexusOS</div>
-  <div class="footer-sub">
-    Executive Operating System · v6.0 · Built for Fractional EAs<br>
-    © 2026 Jhun Rey Velado · All rights reserved · Proprietary software
-  </div>
+  <div class="footer-sub">Executive Operating System · v7.8 · Built for CEOs and their EAs<br>© Jhun Rey Velado 2026 · All rights reserved · Proprietary software</div>
   <div class="footer-links">
     <a href="nexusos-app.html">Sign in</a>
     <a href="nexusos-app.html">Create account</a>
     <a href="#pricing">Pricing</a>
-    <a href="#about">About</a>
-    <a href="integrations.html">Integrations</a>
     <a href="mailto:jhun07.velado@gmail.com">Contact</a>
     <a href="NexusOS_OWNERSHIP_LICENSE.html">License</a>
   </div>
