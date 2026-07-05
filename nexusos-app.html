@@ -1206,6 +1206,75 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 
 /* ── CEO PORTAL v7.5: NEW TABS ──────────────────────────── */
 
+/* ── CRM v7.7 ───────────────────────────────────────────────── */
+.crm-toolbar { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:18px; }
+.crm-search  { flex:1; min-width:180px; background:#0a0a12; border:1px solid #252535; color:#f0f0f0; border-radius:8px; padding:9px 13px 9px 36px; font-size:13px; font-family:inherit; }
+.crm-search:focus { outline:none; border-color:#534AB7; }
+.crm-search-wrap { position:relative; flex:1; min-width:180px; }
+.crm-search-icon { position:absolute; left:11px; top:50%; transform:translateY(-50%); color:#666; font-size:15px; pointer-events:none; }
+.crm-filter  { background:#0a0a12; border:1px solid #252535; color:#f0f0f0; border-radius:8px; padding:9px 10px; font-size:12px; font-family:inherit; cursor:pointer; }
+.crm-view-btn { background:transparent; border:1px solid #252535; color:#888; border-radius:8px; padding:8px 11px; font-size:15px; cursor:pointer; transition:all .15s; }
+.crm-view-btn.active { background:#534AB7; border-color:#534AB7; color:#fff; }
+.crm-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px; margin-bottom:18px; }
+.crm-stat  { background:#f8f7ff; border:1px solid #e0dcff; border-radius:10px; padding:12px 14px; }
+.crm-stat-val { font-size:22px; font-weight:700; color:#534AB7; }
+.crm-stat-lbl { font-size:10px; color:#888; text-transform:uppercase; letter-spacing:.4px; margin-top:2px; }
+.crm-grid  { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; }
+.crm-card  { background:#fff; border:1px solid #eee; border-radius:12px; padding:16px; cursor:pointer; transition:box-shadow .15s,border-color .15s; }
+.crm-card:hover { box-shadow:0 4px 16px rgba(83,74,183,0.12); border-color:#c5bfff; }
+.crm-avatar { width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,#534AB7,#7C3AED); display:flex; align-items:center; justify-content:center; color:#fff; font-size:15px; font-weight:600; flex-shrink:0; }
+.crm-card-name  { font-size:14px; font-weight:600; color:#1a1a2e; margin-top:10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.crm-card-role  { font-size:11px; color:#888; margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.crm-card-co    { font-size:11px; color:#534AB7; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.crm-tag-row    { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; }
+.crm-tag        { font-size:10px; padding:2px 7px; border-radius:20px; font-weight:500; }
+.crm-tag.vip    { background:#fef3c7; color:#92400e; }
+.crm-tag.client { background:#dbeafe; color:#1e40af; }
+.crm-tag.prospect{ background:#dcfce7; color:#166534; }
+.crm-tag.vendor { background:#f3e8ff; color:#6b21a8; }
+.crm-tag.partner{ background:#fce7f3; color:#9d174d; }
+.crm-tag.advisor{ background:#e0f2fe; color:#075985; }
+.crm-tag.investor{background:#fff7ed; color:#9a3412; }
+.crm-tag.board  { background:#f1f5f9; color:#334155; }
+.crm-tag.default{ background:#f3f4f6; color:#374151; }
+.crm-card-meta  { display:flex; align-items:center; justify-content:space-between; margin-top:10px; padding-top:10px; border-top:1px solid #f0f0f0; }
+.crm-card-date  { font-size:10px; color:#aaa; }
+.crm-card-icons { display:flex; gap:8px; }
+.crm-card-icons a { color:#888; font-size:14px; text-decoration:none; }
+.crm-card-icons a:hover { color:#534AB7; }
+.crm-list       { display:flex; flex-direction:column; gap:0; border:1px solid #eee; border-radius:10px; overflow:hidden; }
+.crm-list-row   { display:flex; align-items:center; gap:14px; padding:11px 16px; border-bottom:1px solid #f3f3f3; cursor:pointer; transition:background .12s; }
+.crm-list-row:last-child { border-bottom:none; }
+.crm-list-row:hover { background:#f8f7ff; }
+.crm-list-av    { width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,#534AB7,#7C3AED); display:flex; align-items:center; justify-content:center; color:#fff; font-size:12px; font-weight:600; flex-shrink:0; }
+.crm-list-name  { font-size:13px; font-weight:600; color:#1a1a2e; min-width:140px; }
+.crm-list-co    { font-size:12px; color:#888; flex:1; }
+.crm-list-tag   { font-size:10px; }
+.crm-list-date  { font-size:11px; color:#aaa; min-width:80px; text-align:right; }
+.crm-empty { text-align:center; padding:48px 20px; color:#aaa; font-size:13px; }
+/* Contact detail modal */
+.crm-detail-tabs { display:flex; gap:0; border-bottom:1px solid #252535; margin-bottom:16px; }
+.crm-detail-tab  { padding:8px 16px; font-size:12px; color:#888; cursor:pointer; border-bottom:2px solid transparent; transition:all .15s; }
+.crm-detail-tab.active { color:#534AB7; border-bottom-color:#534AB7; }
+.crm-detail-panel { display:none; }
+.crm-detail-panel.active { display:block; }
+.crm-act-item { display:flex; gap:10px; padding:8px 0; border-bottom:1px solid #1e1e30; }
+.crm-act-icon { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+.crm-act-icon.call  { background:#dbeafe; color:#1e40af; }
+.crm-act-icon.email { background:#dcfce7; color:#166534; }
+.crm-act-icon.meet  { background:#f3e8ff; color:#6b21a8; }
+.crm-act-icon.note  { background:#fef3c7; color:#92400e; }
+.crm-act-body { flex:1; }
+.crm-act-text { font-size:12px; color:#ccc; }
+.crm-act-date { font-size:10px; color:#666; margin-top:2px; }
+/* CEO contacts tab */
+.ceo-contact-card { background:#f8f7ff; border:1px solid #e0dcff; border-radius:10px; padding:14px 16px; display:flex; align-items:center; gap:14px; margin-bottom:10px; }
+.ceo-cc-av { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,#534AB7,#7C3AED); display:flex; align-items:center; justify-content:center; color:#fff; font-size:13px; font-weight:600; flex-shrink:0; }
+.ceo-cc-name { font-size:13px; font-weight:600; color:#1a1a2e; }
+.ceo-cc-role { font-size:11px; color:#888; }
+.ceo-cc-co   { font-size:11px; color:#534AB7; }
+.ceo-cc-actions { margin-left:auto; display:flex; gap:8px; }
+
 /* ── CEO PORTAL v7.6: GOVERNANCE & ANALYTICS ────────────────── */
 .gov-metric-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(155px,1fr)); gap:12px; margin-bottom:18px; }
 .gov-metric-card { background:#f8f7ff; border:1px solid #e0dcff; border-radius:10px; padding:16px; text-align:center; }
@@ -1940,7 +2009,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
 <div id="auth-screen" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#0d0d14;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
   <div style="background:#13131f;border:1px solid #2a2a3d;border-radius:14px;padding:36px 32px;width:100%;max-width:400px">
     <div style="text-align:center;margin-bottom:8px"><svg viewBox="0 0 100 100" width="80" height="80" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 12px;filter:drop-shadow(0 4px 20px rgba(200,136,0,0.7))"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg><div style="font-weight:700;font-size:30px;letter-spacing:-0.5px;line-height:1"><span style="color:#ffffff">Nexus</span><span style="color:#f0b429">OS</span></div></div>
-    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v7.6 · Executive Edition</div>
+    <div style="font-size:12px;color:#555;margin-bottom:24px">Executive Operating System · v7.7 · Executive Edition</div>
 
     <!-- TAB SWITCHER -->
     <div id="auth-tabs" style="display:flex;gap:4px;background:#0d0d14;padding:4px;border-radius:8px;margin-bottom:20px">
@@ -2064,10 +2133,11 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       <div class="nav-item" id="n-agency" onclick="nav('agency')"><i class="ti ti-building-community"></i> Agency / Team</div>
       <div class="nav-item" id="n-developer" onclick="nav('developer')"><i class="ti ti-code"></i> Developer</div>
       <div class="nav-item" id="n-governance" onclick="nav('governance')"><i class="ti ti-shield-check"></i> Governance</div>
+      <div class="nav-item" id="n-crm" onclick="nav('crm')"><i class="ti ti-address-book"></i> Contacts / CRM</div>
       <div class="nav-item" id="n-pricing" onclick="nav('pricing')"><i class="ti ti-credit-card"></i> Pricing & Plans</div>
       <div class="nav-item" id="n-settings" onclick="nav('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
-    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v7.6<br><span>© Jhun Rey Velado 2026</span></div>
+    <div class="sidebar-footer"><svg viewBox="0 0 100 100" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-label="NexusOS" role="img" style="display:block;margin:0 auto 5px;opacity:0.65"><path fill="url(#n-dg)" d="M8,8 L30,8 L92,92 L70,92 Z"/><path fill="url(#n-lb)" d="M8,8 H30 V92 H8 Z"/><path fill="url(#n-rb)" d="M70,8 H92 V92 H70 Z"/><rect x="8" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.72"/><rect x="87" y="8" width="5" height="84" fill="url(#n-sp)" opacity="0.65"/><rect x="26" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.72"/><rect x="70" y="8" width="4" height="84" fill="url(#n-sd)" opacity="0.62"/><path fill="url(#n-tc)" d="M8,8 L30,8 L34,21 L12,21 Z"/><path fill="url(#n-sd)" opacity="0.68" d="M70,92 L92,92 L88,79 L66,79 Z"/><line x1="30" y1="8" x2="30" y2="36" stroke="#0C0700" stroke-width="2.5" opacity="0.88"/><line x1="70" y1="64" x2="70" y2="92" stroke="#0C0700" stroke-width="2.5" opacity="0.82"/><line x1="30" y1="8" x2="74" y2="60" stroke="#2E1C00" stroke-width="1.5" opacity="0.42"/><line x1="8" y1="8" x2="30" y2="8" stroke="#FFFDF0" stroke-width="2" opacity="0.65"/></svg>NexusOS v7.7<br><span>© Jhun Rey Velado 2026</span></div>
   </div>
 
   <!-- CONTENT -->
@@ -3296,6 +3366,7 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
         <button class="ceo-tab" id="ctab-kpibench" onclick="ceoTab('kpibench')"><i class="ti ti-chart-dots"></i> KPI Benchmarks</button>
         <button class="ceo-tab" id="ctab-execsummary" onclick="ceoTab('execsummary')"><i class="ti ti-file-analytics"></i> Exec Summary</button>
         <button class="ceo-tab" id="ctab-ceogovernance" onclick="ceoTab('ceogovernance')"><i class="ti ti-shield-check"></i> Governance</button>
+        <button class="ceo-tab" id="ctab-ceocontacts" onclick="ceoTab('ceocontacts')"><i class="ti ti-address-book"></i> Key Contacts</button>
       </div>
 
       <!-- ── OVERVIEW TAB ── -->
@@ -3617,6 +3688,22 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       </div>
 
 
+      <!-- ── KEY CONTACTS TAB (v7.7) ── -->
+      <div class="ceo-panel" id="ceo-panel-ceocontacts">
+        <div class="panel">
+          <div class="panel-hdr">
+            <div class="panel-ttl"><i class="ti ti-address-book"></i> Key Contacts</div>
+            <button class="btn-outline btn-sm" onclick="loadCEOContacts()" style="font-size:11px"><i class="ti ti-refresh"></i> Refresh</button>
+          </div>
+          <p style="font-size:12px;color:#555;margin-bottom:14px">Contacts linked to your account by your EA.</p>
+          <div style="margin-bottom:12px">
+            <input style="width:100%;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;padding:8px 12px;font-size:12px;font-family:inherit" placeholder="Search contacts…" oninput="filterCEOContacts(this.value)" id="ceo-contact-search">
+          </div>
+          <div id="ceo-contacts-body"><div class="portal-empty"><i class="ti ti-loader"></i>Loading…</div></div>
+        </div>
+      </div>
+
+
     </div>
 
     <!-- DOCUMENT HUB (v7.3) -->
@@ -3877,6 +3964,47 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
       </div>
     </div>
 
+    <!-- CRM SCREEN (v7.7) -->
+    <div class="screen" id="s-crm">
+      <div class="pg-eyebrow">Relationship Intelligence</div>
+      <div class="pg-title">Contacts / CRM</div>
+      <div class="pg-sub">Track every contact, relationship, and interaction across all your CEO clients</div>
+
+      <div class="crm-stats" id="crm-stats-row">
+        <div class="crm-stat"><div class="crm-stat-val" id="crm-total">0</div><div class="crm-stat-lbl">Total Contacts</div></div>
+        <div class="crm-stat"><div class="crm-stat-val" id="crm-vip">0</div><div class="crm-stat-lbl">VIP</div></div>
+        <div class="crm-stat"><div class="crm-stat-val" id="crm-recent">0</div><div class="crm-stat-lbl">Added This Month</div></div>
+        <div class="crm-stat"><div class="crm-stat-val" id="crm-companies">0</div><div class="crm-stat-lbl">Companies</div></div>
+      </div>
+
+      <div class="crm-toolbar">
+        <div class="crm-search-wrap">
+          <i class="ti ti-search crm-search-icon" aria-hidden="true"></i>
+          <input class="crm-search" id="crm-search-input" placeholder="Search by name, company, email…" oninput="renderCRM()">
+        </div>
+        <select class="crm-filter" id="crm-tag-filter" onchange="renderCRM()">
+          <option value="">All tags</option>
+          <option value="vip">VIP</option>
+          <option value="client">Client</option>
+          <option value="prospect">Prospect</option>
+          <option value="vendor">Vendor</option>
+          <option value="partner">Partner</option>
+          <option value="advisor">Advisor</option>
+          <option value="investor">Investor</option>
+          <option value="board">Board</option>
+        </select>
+        <select class="crm-filter" id="crm-client-filter" onchange="renderCRM()">
+          <option value="">All clients</option>
+        </select>
+        <button class="crm-view-btn active" id="crm-btn-grid" onclick="setCRMView('grid')" title="Grid view" aria-label="Grid view"><i class="ti ti-layout-grid" aria-hidden="true"></i></button>
+        <button class="crm-view-btn" id="crm-btn-list" onclick="setCRMView('list')" title="List view" aria-label="List view"><i class="ti ti-list" aria-hidden="true"></i></button>
+        <button class="btn-outline btn-sm" onclick="exportContactsCSV()" style="font-size:11px"><i class="ti ti-download" aria-hidden="true"></i> Export</button>
+        <button class="btn-primary btn-sm" onclick="openContactModal()" style="font-size:12px"><i class="ti ti-plus" aria-hidden="true"></i> Add Contact</button>
+      </div>
+
+      <div id="crm-contact-body"></div>
+    </div>
+
     <!-- INTEGRATIONS SCREEN -->
     <div class="screen" id="s-integrations">
       <div class="pg-eyebrow">Platform</div>
@@ -3912,6 +4040,121 @@ button, .btn-primary, .btn-outline, .av, .logout-btn, .notif-btn,
     <div class="mc-btns">
       <button class="mc-btn cancel" onclick="closeAddClientModal()">Cancel</button>
       <button class="mc-btn primary" onclick="saveNewClient()">Add Client</button>
+    </div>
+  </div>
+</div>
+
+<!-- CRM: Contact Detail Modal (v7.7) -->
+<div class="mc-modal-overlay" id="crm-contact-modal">
+  <div class="mc-modal-box" style="width:520px;max-height:90vh;overflow-y:auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <div class="mc-modal-title" id="crm-modal-title" style="margin-bottom:0">Add Contact</div>
+      <button onclick="closeCRMModal()" style="background:none;border:none;color:#888;font-size:18px;cursor:pointer" aria-label="Close">&times;</button>
+    </div>
+    <div class="crm-detail-tabs" id="crm-modal-tabs">
+      <div class="crm-detail-tab active" onclick="crmModalTab('info')">Info</div>
+      <div class="crm-detail-tab" onclick="crmModalTab('notes')">Notes</div>
+      <div class="crm-detail-tab" onclick="crmModalTab('activity')">Activity</div>
+    </div>
+
+    <!-- INFO TAB -->
+    <div class="crm-detail-panel active" id="crm-tab-info">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="mc-field" style="margin-bottom:0">
+          <label class="mc-lbl">Full Name *</label>
+          <input class="mc-input" id="crm-f-name" placeholder="Jane Smith">
+        </div>
+        <div class="mc-field" style="margin-bottom:0">
+          <label class="mc-lbl">Role / Title</label>
+          <input class="mc-input" id="crm-f-role" placeholder="CEO, Director…">
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+        <div class="mc-field" style="margin-bottom:0">
+          <label class="mc-lbl">Company</label>
+          <input class="mc-input" id="crm-f-company" placeholder="Acme Corp">
+        </div>
+        <div class="mc-field" style="margin-bottom:0">
+          <label class="mc-lbl">Link to Client</label>
+          <select class="mc-input" id="crm-f-client" style="padding:9px 10px"></select>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+        <div class="mc-field" style="margin-bottom:0">
+          <label class="mc-lbl">Email</label>
+          <input class="mc-input" id="crm-f-email" type="email" placeholder="jane@company.com">
+        </div>
+        <div class="mc-field" style="margin-bottom:0">
+          <label class="mc-lbl">Phone</label>
+          <input class="mc-input" id="crm-f-phone" placeholder="+1 555 0000">
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <label class="mc-lbl">LinkedIn URL</label>
+        <input class="mc-input" id="crm-f-linkedin" placeholder="https://linkedin.com/in/…">
+      </div>
+      <div style="margin-top:10px">
+        <label class="mc-lbl">Tags</label>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px" id="crm-tag-picker">
+          <button class="crm-tag-pick" data-tag="vip"      onclick="toggleCRMTag(this)" style="padding:4px 10px;border-radius:20px;border:1px solid #d97706;background:transparent;color:#92400e;font-size:11px;cursor:pointer">VIP</button>
+          <button class="crm-tag-pick" data-tag="client"   onclick="toggleCRMTag(this)" style="padding:4px 10px;border-radius:20px;border:1px solid #3b82f6;background:transparent;color:#1e40af;font-size:11px;cursor:pointer">Client</button>
+          <button class="crm-tag-pick" data-tag="prospect" onclick="toggleCRMTag(this)" style="padding:4px 10px;border-radius:20px;border:1px solid #22c55e;background:transparent;color:#166534;font-size:11px;cursor:pointer">Prospect</button>
+          <button class="crm-tag-pick" data-tag="vendor"   onclick="toggleCRMTag(this)" style="padding:4px 10px;border-radius:20px;border:1px solid #a855f7;background:transparent;color:#6b21a8;font-size:11px;cursor:pointer">Vendor</button>
+          <button class="crm-tag-pick" data-tag="partner"  onclick="toggleCRMTag(this)" style="padding:4px 10px;border-radius:20px;border:1px solid #ec4899;background:transparent;color:#9d174d;font-size:11px;cursor:pointer">Partner</button>
+          <button class="crm-tag-pick" data-tag="advisor"  onclick="toggleCRMTag(this)" style="padding:4px 10px;border-radius:20px;border:1px solid #0ea5e9;background:transparent;color:#075985;font-size:11px;cursor:pointer">Advisor</button>
+          <button class="crm-tag-pick" data-tag="investor" onclick="toggleCRMTag(this)" style="padding:4px 10px;border-radius:20px;border:1px solid #f97316;background:transparent;color:#9a3412;font-size:11px;cursor:pointer">Investor</button>
+          <button class="crm-tag-pick" data-tag="board"    onclick="toggleCRMTag(this)" style="padding:4px 10px;border-radius:20px;border:1px solid #94a3b8;background:transparent;color:#334155;font-size:11px;cursor:pointer">Board</button>
+        </div>
+      </div>
+      <div class="mc-btns">
+        <button class="mc-btn cancel" onclick="deleteCRMContact()" id="crm-delete-btn" style="display:none;background:#fee2e2;color:#991b1b;border:none">Delete</button>
+        <button class="mc-btn cancel" onclick="closeCRMModal()">Cancel</button>
+        <button class="mc-btn primary" onclick="saveCRMContact()">Save Contact</button>
+      </div>
+    </div>
+
+    <!-- NOTES TAB -->
+    <div class="crm-detail-panel" id="crm-tab-notes">
+      <label class="mc-lbl">Notes</label>
+      <textarea class="mc-input" id="crm-f-notes" rows="8" placeholder="Key context, relationship history, personal details to remember…" style="resize:vertical"></textarea>
+      <div class="mc-btns">
+        <button class="mc-btn cancel" onclick="closeCRMModal()">Cancel</button>
+        <button class="mc-btn primary" onclick="saveCRMContact()">Save Notes</button>
+      </div>
+    </div>
+
+    <!-- ACTIVITY TAB -->
+    <div class="crm-detail-panel" id="crm-tab-activity">
+      <button class="btn-primary btn-sm" onclick="openActivityModal()" style="font-size:12px;margin-bottom:14px"><i class="ti ti-plus" aria-hidden="true"></i> Log Activity</button>
+      <div id="crm-activity-feed"><div style="color:#666;font-size:12px;text-align:center;padding:20px">No activity logged yet.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CRM: Log Activity Modal (v7.7) -->
+<div class="mc-modal-overlay" id="crm-activity-modal" style="z-index:21000">
+  <div class="mc-modal-box">
+    <div class="mc-modal-title">Log Activity</div>
+    <div class="mc-field">
+      <label class="mc-lbl">Type</label>
+      <select class="mc-input" id="act-type">
+        <option value="call">Phone Call</option>
+        <option value="email">Email</option>
+        <option value="meet">Meeting</option>
+        <option value="note">Note</option>
+      </select>
+    </div>
+    <div class="mc-field">
+      <label class="mc-lbl">Date</label>
+      <input class="mc-input" id="act-date" type="date">
+    </div>
+    <div class="mc-field">
+      <label class="mc-lbl">Notes</label>
+      <textarea class="mc-input" id="act-notes" rows="4" placeholder="What was discussed or decided…"></textarea>
+    </div>
+    <div class="mc-btns">
+      <button class="mc-btn cancel" onclick="closeActivityModal()">Cancel</button>
+      <button class="mc-btn primary" onclick="saveActivity()">Log Activity</button>
     </div>
   </div>
 </div>
@@ -8104,6 +8347,7 @@ function ceoTab(name) {
     case 'kpibench':          loadKPIBenchmarks();        break;
     case 'execsummary':       loadExecSummary();          break;
     case 'ceogovernance':     loadCEOGovernance();        break;
+    case 'ceocontacts':       loadCEOContacts();          break;
   }
 }
 
@@ -10149,6 +10393,7 @@ function loadWebhookLog(){
     if(screen==='agency') setTimeout(loadAgency,60);
     if(screen==='developer')  setTimeout(loadDeveloper,60);
     if(screen==='governance') setTimeout(loadGovernanceDashboard,60);
+    if(screen==='crm')        setTimeout(loadCRM,60);
     return res;
   };
   // Log login event
@@ -10855,6 +11100,335 @@ function _v76LoadGovData(cb){
   cb({ completionRate:completionRate, doneTasks:doneTasks, totalTasks:totalTasks,
        avgTurnaround:avgTurnaround, pendingApprovals:pendingApprovals,
        onTimeRate:onTimeRate, tripCount:tripCount, clients:clients, activeClients:activeClients });
+}
+
+
+// ══════════════════════════════════════════════════════════════
+// NexusOS v7.7 — CRM / CONTACT MANAGEMENT
+// ══════════════════════════════════════════════════════════════
+
+var _crmView = 'grid';
+var _crmEditId = null;
+
+// ── Storage helpers ───────────────────────────────────────────────────────────
+function _crmGetContacts(){ try{ return JSON.parse(localStorage.getItem('nexusos_contacts')||'[]'); }catch(e){ return []; } }
+function _crmSaveContacts(arr){ localStorage.setItem('nexusos_contacts',JSON.stringify(arr)); }
+function _crmGetActivities(){ try{ return JSON.parse(localStorage.getItem('nexusos_contact_activities')||'[]'); }catch(e){ return []; } }
+function _crmSaveActivities(arr){ localStorage.setItem('nexusos_contact_activities',JSON.stringify(arr)); }
+function _crmGetClients(){ try{ return JSON.parse(localStorage.getItem('nexusos_clients')||'[]'); }catch(e){ return []; } }
+
+// ── Tag class helper ──────────────────────────────────────────────────────────
+function crmTagClass(tag){ var map={vip:'vip',client:'client',prospect:'prospect',vendor:'vendor',partner:'partner',advisor:'advisor',investor:'investor',board:'board'}; return map[tag]||'default'; }
+
+// ── Initials helper ───────────────────────────────────────────────────────────
+function crmInitials(name){ return (name||'?').split(' ').map(function(w){ return w[0]; }).join('').substring(0,2).toUpperCase(); }
+
+// ── Load / render CRM ─────────────────────────────────────────────────────────
+function loadCRM(){
+  // Populate client filter
+  var clients=_crmGetClients();
+  var cf=document.getElementById('crm-client-filter');
+  if(cf){
+    var existing=Array.from(cf.options).map(function(o){ return o.value; });
+    clients.forEach(function(c){
+      if(!existing.includes(c.id)){
+        var o=document.createElement('option'); o.value=c.id; o.textContent=c.name||c.fullName||c.id;
+        cf.appendChild(o);
+      }
+    });
+  }
+  renderCRM();
+}
+
+function renderCRM(){
+  var contacts=_crmGetContacts();
+  var query=(document.getElementById('crm-search-input')||{value:''}).value.toLowerCase().trim();
+  var tagF=(document.getElementById('crm-tag-filter')||{value:''}).value;
+  var clientF=(document.getElementById('crm-client-filter')||{value:''}).value;
+
+  // Filter
+  var filtered=contacts.filter(function(c){
+    var q=query===''||(c.name||'').toLowerCase().includes(query)||(c.company||'').toLowerCase().includes(query)||(c.email||'').toLowerCase().includes(query);
+    var t=tagF===''||(c.tags||[]).includes(tagF);
+    var cl=clientF===''||c.clientId===clientF;
+    return q&&t&&cl;
+  });
+
+  // Stats
+  var now=new Date(); var cy=now.getFullYear(); var cm=now.getMonth();
+  document.getElementById('crm-total').textContent=contacts.length;
+  document.getElementById('crm-vip').textContent=contacts.filter(function(c){ return (c.tags||[]).includes('vip'); }).length;
+  document.getElementById('crm-recent').textContent=contacts.filter(function(c){ var d=new Date(c.createdAt||0); return d.getFullYear()===cy&&d.getMonth()===cm; }).length;
+  var cos={}; contacts.forEach(function(c){ if(c.company) cos[c.company]=1; }); document.getElementById('crm-companies').textContent=Object.keys(cos).length;
+
+  var body=document.getElementById('crm-contact-body');
+  if(!body) return;
+  if(!filtered.length){ body.innerHTML='<div class="crm-empty"><i class="ti ti-address-book" style="font-size:32px;display:block;margin-bottom:8px" aria-hidden="true"></i>'+(contacts.length?'No contacts match your filters.':'No contacts yet. Add your first contact!')+'</div>'; return; }
+
+  if(_crmView==='grid'){
+    body.innerHTML='<div class="crm-grid">'+filtered.map(function(c){ return _crmCardHTML(c); }).join('')+'</div>';
+  } else {
+    body.innerHTML='<div class="crm-list">'+filtered.map(function(c){ return _crmListRowHTML(c); }).join('')+'</div>';
+  }
+}
+
+function _crmCardHTML(c){
+  var tags=(c.tags||[]).slice(0,3).map(function(t){ return '<span class="crm-tag '+crmTagClass(t)+'">'+t+'</span>'; }).join('');
+  var emailLink=c.email?'<a href="mailto:'+c.email+'" onclick="event.stopPropagation()" title="Email"><i class="ti ti-mail" aria-hidden="true"></i></a>':'';
+  var phoneLink=c.phone?'<a href="tel:'+c.phone+'" onclick="event.stopPropagation()" title="Call"><i class="ti ti-phone" aria-hidden="true"></i></a>':'';
+  var liLink=c.linkedin?'<a href="'+c.linkedin+'" target="_blank" onclick="event.stopPropagation()" title="LinkedIn"><i class="ti ti-brand-linkedin" aria-hidden="true"></i></a>':'';
+  var lastDate=c.lastContact?c.lastContact:'Added '+(c.createdAt||'').substring(0,10);
+  return '<div class="crm-card" onclick="openContactModal(\''+c.id+'\')">'
+    +'<div class="crm-avatar" aria-hidden="true">'+crmInitials(c.name)+'</div>'
+    +'<div class="crm-card-name" title="'+(c.name||'')+'">'+c.name+'</div>'
+    +'<div class="crm-card-role">'+( c.role||'')+'</div>'
+    +'<div class="crm-card-co">'+( c.company||'')+'</div>'
+    +(tags?'<div class="crm-tag-row">'+tags+'</div>':'')
+    +'<div class="crm-card-meta"><span class="crm-card-date">'+lastDate+'</span><div class="crm-card-icons">'+emailLink+phoneLink+liLink+'</div></div>'
+    +'</div>';
+}
+
+function _crmListRowHTML(c){
+  var tag=(c.tags||[])[0]||'';
+  var tagHtml=tag?'<span class="crm-tag '+crmTagClass(tag)+' crm-list-tag">'+tag+'</span>':'';
+  return '<div class="crm-list-row" onclick="openContactModal(\''+c.id+'\')">'
+    +'<div class="crm-list-av" aria-hidden="true">'+crmInitials(c.name)+'</div>'
+    +'<div class="crm-list-name">'+c.name+'</div>'
+    +'<div class="crm-list-co">'+(c.company?c.company+( c.role?' · '+c.role:''):c.role||'')+'</div>'
+    +tagHtml
+    +'<div class="crm-list-date">'+(c.lastContact||c.createdAt||'').substring(0,10)+'</div>'
+    +'</div>';
+}
+
+function setCRMView(v){
+  _crmView=v;
+  document.getElementById('crm-btn-grid').classList.toggle('active',v==='grid');
+  document.getElementById('crm-btn-list').classList.toggle('active',v==='list');
+  renderCRM();
+}
+
+// ── Contact modal ─────────────────────────────────────────────────────────────
+function openContactModal(id){
+  _crmEditId=id||null;
+  var modal=document.getElementById('crm-contact-modal');
+  if(!modal) return;
+
+  // Populate client select
+  var cs=document.getElementById('crm-f-client');
+  if(cs){
+    cs.innerHTML='<option value="">— No client —</option>';
+    _crmGetClients().forEach(function(cl){ var o=document.createElement('option'); o.value=cl.id; o.textContent=cl.name||cl.fullName||cl.id; cs.appendChild(o); });
+  }
+
+  // Reset tag pickers
+  document.querySelectorAll('.crm-tag-pick').forEach(function(b){ b.style.opacity='0.55'; b.style.fontWeight='400'; b.dataset.selected=''; });
+
+  if(id){
+    var c=_crmGetContacts().find(function(x){ return x.id===id; });
+    if(!c) return;
+    document.getElementById('crm-modal-title').textContent='Edit Contact';
+    document.getElementById('crm-f-name').value=c.name||'';
+    document.getElementById('crm-f-role').value=c.role||'';
+    document.getElementById('crm-f-company').value=c.company||'';
+    document.getElementById('crm-f-email').value=c.email||'';
+    document.getElementById('crm-f-phone').value=c.phone||'';
+    document.getElementById('crm-f-linkedin').value=c.linkedin||'';
+    document.getElementById('crm-f-notes').value=c.notes||'';
+    if(cs) cs.value=c.clientId||'';
+    (c.tags||[]).forEach(function(t){
+      var btn=document.querySelector('.crm-tag-pick[data-tag="'+t+'"]');
+      if(btn){ btn.style.opacity='1'; btn.style.fontWeight='600'; btn.dataset.selected='1'; }
+    });
+    var delBtn=document.getElementById('crm-delete-btn'); if(delBtn) delBtn.style.display='';
+    // Load activity feed
+    renderActivityFeed(id);
+  } else {
+    document.getElementById('crm-modal-title').textContent='Add Contact';
+    ['name','role','company','email','phone','linkedin','notes'].forEach(function(f){ var el=document.getElementById('crm-f-'+f); if(el) el.value=''; });
+    var delBtn=document.getElementById('crm-delete-btn'); if(delBtn) delBtn.style.display='none';
+    var feed=document.getElementById('crm-activity-feed'); if(feed) feed.innerHTML='<div style="color:#666;font-size:12px;text-align:center;padding:20px">Save the contact first to log activities.</div>';
+  }
+
+  // Set today date for activity
+  var ad=document.getElementById('act-date'); if(ad) ad.value=new Date().toISOString().split('T')[0];
+
+  crmModalTab('info');
+  modal.classList.add('open');
+}
+
+function closeCRMModal(){
+  var modal=document.getElementById('crm-contact-modal');
+  if(modal) modal.classList.remove('open');
+  _crmEditId=null;
+}
+
+function crmModalTab(tab){
+  document.querySelectorAll('.crm-detail-tab').forEach(function(t,i){ t.classList.toggle('active',['info','notes','activity'][i]===tab); });
+  document.querySelectorAll('.crm-detail-panel').forEach(function(p){ p.classList.remove('active'); });
+  var panel=document.getElementById('crm-tab-'+tab);
+  if(panel) panel.classList.add('active');
+}
+
+function toggleCRMTag(btn){
+  var sel=btn.dataset.selected;
+  if(sel){ btn.style.opacity='0.55'; btn.style.fontWeight='400'; btn.dataset.selected=''; }
+  else    { btn.style.opacity='1';   btn.style.fontWeight='600'; btn.dataset.selected='1'; }
+}
+
+function saveCRMContact(){
+  var name=(document.getElementById('crm-f-name')||{value:''}).value.trim();
+  if(!name){ alert('Name is required.'); return; }
+  var tags=[]; document.querySelectorAll('.crm-tag-pick[data-selected="1"]').forEach(function(b){ tags.push(b.dataset.tag); });
+  var contact={
+    id:       _crmEditId||('crm-'+Date.now()),
+    name:     name,
+    role:     (document.getElementById('crm-f-role')||{value:''}).value.trim(),
+    company:  (document.getElementById('crm-f-company')||{value:''}).value.trim(),
+    email:    (document.getElementById('crm-f-email')||{value:''}).value.trim(),
+    phone:    (document.getElementById('crm-f-phone')||{value:''}).value.trim(),
+    linkedin: (document.getElementById('crm-f-linkedin')||{value:''}).value.trim(),
+    notes:    (document.getElementById('crm-f-notes')||{value:''}).value.trim(),
+    clientId: (document.getElementById('crm-f-client')||{value:''}).value,
+    tags:     tags,
+    createdAt: _crmEditId?undefined:new Date().toISOString().split('T')[0],
+    updatedAt: new Date().toISOString().split('T')[0]
+  };
+  var contacts=_crmGetContacts();
+  if(_crmEditId){
+    var idx=contacts.findIndex(function(c){ return c.id===_crmEditId; });
+    if(idx>-1){ contact.createdAt=contacts[idx].createdAt; contacts[idx]=contact; }
+    else contacts.unshift(contact);
+  } else {
+    contacts.unshift(contact);
+  }
+  _crmSaveContacts(contacts);
+  closeCRMModal();
+  renderCRM();
+  showToast('Contact saved');
+}
+
+function deleteCRMContact(){
+  if(!_crmEditId) return;
+  if(!confirm('Delete this contact?')) return;
+  var contacts=_crmGetContacts().filter(function(c){ return c.id!==_crmEditId; });
+  _crmSaveContacts(contacts);
+  // Delete activities too
+  var acts=_crmGetActivities().filter(function(a){ return a.contactId!==_crmEditId; });
+  _crmSaveActivities(acts);
+  closeCRMModal();
+  renderCRM();
+  showToast('Contact deleted');
+}
+
+// ── Activity log ──────────────────────────────────────────────────────────────
+function openActivityModal(){
+  var modal=document.getElementById('crm-activity-modal');
+  if(modal) modal.classList.add('open');
+}
+function closeActivityModal(){
+  var modal=document.getElementById('crm-activity-modal');
+  if(modal) modal.classList.remove('open');
+}
+function saveActivity(){
+  if(!_crmEditId){ alert('Save the contact first.'); return; }
+  var type=(document.getElementById('act-type')||{value:'note'}).value;
+  var date=(document.getElementById('act-date')||{value:''}).value||new Date().toISOString().split('T')[0];
+  var notes=(document.getElementById('act-notes')||{value:''}).value.trim();
+  var act={ id:'act-'+Date.now(), contactId:_crmEditId, type:type, date:date, notes:notes };
+  var acts=_crmGetActivities();
+  acts.unshift(act);
+  _crmSaveActivities(acts);
+
+  // Update lastContact on contact
+  var contacts=_crmGetContacts();
+  var idx=contacts.findIndex(function(c){ return c.id===_crmEditId; });
+  if(idx>-1){ contacts[idx].lastContact=date; _crmSaveContacts(contacts); }
+
+  closeActivityModal();
+  renderActivityFeed(_crmEditId);
+  renderCRM();
+  showToast('Activity logged');
+}
+
+function renderActivityFeed(contactId){
+  var acts=_crmGetActivities().filter(function(a){ return a.contactId===contactId; });
+  var feed=document.getElementById('crm-activity-feed');
+  if(!feed) return;
+  if(!acts.length){ feed.innerHTML='<div style="color:#666;font-size:12px;text-align:center;padding:20px">No activity logged yet.</div>'; return; }
+  var typeMap={ call:{icon:'ti-phone',cls:'call',label:'Call'}, email:{icon:'ti-mail',cls:'email',label:'Email'}, meet:{icon:'ti-users',cls:'meet',label:'Meeting'}, note:{icon:'ti-note',cls:'note',label:'Note'} };
+  feed.innerHTML=acts.map(function(a){
+    var tm=typeMap[a.type]||typeMap.note;
+    return '<div class="crm-act-item"><div class="crm-act-icon '+tm.cls+'"><i class="ti '+tm.icon+'" aria-hidden="true"></i></div>'
+      +'<div class="crm-act-body"><div class="crm-act-text">'+(a.notes||'—')+'</div><div class="crm-act-date">'+tm.label+' · '+(a.date||'')+'</div></div></div>';
+  }).join('');
+}
+
+// ── Export CSV ────────────────────────────────────────────────────────────────
+function exportContactsCSV(){
+  var contacts=_crmGetContacts();
+  var csv='Name,Role,Company,Email,Phone,Tags,Last Contact,Notes\n';
+  contacts.forEach(function(c){
+    csv+='"'+(c.name||'')+'","'+(c.role||'')+'","'+(c.company||'')+'","'+(c.email||'')+'","'+(c.phone||'')+'","'+((c.tags||[]).join('; '))+'","'+(c.lastContact||c.createdAt||'')+'","'+(c.notes||'').replace(/"/g,"'")+'"\n';
+  });
+  var a=document.createElement('a'); a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv); a.download='nexusos-contacts.csv'; a.click();
+}
+
+// ── CEO portal: Key Contacts ──────────────────────────────────────────────────
+var _ceoContactsAll=[];
+async function loadCEOContacts(){
+  var body=document.getElementById('ceo-contacts-body');
+  if(!body) return;
+  body.innerHTML='<div class="portal-empty"><i class="ti ti-loader"></i>Loading…</div>';
+
+  var contacts=_crmGetContacts();
+
+  // Try to filter by linked client
+  try{
+    if(window.sb&&window.currentUser){
+      var cp=await _ceoProfile();
+      if(cp&&cp.linked_client_id){
+        var linked=contacts.filter(function(c){ return c.clientId===cp.linked_client_id; });
+        if(linked.length) contacts=linked;
+      }
+    }
+  }catch(e){}
+
+  _ceoContactsAll=contacts;
+  renderCEOContacts(contacts);
+}
+
+function filterCEOContacts(q){
+  var filtered=_ceoContactsAll.filter(function(c){
+    return q===''||(c.name||'').toLowerCase().includes(q.toLowerCase())||(c.company||'').toLowerCase().includes(q.toLowerCase());
+  });
+  renderCEOContacts(filtered);
+}
+
+function renderCEOContacts(contacts){
+  var body=document.getElementById('ceo-contacts-body');
+  if(!body) return;
+  if(!contacts.length){ body.innerHTML='<div class="portal-empty">No contacts linked to your account yet. Ask your EA to add key contacts.</div>'; return; }
+  body.innerHTML=contacts.map(function(c){
+    var tags=(c.tags||[]).slice(0,2).map(function(t){ return '<span class="crm-tag '+crmTagClass(t)+'" style="font-size:10px">'+t+'</span>'; }).join(' ');
+    var emailBtn=c.email?'<a href="mailto:'+c.email+'" class="btn-outline btn-sm" style="font-size:11px;text-decoration:none;padding:4px 10px" title="Email '+c.name+'"><i class="ti ti-mail" aria-hidden="true"></i></a>':'';
+    var phoneBtn=c.phone?'<a href="tel:'+c.phone+'" class="btn-outline btn-sm" style="font-size:11px;text-decoration:none;padding:4px 10px" title="Call '+c.name+'"><i class="ti ti-phone" aria-hidden="true"></i></a>':'';
+    var liBtn=c.linkedin?'<a href="'+c.linkedin+'" target="_blank" class="btn-outline btn-sm" style="font-size:11px;text-decoration:none;padding:4px 10px" title="LinkedIn"><i class="ti ti-brand-linkedin" aria-hidden="true"></i></a>':'';
+    return '<div class="ceo-contact-card">'
+      +'<div class="ceo-cc-av" aria-hidden="true">'+crmInitials(c.name)+'</div>'
+      +'<div style="flex:1;min-width:0">'
+      +'<div class="ceo-cc-name">'+c.name+(tags?' <span style="margin-left:4px">'+tags+'</span>':'')+'</div>'
+      +'<div class="ceo-cc-role">'+( c.role||'')+'</div>'
+      +'<div class="ceo-cc-co">'+( c.company||'')+'</div>'
+      +'</div>'
+      +'<div class="ceo-cc-actions">'+emailBtn+phoneBtn+liBtn+'</div>'
+      +'</div>';
+  }).join('');
+}
+
+// ── showToast (safe wrapper) ──────────────────────────────────────────────────
+function showToast(msg){
+  if(typeof window.showNexusToast==='function') window.showNexusToast(msg);
+  else { var t=document.getElementById('nexus-toast-container'); if(t){ var d=document.createElement('div'); d.textContent=msg; d.style.cssText='background:#534AB7;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;margin-top:8px'; t.appendChild(d); setTimeout(function(){ t.removeChild(d); },2500); } }
 }
 
 </script>
