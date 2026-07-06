@@ -1,46 +1,736 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Privacy Policy — NexusOS</title>
-<script type="text/javascript" src="https://embeds.iubenda.com/widgets/29d5eb65-129a-4cbe-a6ea-fa7073c95799.js"></script>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#0d0d14;color:#c0c0d0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:15px;line-height:1.75}
-a{color:#534AB7;text-decoration:none}a:hover{text-decoration:underline}
-.topbar{background:#0f0f1a;border-bottom:1px solid #1e1e2e;padding:14px 32px;display:flex;align-items:center;justify-content:space-between}
-.logo{color:#f0b429;font-weight:700;font-size:18px}.logo span{color:#f0f0f0;font-weight:400;font-size:13px;margin-left:8px}
-.back{font-size:12px;color:#534AB7}
-.container{max-width:760px;margin:0 auto;padding:48px 24px 80px}
-.page-title{font-size:28px;font-weight:600;color:#f0f0f0;margin-bottom:6px}
-.page-sub{font-size:13px;color:#555;margin-bottom:32px}
-.iub-box{background:#0f0f1a;border:1px solid #1e1e2e;border-radius:12px;padding:24px;margin-bottom:24px;text-align:center}
-.iub-box p{font-size:13px;color:#666;margin-bottom:16px}
-.iub-btn{display:inline-block;background:#534AB7;color:#EEEDFE;padding:10px 24px;border-radius:8px;font-size:13px;font-weight:500}
-.iub-btn:hover{background:#6058d0;text-decoration:none}
-h2{font-size:16px;font-weight:600;color:#f0f0f0;margin:28px 0 10px;padding-bottom:8px;border-bottom:1px solid #1e1e2e}
-p{margin-bottom:12px;color:#999}ul{margin:0 0 12px 20px;color:#999}ul li{margin-bottom:5px}
-.footer{text-align:center;font-size:12px;color:#333;margin-top:60px;padding-top:24px;border-top:1px solid #1a1a2e}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — NexusOS</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23534AB7'/><text y='22' x='5' font-size='18' fill='white'>N</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080812;
+      --surface:   #0f0f1a;
+      --surface2:  #13131f;
+      --border:    #1e1e2e;
+      --border2:   #2a2a3d;
+      --purple:    #534AB7;
+      --purple-lt: #a594f9;
+      --gold:      #f0b429;
+      --text:      #e0e0ee;
+      --muted:     #888;
+      --dim:       #444;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--purple), #7c3aed);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 800; color: #fff;
+    }
+    .logo-text { font-size: 16px; font-weight: 700; color: var(--text); }
+    .logo-text span { color: var(--purple-lt); }
+    .header-nav { display: flex; gap: 20px; }
+    .header-nav a {
+      font-size: 13px; color: var(--muted); text-decoration: none;
+      transition: color .15s;
+    }
+    .header-nav a:hover { color: var(--text); }
+    .header-nav a.btn {
+      background: var(--purple); color: #fff; padding: 6px 16px;
+      border-radius: 7px; font-weight: 600;
+    }
+    .header-nav a.btn:hover { background: #6357d4; color: #fff; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(160deg, #0d0d1f 0%, var(--bg) 60%);
+      border-bottom: 1px solid var(--border);
+      padding: 60px 40px 50px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: #12122a; border: 1px solid #2a2a50;
+      color: var(--purple-lt); font-size: 11px; font-weight: 600;
+      padding: 5px 14px; border-radius: 20px; margin-bottom: 18px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: 36px; font-weight: 800; color: #f0f0f8;
+      margin-bottom: 12px; letter-spacing: -0.02em;
+    }
+    .hero p {
+      font-size: 15px; color: var(--muted); max-width: 540px; margin: 0 auto 20px;
+    }
+    .hero-meta {
+      font-size: 12px; color: var(--dim);
+    }
+    .hero-meta span { color: var(--muted); font-weight: 500; }
+
+    /* ── LAYOUT ── */
+    .layout {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 50px 40px 80px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: sticky;
+      top: 80px;
+    }
+    .sidebar-title {
+      font-size: 10px; font-weight: 700; color: var(--dim);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+    .sidebar nav { display: flex; flex-direction: column; gap: 2px; }
+    .sidebar nav a {
+      font-size: 13px; color: var(--muted); text-decoration: none;
+      padding: 6px 10px; border-radius: 6px; border-left: 2px solid transparent;
+      transition: all .15s;
+    }
+    .sidebar nav a:hover {
+      color: var(--text);
+      background: var(--surface2);
+    }
+    .sidebar nav a.active {
+      color: var(--purple-lt);
+      border-left-color: var(--purple);
+      background: #12122a;
+    }
+    .sidebar-divider { height: 1px; background: var(--border); margin: 14px 0; }
+    .sidebar-contact {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px;
+    }
+    .sidebar-contact p {
+      font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 8px;
+    }
+    .sidebar-contact a {
+      font-size: 12px; color: var(--purple-lt); text-decoration: none;
+    }
+
+    /* ── CONTENT ── */
+    .content { min-width: 0; }
+
+    .toc-bar {
+      background: #0c0c1c;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 32px;
+    }
+    .toc-bar p {
+      font-size: 13px; color: var(--muted); line-height: 1.7;
+    }
+    .toc-bar strong { color: var(--text); }
+
+    section {
+      margin-bottom: 44px;
+      scroll-margin-top: 90px;
+    }
+    .section-header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 18px;
+    }
+    .section-num {
+      width: 28px; height: 28px; border-radius: 7px;
+      background: #12122a; border: 1px solid #2a2a50;
+      color: var(--purple-lt); font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .section-title {
+      font-size: 18px; font-weight: 700; color: #f0f0f8;
+    }
+
+    p { color: var(--muted); font-size: 14px; margin-bottom: 12px; line-height: 1.8; }
+    p:last-child { margin-bottom: 0; }
+    strong { color: #c0c0d0; font-weight: 600; }
+    a { color: var(--purple-lt); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 12px;
+    }
+    .card-head {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+    }
+    .card-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; flex-shrink: 0;
+    }
+    .card-icon.google  { background: #1a1a10; }
+    .card-icon.supabase { background: #0a1a12; }
+    .card-icon.ai       { background: #1a0a1a; }
+    .card-icon.github   { background: #0a0a18; }
+    .card-icon.local    { background: #1a1510; }
+
+    .card-name { font-size: 14px; font-weight: 600; color: var(--text); }
+    .card-role { font-size: 11px; color: var(--dim); }
+    .card p { font-size: 13px; color: #666; margin-bottom: 0; }
+    .card-link {
+      display: inline-block; margin-top: 8px;
+      font-size: 12px; color: var(--purple-lt);
+    }
+
+    /* ── DATA TABLE ── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+      font-size: 13px;
+    }
+    .data-table th {
+      background: var(--surface2);
+      padding: 10px 14px;
+      text-align: left;
+      color: var(--dim);
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      border-bottom: 1px solid var(--border);
+    }
+    .data-table td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+      vertical-align: top;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table td strong { color: #b0b0c0; }
+
+    /* ── RIGHTS LIST ── */
+    .rights-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .right-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .right-card-title {
+      font-size: 13px; font-weight: 600; color: var(--text);
+      margin-bottom: 4px;
+    }
+    .right-card p { font-size: 12px; color: #555; margin-bottom: 0; }
+
+    /* ── HIGHLIGHT BOX ── */
+    .highlight {
+      background: #0d100d;
+      border: 1px solid #1c2c1c;
+      border-left: 3px solid #4ade80;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+    }
+    .highlight p { color: #5a7a5a; font-size: 13px; margin-bottom: 0; }
+    .highlight strong { color: #4ade80; }
+
+    .warning-box {
+      background: #120d08;
+      border: 1px solid #2c1c0a;
+      border-left: 3px solid var(--gold);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+    }
+    .warning-box p { color: #7a6030; font-size: 13px; margin-bottom: 0; }
+    .warning-box strong { color: var(--gold); }
+
+    /* ── DIVIDER ── */
+    .divider { height: 1px; background: var(--border); margin: 36px 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 30px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .footer-left { font-size: 12px; color: var(--dim); }
+    .footer-left strong { color: var(--muted); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 12px; color: var(--dim); text-decoration: none; transition: color .15s; }
+    .footer-links a:hover { color: var(--muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .layout { grid-template-columns: 1fr; padding: 30px 20px 60px; }
+      .sidebar { display: none; }
+      header { padding: 14px 20px; }
+      .hero { padding: 40px 20px 36px; }
+      .hero h1 { font-size: 26px; }
+      .rights-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; align-items: flex-start; padding: 20px; }
+    }
+  </style>
 </head>
 <body>
-<div class="topbar"><div class="logo">⚡ NexusOS <span>Executive Operating System</span></div><a class="back" href="/">← Back to home</a></div>
-<div class="container">
-  <div class="page-title">Privacy Policy</div>
-  <div class="page-sub">Last updated: July 1, 2026 · Applies to getnexusos.app</div>
-  <div class="iub-box"><p>Our full GDPR-compliant Privacy Policy is hosted and maintained by iubenda, a certified legal compliance platform recognised by EU data protection authorities.</p><a class="iub-btn" href="https://www.iubenda.com/privacy-policy/4591300" target="_blank">Read full Privacy Policy →</a></div>
-  <div class="iub-box"><p>Cookie Policy — details on what cookies and tracking technologies NexusOS uses.</p><a class="iub-btn" href="https://www.iubenda.com/privacy-policy/4591300/cookie-policy" target="_blank">Read Cookie Policy →</a></div>
-  <h2>Who we are</h2>
-  <p>NexusOS is operated by <strong style="color:#f0f0f0">Jhun Rey Velado</strong>, sole proprietor, Philippines. Contact: <a href="mailto:jhun07.velado@gmail.com">jhun07.velado@gmail.com</a></p>
-  <h2>Data we collect</h2>
-  <ul><li>Account data (name, email, role) — to create your account</li><li>Workspace data (tasks, approvals, decisions, notes) — to provide the service</li><li>Google Calendar data — read-only access to fetch upcoming events when you connect Google Calendar</li><li>Usage data (screens visited, features used) — to improve the product</li><li>Payment data (plan type, subscription status) — card details handled by Paddle / PayMongo only</li></ul>
-  <h2>Google Calendar data</h2>
-  <p>When you connect Google Calendar, NexusOS requests read-only access to your primary calendar events. Calendar data is fetched in real-time in your browser and is never stored on our servers. You can disconnect at any time from Meeting Prep → Disconnect Google Calendar.</p>
-  <h2>Third-party services</h2>
-  <ul><li><strong style="color:#f0f0f0">Supabase</strong> — database and authentication</li><li><strong style="color:#f0f0f0">Paddle</strong> — international payment processing</li><li><strong style="color:#f0f0f0">PayMongo</strong> — Philippine payment processing</li><li><strong style="color:#f0f0f0">Google</strong> — Calendar OAuth (read-only, optional)</li><li><strong style="color:#f0f0f0">Anthropic (Claude API)</strong> — AI-powered features</li><li><strong style="color:#f0f0f0">iubenda</strong> — privacy compliance and cookie consent</li></ul>
-  <h2>Your rights</h2>
-  <p>You have the right to access, correct, delete, or export your data at any time. Email <a href="mailto:jhun07.velado@gmail.com">jhun07.velado@gmail.com</a> within 30 days of your request.</p>
-  <div class="footer">© 2026 Jhun Rey Velado · NexusOS · <a href="/terms.html">Terms</a> · <a href="/refund.html">Refund Policy</a> · <a href="https://www.iubenda.com/privacy-policy/4591300/cookie-policy" target="_blank">Cookie Policy</a></div>
+
+<!-- ── HEADER ── -->
+<header>
+  <a class="logo" href="index.html">
+    <div class="logo-icon">N</div>
+    <span class="logo-text">Nexus<span>OS</span></span>
+  </a>
+  <nav class="header-nav">
+    <a href="index.html">Home</a>
+    <a href="guide.html">Guide</a>
+    <a href="NexusOS_OWNERSHIP_LICENSE.html">License</a>
+    <a href="nexusos-app.html" class="btn">Open App →</a>
+  </nav>
+</header>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-badge">🔒 Legal</div>
+  <h1>Privacy Policy</h1>
+  <p>How NexusOS collects, uses, and protects your personal data.</p>
+  <div class="hero-meta">
+    Last updated: <span>July 6, 2026</span> &nbsp;·&nbsp; Effective: <span>July 6, 2026</span>
+  </div>
 </div>
-</body></html>
+
+<!-- ── LAYOUT ── -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-title">Contents</div>
+    <nav>
+      <a href="#overview" class="active">1. Overview</a>
+      <a href="#data-collected">2. Data We Collect</a>
+      <a href="#third-party">3. Third-Party Services</a>
+      <a href="#gmail">4. Gmail &amp; OAuth</a>
+      <a href="#local-storage">5. Local Storage</a>
+      <a href="#cookies">6. Cookies</a>
+      <a href="#retention">7. Data Retention</a>
+      <a href="#rights">8. Your Rights</a>
+      <a href="#children">9. Children</a>
+      <a href="#changes">10. Policy Changes</a>
+      <a href="#contact">11. Contact</a>
+    </nav>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-contact">
+      <p>Questions about your data?</p>
+      <a href="mailto:jhun07.velado@gmail.com">jhun07.velado@gmail.com</a>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <div class="toc-bar">
+      <p>This Privacy Policy explains how <strong>NexusOS</strong> (operated by Jhun Rey Velado) handles your personal information. NexusOS is an AI-powered Executive Operating System available at <a href="https://getnexusos.app">getnexusos.app</a>. By using NexusOS, you agree to the practices described below.</p>
+    </div>
+
+    <!-- 1. Overview -->
+    <section id="overview">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div class="section-title">Overview</div>
+      </div>
+      <div class="highlight">
+        <p><strong>Short version:</strong> We collect only what's needed to run NexusOS. We never sell your data. Your Gmail content is never stored on our servers — it's fetched live from Google's API during your session only.</p>
+      </div>
+      <p>NexusOS is a single-user productivity platform designed for Executive Assistants and operators. The platform integrates with Google (Gmail/OAuth), uses Supabase for authentication and data storage, and leverages AI services to generate briefings and task suggestions.</p>
+      <p>This policy applies to all users of <strong>getnexusos.app</strong> and any sub-pages or files hosted under that domain.</p>
+    </section>
+
+    <!-- 2. Data Collected -->
+    <section id="data-collected">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div class="section-title">Data We Collect</div>
+      </div>
+      <p>We collect the following categories of information:</p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Examples</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Account Data</strong></td>
+            <td>Email address, display name, profile photo (from Google sign-in)</td>
+            <td>Create and identify your account</td>
+          </tr>
+          <tr>
+            <td><strong>Workspace Data</strong></td>
+            <td>Tasks, notes, client names, approval records, travel bookings you enter</td>
+            <td>Power the core features of NexusOS</td>
+          </tr>
+          <tr>
+            <td><strong>Usage Data</strong></td>
+            <td>Feature interactions, section visits, session timestamps</td>
+            <td>Improve the platform experience</td>
+          </tr>
+          <tr>
+            <td><strong>Gmail Data</strong></td>
+            <td>Email subjects, senders, body content (when Gmail is connected)</td>
+            <td>Display inbox in-app; generate AI draft replies. <strong>Never stored on NexusOS servers.</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Technical Data</strong></td>
+            <td>IP address, browser type, device type, timezone</td>
+            <td>Security, fraud prevention, localisation</td>
+          </tr>
+          <tr>
+            <td><strong>Preferences</strong></td>
+            <td>TOS acceptance date, welcome modal status, role label</td>
+            <td>Personalise your experience</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>We do <strong>not</strong> collect payment card details directly — all payments are processed by third-party payment processors (e.g., Stripe) under their own privacy policies.</p>
+    </section>
+
+    <!-- 3. Third-Party Services -->
+    <section id="third-party">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div class="section-title">Third-Party Services</div>
+      </div>
+      <p>NexusOS integrates with the following third-party services. Each operates under its own privacy policy:</p>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon google">🟡</div>
+          <div>
+            <div class="card-name">Google Identity Services &amp; Gmail API</div>
+            <div class="card-role">Authentication &amp; Email</div>
+          </div>
+        </div>
+        <p>Used to sign you in with your Google account and, if you choose to connect Gmail, to fetch your inbox data live during your session. Google OAuth tokens are handled securely and are revocable at any time from your <a href="https://myaccount.google.com/permissions" target="_blank">Google Account</a>. We access Gmail under the <code>gmail.readonly</code> and <code>gmail.send</code> scopes only when you explicitly connect Gmail inside NexusOS.</p>
+        <a class="card-link" href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon supabase">🟢</div>
+          <div>
+            <div class="card-name">Supabase</div>
+            <div class="card-role">Database &amp; Authentication Backend</div>
+          </div>
+        </div>
+        <p>Your account credentials, workspace data (tasks, clients, approvals, travel records), and preference flags (TOS acceptance date, subscription tier) are stored in a Supabase PostgreSQL database hosted on AWS infrastructure. Supabase encrypts data at rest and in transit. Data is stored in the region selected by NexusOS (currently US East).</p>
+        <a class="card-link" href="https://supabase.com/privacy" target="_blank">Supabase Privacy Policy →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon ai">🟣</div>
+          <div>
+            <div class="card-name">Anthropic Claude (AI Features)</div>
+            <div class="card-role">AI Briefings &amp; Draft Assist</div>
+          </div>
+        </div>
+        <p>NexusOS uses Anthropic's Claude API (Haiku model) to generate morning briefings, task summaries, and email draft suggestions. When you trigger an AI feature, a prompt containing relevant context (task titles, calendar items, or email snippets you've chosen to include) is sent to Anthropic's API. Anthropic does not use API-submitted prompts to train their models. No full email bodies are sent without your explicit action.</p>
+        <a class="card-link" href="https://www.anthropic.com/privacy" target="_blank">Anthropic Privacy Policy →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon github">⚫</div>
+          <div>
+            <div class="card-name">GitHub Pages</div>
+            <div class="card-role">Hosting &amp; CDN</div>
+          </div>
+        </div>
+        <p>The NexusOS frontend is hosted on GitHub Pages. GitHub may collect basic server logs (IP address, browser user-agent, referrer) when you access getnexusos.app. This data is controlled by GitHub/Microsoft.</p>
+        <a class="card-link" href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank">GitHub Privacy Statement →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon local">🟠</div>
+          <div>
+            <div class="card-name">Google Fonts</div>
+            <div class="card-role">Typography</div>
+          </div>
+        </div>
+        <p>NexusOS loads the "Inter" font from Google Fonts, which causes your browser to make a request to Google's servers. Google may log your IP address as part of this request.</p>
+        <a class="card-link" href="https://fonts.google.com/about" target="_blank">Google Fonts Privacy →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon github">🔵</div>
+          <div>
+            <div class="card-name">Fastly CDN</div>
+            <div class="card-role">Content Delivery Network (via GitHub Pages)</div>
+          </div>
+        </div>
+        <p>GitHub Pages uses Fastly as its underlying CDN to serve getnexusos.app globally. When you access NexusOS, your request may be routed through Fastly's network. Fastly may log basic request metadata (IP address, browser type, timestamp) for performance and security purposes.</p>
+        <a class="card-link" href="https://www.fastly.com/privacy/" target="_blank">Fastly Privacy Policy →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon local">⚪</div>
+          <div>
+            <div class="card-name">jsDelivr CDN</div>
+            <div class="card-role">JavaScript &amp; Icon Library CDN</div>
+          </div>
+        </div>
+        <p>NexusOS loads open-source JavaScript libraries and icon sets (such as Tabler Icons) from jsDelivr, a free public CDN. jsDelivr may log your IP address and browser user-agent for performance analytics. No personal data is collected or shared by jsDelivr beyond standard server logs.</p>
+        <a class="card-link" href="https://www.jsdelivr.com/privacy-policy-jsdelivr-com" target="_blank">jsDelivr Privacy Policy →</a>
+      </div>
+    </section>
+
+    <!-- 4. Gmail & OAuth -->
+    <section id="gmail">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <div class="section-title">Gmail &amp; Google OAuth — Important Details</div>
+      </div>
+      <div class="highlight">
+        <p><strong>Your Gmail data is never stored on NexusOS servers.</strong> Email content is fetched live from Google's API in your browser session and displayed directly to you. When you close the app or your session ends, no email content persists on our infrastructure.</p>
+      </div>
+      <p>Connecting Gmail to NexusOS is <strong>entirely optional</strong>. If you choose not to connect Gmail, all other features of NexusOS work normally. You can revoke NexusOS's access to your Gmail at any time by visiting <a href="https://myaccount.google.com/permissions" target="_blank">myaccount.google.com/permissions</a> and removing NexusOS.</p>
+      <p>NexusOS's use and transfer of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+      <p>Specifically, NexusOS will not:</p>
+      <p>• Use Gmail data to serve advertising<br>
+         • Allow humans to read your Gmail data except with your explicit permission for security or legal reasons<br>
+         • Transfer Gmail data to third parties except as needed to run NexusOS features you've activated</p>
+    </section>
+
+    <!-- 5. Local Storage -->
+    <section id="local-storage">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <div class="section-title">Browser Local Storage</div>
+      </div>
+      <p>NexusOS uses your browser's <strong>localStorage</strong> (not cookies) to store lightweight preferences on your device. These are never transmitted to our servers and remain entirely under your control.</p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>What It Stores</th>
+            <th>Expires</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>nexusos_tos_accepted</code></td>
+            <td>Whether you've accepted the Terms of Service</td>
+            <td>Until you clear browser data</td>
+          </tr>
+          <tr>
+            <td><code>nexusos_welcome_shown</code></td>
+            <td>Whether the onboarding welcome modal has been shown</td>
+            <td>Until you clear browser data</td>
+          </tr>
+          <tr>
+            <td><code>nexusos_user_name</code></td>
+            <td>Your display name for personalised greetings</td>
+            <td>Until you clear browser data</td>
+          </tr>
+          <tr>
+            <td><code>nexusos_workspace_role</code></td>
+            <td>Your selected workspace role label</td>
+            <td>Until you clear browser data</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>You can clear all NexusOS localStorage data by opening your browser's Developer Tools → Application → Local Storage → getnexusos.app → Clear All.</p>
+    </section>
+
+    <!-- 6. Cookies -->
+    <section id="cookies">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <div class="section-title">Cookies</div>
+      </div>
+      <p>NexusOS does <strong>not</strong> set its own cookies for tracking or advertising purposes. However, the third-party services described in Section 3 (Google, Supabase, GitHub Pages) may set cookies as part of their normal operation. These cookies are governed by the respective third-party's privacy policy.</p>
+      <div class="warning-box">
+        <p><strong>No advertising cookies.</strong> NexusOS does not use Google Analytics, Facebook Pixel, or any other advertising or tracking pixel. NexusOS products are ad-free.</p>
+      </div>
+    </section>
+
+    <!-- 7. Data Retention -->
+    <section id="retention">
+      <div class="section-header">
+        <div class="section-num">7</div>
+        <div class="section-title">Data Retention</div>
+      </div>
+      <p>We retain your data for as long as your account is active. If you cancel your subscription or request account deletion, we will delete your personal data within <strong>30 days</strong>, except where we are required to retain it for legal, accounting, or fraud prevention purposes.</p>
+      <p>Gmail data is <strong>never stored</strong> by NexusOS and therefore has no retention period on our side.</p>
+      <p>Workspace data you've entered (tasks, client records, approvals) is deleted from Supabase upon account deletion request. To request deletion, email <a href="mailto:jhun07.velado@gmail.com">jhun07.velado@gmail.com</a> with the subject line <strong>"Data Deletion Request — [your email]"</strong>.</p>
+    </section>
+
+    <!-- 8. Your Rights -->
+    <section id="rights">
+      <div class="section-header">
+        <div class="section-num">8</div>
+        <div class="section-title">Your Rights</div>
+      </div>
+      <p>Depending on your location, you may have the following rights regarding your personal data:</p>
+      <div class="rights-grid">
+        <div class="right-card">
+          <div class="right-card-title">📋 Right to Access</div>
+          <p>Request a copy of all personal data we hold about you.</p>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title">✏️ Right to Rectification</div>
+          <p>Ask us to correct inaccurate or incomplete data.</p>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title">🗑️ Right to Erasure</div>
+          <p>Request deletion of your personal data ("right to be forgotten").</p>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title">⏸️ Right to Restrict</div>
+          <p>Ask us to pause processing your data in certain circumstances.</p>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title">📦 Right to Portability</div>
+          <p>Receive your data in a machine-readable format.</p>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title">🚫 Right to Object</div>
+          <p>Object to processing based on legitimate interests.</p>
+        </div>
+      </div>
+      <p>To exercise any of these rights, contact us at <a href="mailto:jhun07.velado@gmail.com">jhun07.velado@gmail.com</a>. We will respond within 30 days. Users in the European Economic Area (EEA) or California (CCPA) may have additional rights under GDPR or CCPA respectively.</p>
+    </section>
+
+    <!-- 9. Children -->
+    <section id="children">
+      <div class="section-header">
+        <div class="section-num">9</div>
+        <div class="section-title">Children's Privacy</div>
+      </div>
+      <p>NexusOS is a professional productivity platform intended for users aged <strong>18 and older</strong>. We do not knowingly collect personal information from anyone under 18. If you believe a minor has created a NexusOS account, please contact us at <a href="mailto:jhun07.velado@gmail.com">jhun07.velado@gmail.com</a> and we will promptly delete the account and associated data.</p>
+    </section>
+
+    <!-- 10. Policy Changes -->
+    <section id="changes">
+      <div class="section-header">
+        <div class="section-num">10</div>
+        <div class="section-title">Policy Changes</div>
+      </div>
+      <p>We may update this Privacy Policy from time to time. When we do, we will update the "Last updated" date at the top of this page. For significant changes, we will notify active users via a notice inside the NexusOS app or by email.</p>
+      <p>Continued use of NexusOS after changes are posted constitutes acceptance of the updated policy.</p>
+    </section>
+
+    <!-- 11. Contact -->
+    <section id="contact">
+      <div class="section-header">
+        <div class="section-num">11</div>
+        <div class="section-title">Contact &amp; Data Controller</div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon local">👤</div>
+          <div>
+            <div class="card-name">Jhun Rey Velado</div>
+            <div class="card-role">Data Controller &amp; Sole Owner, NexusOS</div>
+          </div>
+        </div>
+        <p>For any privacy-related questions, data requests, or to report a concern about how your data is being handled, please contact:</p>
+        <p style="margin-top:10px;">
+          📧 <a href="mailto:jhun07.velado@gmail.com">jhun07.velado@gmail.com</a><br>
+          🌐 <a href="https://getnexusos.app">getnexusos.app</a>
+        </p>
+        <p style="margin-top:10px;">We aim to respond to all privacy enquiries within <strong>5 business days</strong>.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+    <p style="font-size:12px; color: var(--dim); text-align:center;">
+      This policy was written for NexusOS by Jhun Rey Velado. It is not legal advice.<br>
+      For full ownership terms, see the <a href="NexusOS_OWNERSHIP_LICENSE.html">NexusOS Ownership &amp; License</a>.
+    </p>
+
+  </div><!-- /content -->
+</div><!-- /layout -->
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-left">
+    © 2025–2026 <strong>NexusOS</strong> · All rights reserved · Built by Jhun Rey Velado
+  </div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="guide.html">EA Guide</a>
+    <a href="NexusOS_OWNERSHIP_LICENSE.html">License</a>
+    <a href="privacy.html" style="color: var(--purple-lt);">Privacy Policy</a>
+    <a href="mailto:jhun07.velado@gmail.com">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // Sidebar active highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.sidebar nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`.sidebar nav a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
