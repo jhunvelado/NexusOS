@@ -71,7 +71,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,18,0.9
 .pc-btn-r{background:#150808;border:1px solid #E24B4A;color:#E24B4A;font-size:8px;padding:2px 7px;border-radius:4px}
 .pc-btn-g{background:#081510;border:1px solid #1D9E75;color:#1D9E75;font-size:8px;padding:2px 7px;border-radius:4px}
 
-/* FEATURES */
+/* SECTIONS */
 section{padding:80px 24px}
 .section-inner{max-width:1000px;margin:0 auto}
 .section-eyebrow{font-size:11px;color:#534AB7;text-transform:uppercase;letter-spacing:0.12em;font-weight:600;margin-bottom:10px;text-align:center}
@@ -90,7 +90,7 @@ section{padding:80px 24px}
 .feature-card p{font-size:12px;color:#666;line-height:1.7}
 
 /* HOW IT WORKS */
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:48px;position:relative}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:48px}
 .step-item{text-align:center;padding:24px 16px}
 .step-num{width:44px;height:44px;border-radius:50%;background:#13131f;border:1px solid #534AB7;color:#534AB7;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
 .step-item h3{font-size:14px;font-weight:600;margin-bottom:6px;color:#f0f0f0}
@@ -115,7 +115,7 @@ section{padding:80px 24px}
 .price-btn-gold{background:#f0b429;color:#1a1400}
 .price-btn-gold:hover{background:#d9a320}
 
-/* TESTIMONIAL / PROOF */
+/* PROOF */
 .proof-section{background:#13131f;border-top:1px solid #1e1e2e;border-bottom:1px solid #1e1e2e}
 .proof-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:48px}
 .proof-card{background:#0d0d14;border:1px solid #1e1e2e;border-radius:10px;padding:20px}
@@ -125,7 +125,7 @@ section{padding:80px 24px}
 .proof-name{font-size:12px;font-weight:500;color:#ddd}
 .proof-title-sm{font-size:11px;color:#555}
 
-/* CTA SECTION */
+/* CTA */
 .cta-section{text-align:center;padding:100px 24px}
 .cta-inner{max-width:600px;margin:0 auto}
 .cta-section h2{font-size:clamp(28px,5vw,44px);font-weight:700;margin-bottom:16px;letter-spacing:-0.01em}
@@ -146,6 +146,8 @@ footer{border-top:1px solid #1e1e2e;padding:32px 24px;text-align:center}
   .preview-sidebar{display:none}
   .pc-stats{grid-template-columns:1fr 1fr}
   .hero-actions{flex-direction:column;align-items:center}
+  .about-inner{grid-template-columns:1fr !important}
+  .about-avatar-col{flex-direction:row !important;align-items:center}
 }
 </style>
 </head>
@@ -158,6 +160,7 @@ footer{border-top:1px solid #1e1e2e;padding:32px 24px;text-align:center}
     <a href="#features">Features</a>
     <a href="#how-it-works">How it works</a>
     <a href="#pricing">Pricing</a>
+    <a href="#about">About</a>
     <a href="nexusos-app.html" class="nav-cta">Sign in →</a>
   </div>
 </nav>
@@ -252,51 +255,15 @@ footer{border-top:1px solid #1e1e2e;padding:32px 24px;text-align:center}
     <h2 class="section-title">Built for how executives<br>actually operate</h2>
     <p class="section-sub">12 platforms were researched before building NexusOS. None solved the real problem: no shared workspace for the CEO and EA together. v7.8 adds Gmail integration, full CRM, governance dashboards, and PWA mobile support.</p>
     <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon fi-a"><i class="ti ti-bolt"></i></div>
-        <h3>AI Daily Briefing</h3>
-        <p>Every morning before your first meeting — a complete intelligence summary. Pending decisions, overdue tasks, relationship follow-ups, and meeting prep. You start the day knowing exactly where to focus.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon fi-g"><i class="ti ti-circle-check"></i></div>
-        <h3>Approval Centre</h3>
-        <p>Every request from your EA — travel, expenses, legal, events — comes here with full context. Amount, reason, category. Approve or reject with one tap. No more digging through email threads.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon fi-p"><i class="ti ti-plane"></i></div>
-        <h3>Travel Hub</h3>
-        <p>Leg-by-leg itinerary, hotel confirmations, key contacts, AI pre-trip brief, and expense tracking against your approved budget. Everything in one place before you board.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon fi-r"><i class="ti ti-mail"></i></div>
-        <h3>Gmail Email Integration</h3>
-        <p>Your full Gmail inbox inside NexusOS. Read threads, archive, star, and reply without switching tabs. AI Draft generates email copy on demand. Unread badge keeps you current at a glance.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon fi-b"><i class="ti ti-message-circle"></i></div>
-        <h3>Executive Chat</h3>
-        <p>Private CEO-EA workspace. Real-time messaging, all history saved. Replaces fragmented WhatsApp threads. Every message tied to context — no noise, no missing updates.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon fi-g"><i class="ti ti-address-book"></i></div>
-        <h3>CRM &amp; Contact Management</h3>
-        <p>Full contact database for investors, board members, clients, and key relationships. Tag by type, log activities, track last contact date, and search instantly. Managed by your EA, visible in the CEO portal.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon fi-p"><i class="ti ti-list-check"></i></div>
-        <h3>Shared Task Management</h3>
-        <p>One task list. Both CEO and EA see the same live view. Priority tags, due dates, status, owner. Nothing falls through. Everything has an owner and a due date.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon fi-a"><i class="ti ti-clipboard-list"></i></div>
-        <h3>Meeting Prep AI</h3>
-        <p>Auto-generated briefings for every meeting: key participants, objectives, required documents, and a prep checklist. You arrive prepared to every meeting without doing any research yourself.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon fi-r"><i class="ti ti-shield-check"></i></div>
-        <h3>Governance &amp; Analytics</h3>
-        <p>CEO Decision Analytics, KPI benchmarks, Executive Summary reports, and a Governance dashboard — all in the CEO portal. Track decisions, pending actions, board items, and compliance status in one view.</p>
-      </div>
+      <div class="feature-card"><div class="feature-icon fi-a"><i class="ti ti-bolt"></i></div><h3>AI Daily Briefing</h3><p>Every morning before your first meeting — a complete intelligence summary. Pending decisions, overdue tasks, relationship follow-ups, and meeting prep. You start the day knowing exactly where to focus.</p></div>
+      <div class="feature-card"><div class="feature-icon fi-g"><i class="ti ti-circle-check"></i></div><h3>Approval Centre</h3><p>Every request from your EA — travel, expenses, legal, events — comes here with full context. Amount, reason, category. Approve or reject with one tap. No more digging through email threads.</p></div>
+      <div class="feature-card"><div class="feature-icon fi-p"><i class="ti ti-plane"></i></div><h3>Travel Hub</h3><p>Leg-by-leg itinerary, hotel confirmations, key contacts, AI pre-trip brief, and expense tracking against your approved budget. Everything in one place before you board.</p></div>
+      <div class="feature-card"><div class="feature-icon fi-r"><i class="ti ti-mail"></i></div><h3>Gmail Email Integration</h3><p>Your full Gmail inbox inside NexusOS. Read threads, archive, star, and reply without switching tabs. AI Draft generates email copy on demand. Unread badge keeps you current at a glance.</p></div>
+      <div class="feature-card"><div class="feature-icon fi-b"><i class="ti ti-message-circle"></i></div><h3>Executive Chat</h3><p>Private CEO-EA workspace. Real-time messaging, all history saved. Replaces fragmented WhatsApp threads. Every message tied to context — no noise, no missing updates.</p></div>
+      <div class="feature-card"><div class="feature-icon fi-g"><i class="ti ti-address-book"></i></div><h3>CRM &amp; Contact Management</h3><p>Full contact database for investors, board members, clients, and key relationships. Tag by type, log activities, track last contact date, and search instantly. Managed by your EA, visible in the CEO portal.</p></div>
+      <div class="feature-card"><div class="feature-icon fi-p"><i class="ti ti-list-check"></i></div><h3>Shared Task Management</h3><p>One task list. Both CEO and EA see the same live view. Priority tags, due dates, status, owner. Nothing falls through. Everything has an owner and a due date.</p></div>
+      <div class="feature-card"><div class="feature-icon fi-a"><i class="ti ti-clipboard-list"></i></div><h3>Meeting Prep AI</h3><p>Auto-generated briefings for every meeting: key participants, objectives, required documents, and a prep checklist. You arrive prepared to every meeting without doing any research yourself.</p></div>
+      <div class="feature-card"><div class="feature-icon fi-r"><i class="ti ti-shield-check"></i></div><h3>Governance &amp; Analytics</h3><p>CEO Decision Analytics, KPI benchmarks, Executive Summary reports, and a Governance dashboard — all in the CEO portal. Track decisions, pending actions, board items, and compliance status in one view.</p></div>
     </div>
   </div>
 </section>
@@ -308,26 +275,10 @@ footer{border-top:1px solid #1e1e2e;padding:32px 24px;text-align:center}
     <h2 class="section-title">Up and running in 5 minutes</h2>
     <p class="section-sub">No installation. No IT team. Works in any browser on any device — or install as a PWA on iOS and Android.</p>
     <div class="steps">
-      <div class="step-item">
-        <div class="step-num">1</div>
-        <h3>Create your account</h3>
-        <p>Sign up with your email. Set your role — CEO or EA. Add your company name. Takes 60 seconds.</p>
-      </div>
-      <div class="step-item">
-        <div class="step-num">2</div>
-        <h3>Invite your CEO or EA</h3>
-        <p>Share the NexusOS link with your counterpart. They create their own account. You're now in the same workspace.</p>
-      </div>
-      <div class="step-item">
-        <div class="step-num">3</div>
-        <h3>Start operating</h3>
-        <p>Add tasks, submit approvals, build trip itineraries, add contacts, send messages. Everything saves instantly.</p>
-      </div>
-      <div class="step-item">
-        <div class="step-num">4</div>
-        <h3>Replace your other tools</h3>
-        <p>One login replaces 12 fragmented tools. Your EA updates NexusOS. You stay informed without the noise.</p>
-      </div>
+      <div class="step-item"><div class="step-num">1</div><h3>Create your account</h3><p>Sign up with your email. Set your role — CEO or EA. Add your company name. Takes 60 seconds.</p></div>
+      <div class="step-item"><div class="step-num">2</div><h3>Invite your CEO or EA</h3><p>Share the NexusOS link with your counterpart. They create their own account. You're now in the same workspace.</p></div>
+      <div class="step-item"><div class="step-num">3</div><h3>Start operating</h3><p>Add tasks, submit approvals, build trip itineraries, add contacts, send messages. Everything saves instantly.</p></div>
+      <div class="step-item"><div class="step-num">4</div><h3>Replace your other tools</h3><p>One login replaces 12 fragmented tools. Your EA updates NexusOS. You stay informed without the noise.</p></div>
     </div>
   </div>
 </section>
@@ -383,7 +334,7 @@ footer{border-top:1px solid #1e1e2e;padding:32px 24px;text-align:center}
   </div>
 </section>
 
-<!-- PROOF -->
+<!-- PROOF / TESTIMONIALS -->
 <section class="proof-section">
   <div class="section-inner">
     <div class="section-eyebrow">Why NexusOS</div>
@@ -392,25 +343,115 @@ footer{border-top:1px solid #1e1e2e;padding:32px 24px;text-align:center}
     <div class="proof-grid">
       <div class="proof-card">
         <div class="proof-text">"Every tool is built for one person. My EA uses Notion. I use Gmail. We sync on WhatsApp. Things slip — not because of bad intentions, but because no system exists to catch them."</div>
-        <div class="proof-author">
-          <div class="proof-av">CE</div>
-          <div><div class="proof-name">Healthcare CEO</div><div class="proof-title-sm">PE-backed, multi-state operator</div></div>
-        </div>
+        <div class="proof-author"><div class="proof-av">CE</div><div><div class="proof-name">Healthcare CEO</div><div class="proof-title-sm">PE-backed, multi-state operator</div></div></div>
       </div>
       <div class="proof-card">
         <div class="proof-text">"The approval black hole is real. A travel request gets buried in email. By the time the CEO sees it, the deadline is gone. NexusOS puts every decision in one place with full context."</div>
-        <div class="proof-author">
-          <div class="proof-av">EA</div>
-          <div><div class="proof-name">Executive Assistant</div><div class="proof-title-sm">Supporting a Fortune 500 CEO</div></div>
-        </div>
+        <div class="proof-author"><div class="proof-av">EA</div><div><div class="proof-name">Executive Assistant</div><div class="proof-title-sm">Supporting a Fortune 500 CEO</div></div></div>
       </div>
       <div class="proof-card">
         <div class="proof-text">"I was accountable for thousands of decisions a year. The problem wasn't intelligence — it was friction. Too many tools, too much switching, too much falling through the cracks."</div>
-        <div class="proof-author">
-          <div class="proof-av">PO</div>
-          <div><div class="proof-name">Private Equity Operator</div><div class="proof-title-sm">Managing 6-company portfolio</div></div>
+        <div class="proof-author"><div class="proof-av">PO</div><div><div class="proof-name">Private Equity Operator</div><div class="proof-title-sm">Managing 6-company portfolio</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- MISSION & VISION                                    -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="mission" style="background:#080810;border-top:1px solid #1e1e2e;border-bottom:1px solid #1e1e2e">
+  <div class="section-inner">
+    <div class="section-eyebrow">Our Purpose</div>
+    <h2 class="section-title">Mission &amp; Vision</h2>
+    <p class="section-sub">What we're building — and why it matters.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px">
+
+      <!-- MISSION CARD -->
+      <div style="background:#13131f;border:1px solid #534AB740;border-radius:16px;padding:36px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#534AB7,#7B74E0)"></div>
+        <div style="width:52px;height:52px;border-radius:14px;background:#100e22;color:#534AB7;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px">
+          <i class="ti ti-target"></i>
+        </div>
+        <h3 style="font-size:24px;font-weight:700;color:#f0f0f0;margin-bottom:14px">Our Mission</h3>
+        <p style="font-size:14px;color:#888;line-height:1.9;margin-bottom:24px">To eliminate the operational chaos that burns out Executive Assistants and fragments executive teams — by giving every CEO-EA partnership one unified, AI-powered operating system built around how they actually work.</p>
+        <div style="padding-top:20px;border-top:1px solid #1e1e2e;display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:10px"><i class="ti ti-check" style="color:#1D9E75;font-size:16px;flex-shrink:0"></i><span style="font-size:13px;color:#aaa">Eliminate tool-switching burnout for EAs</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><i class="ti ti-check" style="color:#1D9E75;font-size:16px;flex-shrink:0"></i><span style="font-size:13px;color:#aaa">Give EAs enterprise-grade tools they deserve</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><i class="ti ti-check" style="color:#1D9E75;font-size:16px;flex-shrink:0"></i><span style="font-size:13px;color:#aaa">Make every executive team faster and clearer</span></div>
         </div>
       </div>
+
+      <!-- VISION CARD -->
+      <div style="background:#13131f;border:1px solid #f0b42940;border-radius:16px;padding:36px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#f0b429,#d9a320)"></div>
+        <div style="width:52px;height:52px;border-radius:14px;background:#1a1000;color:#f0b429;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px">
+          <i class="ti ti-eye"></i>
+        </div>
+        <h3 style="font-size:24px;font-weight:700;color:#f0f0f0;margin-bottom:14px">Our Vision</h3>
+        <p style="font-size:14px;color:#888;line-height:1.9;margin-bottom:24px">A world where every executive team — no matter the size — operates with the clarity, speed, and intelligence of a Fortune 500 office. Where EAs are empowered, not buried. Where decisions get made, not lost.</p>
+        <div style="padding-top:20px;border-top:1px solid #1e1e2e;display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:10px"><i class="ti ti-check" style="color:#1D9E75;font-size:16px;flex-shrink:0"></i><span style="font-size:13px;color:#aaa">Executive teams of every size, operating at scale</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><i class="ti ti-check" style="color:#1D9E75;font-size:16px;flex-shrink:0"></i><span style="font-size:13px;color:#aaa">EAs recognized as the strategic operators they are</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><i class="ti ti-check" style="color:#1D9E75;font-size:16px;flex-shrink:0"></i><span style="font-size:13px;color:#aaa">Zero decisions lost. Zero context missing.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- ABOUT ME                                            -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="about" style="border-top:1px solid #1e1e2e">
+  <div class="section-inner">
+    <div class="section-eyebrow">The Builder</div>
+    <h2 class="section-title">About Me</h2>
+    <p class="section-sub">NexusOS wasn't built in a boardroom. It was built by an EA who got tired of burning out.</p>
+
+    <div class="about-inner" style="max-width:800px;margin:48px auto 0;background:#13131f;border:1px solid #1e1e2e;border-radius:16px;padding:40px;display:grid;grid-template-columns:120px 1fr;gap:36px;align-items:start">
+
+      <!-- Avatar column -->
+      <div class="about-avatar-col" style="display:flex;flex-direction:column;align-items:center;gap:14px">
+        <div style="width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,#534AB7 0%,#f0b429 100%);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:#fff;border:3px solid #1e1e2e;flex-shrink:0">JR</div>
+        <div style="display:flex;gap:8px">
+          <a href="mailto:jhun07.velado@gmail.com" style="width:34px;height:34px;border-radius:9px;background:#0d0d14;border:1px solid #2a2a3d;display:flex;align-items:center;justify-content:center;color:#666;text-decoration:none;font-size:16px" title="Email"><i class="ti ti-mail"></i></a>
+          <a href="https://www.linkedin.com/in/jhunreyvelado" target="_blank" rel="noopener" style="width:34px;height:34px;border-radius:9px;background:#0d0d14;border:1px solid #2a2a3d;display:flex;align-items:center;justify-content:center;color:#666;text-decoration:none;font-size:16px" title="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
+        </div>
+      </div>
+
+      <!-- Bio column -->
+      <div>
+        <h3 style="font-size:24px;font-weight:700;color:#f0f0f0;margin-bottom:5px">Jhun Rey Velado</h3>
+        <p style="font-size:13px;color:#534AB7;font-weight:600;margin-bottom:22px;display:flex;align-items:center;gap:7px">
+          <i class="ti ti-briefcase" style="font-size:14px"></i> Executive Assistant · Founder of NexusOS
+        </p>
+
+        <p style="font-size:14px;color:#888;line-height:1.9;margin-bottom:14px">I'm an Executive Assistant who got tired of burning out — not from the work, but from the <em style="color:#ccc;font-style:normal;font-weight:500">tools</em>. I was managing multiple executives across 7 different platforms, rebuilding systems for every new client, and losing hours every week just switching contexts.</p>
+
+        <p style="font-size:14px;color:#888;line-height:1.9;margin-bottom:14px">So instead of quitting, I built the tool I always wished existed. NexusOS is the operating system I run every day for my own clients — and now I'm making it available to every EA who's done with the chaos.</p>
+
+        <p style="font-size:14px;color:#888;line-height:1.9;margin-bottom:28px">I believe Executive Assistants are some of the most underrated operators in business. We deserve tools built for how we <em style="color:#ccc;font-style:normal;font-weight:500">actually</em> work.</p>
+
+        <!-- Stats row -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding-top:24px;border-top:1px solid #1e1e2e">
+          <div style="background:#0d0d14;border:1px solid #1e1e2e;border-radius:10px;padding:14px;text-align:center">
+            <div style="font-size:26px;font-weight:700;color:#f0b429;line-height:1">3</div>
+            <div style="font-size:11px;color:#555;margin-top:4px">Years as an EA</div>
+          </div>
+          <div style="background:#0d0d14;border:1px solid #1e1e2e;border-radius:10px;padding:14px;text-align:center">
+            <div style="font-size:26px;font-weight:700;color:#534AB7;line-height:1">12</div>
+            <div style="font-size:11px;color:#555;margin-top:4px">Tools replaced</div>
+          </div>
+          <div style="background:#0d0d14;border:1px solid #1e1e2e;border-radius:10px;padding:14px;text-align:center">
+            <div style="font-size:26px;font-weight:700;color:#1D9E75;line-height:1">1</div>
+            <div style="font-size:11px;color:#555;margin-top:4px">Dashboard for all</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -436,6 +477,7 @@ footer{border-top:1px solid #1e1e2e;padding:32px 24px;text-align:center}
     <a href="nexusos-app.html">Sign in</a>
     <a href="nexusos-app.html">Create account</a>
     <a href="#pricing">Pricing</a>
+    <a href="#about">About</a>
     <a href="mailto:jhun07.velado@gmail.com">Contact</a>
     <a href="NexusOS_OWNERSHIP_LICENSE.html">License</a>
   </div>
