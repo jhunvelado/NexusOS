@@ -248,7 +248,7 @@ footer{border-top:1px solid var(--line);padding:32px 24px;text-align:center}
 <nav>
   <a href="https://getnexusos.app" class="nav-logo">⚡ NexusOS <span>EA Workflow Lab</span></a>
   <div class="nav-right">
-    <a href="https://vettedea.com">VettedEA ↗</a>
+    <span style="color:var(--muted);font-size:13px;cursor:default" title="Coming soon">VettedEA — Coming Soon</span>
     <a href="https://getnexusos.app" class="btn-nav">Open NexusOS →</a>
   </div>
 </nav>
@@ -260,9 +260,9 @@ footer{border-top:1px solid var(--line);padding:32px 24px;text-align:center}
   <p class="hero-sub">Real EA scenarios. Real NexusOS tool. Real pressure — zero real clients at risk. Train on 8 core executive workflows and earn your EA Workflow Lab certification before your first client is watching.</p>
   <div class="hero-ctas">
     <a href="#scenarios" class="btn-lg btn-gold"><i class="ti ti-player-play"></i> Start training — free</a>
-    <a href="https://vettedea.com" class="btn-lg btn-ghost"><i class="ti ti-shield-check"></i> Get vetted on VettedEA</a>
+    <span class="btn-lg btn-ghost" style="opacity:0.45;cursor:default"><i class="ti ti-shield-check"></i> VettedEA — Coming Soon</span>
   </div>
-  <p class="hero-note">Free for EAs, always. Badge earned here → fast-tracks your vetting on <a href="https://vettedea.com">VettedEA</a>.</p>
+  <p class="hero-note">Free for EAs, always. Badge earned here → fast-tracks your vetting on <strong style="color:var(--gold)">VettedEA</strong> (coming soon).</p>
 </section>
 
 <!-- TRUST BAR -->
@@ -312,7 +312,7 @@ footer{border-top:1px solid var(--line);padding:32px 24px;text-align:center}
   <div class="section-wrap" style="text-align:center">
     <div class="section-eyebrow">The full pipeline</div>
     <h2 class="section-title">Train → Certify → Get Hired</h2>
-    <p class="section-sub" style="margin:0 auto">EA Workflow Lab is the first step in a complete ecosystem. Complete the lab and your certification feeds directly into VettedEA.</p>
+    <p class="section-sub" style="margin:0 auto">EA Workflow Lab is the first step in a complete ecosystem. Complete the lab and your certification feeds directly into VettedEA — coming soon.</p>
     <div class="pipeline">
       <div class="pipeline-step">
         <div class="pip-icon step1"><i class="ti ti-school"></i></div>
@@ -323,13 +323,13 @@ footer{border-top:1px solid var(--line);padding:32px 24px;text-align:center}
       <div class="pipeline-step">
         <div class="pip-icon step2"><i class="ti ti-medal"></i></div>
         <div class="pip-title">Earn Your Badge</div>
-        <div class="pip-sub">EA Workflow Lab Certified — valid everywhere on VettedEA</div>
+        <div class="pip-sub">EA Workflow Lab Certified — valid on VettedEA (coming soon)</div>
       </div>
       <div class="pip-arrow">→</div>
       <div class="pipeline-step">
         <div class="pip-icon step3"><i class="ti ti-shield-check"></i></div>
         <div class="pip-title">Get Vetted</div>
-        <div class="pip-sub">Fast-track vetting on VettedEA (vettedea.com)</div>
+        <div class="pip-sub">Fast-track vetting on VettedEA — coming soon</div>
       </div>
       <div class="pip-arrow">→</div>
       <div class="pipeline-step">
@@ -344,10 +344,10 @@ footer{border-top:1px solid var(--line);padding:32px 24px;text-align:center}
 <!-- CTA -->
 <section class="cta-section">
   <h2>Ready to train like you work?</h2>
-  <p>Start with 2 free scenarios. Earn your badge. Get hired on VettedEA.</p>
+  <p>Start with 3 free scenarios. Earn your badge. Get hired on VettedEA — coming soon.</p>
   <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
     <a href="#scenarios" class="btn-lg btn-gold"><i class="ti ti-player-play"></i> Start training free</a>
-    <a href="https://vettedea.com" class="btn-lg btn-ghost"><i class="ti ti-shield-check"></i> Explore VettedEA</a>
+    <span class="btn-lg btn-ghost" style="opacity:0.45;cursor:default"><i class="ti ti-shield-check"></i> VettedEA — Coming Soon</span>
   </div>
   <p style="margin-top:16px;font-size:12px;color:var(--muted2)">
     🚀 <strong style="color:var(--gold)">Coming soon:</strong> NexusOS launches on the Apple App Store and Google Play Store. Train anywhere, work anywhere.
@@ -360,7 +360,7 @@ footer{border-top:1px solid var(--line);padding:32px 24px;text-align:center}
   <div class="footer-sub">Built by Jhun Rey Velado · Working EA · HIPAA Certified · Founder of NexusOS + VettedEA<br>© 2026 All rights reserved</div>
   <div class="footer-links">
     <a href="https://getnexusos.app">NexusOS</a>
-    <a href="https://vettedea.com">VettedEA</a>
+    <span style="color:var(--muted);cursor:default">VettedEA (coming soon)</span>
     <a href="https://linkedin.com/in/jhunreyvelado">LinkedIn</a>
     <a href="mailto:jhun07.velado@gmail.com">Contact</a>
   </div>
@@ -407,7 +407,7 @@ const SCENARIOS = [
     build: buildBriefingScenario
   },
   {
-    id: 2, free: false,
+    id: 2, free: true,
     icon: '📅', iconBg: 'rgba(226,75,74,0.15)', iconColor: '#E24B4A',
     title: 'Calendar Crisis',
     desc: '3 scheduling conflicts. 4 time zones. Resolve every clash without a double-booking — and without disturbing your CEO\'s focus time.',
@@ -890,7 +890,7 @@ function buildProPlaceholder(s, id, icon, detail){
       <div style="font-size:13px;color:var(--muted);max-width:400px;margin:0 auto 24px;line-height:1.7">This scenario is part of <strong style="color:var(--gold)">EA Workflow Lab Pro</strong>. Unlock all 8 scenarios + your certified badge for a one-time payment of <strong style="color:var(--gold)">$29</strong>.</div>
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
         <a href="mailto:jhun07.velado@gmail.com?subject=EA Workflow Lab Pro Access" class="btn-lg btn-gold"><i class="ti ti-lock-open"></i> Unlock for $29</a>
-        <a href="https://vettedea.com" class="btn-lg btn-ghost"><i class="ti ti-shield-check"></i> Join VettedEA — Free</a>
+        <span class="btn-lg btn-ghost" style="opacity:0.45;cursor:default"><i class="ti ti-shield-check"></i> VettedEA — Coming Soon</span>
       </div>
       <div style="font-size:11px;color:var(--muted2);margin-top:14px">EA Workflow Lab Pro includes all 8 scenarios + certified badge + VettedEA fast-track path</div>
     </div>
