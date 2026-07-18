@@ -368,10 +368,10 @@ footer{border-top:1px solid var(--line);padding:32px 24px;text-align:center}
 
 <!-- UPGRADE MODAL -->
 <div class="modal-overlay" id="upgradeModal" onclick="if(event.target===this)closeUpgrade()">
-  <div class="modal" style="max-width:480px">
+  <div class="modal" style="max-width:460px">
     <div class="modal-header">
       <div class="modal-title-area">
-        <div class="modal-icon" style="background:rgba(240,180,41,0.15);color:var(--gold);font-size:22px">🔒</div>
+        <div class="modal-icon" style="background:rgba(240,180,41,0.15);color:var(--gold)">🔒</div>
         <div>
           <div class="modal-title">EA Workflow Lab Pro</div>
           <div class="modal-scenario-num">Unlock all 8 scenarios + certified badge</div>
@@ -382,25 +382,25 @@ footer{border-top:1px solid var(--line);padding:32px 24px;text-align:center}
     <div class="modal-body" style="text-align:center;padding:36px 28px">
       <div style="font-size:48px;margin-bottom:16px">🎯</div>
       <div style="font-size:22px;font-weight:700;margin-bottom:8px">Unlock Full Access</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:28px;max-width:360px;margin-left:auto;margin-right:auto">
-        One-time payment. All 8 scenarios unlocked permanently + your <strong style="color:var(--gold)">EA Workflow Lab Certified badge</strong> + VettedEA fast-track (coming soon).
+      <div style="font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:24px;max-width:340px;margin-left:auto;margin-right:auto">
+        One-time payment. All 8 scenarios + your <strong style="color:var(--gold)">EA Workflow Lab Certified badge</strong> unlocked permanently.
       </div>
       <div style="background:var(--navy3);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:24px">
         <div style="font-size:36px;font-weight:800;color:var(--gold)">$29</div>
         <div style="font-size:12px;color:var(--muted);margin-top:4px">One-time · No subscription · Yours forever</div>
       </div>
-      <a href="https://paypal.me/jrvelado/29USD" target="_blank" class="btn-lg btn-gold" style="width:100%;display:flex;justify-content:center;margin-bottom:16px">
+      <a href="https://paypal.me/jrvelado/29USD" target="_blank" class="btn-lg btn-gold" style="width:100%;display:flex;justify-content:center;margin-bottom:16px;text-decoration:none">
         <i class="ti ti-brand-paypal"></i> Pay $29 via PayPal
       </a>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:20px;line-height:1.7">
-        After paying, click the button below to instantly unlock all scenarios in this browser.
+      <div style="font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.7">
+        After paying, click below to instantly unlock all scenarios.
       </div>
-      <button onclick="activatePro()" style="background:transparent;border:1px solid var(--green);color:var(--green);padding:10px 24px;border-radius:8px;font-size:13px;cursor:pointer;width:100%;font-weight:600;transition:all .2s" onmouseover="this.style.background='rgba(29,158,117,0.1)'" onmouseout="this.style.background='transparent'">
+      <button onclick="activatePro()" style="background:transparent;border:1px solid var(--green);color:var(--green);padding:12px 24px;border-radius:8px;font-size:13px;cursor:pointer;width:100%;font-weight:600">
         ✅ I've paid — Activate Pro Access
       </button>
-      <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--line)">
-        <div style="font-size:11px;color:var(--muted2);margin-bottom:10px">Already using NexusOS for your EA operations?</div>
-        <a href="https://getnexusos.app" target="_blank" style="font-size:12px;color:var(--purple-soft)">Open NexusOS →</a>
+      <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--line)">
+        <div style="font-size:11px;color:var(--muted2);margin-bottom:8px">Already using the full NexusOS platform?</div>
+        <a href="https://getnexusos.app" target="_blank" style="font-size:12px;color:var(--purple-soft);text-decoration:none">Open NexusOS →</a>
       </div>
     </div>
   </div>
@@ -561,33 +561,28 @@ function renderCards(){
 }
 
 function isPaidUser(){
-  // Check URL param first — activates Pro and saves to localStorage
-  const params = new URLSearchParams(window.location.search);
+  var params = new URLSearchParams(window.location.search);
   if(params.get('unlock') === 'EAWL29PRO'){
     localStorage.setItem('eawl_paid','true');
-    // Clean URL without reloading
     window.history.replaceState({},'',window.location.pathname);
   }
   return localStorage.getItem('eawl_paid') === 'true';
 }
 
 function showUpgrade(){
-  const overlay = document.getElementById('upgradeModal');
+  var overlay = document.getElementById('upgradeModal');
   if(overlay) overlay.classList.add('open');
 }
 
 function closeUpgrade(){
-  const overlay = document.getElementById('upgradeModal');
+  var overlay = document.getElementById('upgradeModal');
   if(overlay) overlay.classList.remove('open');
 }
 
 function activatePro(){
   localStorage.setItem('eawl_paid','true');
   closeUpgrade();
-  // Refresh scenario grid to show unlocked state
-  renderScenarios();
-  updateOverallProgress();
-  alert('✅ Pro access activated! All 8 scenarios are now unlocked.');
+  location.reload();
 }
 
 // ============================================================
@@ -951,7 +946,7 @@ function buildProPlaceholder(s, id, icon, detail){
       <div style="font-size:18px;font-weight:700;margin-bottom:8px">Unlock Full Scenario</div>
       <div style="font-size:13px;color:var(--muted);max-width:400px;margin:0 auto 24px;line-height:1.7">This scenario is part of <strong style="color:var(--gold)">EA Workflow Lab Pro</strong>. Unlock all 8 scenarios + your certified badge for a one-time payment of <strong style="color:var(--gold)">$29</strong>.</div>
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-        <button onclick="closeModal();showUpgrade()" class="btn-lg btn-gold"><i class="ti ti-lock-open"></i> Unlock for $29</button>
+        <button onclick="closeModal();showUpgrade()" class="btn-lg btn-gold" style="border:none;cursor:pointer"><i class="ti ti-lock-open"></i> Unlock for $29</button>
         
       </div>
       <div style="font-size:11px;color:var(--muted2);margin-top:14px">One-time payment · All 8 scenarios + certified badge · Pay via PayPal</div>
