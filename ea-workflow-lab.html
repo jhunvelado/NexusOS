@@ -63,8 +63,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,10,18,0.95);backdrop-fi
 /* SCENARIO CARD */
 .sc-card{background:var(--navy3);border:1px solid var(--line);border-radius:var(--radius);padding:22px;position:relative;cursor:pointer;transition:border-color .2s,transform .15s}
 .sc-card:hover{border-color:rgba(108,99,255,0.5);transform:translateY(-2px)}
-.sc-card.locked{opacity:0.6;cursor:default}
-.sc-card.locked:hover{transform:none;border-color:var(--line)}
+.sc-card.locked{opacity:0.65}
+.sc-card.locked:hover{border-color:rgba(240,180,41,0.35);transform:translateY(-2px)}
 .sc-card.completed{border-color:var(--green)}
 .sc-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
 .sc-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
@@ -248,7 +248,7 @@ footer{border-top:1px solid var(--line);padding:32px 24px;text-align:center}
 <nav>
   <a href="https://getnexusos.app" class="nav-logo">⚡ NexusOS <span>EA Workflow Lab</span></a>
   <div class="nav-right">
-    <span style="color:var(--muted);font-size:13px;cursor:default">VettedEA — Coming Soon</span>
+    <span style="color:var(--muted);font-size:13px">VettedEA <span style="font-size:10px;background:rgba(29,158,117,0.1);color:var(--green);padding:2px 7px;border-radius:10px;border:1px solid rgba(29,158,117,0.2)">coming soon</span></span>
     <a href="https://getnexusos.app" class="btn-nav">Open NexusOS →</a>
   </div>
 </nav>
@@ -257,18 +257,18 @@ footer{border-top:1px solid var(--line);padding:32px 24px;text-align:center}
 <section class="hero">
   <div class="hero-badge"><i class="ti ti-school"></i> Free Training Simulator · Built by a Working EA</div>
   <h1>Practice the execution.<br><em>Not just the theory.</em></h1>
-  <p class="hero-sub">Real EA scenarios. Real NexusOS tool. Real pressure — zero real clients at risk. Train on 8 core executive workflows and earn your EA Workflow Lab certification before your first client is watching.</p>
+  <p class="hero-sub">Real EA scenarios. Real NexusOS tool. Real pressure — zero real clients at risk. Train on 8 core EA workflows, then prove it with a real Certification Exam — and earn your downloadable badge.</p>
   <div class="hero-ctas">
     <a href="#scenarios" class="btn-lg btn-gold"><i class="ti ti-player-play"></i> Start training — free</a>
-    <span class="btn-lg btn-ghost" style="opacity:0.45;cursor:default"><i class="ti ti-shield-check"></i> VettedEA — Coming Soon</span>
+    <span class="btn-lg btn-ghost" style="opacity:0.5;cursor:default"><i class="ti ti-shield-check"></i> VettedEA — Coming Soon</span>
   </div>
-  <p class="hero-note">Free for EAs, always. Badge earned here → fast-tracks your vetting on <strong style="color:#f0b429">VettedEA</strong> (coming soon).</p>
+  <p class="hero-note">Free for EAs, always. Badge earned here → fast-tracks your vetting on <strong style="color:var(--muted)">VettedEA</strong> (coming soon).</p>
 </section>
 
 <!-- TRUST BAR -->
 <div class="trustbar">
   <div class="trust-items">
-    <div class="trust-item"><i class="ti ti-check"></i> 8 guided scenarios</div>
+    <div class="trust-item"><i class="ti ti-check"></i> 9 scenarios + certification exam</div>
     <div class="trust-item"><i class="ti ti-check"></i> Realistic sandbox data</div>
     <div class="trust-item"><i class="ti ti-check"></i> Self-paced or guided mode</div>
     <div class="trust-item"><i class="ti ti-check"></i> Completion badge for VettedEA</div>
@@ -282,13 +282,13 @@ footer{border-top:1px solid var(--line);padding:32px 24px;text-align:center}
   <div class="section-wrap">
     <div class="section-eyebrow">Training Scenarios</div>
     <h2 class="section-title">8 core EA workflows.</h2>
-    <p class="section-sub">Start with the 2 free scenarios. Complete all 8 to earn your EA Workflow Lab Certified badge.</p>
+    <p class="section-sub">Start with 3 free scenarios. Complete all 9 — including the Certification Exam — to earn your EA Workflow Lab Certified badge.</p>
 
     <!-- OVERALL PROGRESS -->
     <div class="overall-progress">
       <div class="op-label">Your progress</div>
       <div class="op-bar"><div class="op-fill" id="overallFill" style="width:0%"></div></div>
-      <div class="op-count" id="overallCount">0 / 8 complete</div>
+      <div class="op-count" id="overallCount">0 / 9 complete</div>
       <div class="op-badges" id="badgeRow">
         <div class="mini-badge" id="mb0" title="Inbox Zero">📥</div>
         <div class="mini-badge" id="mb1" title="Monday Briefing">📋</div>
@@ -298,6 +298,7 @@ footer{border-top:1px solid var(--line);padding:32px 24px;text-align:center}
         <div class="mini-badge" id="mb5" title="Vendor Approvals">⚡</div>
         <div class="mini-badge" id="mb6" title="Travel Coordinator">✈️</div>
         <div class="mini-badge" id="mb7" title="CRM Cleanup">📊</div>
+        <div class="mini-badge" id="mb8" title="EA Certification Exam">🎓</div>
       </div>
     </div>
 
@@ -312,7 +313,7 @@ footer{border-top:1px solid var(--line);padding:32px 24px;text-align:center}
   <div class="section-wrap" style="text-align:center">
     <div class="section-eyebrow">The full pipeline</div>
     <h2 class="section-title">Train → Certify → Get Hired</h2>
-    <p class="section-sub" style="margin:0 auto">EA Workflow Lab is the first step in a complete ecosystem. Complete the lab and your certification feeds directly into VettedEA.</p>
+    <p class="section-sub" style="margin:0 auto">EA Workflow Lab is the first step in a complete ecosystem. Complete all 9 scenarios including the Certification Exam to earn your badge.</p>
     <div class="pipeline">
       <div class="pipeline-step">
         <div class="pip-icon step1"><i class="ti ti-school"></i></div>
@@ -329,7 +330,7 @@ footer{border-top:1px solid var(--line);padding:32px 24px;text-align:center}
       <div class="pipeline-step">
         <div class="pip-icon step3"><i class="ti ti-shield-check"></i></div>
         <div class="pip-title">Get Vetted</div>
-        <div class="pip-sub">Fast-track vetting on VettedEA — coming soon</div>
+        <div class="pip-sub">Fast-track vetting on VettedEA (vettedea.com)</div>
       </div>
       <div class="pip-arrow">→</div>
       <div class="pipeline-step">
@@ -344,10 +345,10 @@ footer{border-top:1px solid var(--line);padding:32px 24px;text-align:center}
 <!-- CTA -->
 <section class="cta-section">
   <h2>Ready to train like you work?</h2>
-  <p>Start with 3 free scenarios. Earn your badge. Get hired on VettedEA — coming soon.</p>
+  <p>Start with 3 free scenarios. Pass the Certification Exam. Earn your badge.</p>
   <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
     <a href="#scenarios" class="btn-lg btn-gold"><i class="ti ti-player-play"></i> Start training free</a>
-    <span class="btn-lg btn-ghost" style="opacity:0.45;cursor:default"><i class="ti ti-shield-check"></i> VettedEA — Coming Soon</span>
+    <span class="btn-lg btn-ghost" style="opacity:0.5;cursor:default"><i class="ti ti-shield-check"></i> VettedEA — Coming Soon</span>
   </div>
   <p style="margin-top:16px;font-size:12px;color:var(--muted2)">
     🚀 <strong style="color:var(--gold)">Coming soon:</strong> NexusOS launches on the Apple App Store and Google Play Store. Train anywhere, work anywhere.
@@ -360,7 +361,7 @@ footer{border-top:1px solid var(--line);padding:32px 24px;text-align:center}
   <div class="footer-sub">Built by Jhun Rey Velado · Working EA · HIPAA Certified · Founder of NexusOS + VettedEA<br>© 2026 All rights reserved</div>
   <div class="footer-links">
     <a href="https://getnexusos.app">NexusOS</a>
-    <span style="color:var(--muted);cursor:default">VettedEA (coming soon)</span>
+    <span style="color:var(--muted2)">VettedEA (coming soon)</span>
     <a href="https://linkedin.com/in/jhunreyvelado">LinkedIn</a>
     <a href="mailto:jhun07.velado@gmail.com">Contact</a>
   </div>
@@ -459,6 +460,15 @@ const SCENARIOS = [
     time: '15–20 min', skills: ['CRM management','Data hygiene','Relationship tracking'],
     steps: ['Audit all 20 contacts','Update relationship notes','Log activity dates','Flag dead/inactive leads','Generate clean report'],
     build: buildCRMScenario
+  },
+  {
+    id: 8, free: false,
+    icon: '🎓', iconBg: 'rgba(240,180,41,0.15)', iconColor: '#f0b429',
+    title: 'EA Certification Exam',
+    desc: '25 real-world EA judgment questions across 5 skill areas. Score 80%+ to earn your official downloadable EA Workflow Lab Certified badge — proof you can add to LinkedIn.',
+    time: '30 min', skills: ['All EA skills','Judgment','Certification'],
+    steps: ['Read exam rules','Answer 25 MCQ questions','Complete 2 open-ended questions','Get scored','Download certificate'],
+    build: buildCertificationScenario
   }
 ];
 
@@ -479,9 +489,9 @@ function isComplete(id){ return !!getProgress()[id]; }
 function updateOverallProgress(){
   const p = getProgress();
   const done = Object.values(p).filter(Boolean).length;
-  const pct = Math.round((done/8)*100);
+  const pct = Math.round((done/9)*100);
   document.getElementById('overallFill').style.width = pct+'%';
-  document.getElementById('overallCount').textContent = done+' / 8 complete';
+  document.getElementById('overallCount').textContent = done+' / 9 complete';
   document.getElementById('progressTop').querySelector('.progress-top-fill').style.width = pct+'%';
   SCENARIOS.forEach(s=>{
     const mb = document.getElementById('mb'+s.id);
@@ -500,7 +510,7 @@ function renderCards(){
     const locked = !s.free && !done && !isPaidUser();
     return `
     <div class="sc-card ${locked?'locked':''} ${done?'completed':''}" 
-         onclick="${locked ? 'showUpgrade()' : `openScenario(${s.id})`}">
+         onclick="openScenario(${s.id})">
       ${locked ? '<div class="sc-lock"><i class="ti ti-lock"></i></div>' : ''}
       <div class="sc-header">
         <div class="sc-icon" style="background:${s.iconBg};color:${s.iconColor}">${s.icon}</div>
@@ -529,11 +539,13 @@ function isPaidUser(){
   return localStorage.getItem('eawl_paid') === 'true';
 }
 
-function showUpgrade(){ /* handled inline */ }
-
 function activatePro(){
   localStorage.setItem('eawl_paid','true');
   location.reload();
+}
+
+function showUpgrade(){
+  window.open('https://www.paypal.com/ncp/payment/CP8P558DAAT3Y','_blank');
 }
 
 // ============================================================
@@ -894,13 +906,17 @@ function buildProPlaceholder(s, id, icon, detail){
     </div>
     <div style="text-align:center;padding:48px 24px;background:var(--navy3);border:1px solid var(--line);border-radius:12px">
       <div style="font-size:56px;margin-bottom:16px">${icon}</div>
-      <div style="font-size:18px;font-weight:700;margin-bottom:8px">Unlock Full Scenario</div>
-      <div style="font-size:13px;color:var(--muted);max-width:400px;margin:0 auto 24px;line-height:1.7">This scenario is part of <strong style="color:var(--gold)">EA Workflow Lab Pro</strong>. Unlock all 8 scenarios + your certified badge for a one-time payment of <strong style="color:var(--gold)">$29</strong>.</div>
-      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-        <a href="https://www.paypal.com/ncp/payment/CP8P558DAAT3Y" target="_blank" class="btn-lg btn-gold" style="text-decoration:none"><i class="ti ti-brand-paypal"></i> Pay $29 via PayPal</a>
-        <button onclick="activatePro()" style="background:transparent;border:1px solid #1D9E75;color:#1D9E75;padding:13px 24px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px">✅ Already paid — Activate now</button>
+      <div style="font-size:22px;font-weight:700;margin-bottom:8px">🔒 EA Workflow Lab Pro</div>
+      <div style="font-size:13px;color:var(--muted);max-width:420px;margin:0 auto 24px;line-height:1.75">Unlock all 9 scenarios + the <strong style="color:var(--gold)">Certification Exam</strong> + your downloadable certified badge — for a <strong style="color:var(--gold)">one-time $29 USD</strong> payment. No subscription. Ever.</div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px">
+        <a href="https://www.paypal.com/ncp/payment/CP8P558DAAT3Y" target="_blank" class="btn-lg btn-gold" style="text-decoration:none">
+          <i class="ti ti-brand-paypal"></i> Pay $29 via PayPal
+        </a>
       </div>
-      <div style="font-size:11px;color:var(--muted2);margin-top:14px">One-time · All 8 scenarios + certified badge · No subscription ever</div>
+      <button onclick="activatePro()" style="background:transparent;border:1px solid #1D9E75;color:#1D9E75;padding:10px 22px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px">
+        ✅ Already paid? Activate now
+      </button>
+      <div style="font-size:11px;color:var(--muted2);margin-top:16px">One-time · 9 scenarios + Certification Exam + badge · No subscription ever</div>
     </div>
   `;
 }
@@ -922,6 +938,390 @@ document.addEventListener('DOMContentLoaded', function(){
   selectedTasks = new Set();
   conflictsResolved = 0;
 });
+// ============================================================
+// SCENARIO 9: EA CERTIFICATION EXAM
+// ============================================================
+
+const CERT_QUESTIONS = [
+  // SECTION 1: INBOX TRIAGE
+  {section:'Inbox Triage',q:'Your CEO has a board meeting in 90 minutes. There are 20 unread emails in the inbox. What do you do FIRST?',options:['Reply to all emails in chronological order','Scan for board meeting-related emails first, then triage the rest by business impact','Forward all emails to the CEO for full visibility','Archive anything routine and reply to the rest'],correct:1},
+  {section:'Inbox Triage',q:'A vendor sends an email marked "FINAL NOTICE — account suspension in 24 hours." Your CEO has never approved this vendor. You should:',options:['Pay it immediately to avoid disruption','Ignore it — unapproved vendors are not your concern','Flag it to the CEO with the vendor\'s approval trail and the suspension timeline','Ask the vendor for a 30-day extension'],correct:2},
+  {section:'Inbox Triage',q:'An email from an unknown sender says: "URGENT: Wire transfer needed — CEO approved this last night." You:',options:['Process it — the email states CEO approval','Call or message the CEO directly to verify before taking any action','Reply asking for more documentation','Forward to the CEO and let them handle it'],correct:1},
+  {section:'Inbox Triage',q:'You receive 3 emails in 10 minutes, all marked "URGENT." The best approach is:',options:['Action them in order received — first come, first served','Escalate all three to the CEO immediately','Evaluate actual urgency: business impact, deadline, and sender relationship','Send a holding reply to all three'],correct:2},
+  {section:'Inbox Triage',q:'A journalist emails requesting CEO comment on a funding rumor. Their deadline is 2 hours away. You:',options:['Reply saying the CEO is unavailable for comment','Draft a "no comment" response and send it in the CEO\'s name','Ignore it — media is not an EA\'s responsibility','Flag it to the CEO immediately with the deadline and a suggested one-line response'],correct:3},
+  // SECTION 2: CALENDAR MANAGEMENT
+  {section:'Calendar Management',q:'You discover a double-booking on the CEO\'s calendar. They don\'t know yet. You should:',options:['Tell the CEO and let them decide which to attend','Cancel the newer booking without informing anyone','Resolve it yourself — keep the higher-priority meeting, reschedule the other, then brief the CEO','Attend whichever meeting you can in the CEO\'s place'],correct:2},
+  {section:'Calendar Management',q:'A VIP client wants a meeting "next Thursday." The CEO is free that day but has a protected 8–10am deep work block. The client is flexible. You:',options:['Book anytime Thursday — the CEO can adjust their deep work block','Book in the afternoon, keeping the morning deep work block intact','Tell the client the CEO is fully booked that day','Ask the CEO to approve every available slot before you propose anything'],correct:1},
+  {section:'Calendar Management',q:'You\'re booking a call between your CEO in New York (EST) and a partner in Singapore (SGT = UTC+8). The best option is:',options:['9:00am EST (10:00pm Singapore) — business hours for NYC','8:00am EST (9:00pm Singapore) — post-dinner Singapore','7:00am EST (8:00pm Singapore) — late but reasonable for Singapore','4:00pm EST (5:00am Singapore) — early morning Singapore'],correct:2},
+  {section:'Calendar Management',q:'Your CEO needs to cancel last-minute on a key client. Best next step:',options:['Email a short cancellation notice','Wait — the CEO decided to cancel, so they should communicate it','Proactively reach out on the CEO\'s behalf, apologize, and immediately offer 3 rescheduling options','Reschedule for the following week without contacting the client first'],correct:2},
+  {section:'Calendar Management',q:'When should you ideally have a CEO\'s meeting agenda and briefing notes ready?',options:['10 minutes before the meeting','The night before, when you remember','24–48 hours before, so the CEO can review and add context','Agendas are the responsibility of whoever called the meeting'],correct:2},
+  // SECTION 3: STAKEHOLDER COMMUNICATION
+  {section:'Stakeholder Communication',q:'You need to update the CFO, Head of Sales, and a key investor about the same project. Best approach:',options:['Send one email CC\'d to all three','Ask the CEO to send the updates — more credible from them','Tailor each message to what each person needs to know based on their role','Post a group Slack update so everyone sees it at once'],correct:2},
+  {section:'Stakeholder Communication',q:'A senior executive you don\'t report to calls asking for confidential information you\'re not authorized to share. You say:',options:['Share it — they\'re senior, they likely have authorization','Share a partial version to seem helpful','Decline without any explanation','"Let me check with [CEO name] and get back to you within the hour"'],correct:3},
+  {section:'Stakeholder Communication',q:'You\'ve drafted an important email that will go out from your CEO to a major client. Before sending:',options:['Send it — drafting and sending is your job','Have the CEO review and approve it first','CC yourself for a record, then send','Wait for the client to follow up before sending'],correct:1},
+  {section:'Stakeholder Communication',q:'A stakeholder replies to your email with an angry, unprofessional tone. You:',options:['Match their directness — they were unprofessional first','Escalate immediately to your CEO','Respond calmly and professionally, address the concern, and de-escalate','Wait 24 hours for emotions to cool before replying'],correct:2},
+  {section:'Stakeholder Communication',q:'Your CEO asks you to "handle the inbox" during their 10-day trip. This means:',options:['Reply to every email as if you are the CEO','Forward everything to their phone','Triage all emails, handle what\'s within your authority, draft others for CEO review, and flag urgent items via emergency contact','Reply to urgent emails only and archive the rest'],correct:2},
+  // SECTION 4: VENDOR & APPROVALS
+  {section:'Vendor & Approvals',q:'Three invoices arrive: one within your $500 limit, one for $4,200, and one from a vendor you don\'t recognize. You:',options:['Approve all three — you can\'t leave invoices sitting','Approve the one within your limit, escalate the $4,200, and investigate the unknown vendor','Escalate all three to be safe','Approve the two you recognize, discard the unfamiliar one'],correct:1},
+  {section:'Vendor & Approvals',q:'A vendor calls claiming their invoice is 60 days overdue and threatening legal action. You:',options:['Pay immediately from the company card to resolve it','Apologize and promise payment within 24 hours','Verify the invoice status, flag to finance/CEO with the vendor\'s timeline, and follow up promptly','Tell them to contact your legal department'],correct:2},
+  {section:'Vendor & Approvals',q:'A vendor contract arrives for signature. The value is $3,000 — within your signing authority. You:',options:['Sign immediately — it\'s within your authority','Review key terms (payment, scope, termination) first, and flag anything unusual to the CEO','Never sign contracts — always escalate','Ask the CEO to sign to be safe'],correct:1},
+  {section:'Vendor & Approvals',q:'A vendor sends your CEO a gift basket valued at ~$200. Company policy allows gifts under $50. You:',options:['Accept it — it\'s goodwill and the CEO can decide','Thank the vendor and keep it for the office team','Decline on the CEO\'s behalf with a polite note referencing company policy','Ask the CEO privately if they want to accept it as a personal gift'],correct:2},
+  {section:'Vendor & Approvals',q:'You notice a recurring $180/month software subscription no team member seems to own or use. You:',options:['Cancel it immediately to save money','Leave it — not your area','Document it, confirm with relevant stakeholders whether it\'s still needed, then cancel with CEO approval if unused','Raise it in the next all-hands meeting'],correct:2},
+  // SECTION 5: EA PROFESSIONALISM
+  {section:'EA Professionalism',q:'Your CEO asks you to do something you believe is ethically questionable. You:',options:['Do it — they\'re accountable, not you','Refuse immediately without explaining','Flag your concern directly and professionally, explain your reasoning, and let the CEO make an informed final call','Do it but document your objection privately'],correct:2},
+  {section:'EA Professionalism',q:'You made an error that caused a meeting to be missed and a client to be left waiting. You:',options:['Hope no one connects it to you','Explain there was a technical calendar error','Inform the CEO immediately, take full responsibility, fix what you can, and implement clear steps to prevent it recurring','Apologize privately to the client without telling the CEO'],correct:2},
+  {section:'EA Professionalism',q:'You overhear confidential information about a potential acquisition. A trusted colleague asks if the rumor is true. You:',options:['Confirm or deny based on how much you trust them','Share what you heard — they\'re a colleague, not a competitor','Politely say you can\'t discuss confidential matters and redirect the conversation','Tell them to ask the CEO directly'],correct:2},
+  {section:'EA Professionalism',q:'Your CEO consistently schedules meetings during their own 8–10am protected focus block. Best response:',options:['Leave it — it\'s their calendar','Quietly decline requests in that window without informing anyone','Raise the pattern with the CEO in your next one-on-one and propose a system to better protect focus time','Email the CEO weekly reminding them to stop booking during focus hours'],correct:2},
+  {section:'EA Professionalism',q:'Your CEO is on vacation with limited connectivity. A top client emails with a time-sensitive decision only the CEO can make. You:',options:['Make the decision yourself to keep things moving','Reply that the CEO is unavailable until they return','Reach the CEO via their emergency contact method, brief them concisely, get their decision, then respond to the client with a clear timeline','Escalate to the CEO\'s deputy and let them handle it'],correct:2}
+];
+
+const OE_QUESTIONS = [
+  {
+    q:"Your CEO's most important client emails at 7pm Friday, upset that a proposal they were expecting hasn't arrived. You find the proposal was supposed to be sent by a colleague who is now on personal leave. Write the exact email response you would send to the client. (3–5 sentences)",
+    rubric:"<strong>What strong answers include:</strong><br>✅ Takes responsibility on behalf of the company — never blames the absent colleague<br>✅ Genuine apology without being defensive or over-explaining<br>✅ Specific realistic timeline for delivery<br>✅ Keeps the CEO's relationship with the client warm and intact<br>✅ Optional: offers something to bridge the gap (interim summary, quick call)<br><br><em>Example: \"Dear [Client], I'm writing on behalf of Alex to sincerely apologize — the proposal you were expecting did not reach you as planned, and that's entirely on our end. We're retrieving the document now and you will have it by Monday morning at the latest. Alex wanted me to reach out immediately and let you know this is being prioritized. Please don't hesitate to reply here if there's anything you need in the meantime.\"</em>"
+  },
+  {
+    q:"In 3–5 sentences, describe what it means to be a 'proactive' EA. Use one specific example — from your own work or from the scenarios you completed in this lab.",
+    rubric:"<strong>What strong answers include:</strong><br>✅ Clear distinction between reactive (responding) and proactive (anticipating)<br>✅ Shows anticipating the executive's needs before being asked<br>✅ A concrete, specific example — not a vague claim<br>✅ Connects proactivity to protecting executive time, focus, or relationships<br><br><em>Example: \"A proactive EA anticipates what the executive will need before they realize they need it. In the Calendar Crisis scenario, a reactive EA notices a double-booking when the CEO asks — a proactive one catches it the night before and resolves it silently. Proactivity means reading ahead: reviewing next week's calendar on Friday, flagging stakeholders not contacted in 30 days, or catching a contract deadline before it becomes a crisis. The goal is that the executive's world runs smoothly whether or not they're watching.\"</em>"
+  }
+];
+
+let certAnswers = {};
+let certOEAnswers = ['',''];
+let certSubmitted = false;
+let certScore = 0;
+
+function buildCertificationScenario(s, id){
+  if(!isPaidUser()){
+    return buildProPlaceholder(s, id, '🎓', 'Take the official EA Certification Exam: 25 judgment-based questions across 5 EA skill areas. Score 80%+ and download your EA Workflow Lab Certified badge — verifiable proof you can share on LinkedIn.');
+  }
+
+  certAnswers = {};
+  certOEAnswers = ['',''];
+  certSubmitted = false;
+  certScore = 0;
+
+  const questionsHTML = CERT_QUESTIONS.map((q,qi)=>`
+    <div id="certq${qi}" style="background:var(--navy3);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:10px">
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:12px">
+        <div style="background:var(--navy4);border:1px solid var(--line);border-radius:6px;padding:3px 9px;font-size:10px;font-weight:700;color:var(--muted);white-space:nowrap;margin-top:1px;flex-shrink:0">Q${qi+1}</div>
+        <div style="font-size:13px;color:var(--text);line-height:1.65;font-weight:500">${q.q}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;padding-left:38px">
+        ${q.options.map((opt,oi)=>`
+          <div id="copt_${qi}_${oi}" onclick="selectCertAnswer(${qi},${oi})"
+            style="background:var(--navy);border:1px solid var(--line);border-radius:7px;padding:9px 13px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .15s">
+            <div id="cdot_${qi}_${oi}" style="width:14px;height:14px;border-radius:50%;border:2px solid var(--muted2);flex-shrink:0;transition:all .15s"></div>
+            <span style="font-size:12px;color:var(--muted)">${opt}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div id="cfb${qi}" style="display:none;margin-top:10px;padding:8px 12px;border-radius:7px;font-size:11px;line-height:1.5"></div>
+    </div>
+  `).join('');
+
+  const oeHTML = OE_QUESTIONS.map((oq,oi)=>`
+    <div style="background:var(--navy3);border:1px solid rgba(108,99,255,0.25);border-radius:10px;padding:16px 18px;margin-bottom:10px">
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:12px">
+        <div style="background:rgba(108,99,255,0.12);border:1px solid rgba(108,99,255,0.3);border-radius:6px;padding:3px 9px;font-size:10px;font-weight:700;color:var(--purple-soft);white-space:nowrap;margin-top:1px;flex-shrink:0">OE${oi+1}</div>
+        <div style="font-size:13px;color:var(--text);line-height:1.65;font-weight:500">${oq.q}</div>
+      </div>
+      <textarea id="certoe${oi}" placeholder="Type your answer here..." oninput="certOEAnswers[${oi}]=this.value"
+        style="width:100%;background:var(--navy);border:1px solid var(--line);border-radius:7px;padding:10px 12px;color:var(--text);font-size:12px;line-height:1.65;resize:vertical;min-height:110px;outline:none;font-family:inherit;box-sizing:border-box"></textarea>
+      <div id="certoeRubric${oi}" style="display:none;margin-top:10px;background:rgba(108,99,255,0.07);border:1px solid rgba(108,99,255,0.2);border-radius:8px;padding:14px;font-size:11px;line-height:1.75;color:var(--muted)">${oq.rubric}</div>
+    </div>
+  `).join('');
+
+  return `
+    <div class="scenario-brief" style="border-color:rgba(240,180,41,0.4);background:rgba(240,180,41,0.05)">
+      <div class="brief-label" style="color:var(--gold)">🎓 Official EA Certification Exam</div>
+      <div class="brief-text">Answer <strong style="color:var(--text)">25 multiple-choice questions</strong> and <strong style="color:var(--text)">2 open-ended reflection questions</strong>. You need <strong style="color:var(--gold)">20/25 (80%) on the MCQ section</strong> to pass and earn your downloadable certificate. No time limit. Retake as needed.</div>
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
+      <div style="background:var(--navy3);border:1px solid var(--line);border-radius:8px;padding:9px 13px;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px"><span style="color:var(--gold)">📋</span> 25 MCQ questions</div>
+      <div style="background:var(--navy3);border:1px solid var(--line);border-radius:8px;padding:9px 13px;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px"><span style="color:var(--purple-soft)">✍️</span> 2 open-ended questions</div>
+      <div style="background:var(--navy3);border:1px solid var(--line);border-radius:8px;padding:9px 13px;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px"><span style="color:var(--green)">🎯</span> Pass threshold: 20/25 (80%)</div>
+      <div style="background:var(--navy3);border:1px solid var(--line);border-radius:8px;padding:9px 13px;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px"><span style="color:var(--blue)">♾️</span> Unlimited retakes</div>
+    </div>
+
+    <div style="font-size:11px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px">Part 1 — Multiple Choice (25 Questions)</div>
+    <div id="certQsContainer">${questionsHTML}</div>
+
+    <div style="font-size:11px;color:var(--purple-soft);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin:20px 0 6px">Part 2 — Open-Ended Reflection (2 Questions)</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:12px">These are <strong style="color:var(--text)">not auto-scored</strong>. A model rubric reveals after you submit so you can evaluate your own answer honestly.</div>
+    <div id="certOEContainer">${oeHTML}</div>
+
+    <div style="text-align:center;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)">
+      <div id="certAnswerCount" style="font-size:12px;color:var(--muted);margin-bottom:14px">0 / 25 MCQ questions answered</div>
+      <button onclick="submitCertExam(${id})" class="btn-lg btn-gold" style="font-size:14px;padding:14px 36px">
+        <i class="ti ti-send"></i> Submit Exam
+      </button>
+    </div>
+
+    <div id="certResults" style="display:none;margin-top:24px"></div>
+  `;
+}
+
+function selectCertAnswer(qi, oi){
+  if(certSubmitted) return;
+  const prev = certAnswers[qi];
+  if(prev !== undefined && prev !== oi){
+    var po = document.getElementById('copt_'+qi+'_'+prev);
+    var pd = document.getElementById('cdot_'+qi+'_'+prev);
+    if(po){ po.style.borderColor='var(--line)'; po.style.background='var(--navy)'; }
+    if(pd){ pd.style.background='transparent'; pd.style.borderColor='var(--muted2)'; }
+    var ps = po ? po.querySelector('span') : null;
+    if(ps) ps.style.color='var(--muted)';
+  }
+  certAnswers[qi] = oi;
+  var opt = document.getElementById('copt_'+qi+'_'+oi);
+  var dot = document.getElementById('cdot_'+qi+'_'+oi);
+  if(opt){ opt.style.borderColor='var(--purple)'; opt.style.background='rgba(108,99,255,0.08)'; }
+  if(dot){ dot.style.background='var(--purple)'; dot.style.borderColor='var(--purple)'; }
+  var sp = opt ? opt.querySelector('span') : null;
+  if(sp) sp.style.color='var(--text)';
+  var answered = Object.keys(certAnswers).length;
+  var counter = document.getElementById('certAnswerCount');
+  if(counter) counter.textContent = answered + ' / 25 MCQ questions answered';
+}
+
+function submitCertExam(scenarioId){
+  var answered = Object.keys(certAnswers).length;
+  if(answered < 25){
+    var unanswered = 25 - answered;
+    if(!confirm('You have ' + unanswered + ' unanswered question(s). Submit anyway?')) return;
+  }
+  certSubmitted = true;
+  certScore = 0;
+
+  CERT_QUESTIONS.forEach(function(q,qi){
+    var chosen = certAnswers[qi];
+    var correct = q.correct;
+    var isCorrect = chosen === correct;
+    if(isCorrect) certScore++;
+
+    var fb = document.getElementById('cfb'+qi);
+    if(fb){
+      fb.style.display='block';
+      if(isCorrect){
+        fb.style.cssText = 'display:block;margin-top:10px;padding:8px 12px;border-radius:7px;font-size:11px;line-height:1.5;background:rgba(29,158,117,0.1);border:1px solid rgba(29,158,117,0.25);color:var(--green)';
+        fb.textContent = '✓ Correct! ' + q.options[correct];
+      } else {
+        fb.style.cssText = 'display:block;margin-top:10px;padding:8px 12px;border-radius:7px;font-size:11px;line-height:1.5;background:rgba(226,75,74,0.08);border:1px solid rgba(226,75,74,0.2);color:var(--red)';
+        fb.textContent = (chosen !== undefined ? '✗ You chose: "'+q.options[chosen]+'" — ' : '✗ Not answered — ') + 'Correct: "'+q.options[correct]+'"';
+      }
+    }
+
+    for(var oi=0; oi<q.options.length; oi++){
+      var opt = document.getElementById('copt_'+qi+'_'+oi);
+      var dot = document.getElementById('cdot_'+qi+'_'+oi);
+      var sp = opt ? opt.querySelector('span') : null;
+      if(!opt) continue;
+      opt.style.cursor='default';
+      if(oi === correct){
+        opt.style.borderColor='var(--green)'; opt.style.background='rgba(29,158,117,0.08)';
+        if(dot){ dot.style.background='var(--green)'; dot.style.borderColor='var(--green)'; }
+        if(sp) sp.style.color='var(--green)';
+      } else if(oi === chosen && !isCorrect){
+        opt.style.borderColor='var(--red)'; opt.style.background='rgba(226,75,74,0.07)';
+        if(dot){ dot.style.background='var(--red)'; dot.style.borderColor='var(--red)'; }
+        if(sp) sp.style.color='var(--red)';
+      }
+    }
+  });
+
+  OE_QUESTIONS.forEach(function(oq,oi){
+    var rubric = document.getElementById('certoeRubric'+oi);
+    if(rubric) rubric.style.display='block';
+    var ta = document.getElementById('certoe'+oi);
+    if(ta) ta.disabled=true;
+  });
+
+  var pct = Math.round((certScore/25)*100);
+  var passed = certScore >= 20;
+  var results = document.getElementById('certResults');
+  if(!results) return;
+  results.style.display='block';
+
+  if(passed){
+    results.innerHTML = `
+      <div style="background:linear-gradient(135deg,rgba(29,158,117,0.12),rgba(240,180,41,0.06));border:2px solid var(--green);border-radius:16px;padding:32px;text-align:center">
+        <div style="font-size:52px;margin-bottom:12px">🎓</div>
+        <div style="font-size:24px;font-weight:700;color:var(--green);margin-bottom:8px">You Passed!</div>
+        <div style="font-size:16px;color:var(--text);margin-bottom:4px">MCQ Score: <strong style="color:var(--gold)">${certScore}/25 (${pct}%)</strong></div>
+        <div style="font-size:13px;color:var(--muted);max-width:420px;margin:0 auto 24px;line-height:1.7">You demonstrated real EA judgment across all 5 skill areas. Enter your name below to generate and download your official certificate.</div>
+        <div style="margin-bottom:20px">
+          <input id="certNameInput" type="text" placeholder="Enter your full name for the certificate..."
+            style="background:var(--navy);border:1px solid var(--purple);border-radius:8px;padding:11px 16px;color:var(--text);font-size:13px;width:100%;max-width:380px;outline:none;font-family:inherit;text-align:center;display:block;margin:0 auto 14px;box-sizing:border-box">
+          <button onclick="downloadCertificate()" class="btn-lg btn-gold" style="display:inline-flex">
+            <i class="ti ti-download"></i> Download My Certificate
+          </button>
+        </div>
+        <button onclick="completeScenario(${scenarioId})" style="background:transparent;border:1px solid var(--green);color:var(--green);padding:10px 22px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px">
+          ✓ Claim Badge & Complete
+        </button>
+      </div>
+    `;
+  } else {
+    var missed = 25 - certScore;
+    results.innerHTML = `
+      <div style="background:rgba(240,180,41,0.06);border:1px solid rgba(240,180,41,0.35);border-radius:16px;padding:32px;text-align:center">
+        <div style="font-size:52px;margin-bottom:12px">📚</div>
+        <div style="font-size:24px;font-weight:700;color:var(--gold);margin-bottom:8px">Not quite — you're close!</div>
+        <div style="font-size:16px;color:var(--text);margin-bottom:4px">MCQ Score: <strong style="color:var(--red)">${certScore}/25 (${pct}%)</strong> — need 20/25 to pass</div>
+        <div style="font-size:13px;color:var(--muted);max-width:420px;margin:0 auto 24px;line-height:1.7">You were ${missed} question${missed>1?'s':''} away from passing. Review the answers highlighted above, then retake when you're ready. You can retake as many times as you need.</div>
+        <button onclick="retakeCertExam(${scenarioId})" class="btn-lg btn-gold">
+          <i class="ti ti-refresh"></i> Retake Exam
+        </button>
+      </div>
+    `;
+  }
+  results.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function retakeCertExam(id){
+  certAnswers = {};
+  certOEAnswers = ['',''];
+  certSubmitted = false;
+  certScore = 0;
+  var s = SCENARIOS[8];
+  document.getElementById('modalBody').innerHTML = s.build(s, id);
+  document.getElementById('modalBody').scrollTop = 0;
+}
+
+function downloadCertificate(){
+  var nameEl = document.getElementById('certNameInput');
+  var name = nameEl ? nameEl.value.trim() : '';
+  if(!name){ alert('Please enter your full name for the certificate.'); nameEl.focus(); return; }
+
+  var canvas = document.createElement('canvas');
+  canvas.width = 1200;
+  canvas.height = 850;
+  var ctx = canvas.getContext('2d');
+
+  // Background
+  ctx.fillStyle = '#0a0a12';
+  ctx.fillRect(0, 0, 1200, 850);
+
+  // Subtle gradient overlay
+  var grad = ctx.createLinearGradient(0,0,1200,850);
+  grad.addColorStop(0,'rgba(108,99,255,0.04)');
+  grad.addColorStop(1,'rgba(240,180,41,0.04)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0,0,1200,850);
+
+  // Outer gold border
+  ctx.strokeStyle = '#f0b429';
+  ctx.lineWidth = 5;
+  ctx.strokeRect(22, 22, 1156, 806);
+
+  // Inner purple border
+  ctx.strokeStyle = '#6C63FF';
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(36, 36, 1128, 778);
+
+  // Corner dots
+  [[48,48],[1152,48],[48,802],[1152,802]].forEach(function(c){
+    ctx.fillStyle = '#f0b429';
+    ctx.beginPath(); ctx.arc(c[0],c[1],6,0,Math.PI*2); ctx.fill();
+  });
+
+  // Title
+  ctx.fillStyle = '#f0b429';
+  ctx.font = 'bold 40px Georgia,serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('CERTIFICATE OF COMPLETION', 600, 112);
+
+  // Subtitle brand
+  ctx.fillStyle = '#6C63FF';
+  ctx.font = '17px Georgia,serif';
+  ctx.fillText('EA Workflow Lab  ·  Powered by NexusOS  ·  getnexusos.app', 600, 150);
+
+  // Divider
+  ctx.strokeStyle = '#f0b429'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(180,172); ctx.lineTo(1020,172); ctx.stroke();
+
+  // "This certifies that"
+  ctx.fillStyle = '#555555';
+  ctx.font = 'italic 19px Georgia,serif';
+  ctx.fillText('This certifies that', 600, 226);
+
+  // Name
+  ctx.fillStyle = '#f0f0f0';
+  ctx.font = 'bold 50px Georgia,serif';
+  ctx.fillText(name, 600, 308);
+
+  // Name underline
+  var nw = ctx.measureText(name).width;
+  ctx.strokeStyle = '#f0b429'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(600-nw/2,326); ctx.lineTo(600+nw/2,326); ctx.stroke();
+
+  // Achievement
+  ctx.fillStyle = '#555555';
+  ctx.font = 'italic 19px Georgia,serif';
+  ctx.fillText('has successfully passed the', 600, 376);
+
+  // Exam name
+  ctx.fillStyle = '#1D9E75';
+  ctx.font = 'bold 27px Georgia,serif';
+  ctx.fillText('EA Workflow Lab Certification Exam', 600, 424);
+
+  // Score badge
+  ctx.strokeStyle = '#1D9E75'; ctx.lineWidth = 1;
+  ctx.fillStyle = 'rgba(29,158,117,0.08)';
+  ctx.beginPath(); ctx.roundRect(488,438,224,34,4); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#1D9E75';
+  ctx.font = 'bold 13px Arial,sans-serif';
+  ctx.fillText('MCQ Score: ' + certScore + '/25  (' + Math.round((certScore/25)*100) + '%)', 600, 460);
+
+  // Skills line
+  ctx.fillStyle = '#444444';
+  ctx.font = '15px Arial,sans-serif';
+  ctx.fillText('Demonstrating proficiency in:', 600, 512);
+  ctx.fillStyle = '#666666';
+  ctx.font = '13px Arial,sans-serif';
+  ctx.fillText('Inbox Triage  ·  Calendar Management  ·  Stakeholder Communication', 600, 540);
+  ctx.fillText('Vendor Approvals & Decision-Making  ·  EA Professionalism & Judgment', 600, 562);
+
+  // Divider
+  ctx.strokeStyle = '#1a1a2a'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(200,592); ctx.lineTo(1000,592); ctx.stroke();
+
+  // Date
+  var today = new Date();
+  var dateStr = today.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  ctx.fillStyle = '#444444';
+  ctx.font = '13px Arial,sans-serif';
+  ctx.fillText('Date Issued: ' + dateStr, 600, 626);
+
+  // Signature lines
+  ctx.strokeStyle = '#2a2a3a'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(340,710); ctx.lineTo(560,710); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(640,710); ctx.lineTo(860,710); ctx.stroke();
+
+  ctx.fillStyle = '#888888';
+  ctx.font = '13px Arial,sans-serif';
+  ctx.fillText('Jhun Rey Velado', 450, 730);
+  ctx.fillText('EA Workflow Lab', 750, 730);
+  ctx.fillStyle = '#444444';
+  ctx.font = '11px Arial,sans-serif';
+  ctx.fillText('Founder, NexusOS', 450, 748);
+  ctx.fillText('getnexusos.app', 750, 748);
+
+  // Credential
+  var letters = name.replace(/[^a-zA-Z]/g,'').toUpperCase().substr(0,3).padEnd(3,'X');
+  var credId = 'EAWL-2026-' + letters + '-' + Math.random().toString(36).substr(2,6).toUpperCase();
+  ctx.fillStyle = '#222222';
+  ctx.font = '10px monospace';
+  ctx.fillText('Credential ID: ' + credId, 600, 800);
+
+  var link = document.createElement('a');
+  link.download = 'EA_WorkflowLab_Certificate.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
 </script>
 </body>
 </html>
