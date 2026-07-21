@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EA Outreach Playbook - Master Your First Role & Build Your Practice</title>
+    <meta name="description" content="The dual-track playbook for landing executive roles and building a six-figure freelance EA practice. Cold outreach sequences, interview frameworks, pricing strategies.">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --navy: #0D0D1A;
+            --purple: #6C63FF;
+            --gold: #F0B429;
+            --light-bg: #F8F9FC;
+            --text-dark: #1a1a2e;
+            --text-light: #666;
+            --border: #e0e0e0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: white;
+        }
+        
+        /* Navigation */
+        nav {
+            background: var(--navy);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        nav .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        nav a:hover {
+            color: var(--gold);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, #1a1a3e 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .hero .subheading {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #ccc;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--purple);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5a52cc;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
+        }
+        
+        .btn-secondary {
+            background: var(--gold);
+            color: var(--navy);
+        }
+        
+        .btn-secondary:hover {
+            background: #e09b1a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(240, 180, 41, 0.3);
+        }
+        
+        .hero .guarantee {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-top: 1.5rem;
+        }
+        
+        /* Sections */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            color: var(--navy);
+            text-align: center;
+        }
+        
+        /* Problem Section */
+        .problem {
+            background: var(--light-bg);
+        }
+        
+        .problem-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .problem-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--purple);
+        }
+        
+        .problem-box h3 {
+            color: var(--purple);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .problem-box p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+        
+        /* Solution Section */
+        .solution {
+            background: white;
+        }
+        
+        .solution-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+        
+        .tracks {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .track {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            border-top: 4px solid var(--purple);
+        }
+        
+        .track h3 {
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .track p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        
+        .track ul {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        
+        .track li {
+            padding: 0.5rem 0;
+            color: var(--text-light);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .track li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--purple);
+            font-weight: bold;
+        }
+        
+        /* What's Included */
+        .included {
+            background: var(--light-bg);
+        }
+        
+        .pricing-tiers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .tier {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 8px;
+            border: 2px solid var(--border);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .tier:hover {
+            border-color: var(--purple);
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.1);
+        }
+        
+        .tier.featured {
+            border-color: var(--purple);
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.05) 0%, transparent 100%);
+        }
+        
+        .tier h3 {
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            color: var(--purple);
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+        
+        .price-period {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .tier ul {
+            list-style: none;
+            text-align: left;
+            margin: 2rem 0;
+        }
+        
+        .tier li {
+            padding: 0.7rem 0;
+            color: var(--text-light);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .tier li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--purple);
+            font-weight: bold;
+        }
+        
+        .tier .btn {
+            width: 100%;
+            margin-top: 2rem;
+        }
+        
+        /* FAQ Section */
+        .faq {
+            background: white;
+        }
+        
+        .faq-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 2rem 0;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        
+        .faq-q {
+            font-weight: 600;
+            color: var(--navy);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+        
+        .faq-q:hover {
+            color: var(--purple);
+        }
+        
+        .faq-a {
+            color: var(--text-light);
+            margin-top: 1rem;
+            line-height: 1.8;
+            display: none;
+        }
+        
+        .faq-item.active .faq-a {
+            display: block;
+        }
+        
+        /* Urgency Section */
+        .urgency {
+            background: linear-gradient(135deg, var(--navy) 0%, #1a1a3e 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        
+        .urgency h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .urgency p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #ccc;
+        }
+        
+        .countdown {
+            font-size: 1.1rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--navy);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        
+        footer h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        
+        footer p {
+            color: #ccc;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        /* Testimonial */
+        .testimonial {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--gold);
+            margin: 2rem 0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .testimonial-text {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--navy);
+        }
+        
+        /* Author Section */
+        .author {
+            background: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .author-box {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .author-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-top: 1rem;
+        }
+        
+        .author-title {
+            color: var(--purple);
+            font-weight: 600;
+            margin: 0.5rem 0;
+        }
+        
+        .author-bio {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin: 1rem 0;
+        }
+        
+        .author-proof {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .proof-item {
+            background: var(--light-bg);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+        
+        .proof-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--purple);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero .subheading {
+                font-size: 1.1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .problem-content,
+            .tracks,
+            .pricing-tiers,
+            .author-proof {
+                grid-template-columns: 1fr;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav a {
+                margin-left: 0;
+                display: inline-block;
+                margin-right: 1rem;
+            }
+            
+            section h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">EA Playbook</div>
+        <div>
+            <a href="#what-included">What's Included</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Master Your First Executive Role.<br>Build Your Six-Figure Practice.</h1>
+        <p class="subheading">The dual-track playbook for landing C-suite positions and attracting premium clients. Based on actual outreach sequences, interview frameworks, and systems that work.</p>
+        <div class="cta-buttons">
+            <a href="https://www.paypal.com/ncp/payment/QM72SN96RH5CJ" class="btn btn-primary">Get Playbook → $14.99</a>
+            <a href="https://www.paypal.com/ncp/payment/3M3UYNTQ8ZEZU" class="btn btn-secondary">Playbook + NexusOS → $39.99</a>
+        </div>
+        <p class="guarantee">✓ Instant access • 30-day money-back guarantee • Digital PDF + Markdown</p>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <h2>You've Hit a Wall</h2>
+        
+        <div class="problem-content">
+            <div class="problem-box">
+                <h3>Hunting for Your First EA Role?</h3>
+                <p>You're sending applications and hearing nothing. Hundreds of people apply for the same job. Your resume looks like everyone else's. You don't know how to stand out — or how to reach executives before the job posting goes live.</p>
+            </div>
+            
+            <div class="problem-box">
+                <h3>Freelancing but Stuck at Low Rates?</h3>
+                <p>You're working with one or two clients, charging $25-40/hour, and exhausted. You want to charge premium rates ($5K+/month), but you don't know how. You have no systematic way to find new clients. Every lead feels like luck.</p>
+            </div>
+        </div>
+        
+        <p style="text-align: center; color: var(--text-light); font-size: 1.1rem; max-width: 700px; margin: 0 auto;">
+            <strong>Both roads have the same problem: You don't have a playbook. You're figuring it out as you go.</strong>
+        </p>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+        <h2>Here's What Actually Works</h2>
+        <p class="solution-intro">This playbook contains the exact system used to land executive roles at high-growth companies and build a freelance EA practice charging $5K-$8.5K/month per client. It's not theory. It's the real outreach sequences, interview scripts, positioning frameworks, and client onboarding processes that work.</p>
+        
+        <div class="tracks">
+            <div class="track">
+                <h3>📋 Track 1: Land Your First Role</h3>
+                <p>Learn how to position yourself, run cold outreach campaigns, ace interviews, and nail your first 90 days.</p>
+                <ul>
+                    <li>Position yourself as an operational asset</li>
+                    <li>Resume optimization (ATS-friendly)</li>
+                    <li>Cold outreach sequences (copy-paste ready)</li>
+                    <li>Interview preparation & scripts</li>
+                    <li>Negotiation framework</li>
+                    <li>First 90 days playbook</li>
+                </ul>
+                <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 1rem;"><strong>For:</strong> Career changers, junior admins stepping up, EAs hunting better opportunities</p>
+            </div>
+            
+            <div class="track">
+                <h3>💼 Track 2: Build Freelance Practice</h3>
+                <p>Learn how to charge premium rates, find ideal clients, and scale from 1 to 5 without burning out.</p>
+                <ul>
+                    <li>Premium positioning ("Fractional EA" not "VA")</li>
+                    <li>Pricing strategy ($5K-$8.5K/month)</li>
+                    <li>Finding & landing premium clients</li>
+                    <li>Client onboarding systems</li>
+                    <li>Operations playbook</li>
+                    <li>Scaling to 5 clients</li>
+                </ul>
+                <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 1rem;"><strong>For:</strong> EAs wanting to scale, self-employed VAs, people wanting income control</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- What's Included -->
+    <section id="what-included" class="included">
+        <h2>What's Inside the Playbook</h2>
+        
+        <div class="pricing-tiers">
+            <div class="tier">
+                <h3>Playbook Only</h3>
+                <div class="price">$14.99</div>
+                <p class="price-period">One-time purchase</p>
+                <ul>
+                    <li>60-page complete playbook</li>
+                    <li>13 core modules (both tracks)</li>
+                    <li>Cold email sequences</li>
+                    <li>Interview question bank (30+)</li>
+                    <li>Discovery worksheets</li>
+                    <li>Pricing calculator</li>
+                    <li>Client agreement templates</li>
+                    <li>Monthly reporting templates</li>
+                    <li>Personal branding checklist</li>
+                    <li>NexusOS integration guide</li>
+                </ul>
+                <a href="https://www.paypal.com/ncp/payment/QM72SN96RH5CJ" class="btn btn-primary">Get Playbook</a>
+                <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 1rem;">Instant download • PDF + Markdown</p>
+            </div>
+            
+            <div class="tier featured">
+                <h3>🎯 Best Value</h3>
+                <div class="price">$39.99</div>
+                <p class="price-period">Playbook + NexusOS</p>
+                <ul>
+                    <li><strong>Everything in Playbook, PLUS:</strong></li>
+                    <li>3-month NexusOS Starter access</li>
+                    <li>AI-powered command center</li>
+                    <li>Client management templates</li>
+                    <li>Task tracking & automation</li>
+                    <li>Early access to new features</li>
+                    <li>Private community access</li>
+                    <li>Setup support included</li>
+                    <li style="color: var(--gold); font-weight: 600;">Save $561 (94% off NexusOS value)</li>
+                </ul>
+                <a href="https://www.paypal.com/ncp/payment/3M3UYNTQ8ZEZU" class="btn btn-secondary">Get Bundle</a>
+                <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 1rem;">Access in 60 seconds</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Author Section -->
+    <section class="author">
+        <h2>Built By Someone Who's Done This</h2>
+        <div class="author-box">
+            <div class="author-name">Jhun Rey Velado</div>
+            <div class="author-title">Licensed Pharmacist • Founder of NexusOS • Fractional EA</div>
+            <p class="author-bio">3+ years as an Executive Assistant supporting founders and C-suite executives. Built NexusOS solo from scratch — an AI-powered Executive Operating System that replaces 12+ fragmented tools with one command center.</p>
+            
+            <div class="author-proof">
+                <div class="proof-item">
+                    <div class="proof-number">15+</div>
+                    <div>Meetings weekly<br><span style="color: var(--text-light);">Zero conflicts</span></div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-number">60+</div>
+                    <div>Emails daily<br><span style="color: var(--text-light);">Inbox zero</span></div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-number">50+</div>
+                    <div>Stakeholders tracked<br><span style="color: var(--text-light);">Zero missed follow-ups</span></div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-number">8+</div>
+                    <div>Hours reclaimed/week<br><span style="color: var(--text-light);">For strategy work</span></div>
+                </div>
+            </div>
+            
+            <p style="color: var(--text-light); margin-top: 2rem; line-height: 1.8;">Pharmacists operate at a zero-error standard. Missing something has consequences. That precision transfers directly to executive support. Everything in this playbook is battle-tested because these processes have to work first time, every time.</p>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-q">I'm not an EA yet. Can I use this? <span>+</span></div>
+                <div class="faq-a">Absolutely. Track 1 is specifically designed for career changers and people stepping into executive-level support for the first time. The frameworks teach you the mindset and skills that matter.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-q">What's the difference between playbook and bundle? <span>+</span></div>
+                <div class="faq-a">The playbook teaches you the systems. NexusOS shows you what those systems look like when they're built and automated. If you just want the knowledge, get the playbook. If you want to see the systems in action, get the bundle and experience NexusOS for 3 months.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-q">How long to get through this? <span>+</span></div>
+                <div class="faq-a">Read-only: 2-3 hours per track. Implementation: 4-6 weeks per track (if you're actively using it to land roles or clients). Use it as a reference guide, not something to memorize.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-q">Is there a money-back guarantee? <span>+</span></div>
+                <div class="faq-a">Yes. 30-day money-back guarantee. Read the playbook. Use the frameworks. If it doesn't help, full refund. No questions asked.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-q">Can I share this with my team? <span>+</span></div>
+                <div class="faq-a">This playbook is for individual use. If you want to share frameworks with your team, each person should get their own copy. I'll be releasing a team license option later — email for early access.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Urgency Section -->
+    <section class="urgency">
+        <h2>Pre-Launch Pricing</h2>
+        <p>Playbook-only: <strong>$14.99</strong> (goes to $24.99 after launch)</p>
+        <p>Bundle: <strong>$39.99</strong> (goes to $49.99 after launch)</p>
+        <p class="countdown">⏰ Early-bird pricing closes in 7 days</p>
+        <p style="color: #ccc; font-size: 1rem;">Why? This playbook contains specific outreach sequences, scripts, and frameworks that lose value once they're widely known. Early adopters get the highest-impact version.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <h3>Ready to Level Up?</h3>
+        <p style="font-size: 1.1rem; color: white; margin: 1rem 0;">Get the exact playbook that lands roles and builds freelance practices.</p>
+        <div class="footer-cta">
+            <a href="https://www.paypal.com/ncp/payment/QM72SN96RH5CJ" class="btn btn-primary">Get Playbook → $14.99</a>
+            <a href="https://www.paypal.com/ncp/payment/3M3UYNTQ8ZEZU" class="btn btn-secondary">Get Bundle → $39.99</a>
+        </div>
+        <p>✓ Instant access • ✓ 30-day guarantee • ✓ Digital delivery</p>
+        <p style="margin-top: 3rem; border-top: 1px solid #444; padding-top: 2rem;">
+            Built with precision by Jhun Rey Velado<br>
+            <a href="https://getnexusos.app" style="color: var(--gold); text-decoration: none;">NexusOS.app</a> • 
+            <a href="https://linkedin.com/in/jhunreyvelado" style="color: var(--gold); text-decoration: none;">LinkedIn</a>
+        </p>
+    </footer>
+
+    <!-- FAQ Toggle Script -->
+    <script>
+        document.querySelectorAll('.faq-q').forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                document.querySelectorAll('.faq-item').forEach(i => {
+                    if (i !== parent) i.classList.remove('active');
+                });
+                parent.classList.toggle('active');
+            });
+        });
+
+        // Smooth scrolling for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
